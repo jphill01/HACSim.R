@@ -15,7 +15,7 @@ N = Number of observed individuals (DNA sequences) of a given species
 
 Hstar = Number of observed haplotypes (unique DNA sequences) for a given species
 
-probs = Haplotype probability distribution for a given species
+probs = Haplotype frequency distribution for a given species
 
 m = Overall migration rate of individuals/haplotypes between demes (m = 0 by default)
 
