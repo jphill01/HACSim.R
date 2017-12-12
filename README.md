@@ -10,9 +10,9 @@ Function arguments to HAC.sim() are as follows:
 
 K = number of (sub)populations/demes (K = 1 by default)
 
-N = Number of obsered individuals (DNA barcode sequences) of a given species 
+N = Number of obsered individuals (DNA sequences) of a given species 
 
-Hstar = Number of observed haplotypes (unique DNA barcode sequences) for a given species
+Hstar = Number of observed haplotypes (unique DNA sequences) for a given species
 
 probs = Haplotype probability distribution for a given species
 
