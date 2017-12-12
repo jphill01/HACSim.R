@@ -48,7 +48,7 @@ Finally, run the following lines of code in succession:
 
 > HAC.sim(K = K, N = N, Hstar = Hstar, probs = probs, m = m, perms = perms, p = p)
 
-> HAC.simrep() (needed only if HAC.sim() does not converge to at least p)
+> HAC.simrep() < (needed only if HAC.sim() does not converge to at least p)
 
 
 ### Examples ###
