@@ -4,7 +4,11 @@ A novel R simulation of haplotype accumulation curves.
 
 Species haplotypes are treated as distinct character labels ("1", "2", ...), where "1" denotes the most frequent haplotype, "2" denotes the second-most frequent haplotype, and so forth.
 
-HACSim.R comprises two main functions: HAC.sim(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95) and HAC.simrep().
+HACSim.R comprises two main functions: 
+
+1. HAC.sim(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95)
+
+2. HAC.simrep().
 
 HAC.sim() performs a single iteration of haplotype accumulation for a given species. If the desired level of haplotype recovery is not reached, then HAC.simrep() (which takes no arguments) is called in order to perform successive iterations until the desired fraction of haplotypes captured is at least p.
 
