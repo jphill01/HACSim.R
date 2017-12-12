@@ -71,4 +71,4 @@ Finally, run the following lines of code in succession:
 
 #### Custom User Data ####
 
-Users can implement their own custom species datasets mined from public databases (e.g. BOLD, GenBank), but will first need to collapse DNA sequences into haplotypes and extract the haplotype frequency distribution in order to determine values for Hstar and probs . This can be accompished with the R package 'spider'. 
+Users can implement their own custom species datasets mined from public databases (e.g. BOLD, GenBank), but will first need to collapse DNA sequences into haplotypes and extract the haplotype frequency distribution in order to determine values for Hstar and probs. This can be accompished with the R package 'spider'. 
