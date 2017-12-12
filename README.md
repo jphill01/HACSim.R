@@ -4,6 +4,8 @@ R simulation of haplotype accumulation curves.
 
 HACSim.R comprises two main functions: HAC.sim(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95) and HAC.simrep().
 
+HAC.sim() performs a single iteration of haplotype accumulation for a species. If the desired level of haplotype recovery is not reached, then HAC.simrep) is called in order to perforn successive iterations until the desired fraction of haplotypes captured is at least p.
+
 Function arguments to HAC.sim() are as follows:
 
 K = number of (sub)populations/demes (K = 1 by default)
