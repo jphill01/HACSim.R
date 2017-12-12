@@ -28,7 +28,7 @@ Function arguments to HAC.sim() are as follows:
 
 * p = Proportion of species haplotypes to recover (p = 0.95 by default)
 
-perms controls the smoothness of generated haplotype accumulation curves. As perms --> 
+perms controls the smoothness of generated haplotype accumulation curves. As perms U+2192
 
 Both HAC.sim() and HAC.simrep() output simple "measaures of closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proprtions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species 
 
