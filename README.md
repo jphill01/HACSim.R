@@ -10,19 +10,19 @@ HAC.sim() performs a single iteration of haplotype accumulation for a given spec
 
 Function arguments to HAC.sim() are as follows:
 
-K = Number of (sub)populations/demes for a given species (K = 1 by default)
+* K = Number of (sub)populations/demes for a given species (K = 1 by default)
 
-N = Number of observed individuals (DNA sequences) of a given species 
+* N = Number of observed individuals (DNA sequences) of a given species 
 
-Hstar = Number of observed haplotypes (unique DNA sequences) for a given species
+* Hstar = Number of observed haplotypes (unique DNA sequences) for a given species
 
-probs = Haplotype frequency distribution for a given species
+* probs = Haplotype frequency distribution for a given species
 
-m = Overall migration rate of individuals/haplotypes between demes (m = 0 by default)
+* m = Overall migration rate of individuals/haplotypes between demes (m = 0 by default)
 
-perms = Number of permutations to generate species haplotype accumulation curve (perms = 10000 by default)
+* perms = Number of permutations to generate species haplotype accumulation curve (perms = 10000 by default)
 
-p = Proportion of species haplotypes to recover (p = 0.95 by default)
+* p = Proportion of species haplotypes to recover (p = 0.95 by default)
 
 perms controls the smoothness of generated haplotype accumulation curves. 
 
