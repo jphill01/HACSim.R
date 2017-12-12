@@ -8,7 +8,7 @@ HAC.sim() performs a single iteration of haplotype accumulation for a species. I
 
 Function arguments to HAC.sim() are as follows:
 
-K = number of (sub)populations/demes (K = 1 by default)
+K = Number of (sub)populations/demes (K = 1 by default)
 
 N = Number of obsered individuals (DNA sequences) of a given species 
 
