@@ -1,6 +1,6 @@
 # HACSim.R
 
-R simulation of haplotype accumulation curves.
+A novel R simulation of haplotype accumulation curves.
 
 HACSim.R comprises two main functions: HAC.sim(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95) and HAC.simrep().
 
