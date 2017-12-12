@@ -68,3 +68,5 @@ Finally, run the following lines of code in succession:
 * Hstar = 15
  
 * probs = c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10))
+
+Users can implement their own custom species datasets mined from public databases (e.g. BOLD, GenBank), but will first need to collapse DNA sequences into haplotypes using other sofware (e.g. R package 'spider')
