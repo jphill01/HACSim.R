@@ -34,9 +34,17 @@ Both HAC.sim() and HAC.simrep() output simple "measaures of closeness" for overa
 
 In addition to users specifying unique values for N, Hstar and probs, default parameters can also be altered in order to produce more interesting output. perms can be increased to smooth out the curves, but this will increase algorithm runtime substantially.  
 
-### Example ###
+### Examples ###
 
-Lake whitefish (*Coregonus clupeaformis*)
+#### Equal haplotype frequency ####
+
+N = 100
+
+Hstar = 10
+
+probs = rep(1/Hstar, Hstar)
+
+#### Lake whitefish (*Coregonus clupeaformis*) ####
 
  N = 240
  
