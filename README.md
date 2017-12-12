@@ -22,3 +22,7 @@ m = Overall migration rate of individuals/haplotypes between demes (m = 0 by def
 perms = Number of permutations to generate species haplotype accumulation curve (perms = 10000 by default)
 
 p = Proportion of species haplotypes to recover (p = 0.95 by default)
+
+Both HAC.sim() and HAC.simrep() output simple "measaures of closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proprtions) of species haplotypes sampled (obseved) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of haplotypes and the number of additional specimens needed to be randomly sampled for a given species 
+
+In addition to users specifying unique values for N, Hstar and probs, default parameters can also be altered in order to produce more interesting output. 
