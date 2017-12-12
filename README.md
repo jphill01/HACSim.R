@@ -27,4 +27,5 @@ Both HAC.sim() and HAC.simrep() output simple "measaures of closeness" for overa
 
 In addition to users specifying unique values for N, Hstar and probs, default parameters can also be altered in order to produce more interesting output. 
 
-### Example ###
+# Example: Lake Whitefish ($Coregonus clupeaformis$) #
+
