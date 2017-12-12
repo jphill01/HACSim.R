@@ -53,7 +53,7 @@ Finally, run the following lines of code in succession:
 
 ### Examples ###
 
-#### Equal haplotype frequency ####
+#### Equal haplotype frequency - Hypothetical species ####
 
 * N = 100
 
