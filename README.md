@@ -29,6 +29,6 @@ In addition to users specifying unique values for N, Hstar and probs, default pa
 
 ### Example: Lake Whitefish (Coregonus clupeaformis) ###
 
-N = 240
-Hstar = 15
+N = 240 \\
+Hstar = 15 \\
 probs = c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10))
