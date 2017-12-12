@@ -44,7 +44,7 @@ Hstar = 10
 
 probs = rep(1/Hstar, Hstar)
 
-#### Lake whitefish (*Coregonus clupeaformis*) ####
+#### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) ####
 
  N = 240
  
