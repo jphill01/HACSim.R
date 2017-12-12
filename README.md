@@ -38,16 +38,16 @@ In addition to users specifying unique values for N, Hstar and probs, default pa
 
 #### Equal haplotype frequency ####
 
-N = 100
+* N = 100
 
-Hstar = 10
+* Hstar = 10
 
-probs = rep(1/Hstar, Hstar)
+* probs = rep(1/Hstar, Hstar)
 
 #### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) ####
 
- N = 240
+* N = 240
  
- Hstar = 15
+* Hstar = 15
  
- probs = c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10))
+* probs = c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10))
