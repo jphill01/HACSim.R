@@ -36,22 +36,22 @@ In addition to users specifying unique values for N, Hstar and probs, default pa
 
 To run the algorithm, do the following in a fresh R script:
 
-First, import required R scripts as follows:
+1. Import required R scripts as follows:
 
 > source("HAC.sim.R")
 
 > source("HAC.simrep.R")
 
-Next, set up all algorithm input parameters using standard R variable assignment. 
+2. Set up all algorithm input parameters using standard R variable assignment. 
 
-Finally, run the following lines of code in succession:
+3. Run the following lines of code in succession:
 
 > HAC.sim(K = K, N = N, Hstar = Hstar, probs = probs, m = m, perms = perms, p = p)
 
 > HAC.simrep() (needed only if HAC.sim() does not converge to at least p)
 
 
-### Examples ###
+### Examples (Step 2 above) ###
 
 #### Equal haplotype frequency - Hypothetical species ####
 
