@@ -32,7 +32,7 @@ perms controls the smoothness of generated haplotype accumulation curves.
 
 Both HAC.sim() and HAC.simrep() output simple "measaures of closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proprtions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species 
 
-In addition to users specifying unique values for N, Hstar and probs, default parameters can also be altered in order to produce more interesting output. It may be necessary to increase perms in order to smooth out the curves, but this will increase algorithm runtime substantially.  
+In addition to users specifying unique values for N, Hstar and probs, default parameters can also be altered in order to produce more interesting output (e.g., simulating gene flow). It may be necessary to increase perms in order to smooth out the curves, but this will increase algorithm runtime substantially.  
 
 To run the algorithm, do the following in a fresh R script:
 
