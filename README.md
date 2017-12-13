@@ -34,7 +34,7 @@ Both HAC.sim() and HAC.simrep() output simple "measaures of closeness" for overa
 
 In addition to users specifying unique values for N, Hstar and probs, default parameters can also be altered in order to produce more interesting output. It may be necessary to increase perms in order to smooth out the curves, but this will increase algorithm runtime substantially.  
 
-To run the algorithm, do the following in a fresh R script.
+To run the algorithm, do the following in a fresh R script:
 
 First, import required R scripts as follows:
 
