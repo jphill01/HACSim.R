@@ -38,9 +38,9 @@ To run the algorithm, do the following in a fresh R script:
 
 1. Import required R scripts as follows:
 
-source("HAC.sim.R")
+    source("HAC.sim.R")
 
-source("HAC.simrep.R")
+    source("HAC.simrep.R")
 
 2. Set up all algorithm input parameters using standard R variable assignment. 
 
