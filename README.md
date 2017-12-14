@@ -6,7 +6,7 @@ Species haplotypes are treated as distinct character labels ("1", "2", ...), whe
 
 The present algorithm randomly samples species haplotype labels repeatedly in an iterative fashion, the idea being that levels of species haplotypic variation that are currently catalogued in the Barcode of Life DataSystems (BOLD; http://v4.boldsystems.org/) can serve as proxies for total haplotype diversity that may exist for a given species.
 
-HACSim.R comprises two main functions: 
+HACSim.R comprises two main functions (relevant code found in the files HAC.sim.R and HAC.simrep.R): 
 
 1. HAC.sim(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95)
 
