@@ -73,4 +73,4 @@ To run the algorithm, do the following in a fresh R script:
 
 #### Custom user data ####
 
-Users can implement their own custom species datasets mined from public databases (e.g., BOLD, GenBank), but will first need to collapse DNA sequences into haplotypes and then extract the haplotype frequency distribution in order to determine values for Hstar and probs. This can be accomplished with the R package 'spider'. 
+Users can implement their own custom species datasets mined from public databases (e.g., BOLD, GenBank), but will first need to collapse DNA sequences into haplotypes and then extract the haplotype frequency distribution in order to determine values for Hstar and probs. This can be accomplished in many ways including, but not limited to: the R package 'spider' (Brown *et al.*, 2012) or online interfaces such asFaBox (http://users-birc.au.dk/biopv/php/fabox/) and ALTER (http://sing.ei.uvigo.es/ALTER/). 
