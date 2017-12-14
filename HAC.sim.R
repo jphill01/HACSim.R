@@ -1,35 +1,54 @@
 ### Haplotype Accumulation Curve Simulator ###
 
-HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95){
+HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95) {
 
+	## Set up container(s) to hold the identity of each individual from each permutation ##
+	
 	pop <- array(dim = c(c(perms, ceiling((1 - m) * N / K)), K))
+	
+	## Create an ID for each haplotype ##
+	
 	haps <- as.character(1:Hstar)
+	
+	## Assign individuals (N) to each subpopulation (K) based on migration rate (m) ##
+	
 	specs <- 1:ceiling((1 - m) * N / K)
 	
-	for (j in 1:perms){
-		for (i in 1:K){
+	## Generate permutations, assume each permutation has N individuals, and sample those individuals' haplotypes from the probabilities ##
+	
+	for (j in 1:perms) {
+		for (i in 1:K) {
 			pop[j, specs, i] <- sample(haps, size = length(specs), replace = TRUE, prob = probs)
 		}
 	}
 	
+	## Make a matrix to hold individuals from each permutation ##
 
 	HAC.mat <- array(dim = c(c(perms, length(specs), K)))
 	
-	for (k in specs){
-		for (j in 1:perms){
-			for (i in 1:K){
-				ind.index <- sample(specs, size = k, replace = FALSE) 
+	## Perform haplotype accumulation ##
+	
+	for (k in specs) {
+		for (j in 1:perms) {
+			for (i in 1:K) {
+				ind.index <- sample(specs, size = k, replace = FALSE)
 				hap.plot <- pop[sample(1:nrow(pop), size = 1, replace = TRUE), ind.index, sample(i, size = 1, replace = TRUE)] 
 				HAC.mat[j, k, i] <- length(unique(hap.plot))
 			}
 		}
 	}
+	
+	## Calculate the mean and CI for number of haplotypes recovered at each sampling intensity (j) ##
 
 	means <- apply(HAC.mat, MARGIN = 2, mean)
 	lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025))
 	upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975))
+	
+	## Make data accessible to user ##
 
 	d <- assign("d", data.frame(specs, means), envir = .GlobalEnv)
+	
+	## Compute simple summary statistics and display output ##
 	
     P <- max(means)
 	Q <- Hstar - max(means)
@@ -39,12 +58,16 @@ HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95){
 	X <- ((N * Hstar) / max(means)) - N
 		    
 	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Calculated mean value of N*: ", Nstar, "\n Mean number of individuals not sampled: ", X, "\n \n")
+	
+	## Check whether desired level of haplotype recovery has been reached ##
 		
-	if (R < p){
+	if (R < p) {
 		cat("Desired level of H* has not yet been reached \n")
 		} else{
 			cat("Desired level of H* has been reached")
 	}
+	
+	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
 
 	par(mfrow = c(1, 2))
 

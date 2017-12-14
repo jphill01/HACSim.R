@@ -1,4 +1,6 @@
-# HAC Simulation Iteration
+### HAC Simulation Iteration ###
+
+## Run HAC Simulator until convergence is reached ##
 
 HAC.simrep <- function(){
 	while (R < p){
