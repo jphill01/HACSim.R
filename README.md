@@ -73,4 +73,6 @@ To run the algorithm, do the following in a fresh R script:
 
 #### Custom user data ####
 
-Users can implement their own custom species datasets mined from public databases (e.g., BOLD, GenBank), but will first need to collapse DNA sequences into haplotypes and then extract the haplotype frequency distribution in order to determine values for Hstar and probs. This can be accomplished in many ways including, but not limited to the R package 'spider' (Brown *et al.*, 2012) or online interfaces such as FaBox (http://users-birc.au.dk/biopv/php/fabox/).
+Users can implement their own custom species datasets mined from public databases (e.g., BOLD, GenBank), but will first need to collapse DNA sequences into haplotypes and then extract the haplotype frequency distribution in order to determine values for Hstar and probs. This can be accomplished in many ways including, but not limited to the R package 'spider' (Brown *et al.*, 2012) or online interfaces such as FaBox (http://users-birc.au.dk/biopv/php/fabox/). In general, alignments should be of sufficiently high quaity (free of ambiguous/missing nucleotide bases, since this this can lead to overestimation of overall haplotype diversity for a given species).  
+
+Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (Coregonus clupeaformis) mined from BOLD are included for download from this repository. 
