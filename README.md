@@ -4,7 +4,7 @@ A novel R simulation of haplotype accumulation curves.
 
 Species haplotypes are treated as distinct character labels ("1", "2", ...), where "1" denotes the most frequent haplotype, "2" denotes the second-most frequent haplotype, and so forth.
 
-The present algorithm randomly samples species haplotype labels repeatedly in an iterative fashion.
+The present algorithm randomly samples species haplotype labels repeatedly in an iterative fashion, the idea being that levels of species haplotypic variation that are currently catalogued in genomic databases can serve as proxies for total haplotype diversity that may exist for a given species.
 
 HACSim.R comprises two main functions: 
 
