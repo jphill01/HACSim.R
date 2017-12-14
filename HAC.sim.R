@@ -1,6 +1,6 @@
 ### Haplotype Accumulation Curve Simulator ###
 
-HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95) {
+HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95, plot.out = FALSE) {
 
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
@@ -68,6 +68,8 @@ HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95) {
 	}
 	
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
+	
+	if (plot.out == TRUE) {
 
 	par(mfrow = c(1, 2))
 
@@ -75,5 +77,7 @@ HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95) {
 	polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 	lines(specs, means, lwd = 2)
 	HAC.bar <- barplot(length(specs) * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
+	
+	}
 
 }
