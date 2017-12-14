@@ -4,7 +4,7 @@ A novel R simulation of haplotype accumulation curves.
 
 Species haplotypes are treated as distinct character labels ("1", "2", ...), where "1" denotes the most frequent haplotype, "2" denotes the second-most frequent haplotype, and so forth.
 
-The present algorithm randomly samples species haplotype labels repeatedly in an iterative fashion. The end result of which is an empirical distribution of haplotype diversity for a given species. 
+The present algorithm randomly samples species haplotype labels repeatedly in an iterative fashion.
 
 HACSim.R comprises two main functions: 
 
@@ -32,7 +32,7 @@ Function arguments to HAC.sim() are as follows:
 
 perms controls the smoothness of generated haplotype accumulation curves. As perms &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
-Both HAC.sim() and HAC.simrep() output simple "measures of closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proprtions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species. Plots displaying empirical haplotype accumulation curves and frequency distribution for a speciesxof interest are also displayed. 
+Both HAC.sim() and HAC.simrep() output simple "measures of closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proprtions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species. Plots displaying empirical species haplotype accumulation curves and frequency distributions are also displayed. 
 
 In addition to users specifying unique values for N, Hstar and probs, default parameters can also be altered in order to produce more interesting output (e.g., simulating multiple subpopulations with or without gene flow). It may be necessary to increase perms in order to smooth out the curves, but this will increase algorithm runtime substantially.  
 
