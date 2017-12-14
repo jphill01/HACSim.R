@@ -55,7 +55,7 @@ To run the algorithm, do the following in a fresh R script:
 
 ### Examples (Step 2 above) ###
 
-#### Equal haplotype frequency - Hypothetical species ####
+1. #### Equal haplotype frequency - Hypothetical species ####
 
 * N = 100
 
@@ -63,7 +63,7 @@ To run the algorithm, do the following in a fresh R script:
 
 * probs = rep(1/Hstar, Hstar)
 
-#### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) ####
+2. #### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) ####
 
 * N = 240
  
@@ -75,4 +75,4 @@ To run the algorithm, do the following in a fresh R script:
 
 Users can implement their own custom species datasets mined from BOLD (not necessarily 5'-COI), but will first need to collapse DNA sequences into haplotypes and then extract the haplotype frequency distribution in order to determine values for Hstar and probs. This can be accomplished in many ways including, but not limited to the R package 'spider' (Brown *et al.*, 2012), or online interfaces such as FaBox (http://users-birc.au.dk/biopv/php/fabox/). In general, alignments should be of sufficiently high quaity (*i.e.*, non-GenBank, and free of ambiguous/missing nucleotide bases, since these can lead to overestimation of overall haplotype diversity for a given species).  
 
-Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) are included for download from this repository. 
+Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (Example 2 above) are included for download from this repository. 
