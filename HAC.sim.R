@@ -46,15 +46,15 @@ HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95, plot
 	
 	## Make data accessible to user ##
 
-	d <- assign("d", data.frame(specs, means), envir = .GlobalEnv)
+	assign("d", data.frame(specs, means), envir = .GlobalEnv)
 	
 	## Compute simple summary statistics and display output ##
 	
     P <- max(means)
 	Q <- Hstar - max(means)
-	R <- assign("R", max(means) / Hstar, envir = .GlobalEnv)
+	assign("R", max(means) / Hstar, envir = .GlobalEnv)
 	S <- (Hstar - max(means)) / Hstar
-	Nstar <- assign("Nstar", (N * Hstar) / max(means), envir = .GlobalEnv)
+	assign("Nstar", (N * Hstar) / max(means), envir = .GlobalEnv)
 	X <- ((N * Hstar) / max(means)) - N
 		    
 	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Calculated mean value of N*: ", Nstar, "\n Mean number of individuals not sampled: ", X, "\n \n")
