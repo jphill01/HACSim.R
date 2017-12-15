@@ -35,7 +35,7 @@ Function arguments to HAC.sim() are as follows:
 
 Both HAC.sim() and HAC.simrep() output simple "measures of closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proprtions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species. Plots depicting empirical species haplotype accumulation curves and frequency distributions are also displayed. 
 
-Measures of closeness for overall sampling completeness are given by the following fomulae:
+Measures of closeness for overall sampling completeness are given by the following fomulae (Phillips *et al.*, 2015):
 
 * Mean number of haplotypes sampled: H*
 
