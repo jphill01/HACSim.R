@@ -57,7 +57,7 @@ HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95, plot
 	assign("Nstar", (N * Hstar) / max(means), envir = .GlobalEnv)
 	X <- ((N * Hstar) / max(means)) - N
 		    
-	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Calculated mean value of N*: ", Nstar, "\n Mean number of individuals not sampled: ", X, "\n \n")
+	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Mean value of N*: ", Nstar, "\n Mean number of individuals not sampled: ", X, "\n \n")
 	
 	## Check whether desired level of haplotype recovery has been reached ##
 		
