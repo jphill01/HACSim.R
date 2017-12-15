@@ -17,21 +17,21 @@ HAC.sim() performs a single iteration of haplotype accumulation for a given spec
 
 Function arguments to HAC.sim() are as follows:
 
-* K = Number of (sub)populations/demes for a given species (K = 1 by default)
+* **K** = Number of (sub)populations/demes for a given species (K = 1 by default)
 
-* N = Number of observed individuals (DNA sequences) of a given species 
+* **N** = Number of observed individuals (DNA sequences) of a given species 
 
-* Hstar = Number of observed haplotypes (unique DNA sequences) for a given species
+* **Hstar** = Number of observed haplotypes (unique DNA sequences) for a given species
 
-* probs = Haplotype frequency distribution for a given species
+* **probs** = Haplotype frequency distribution for a given species
 
-* m = Overall migration rate of individuals/haplotypes between demes (m = 0 by default)
+* **m** = Overall migration rate of individuals/haplotypes between demes (m = 0 by default)
 
-* perms = Number of permutations to generate species haplotype accumulation curve (perms = 10000 by default)
+* **perms** = Number of permutations to generate species haplotype accumulation curve (perms = 10000 by default)
 
-* p = Proportion of species haplotypes to recover (p = 0.95 by default)
+* **p** = Proportion of species haplotypes to recover (p = 0.95 by default)
 
-perms controls the smoothness of generated haplotype accumulation curves. As perms &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
+**perms** controls the smoothness of generated haplotype accumulation curves. As perms &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
 Both HAC.sim() and HAC.simrep() output simple "measures of closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proprtions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species. Plots depicting empirical species haplotype accumulation curves and frequency distributions are also displayed. 
 
