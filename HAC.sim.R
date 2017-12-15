@@ -4,7 +4,9 @@ HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95, plot
 
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
-	pop <- array(dim = c(c(perms, ceiling((1 - m) * N / K)), K))
+	num.specs <- ceiling((1 - m) * N / K)
+	
+	pop <- array(dim = c(c(perms, num.specs), K))
 	
 	## Create an ID for each haplotype ##
 	
@@ -12,7 +14,7 @@ HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95, plot
 	
 	## Assign individuals (N) to each subpopulation (K) based on migration rate (m) ##
 	
-	specs <- 1:ceiling((1 - m) * N / K)
+	specs <- 1:num.specs
 	
 	## Generate permutations, assume each permutation has N individuals, and sample those individuals' haplotypes from the probabilities ##
 	
