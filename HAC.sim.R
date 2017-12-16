@@ -20,27 +20,27 @@ HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95, plot
 	
 	for (j in 1:perms) {
 		for (i in 1:K) {
-			pop[j, specs, i] <- sample(haps, size = length(specs), replace = TRUE, prob = probs)
+			pop[j, specs, i] <- sample(haps, size = num.specs, replace = TRUE, prob = probs)
 		}
 	}
 	
 	## Make a matrix to hold individuals from each permutation ##
 
-	HAC.mat <- array(dim = c(c(perms, length(specs), K)))
+	HAC.mat <- array(dim = c(c(perms, num.specs, K)))
 	
 	## Perform haplotype accumulation ##
 	
 	for (k in specs) {
 		for (j in 1:perms) {
 			for (i in 1:K) {
-				ind.index <- sample(specs, size = k, replace = FALSE)
-				hap.plot <- pop[sample(1:nrow(pop), size = 1, replace = TRUE), ind.index, sample(i, size = 1, replace = TRUE)] 
-				HAC.mat[j, k, i] <- length(unique(hap.plot))
+				ind.index <- sample(specs, size = k, replace = FALSE) # which individuals are sampled
+				hap.plot <- pop[sample(1:nrow(pop), size = 1, replace = TRUE), ind.index, sample(i, size = 1, replace = TRUE)] # extract those individuals from a permutation
+				HAC.mat[j, k, i] <- length(unique(hap.plot)) ## how many haplotypes recovered a given sampling intensity (k) from each permutation (j)
 			}
 		}
 	}
 	
-	## Calculate the mean and CI for number of haplotypes recovered at each sampling intensity (j) ##
+	## Calculate the mean and CI for number of haplotypes recovered
 
 	means <- apply(HAC.mat, MARGIN = 2, mean)
 	lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025))
