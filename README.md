@@ -55,7 +55,7 @@ Measures of closeness for overall sampling completeness are given by the followi
 
 * Mean number of individuals not sampled: N* - N
 
-In addition to users specifying unique values for N, Hstar and probs, default parameters can also be altered in order to produce more interesting output (e.g., simulating multiple subpopulations with or without gene flow). It may be necessary to increase perms in order to smooth out the curves, but this will increase algorithm runtime substantially. In addition, when there are multiple demes for a species (*i.e.*, K > 1), resulting statistical output will display sample size across *all* demes, while the graphical output will show haplotype accumulation curves and haplotype frequency *per* deme. So, for example, if N = 50 and K = 2, then there would be N/K = 25 individuals in each deme.
+In addition to users specifying unique values for **N**, **Hstar** and **probs**, default parameters can also be altered in order to produce more interesting output (e.g., simulating multiple subpopulations with or without gene flow). It may be necessary to increase perms in order to smooth out the curves, but this will increase algorithm runtime substantially. In addition, when there are multiple demes for a species (*i.e.*, K > 1), resulting statistical output will display sample size across *all* demes, while the graphical output will show haplotype accumulation curves and haplotype frequency *per* deme. So, for example, if N = 50 and K = 2, then there would be N/K = 25 individuals in each deme.
 
 To run the algorithm, do the following in a fresh R script:
 
