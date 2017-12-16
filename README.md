@@ -31,6 +31,10 @@ Function arguments to HAC.sim() are as follows:
 
 * **p** = Proportion of species haplotypes to recover (p = 0.95 by default)
 
+* **subset.haps** = An option to specify a subset of species haplotypes to accumulate according to respective frequencies of occurence
+
+* **plot.out** = An option to plot generated species haplotype accumulation curves (plot.out = FALSE by default)
+
 Species haplotype probabilities in **probs** must sum to 1.
 
 **perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
