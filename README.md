@@ -8,7 +8,7 @@ The present algorithm randomly samples species haplotype labels repeatedly in an
 
 HACSim.R comprises two main functions (relevant code found in the files HAC.sim.R and HAC.simrep.R): 
 
-> HAC.sim(K = 1, N, Hstar, probs, perms = 10000, p = 0.95, plot.ou = FALSE)
+> HAC.sim(K = 1, N, Hstar, probs, perms = 10000, p = 0.95, plot.out = FALSE)
 
 > HAC.simrep().
 
