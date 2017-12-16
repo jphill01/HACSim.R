@@ -31,7 +31,7 @@ Function arguments to HAC.sim() are as follows:
 
 * **p** = Proportion of species haplotypes to recover (p = 0.95 by default)
 
-* **subset.haps** = An option to specify a subset of species haplotypes to accumulate according to respective frequencies of occurence
+* **subset.haps** = An option to specify a subset of species haplotypes to accumulate according to respective frequencies of occurence (subset.haps = NULL by default)
 
 * **plot.out** = An option to plot generated species haplotype accumulation curves (plot.out = FALSE by default)
 
