@@ -2,9 +2,9 @@
 
 ## Run HAC Simulator until convergence is reached ##
 
-HAC.simrep <- function(){
-	while (R < p){
-		HAC.sim(K = K, N = ceiling(Nstar), Hstar = Hstar, probs = probs, r = r, perms = perms, p = p, subset.haps = NULL, plot.out = plot.out)
+HAC.simrep <- function() {
+	while (R < p) {
+		HAC.sim(K = K, N = ceiling(Nstar), Hstar = Hstar, probs = probs, perms = perms, p = p, plot.out = plot.out)
 	}
 }
 
