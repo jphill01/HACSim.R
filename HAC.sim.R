@@ -1,6 +1,6 @@
 ### Haplotype Accumulation Curve Simulator ###
 
-HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95, plot.out = FALSE) {
+HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95, subset.haps = NULL, plot.out = FALSE) {
 
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
@@ -20,7 +20,11 @@ HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95, plot
 	
 	for (j in 1:perms) {
 		for (i in 1:K) {
-			pop[j, specs, i] <- sample(haps, size = num.specs, replace = TRUE, prob = probs)
+			if (is.null(subset.haps)) {
+				pop[j, specs, i] <- sample(haps, size = num.specs, replace = TRUE, prob = probs)
+				} else {
+					pop[j, specs, i] <- sample(haps[subset.haps], size = num.specs, replace = TRUE, prob = probs[subset.haps])
+			}
 		}
 	}
 	
@@ -75,10 +79,17 @@ HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95, plot
 
 	par(mfrow = c(1, 2))
 
-	plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
-	polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
-	lines(specs, means, lwd = 2)
-	HAC.bar <- barplot(length(specs) * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
+	if (is.null(subset.haps)) {
+		plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
+		polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
+		lines(specs, means, lwd = 2)
+		HAC.bar <- barplot(length(specs) * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
+		} else {
+			plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, length(subset.haps)))
+			polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
+			lines(specs, means, lwd = 2)
+			HAC.bar <- barplot(length(specs) * probs[subset.haps] / sum(probs[subset.haps]), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps)
+		}
 	
 	}
 
