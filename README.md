@@ -43,7 +43,7 @@ Both HAC.sim() and HAC.simrep() output simple "measures of closeness" for overal
 
 Measures of closeness for overall sampling completeness are given by the following fomulae (Phillips *et al.*, 2015):
 
-* Mean number of haplotypes sampled: H*
+* Mean number of haplotypes sampled: H
 
 * Number of haplotypes not sampled: H* - H
 
