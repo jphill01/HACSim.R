@@ -4,7 +4,7 @@ HAC.sim <- function(K = 1, N, Hstar, probs, r = 0, perms = 10000, p = 0.95, subs
 
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
-	num.specs <- ceiling((1 - r) * N / K)
+	num.specs <- ceiling(abs(1 - r) * N / K)
 	
 	pop <- array(dim = c(c(perms, num.specs), K))
 	
