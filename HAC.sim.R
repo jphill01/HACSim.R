@@ -1,10 +1,10 @@
 ### Haplotype Accumulation Curve Simulator ###
 
-HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95, subset.haps = NULL, plot.out = FALSE) {
+HAC.sim <- function(K = 1, N, Hstar, probs, r = 0, perms = 10000, p = 0.95, subset.haps = NULL, plot.out = FALSE) {
 
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
-	num.specs <- ceiling((1 - m) * N / K)
+	num.specs <- ceiling((1 - r) * N / K)
 	
 	pop <- array(dim = c(c(perms, num.specs), K))
 	
@@ -12,7 +12,7 @@ HAC.sim <- function(K = 1, N, Hstar, probs, m = 0, perms = 10000, p = 0.95, subs
 	
 	haps <- as.character(1:Hstar)
 	
-	## Assign individuals (N) to each subpopulation (K) based on migration rate (m) ##
+	## Assign individuals (N) to each subpopulation (K) based on growth rate (r) ##
 	
 	specs <- 1:num.specs
 	
