@@ -35,7 +35,7 @@ Function arguments to HAC.sim() are as follows:
 
 * **plot.out** = An option to plot generated species haplotype accumulation curves (plot.out = FALSE by default)
 
-When **subset.haps** is NULL, species haplotype probabilities in **probs** must sum to 1. If **subset.haps** is not NULL, probabilities will not sum to unity.
+When **subset.haps** is NULL, species haplotype probabilities in **probs** must sum to 1. If **subset.haps** is not NULL, probabilities of selected haplotypes will not sum to unity.
 
 **perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
