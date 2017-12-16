@@ -72,19 +72,23 @@ To run the algorithm, do the following in a fresh R script:
 
 1. #### Equal haplotype frequency - Hypothetical species ####
 
-* N = 100
+* **N** = 100
 
-* Hstar = 10
+* **Hstar** = 10
 
-* probs = rep(1/Hstar, Hstar)
+* **probs** = rep(1/Hstar, Hstar)
+
+* **plot.out** = TRUE
 
 2. #### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) ####
 
-* N = 240
+* **N** = 240
  
-* Hstar = 15
+* **Hstar** = 15
  
-* probs = c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10))
+* **probs** = c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10))
+
+* **plot.out** = TRUE
 
 #### Custom user data ####
 
