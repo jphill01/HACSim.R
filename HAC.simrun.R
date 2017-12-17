@@ -1,5 +1,13 @@
 ##### Unequal haplotype frequency - Lake whitefish (Coregonus clupeaformis) #####
 
+### Set working directory ###
+
+setwd("/Users/jarrettphillips/Desktop/HAC simulation")
+
+### Clear memory ###
+
+remove(list = ls())
+
 ### Load scripts ###
 
 source("HAC.sim.R")
