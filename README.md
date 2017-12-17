@@ -84,7 +84,7 @@ To run the algorithm, do the following in a fresh R script:
 
 * **N** = 240
  
-* **Hstar** = 15
+* **Hstar** = 15 
  
 * **probs** = c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10))
 
