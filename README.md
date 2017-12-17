@@ -79,7 +79,7 @@ To run the algorithm, do the following in a fresh R script:
 
 * **plot.out** = TRUE
 
-2. #### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) ####
+2. #### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) see HAC.simrun.R ####
 
 * **N** = 240
  
