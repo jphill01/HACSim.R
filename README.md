@@ -64,7 +64,7 @@ To run the algorithm, do the following in a fresh R script:
 
 > HAC.sim(K = K, N = N, Hstar = Hstar, probs = probs, r = r, perms = perms, p = p)
 
-> HAC.simrep() (needed only if HAC.sim() does not converge to at least p)
+> HAC.simrep()  (needed only if HAC.sim() does not converge to at least p)
 
 
 ### Examples (Step 2 above) ###
