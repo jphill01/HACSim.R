@@ -1,5 +1,10 @@
 ##### Unequal haplotype frequency - Lake whitefish (Coregonus clupeaformis) #####
 
+### Load scripts ###
+
+source("HAC.sim.R")
+source("HAC.simrep.R")
+
 ### Set parameters ###
 
 K <- 1  # number of equally-sized (sub)populations
