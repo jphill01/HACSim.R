@@ -50,7 +50,7 @@ Measures of closeness for overall sampling completeness are given by the followi
 
 In addition to users specifying unique values for **N**, **Hstar** and **probs**, default parameters can also be altered in order to produce more interesting output (e.g., simulating multiple subpopulations). It may be necessary to increase **perms** in order to smooth out the curves, but this will increase algorithm runtime substantially. In addition, when there are multiple demes for a species (*i.e.*, **K** > 1), resulting statistical output will display sample size across *all* demes, while the graphical output will show haplotype accumulation curves and haplotype frequencies *per* deme. So, for example, if **N** = 50 and **K** = 2, then there would be **N**/**K** = 25 individuals in each deme.
 
-To run the algorithm, do the following in a fresh R script (or simply run HAC.simrun.R):
+To run the algorithm, do the following in a fresh R script:
 
 1. Import required R scripts as follows:
 
@@ -93,4 +93,4 @@ To run the algorithm, do the following in a fresh R script (or simply run HAC.si
 
 Users can implement their own custom species datasets mined from BOLD (not necessarily 5'-COI), but will first need to collapse DNA sequences into haplotypes and then extract the haplotype frequency distribution in order to determine values for **Hstar** and **probs**. This can be accomplished in many ways including, but not limited to the R package 'spider' (Brown *et al.*, 2012), or online interfaces such as FaBox (http://users-birc.au.dk/biopv/php/fabox/). In general, alignments should be of sufficiently high quality (*i.e.*, non-GenBank, and free of ambiguous/missing nucleotide bases, since these can lead to overestimation of overall haplotype diversity for a given species).  
 
-Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (Example 2 above) are included for download from this repository. 
+Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (Example 2 above) are included for download from this repository. The Lake whitefish simulation can alternatively be run via HAC.simrun.R.
