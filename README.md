@@ -1,10 +1,10 @@
 # HACSim.R
 
-A novel R simulation of haplotype accumulation curves. The present simulation can be employed in order to determine required sample sizes for DNA barcoding, specifically as pertaining to recovery of total haplotype variation for a species.  
+A novel R simulation of haplotype accumulation curves. The present simulation can be employed in order to determine required sample sizes for DNA barcoding, specifically as pertaining to recovery of total haplotype variation for a given species. Implications of such an approach include accelerating the construction and growth of DNA barcode reference libraries within the Barcode of Life Data Systems (BOLD; http://v4.boldsystems.org/).
 
 Species haplotypes are treated as distinct character labels ("1", "2", ...), where "1" denotes the most frequent haplotype, "2" denotes the second-most frequent haplotype, and so forth.
 
-The present algorithm randomly samples species haplotype labels in an iterative fashion, the idea being that levels of species haplotypic variation that are currently catalogued in the Barcode of Life Data Systems (BOLD; http://v4.boldsystems.org/) can serve as proxies for total haplotype diversity that may exist for a given species.
+The present algorithm randomly samples species haplotype labels in an iterative fashion, the idea being that levels of species haplotypic variation that are currently catalogued in BOLD can serve as proxies for total haplotype diversity that may exist for a given species.
 
 HACSim.R comprises two main functions (relevant code found in the files HAC.sim.R and HAC.simrep.R): 
 
