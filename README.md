@@ -1,6 +1,6 @@
 # HACSim.R
 
-A novel R simulation of haplotype accumulation curves. 
+A novel R simulation of haplotype accumulation curves. The present simulation can be employed in order to determine required sample sizes for DNA barcoding, specifically as pertaining to recovery of total haplotype variation for a species.  
 
 Species haplotypes are treated as distinct character labels ("1", "2", ...), where "1" denotes the most frequent haplotype, "2" denotes the second-most frequent haplotype, and so forth.
 
