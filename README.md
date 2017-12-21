@@ -66,7 +66,7 @@ To run the algorithm, do the following in a fresh R script:
 
 > HAC.simrep() **(needed only if HAC.sim() does not converge to at least p)**
 
-Depending on the size of input paramters to the simulation, the algorithm in its current form, can be quite slow to reach full convergence. For a species with equal haplotype frequency, saturation of the haplotype accumulation curve is reached very rapidly. On the other hand, for a species with many rare haplotypes, the generated haplotype accumulation curve will take signficantly longer to reach an asymptote, since rare haplotypes will not be sampled as frequently as dominant ones.
+Depending on the size of input parameters to the simulation, the algorithm in its current form, can be quite slow to reach full convergence. For a species with equal haplotype frequency, saturation of the haplotype accumulation curve is reached very rapidly. On the other hand, for a species with many rare haplotypes, the generated haplotype accumulation curve will take signficantly longer to reach an asymptote, since rare haplotypes will not be sampled as frequently as dominant ones.
 
 ### Examples (Step 2 above) ###
 
