@@ -21,12 +21,12 @@ HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 0.95, plot.out = 
 	for (j in 1:perms) {
 		for (i in 1:K) {
 				pop[j, specs, i] <- sample(haps, size = num.specs, replace = TRUE, prob = probs)
-		}
+			}
 	}
 	
 	## Make a matrix to hold individuals from each permutation ##
 
-	HAC.mat <- array(dim = c(c(perms, num.specs, K)))
+	HAC.mat <- array(dim = c(c(perms, num.specs), K))
 	
 	## Perform haplotype accumulation ##
 	
@@ -35,7 +35,7 @@ HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 0.95, plot.out = 
 			for (i in 1:K) {
 				ind.index <- sample(specs, size = k, replace = FALSE) # which individuals are sampled
 				hap.plot <- pop[sample(1:nrow(pop), size = 1, replace = TRUE), ind.index, sample(i, size = 1, replace = TRUE)] # extract those individuals from a permutation
-				HAC.mat[j, k, i] <- length(unique(hap.plot)) ## how many haplotypes recovered a given sampling intensity (k) from each permutation (j)
+				HAC.mat[j, k, i] <- length(unique(hap.plot)) # how many haplotypes recovered a given sampling intensity (k) from each permutation (j)
 			}
 		}
 	}
@@ -52,13 +52,13 @@ HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 0.95, plot.out = 
 	
 	## Compute simple summary statistics and display output ##
 	
-    P <- max(means)
+	P <- max(means)
 	Q <- Hstar - max(means)
 	assign("R", max(means) / Hstar, envir = .GlobalEnv)
 	S <- (Hstar - max(means)) / Hstar
 	assign("Nstar", (N * Hstar) / max(means), envir = .GlobalEnv)
 	X <- ((N * Hstar) / max(means)) - N
-		    
+				    
 	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Mean value of N*: ", Nstar, "\n Mean number of individuals not sampled: ", X, "\n \n")
 	
 	## Check whether desired level of haplotype recovery has been reached ##
@@ -72,17 +72,11 @@ HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 0.95, plot.out = 
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
 	
 	if (plot.out == TRUE) {
-
-	par(mfrow = c(1, 2))
-
-	if (is.null(subset.haps)) {
+		par(mfrow = c(1, 2))
 		plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
 		polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 		lines(specs, means, lwd = 2)
-		HAC.bar <- barplot(length(specs) * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
-		
-		} 
-	
-	}
+		HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
+		}
 
 }
