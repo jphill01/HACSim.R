@@ -36,7 +36,7 @@ Setting **p** = 1 corresponds to uncovering all haplotypes that may exist for a 
 
 Both HAC.sim() and HAC.simrep() output simple "measures of closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proportions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species. In addition to haplotype accumulation curves, plots depicting empirical species haplotype frequency distributions are also displayed. 
 
-Measures of closeness for overall sampling completeness are given by the following fomulae (Phillips *et al.*, 2015):
+Measures of closeness for overall haplotype/specimen sampling completeness are given by the following fomulae (Phillips *et al.*, 2015):
 
 * Mean number of haplotypes sampled: H
 
