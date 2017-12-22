@@ -94,6 +94,6 @@ Depending on the size of input parameters to the simulation, the algorithm in it
 
 Users can implement their own custom species barcode datasets mined from BOLD (not necessarily 5'-COI), but will first need to collapse DNA sequences into haplotypes and then extract the haplotype frequency distribution in order to determine values for **Hstar** and **probs**. This can be accomplished in many ways including, but not limited to the R package 'spider' (Brown *et al.*, 2012), or online interfaces such as FaBox (http://users-birc.au.dk/biopv/php/fabox/). In general, alignments should be of sufficiently high quality (*i.e.*, non-GenBank, and free of ambiguous/missing nucleotide bases, since these can lead to overestimation of overall haplotype diversity for a given species).
 
-Determination of **K** is less-straightforward, and would require good judgement on the part of the user. One option is to simply set $K$ equal to the number of sampling sites, as a proxy for the "true" value of **K**. 
+Determination of **K** is less-straightforward, and will require good judgement on the part of the user. One option is to simply set $K$ equal to the number of sampling sites, as a proxy for the "true" value of **K**. 
 
 Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (Example 2 above) are included for download from this repository.
