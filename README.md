@@ -32,6 +32,8 @@ Function arguments to HAC.sim() are as follows:
 
 HAC.sim() performs a single iteration of haplotype accumulation for a given species. If the desired level of haplotype recovery is not reached, then HAC.simrep() (which takes no arguments) is called in order to perform successive iterations until the desired fraction of haplotypes captured is at least **p**.
 
+Setting **p** = 1 corresponds to uncovering all haplotypes that may exist for a given species. This corresponds to the generated haplotype accumulation curve having a slope of zero. At this point, further sampling effort is unlikely to uncover any new haplotypes. 
+
 Both HAC.sim() and HAC.simrep() output simple "measures of closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proportions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species. In addition to haplotype accumulation curves, plots depicting empirical species haplotype frequency distributions are also displayed. 
 
 Measures of closeness for overall sampling completeness are given by the following fomulae (Phillips *et al.*, 2015):
