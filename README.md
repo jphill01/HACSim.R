@@ -24,7 +24,7 @@ Function arguments to HAC.sim() are as follows:
 
 * **perms** = Number of permutations to generate species haplotype accumulation curve (**perms** = 10000 by default)
 
-* **p** = Proportion of species haplotypes to recover (**p** = 0.95 by default)
+* **p** = Proportion of species haplotypes to recover (**p** = 1 by default)
 
 * **plot.out** = An option to plot generated species haplotype accumulation curves (**plot.out** = TRUE by default)
 
