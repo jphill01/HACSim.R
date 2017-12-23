@@ -1,6 +1,6 @@
 ### Haplotype Accumulation Curve Simulator ###
 
-HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 1, plot.out = FALSE) {
+HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 1, plot.out = TRUE) {
 
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
