@@ -54,6 +54,8 @@ In addition to users specifying unique values for **N**, **Hstar** and **probs**
 
 When incorporating population structure into simulations, it is assumed that haplotype diversity is identical across demes. In addition, when there are multiple demes for a species (*i.e.*, **K** > 1), resulting statistical output will display sample size across *all* demes, while the graphical output will show haplotype accumulation curves and haplotype frequency distribution *per* deme. So, for example, if **N** = 50 and **K** = 2, then there will be **N**/**K** = 25 individuals in each deme.
 
+Determination of **K** is not straightforward, and will require good judgement on the part of the user. One naive option is to simply set **K** equal to the number of sampling sites, as a proxy for the "true" value of **K**. 
+
 To run the algorithm, do the following in a fresh R script:
 
 1. Import required R scripts as follows:
@@ -97,7 +99,5 @@ Depending on the size of input parameters to the simulation, the algorithm in it
 #### Custom user data ####
 
 Users can implement their own custom species barcode datasets mined from BOLD (not necessarily 5'-COI), but will first need to collapse DNA sequences into haplotypes and then extract the haplotype frequency distribution in order to determine values for **Hstar** and **probs**. This can be accomplished in many ways including, but not limited to the R package 'spider' (Brown *et al.*, 2012), or online interfaces such as FaBox (http://users-birc.au.dk/biopv/php/fabox/). In general, alignments should be of sufficiently high quality (*i.e.*, non-GenBank, at least 500 bp in length, and free of ambiguous/missing nucleotide bases, since these can lead to overestimation of overall haplotype diversity for a given species).
-
-Determination of **K** is less-straightforward, and will require good judgement on the part of the user. One naive option is to simply set **K** equal to the number of sampling sites, as a proxy for the "true" value of **K**. 
 
 Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (Example 2 above) are included for download from this repository.
