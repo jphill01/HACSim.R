@@ -20,7 +20,7 @@ N <- 240 # total number of sampled individuals
 Hstar <- 15 # total number of haplotypes
 probs <- c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10)) # haplotype frequency distribution
 perms <- 10000 # number of permutations
-p <- 0.95 # proportion of haplotypes to recover 
+p <- 1 # proportion of haplotypes to recover 
 plot.out <- TRUE # plot curve and barplot
 
 
