@@ -56,6 +56,8 @@ When incorporating population structure into simulations, it is assumed that hap
 
 Determination of **K** is not straightforward, and will require good judgement on the part of the user. One naive option is to simply set **K** equal to the number of sampling sites, as a proxy for the "true" value of **K**. 
 
+### Running the Simulation ###
+
 To run the algorithm, do the following in a fresh R script:
 
 1. Import required R scripts as follows:
