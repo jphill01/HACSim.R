@@ -1,7 +1,21 @@
 ### Haplotype Accumulation Curve Simulator ###
 
 HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 1, plot.out = TRUE) {
-
+	
+	## Error messages ##
+	
+	if (N > H) {
+		stop("N must be greater than or equal to H")
+	}
+	
+	if (N > K) {
+		stop("N must be greater than or equal to K")
+	}
+	
+	if (sum(probs) != 1) {
+		stop("probs must sum to 1")
+	}
+	
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
 	num.specs <- ceiling(N / K)
