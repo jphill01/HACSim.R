@@ -4,14 +4,13 @@ HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 1, plot.out = TRU
 	
 	## Error messages ##
 	
-		if (N < K) {
-			stop("N must be greater than or equal to K")
-		}
+	if (N < K) {
+		stop("N must be greater than or equal to K")
+	}
 	
 	if (N < Hstar) {
 		stop("N must be greater than or equal to Hstar")
 	}
-	
 	
 	if (sum(probs) != 1) {
 		stop("probs must sum to 1")
@@ -20,8 +19,6 @@ HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 1, plot.out = TRU
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
 	num.specs <- ceiling(N / K)
-	
-	pop <- array(dim = c(c(perms, num.specs), K))
 	
 	## Create an ID for each haplotype ##
 	
@@ -33,15 +30,19 @@ HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 1, plot.out = TRU
 	
 	## Generate permutations, assume each permutation has N individuals, and sample those individuals' haplotypes from the probabilities ##
 	
-	for (j in 1:perms) {
-		for (i in 1:K) {
-				pop[j, specs, i] <- sample(haps, size = num.specs, replace = TRUE, prob = probs)
-			}
+	gen.perms <- function() {
+		sample(haps, size = num.specs, replace = TRUE, prob = probs)
+	}
+	
+	pop <- array(dim = c(perms, num.specs, K))
+	
+	for (i in 1:K) {
+		pop[,, i] <- replicate(perms, gen.perms())
 	}
 	
 	## Make a matrix to hold individuals from each permutation ##
 
-	HAC.mat <- array(dim = c(c(perms, num.specs), K))
+	HAC.mat <- array(dim = c(perms, num.specs, K))
 	
 	## Perform haplotype accumulation ##
 	
@@ -54,7 +55,7 @@ HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 1, plot.out = TRU
 			}
 		}
 	}
-	
+
 	## Calculate the mean and CI for number of haplotypes recovered
 
 	means <- apply(HAC.mat, MARGIN = 2, mean)
