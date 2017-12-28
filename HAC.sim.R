@@ -46,18 +46,17 @@ HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 1, plot.out = TRU
 	
 	## Perform haplotype accumulation ##
 	
-	for (k in specs) {
-		for (j in 1:perms) {
-			for (i in 1:K) {
-				ind.index <- sample(specs, size = k, replace = FALSE) # which individuals are sampled
-				hap.plot <- pop[sample(1:nrow(pop), size = 1, replace = TRUE), ind.index, sample(i, size = 1, replace = TRUE)] # extract those individuals from a permutation
-				HAC.mat[j, k, i] <- length(unique(hap.plot)) # how many haplotypes recovered for a given sampling intensity (k) from each permutation (j)
-			}
-		}
-	}
+	# for (k in specs) {
+		# for (j in 1:perms) {
+			# for (i in 1:K) {
+				# ind.index <- sample(specs, size = k, replace = FALSE) # which individuals are sampled
+				# hap.plot <- pop[sample(1:nrow(pop), size = 1, replace = TRUE), ind.index, sample(i, size = 1, replace = TRUE)] # extract those individuals from a permutation
+				# HAC.mat[j, k, i] <- length(unique(hap.plot)) # how many haplotypes recovered for a given sampling intensity (k) from each permutation (j)
+			# }
+		# }
+	# }
 	
-	# sourceCpp("HAC.mat.cpp")
-	# HAC.mat <- fillCube(pop, num.specs, perms, K)
+	HAC.mat <- fillCube(pop, num.specs, perms, K)
 
 	## Calculate the mean and CI for number of haplotypes recovered
 
