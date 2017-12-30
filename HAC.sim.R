@@ -1,6 +1,6 @@
 ### Haplotype Accumulation Curve Simulator ###
 
-HAC.sim <- function(K = 1, N, Hstar, probs, perms = 10000, p = 1, plot.out = TRUE) {
+HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 1, plot.out = TRUE) {
 	
 	## Error messages ##
 	
