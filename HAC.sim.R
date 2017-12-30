@@ -49,11 +49,11 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 1, plot.out = TRU
 	for (k in specs) {
 		for (j in 1:perms) {
 			for (i in 1:K) {
-				select.perm <- sample(1:nrow(pop), size = 1, replace = TRUE)
-				ind.index <- sample(specs, size = k, replace = FALSE) # which individuals are sampled
-				select.subpop <- sample(i, size = 1, replace = TRUE)
-				hap.plot <- pop[select.perm, ind.index, select.subpop] # extract those individuals from a permutation
-				HAC.mat[j, k, i] <- length(unique(hap.plot)) # how many haplotypes recovered for a given sampling intensity (k) from each permutation (j)
+				select.perm <- sample(1:nrow(pop), size = 1, replace = TRUE) # randomly sample a permutation
+				ind.index <- sample(specs, size = k, replace = FALSE) # randomly sample individuals
+				select.subpop <- sample(i, size = 1, replace = TRUE) # randomly sample a subpopulation
+				hap.plot <- pop[select.perm, ind.index, select.subpop] # extract data
+				HAC.mat[j, k, i] <- length(unique(hap.plot)) # how many haplotypes are recovered
 			}
 		}
 	}
