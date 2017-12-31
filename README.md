@@ -14,13 +14,13 @@ HACSim.R comprises two main functions (relevant code found in the files HAC.sim.
 
 Function arguments to HAC.sim() are as follows:
 
-* **K** = Number of (equally-sized) (sub)populations/demes for a given species (**K** = 1 by default)
-
 * **N** = Number of observed individuals (DNA sequences) of a given species 
 
 * **Hstar** = Number of observed haplotypes (unique DNA sequences) for a given species
 
 * **probs** = Haplotype frequency distribution for a given species (must sum to 1)
+
+* **K** = Number of (equally-sized) (sub)populations/demes for a given species (**K** = 1 by default)
 
 * **perms** = Number of permutations to generate species haplotype accumulation curve (**perms** = 10000 by default)
 
@@ -70,7 +70,7 @@ To run the algorithm, do the following in a fresh R script:
 
 3. Run the following lines of code in succession:
 
-> HAC.sim(K = K, N = N, Hstar = Hstar, probs = probs, r = r, perms = perms, p = p, plot.out = TRUE)
+> HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, perms = perms, p = p, plot.out = TRUE)
 
 > HAC.simrep() **(needed only if HAC.sim() does not converge to at least p)**
 
