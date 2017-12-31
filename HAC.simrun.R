@@ -28,7 +28,7 @@ plot.out <- TRUE # haplotype accumulation curve and haplotype frequency barplot
 
 ptm <- proc.time() # set timer
 
-HAC.sim(K = K,  N = N, Hstar = Hstar, probs = probs, perms = perms, p = p, plot.out = plot.out)
+HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, perms = perms, p = p, plot.out = plot.out)
 HAC.simrep()
 
 proc.time() - ptm
