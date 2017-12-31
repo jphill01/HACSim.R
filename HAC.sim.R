@@ -58,6 +58,8 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 1, plot.out = TRU
 		}
 	}
 	
+	# HAC.mat <- fillCube(pop, specs, perms, K)
+	
 	## Calculate the mean and CI for number of haplotypes recovered
 
 	means <- apply(HAC.mat, MARGIN = 2, mean)
