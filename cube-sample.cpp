@@ -40,9 +40,9 @@ arma::Cube<int> fillCube(const arma::Cube<int>& pop,
     int i, j, k;
     
     for (i = 0; i < K; i++) {
-        for (k = 0; k < num_specs; k++) { 
+        for (k = 0; k < num_specs; k++) {
             for (j = 0; j < perms; j++) {
-                pop_ptr = &(pop(0, sample_one(perms), sample_one(K)));
+                pop_ptr = &(pop(sample_one(perms), 0, sample_one(K)));
                 res(j, k, i) = sample_n_distinct(specs_C, k + 1, pop_ptr);
             }
         }
