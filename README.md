@@ -62,6 +62,8 @@ To run the algorithm, do the following in a fresh R script:
 
 1. Import required R scripts as follows:
 
+> source("cube-sample.cpp")
+
 > source("HAC.sim.R")
 
 > source("HAC.simrep.R")
