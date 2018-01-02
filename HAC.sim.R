@@ -22,7 +22,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 1, plot.out = TRU
 	
 	## Create an ID for each haplotype ##
 	
-	haps <- as.character(1:Hstar)
+	haps <- 1:Hstar
 	
 	## Assign individuals (N) to each subpopulation (K) ##
 	
@@ -42,23 +42,23 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 1, plot.out = TRU
 	
 	## Make a matrix to hold individuals from each permutation ##
 
-	HAC.mat <- array(dim = c(perms, num.specs, K))
+	# HAC.mat <- array(dim = c(perms, num.specs, K))
 	
 	## Perform haplotype accumulation ##
 	
-	for (k in specs) {
-		for (j in 1:perms) {
-			for (i in 1:K) {
-				select.perm <- sample(1:nrow(pop), size = 1, replace = TRUE) # randomly sample a permutation
-				ind.index <- sample(specs, size = k, replace = FALSE) # randomly sample individuals
-				select.subpop <- sample(i, size = 1, replace = TRUE) # randomly sample a subpopulation
-				hap.plot <- pop[select.perm, ind.index, select.subpop] # extract data
-				HAC.mat[j, k, i] <- length(unique(hap.plot)) # how many haplotypes are recovered
-			}
-		}
-	}
+    # for (k in specs) {
+    # for (j in 1:perms) {
+    # for (i in 1:K) {
+    		# select.perm <- sample(1:nrow(pop), size = 1, replace = TRUE) # randomly sample a permutations
+			# ind.index <- sample(specs, size = k, replace = FALSE) # randomly sample individuals
+			# select.subpop <- sample(i, size = 1, replace = TRUE) # randomly sample a subpopulation
+			# hap.plot <- pop[select.perm, ind.index, select.subpop] # extract data
+			# HAC.mat[j, k, i] <- length(unique(hap.plot)) # how many haplotypes are recovered
+			# }
+		# }
+	# }
 	
-	# HAC.mat <- fillCube(pop, specs, perms, K)
+	HAC.mat <- fillCube(pop, specs, perms, K)
 	
 	## Calculate the mean and CI for number of haplotypes recovered
 
