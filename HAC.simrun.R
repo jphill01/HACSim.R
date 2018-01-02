@@ -8,8 +8,14 @@ setwd("/Users/jarrettphillips/Desktop/HAC simulation")
 
 remove(list = ls())
 
+### Load libraries ###
+
+library(Rcpp)
+library(RcppArmadillo)
+
 ### Load scripts ###
 
+source("cube-sample.cpp")
 source("HAC.sim.R")
 source("HAC.simrep.R")
 
