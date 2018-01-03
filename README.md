@@ -24,6 +24,8 @@ Function arguments to HAC.sim() are as follows:
 
 * **K** = Number of (equally-sized) (sub)populations/demes for a given species (**K** = 1 by default)
 
+* **m** = Overall migration rate between (sub)populations/demes for a given species (**m** = 0 by default)
+
 * **perms** = Number of permutations to generate species haplotype accumulation curve (**perms** = 10000 by default)
 
 * **p** = Proportion of species haplotypes to recover (**p** = 1 by default)
