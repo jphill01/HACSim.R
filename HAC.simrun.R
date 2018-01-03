@@ -21,10 +21,11 @@ source("HAC.simrep.R")
 
 ### Set parameters ###
 
-K <- 1  # number of equally-sized (sub)populations
 N <- 240 # total number of sampled individuals
 Hstar <- 15 # total number of haplotypes
 probs <- c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10)) # haplotype frequency distribution
+K <- 1  # number of equally-sized (sub)populations
+m <- 0 # migration rate between subpopulations
 perms <- 10000 # number of permutations
 p <- 1 # proportion of haplotypes to recover 
 plot.out <- TRUE # haplotype accumulation curve and haplotype frequency barplot
@@ -34,7 +35,7 @@ plot.out <- TRUE # haplotype accumulation curve and haplotype frequency barplot
 
 ptm <- proc.time() # set timer
 
-HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, perms = perms, p = p, plot.out = plot.out)
+HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, m = 0, perms = perms, p = p, plot.out = plot.out)
 HAC.simrep()
 
 proc.time() - ptm

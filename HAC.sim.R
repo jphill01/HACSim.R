@@ -1,6 +1,6 @@
 ### Haplotype Accumulation Curve Simulator ###
 
-HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 1, plot.out = TRUE) {
+HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.out = TRUE) {
 	
 	## Error messages ##
 	
@@ -18,7 +18,11 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 1, plot.out = TRU
 	
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
-	num.specs <- ceiling(N / K)
+	if (m = 0) {
+		num.specs <- ceiling(N / K)
+		} else {
+			num.specs <- ceiling(N * m / K)
+		}
 	
 	## Create an ID for each haplotype ##
 	
@@ -42,21 +46,21 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 1, plot.out = TRU
 	
 	## Make a matrix to hold individuals from each permutation ##
 
-	# HAC.mat <- array(dim = c(perms, num.specs, K))
+	#HAC.mat <- array(dim = c(perms, num.specs, K))
 	
 	## Perform haplotype accumulation ##
 	
-    # for (k in specs) {
-    # for (j in 1:perms) {
-    # for (i in 1:K) {
-    		# select.perm <- sample(1:nrow(pop), size = 1, replace = TRUE) # randomly sample a permutations
-			# ind.index <- sample(specs, size = k, replace = FALSE) # randomly sample individuals
-			# select.subpop <- sample(i, size = 1, replace = TRUE) # randomly sample a subpopulation
-			# hap.plot <- pop[select.perm, ind.index, select.subpop] # extract data
-			# HAC.mat[j, k, i] <- length(unique(hap.plot)) # how many haplotypes are recovered
-			# }
-		# }
-	# }
+    #for (k in specs) {
+    	#for (j in 1:perms) {
+    		#for (i in 1:K) {
+    			#select.perm <- sample(1:nrow(pop), size = 1, replace = TRUE) # randomly sample a permutations
+				#ind.index <- sample(specs, size = k, replace = FALSE) # randomly sample individuals
+				#select.subpop <- sample(i, size = 1, replace = TRUE) # randomly sample a subpopulation
+				#hap.plot <- pop[select.perm, ind.index, select.subpop] # extract data
+				#HAC.mat[j, k, i] <- length(unique(hap.plot)) # how many haplotypes are recovered
+			#}
+		#}
+	#}
 	
 	HAC.mat <- fillCube(pop, specs, perms, K)
 	
