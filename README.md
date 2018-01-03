@@ -94,8 +94,6 @@ Depending on the size of input parameters to the simulation, the algorithm in it
 
 * **probs** = rep(1/Hstar, Hstar)
 
-* **plot.out** = TRUE
-
 2. #### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) ####
 
 * **N** = 240
@@ -104,7 +102,6 @@ Depending on the size of input parameters to the simulation, the algorithm in it
  
 * **probs** = c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10))
 
-* **plot.out** = TRUE
 
 #### Custom user data ####
 
