@@ -18,7 +18,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
-	if (m == 0 || m = 1) {
+	if (m == 0 || m == 1) {
 		num.specs <- ceiling(N / K)
 		} else {
 			num.specs <- ceiling(N * m / K)
