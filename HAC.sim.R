@@ -17,12 +17,8 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	}
 	
 	## Set up container(s) to hold the identity of each individual from each permutation ##
-	
-	if (m == 0 || m == 1) {
-		num.specs <- ceiling(N / K)
-		} else {
-			num.specs <- ceiling(N * m / K)
-		}
+
+	num.specs <- ceiling(N / K)
 	
 	## Create an ID for each haplotype ##
 	
@@ -44,6 +40,14 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 		pop[,, i] <- replicate(perms, gen.perms())
 	}
 	
+	## Allow individuals from permutations to migrate between subpopulations ##
+	
+		if (m != 0){
+			ind <- sample(perms, size = perms * m, replace = FALSE)
+			pop[ind,, ] <- pop[sample(ind),, ]
+		}
+		
+
 	## Make a matrix to hold individuals from each permutation ##
 
 	#HAC.mat <- array(dim = c(perms, num.specs, K))
@@ -82,8 +86,11 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	S <- (Hstar - max(means)) / Hstar
 	assign("Nstar", (N * Hstar) / max(means), envir = .GlobalEnv)
 	X <- ((N * Hstar) / max(means)) - N
+	
+	linreg <- lm(means ~ specs, data = d)
+	beta1 <- coef(linreg)[[2]]
 				    
-	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Mean value of N*: ", Nstar, "\n Mean number of individuals not sampled: ", X, "\n \n")
+	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Mean value of N*: ", Nstar, "\n Mean number of individuals not sampled: ", X, "\n \n Curve slope: ", beta1, "\n \n")
 	
 	## Check whether desired level of haplotype recovery has been reached ##
 		
