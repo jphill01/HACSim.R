@@ -42,12 +42,11 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	
 	## Allow individuals from permutations to migrate between subpopulations ##
 	
-		if (m != 0){
+		if (m != 0) {
 			ind <- sample(perms, size = perms * m, replace = FALSE)
-			pop[ind,, ] <- pop[sample(ind),, ]
+			pop <- pop[ind,, ]
 		}
 		
-
 	## Make a matrix to hold individuals from each permutation ##
 
 	#HAC.mat <- array(dim = c(perms, num.specs, K))
