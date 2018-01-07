@@ -42,27 +42,11 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	
 	## Allow individuals from permutations to migrate between subpopulations ##
 	
-		if (m != 0) {
-			ind <- sample(perms, size = ceiling(perms * m), replace = FALSE)
-		}
+	if (m != 0) {
+		ind <- sample(perms, size = ceiling(perms * m), replace = FALSE)
+	}
 		
-	## Make a matrix to hold individuals from each permutation ##
-
-	#HAC.mat <- array(dim = c(perms, num.specs, K))
-	
 	## Perform haplotype accumulation ##
-	
-    #for (k in specs) {
-    	#for (j in 1:perms) {
-    		#for (i in 1:K) {
-    			#select.perm <- sample(1:nrow(pop), size = 1, replace = TRUE) # randomly sample a permutations
-				#ind.index <- sample(specs, size = k, replace = FALSE) # randomly sample individuals
-				#select.subpop <- sample(i, size = 1, replace = TRUE) # randomly sample a subpopulation
-				#hap.plot <- pop[select.perm, ind.index, select.subpop] # extract data
-				#HAC.mat[j, k, i] <- length(unique(hap.plot)) # how many haplotypes are recovered
-			#}
-		#}
-	#}
 	
 	HAC.mat <- fillCube(pop, specs, perms, K)
 	
