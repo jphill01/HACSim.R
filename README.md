@@ -36,7 +36,7 @@ HAC.sim() performs a single iteration of haplotype accumulation for a given spec
 
 Setting **p** = 1 corresponds to uncovering all haplotypes that may exist for a given species. This corresponds to the generated haplotype accumulation curve reaching a slope of zero. At this point, further sampling effort is unlikely to uncover any new haplotypes. 
 
-Both HAC.sim() and HAC.simrep() output simple "Measures of Sampling Closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proportions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species. In addition to haplotype accumulation curves, plots depicting empirical species haplotype frequency distributions are also displayed. 
+Both HAC.sim() and HAC.simrep() output simple "Measures of Sampling Closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proportions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species. In addition to haplotype accumulation curves, plots depicting species haplotype frequency distributions are also displayed. 
 
 Measures of Sampling Closeness for overall haplotype/specimen sampling completeness are given by the following fomulae (Phillips *et al.*, 2015):
 
