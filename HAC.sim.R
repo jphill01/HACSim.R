@@ -47,7 +47,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	## Allow individuals from permutations to migrate between subpopulations ##
 	
 	# if (m != 0) {
-		# ind <- sample(perms, size = ceiling(perms * m), replace = FALSE)
+		# ind <- sample(perms, size = ceiling(perms * m), replace = TRUE)
 	# }
 		
 	## Perform haplotype accumulation ##
