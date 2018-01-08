@@ -16,6 +16,7 @@ library(RcppArmadillo)
 ### Load scripts ###
 
 source("cube-sample.cpp")
+source("functions.R")
 source("HAC.sim.R")
 source("HAC.simrep.R")
 
