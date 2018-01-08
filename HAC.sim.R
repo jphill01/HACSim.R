@@ -4,12 +4,16 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	
 	## Error messages ##
 	
-	if (N < K){
+	if (N < K) {
 		stop("N must be greater than or equal to K")
 	}
 	
-	if (N < Hstar){
+	if (N < Hstar) {
 		stop("N must be greater than or equal to Hstar")
+	}
+	
+	if (N == 1) {
+		stop("N must be greater than 1")
 	}
 	
 	if (sum(probs) != 1){
