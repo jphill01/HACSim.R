@@ -48,7 +48,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	
 	if (m != 0) {
 		pop <- array2matrix(pop)
-		ind <- sample(perms, size = ceiling(perms * m), replace = TRUE)
+		ind <- sample(perms, size = ceiling(perms * m), replace = FALSE)
 		pop[ind, ] <-pop[sample(ind), ]
 		pop <- matrix2array(pop)
 	}
