@@ -35,7 +35,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	## Generate permutations, assume each permutation has N individuals, and sample those individuals' haplotypes from the probabilities ##
 	
 	gen.perms <- function() {
-		sample(haps, size = num.specs, replace = TRUE, prob = probs)
+		haps[sample(seq(haps), size = num.specs, replace = TRUE, prob = probs)]
 	}
 	
 	pop <- array(dim = c(perms, num.specs, K))
