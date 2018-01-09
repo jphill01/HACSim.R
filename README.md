@@ -56,7 +56,7 @@ In addition to users specifying unique values for **N**, **Hstar** and **probs**
 
 When incorporating population structure into simulations, it is assumed that haplotype diversity is identical across demes. In addition, when there are multiple demes for a species (*i.e.*, **K** > 1), resulting statistical output will display sample size across *all* demes, while the graphical output will show haplotype accumulation curves and haplotype frequency distribution *per* deme. So, for example, if **N** = 50 and **K** = 2, then there will be **N**/**K** = 25 individuals in each deme.
 
-Determination of **K** is not straightforward, and will require good judgement on the part of the user. One option is to simply set **K** equal to the number of sampling sites, as a proxy for the "true" value of **K**. 
+Determination of **K** is not straightforward, and will require good judgement on the part of the user. One option is to simply set **K** equal to the number of sampling sites, as a proxy for the "true" value of **K**. A better option is to employ software programs such as STRUCTURE (Pritchard *et al.*, 2000) in order to determine K via Bayesian methods. 
 
 ### Running the Simulation ###
 
