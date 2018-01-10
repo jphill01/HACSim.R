@@ -1,3 +1,5 @@
+### Data Type Conversion Functions ###
+
 array2matrix <- function(pop) {
   d <- dim(pop)
   ind <- seq_along(d)

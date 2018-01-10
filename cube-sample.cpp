@@ -1,4 +1,4 @@
-// Haplotype Accumulation function 
+// Haplotype Accumulation Function 
 
 // [[Rcpp::depends(RcppArmadillo)]]
 #define ARMA_DONT_PRINT_OPENMP_WARNING
