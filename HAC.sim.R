@@ -44,11 +44,11 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 		pop[,, i] <- replicate(perms, gen.perms())
 	}
 	
-	## Allow individuals from permutations (rows) to migrate between subpopulations (subarrays) according to migration rate m ##
+	## Allow individuals to migrate between subpopulations according to migration rate m ##
 	
 	if (m != 0) {
 		pop <- array2matrix(pop)
-		ind <- sample(num.specs, size = ceiling(num.specs * m), replace = TRUE)
+		ind <- sample(pop, size = ceiling(num.specs * m), replace = FALSE)
 		pop[ind, ] <- pop[sample(ind), ]
 		pop <- matrix2array(pop)
 	}
