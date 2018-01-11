@@ -22,7 +22,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 
-	num.specs <- ceiling(N / K)
+	num.specs <- round(N / K)
 	
 	## Create an ID for each haplotype ##
 	
@@ -48,7 +48,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	
 	if (m != 0) {
 		pop <- array2matrix(pop)
-		ind <- sample(perms, size = ceiling(num.specs * m), replace = FALSE)
+		ind <- sample(perms, size = round(num.specs * m), replace = FALSE)
 		pop[ind, ] <- pop[sample(ind), ]
 		pop <- matrix2array(pop)
 	}
