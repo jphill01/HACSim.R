@@ -84,7 +84,7 @@ Depending on the size of input parameters to the simulation, the algorithm in it
 
 In order to sucessfully run the simulation algorithm, the following conditions must hold:
 
-* **N** must be at greater than 1, since haplotype accumulation is not possible with singletons.
+* **N** must be greater than 1
 
 * **N** must be greater than or equal to **K**
 
