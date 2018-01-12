@@ -84,13 +84,13 @@ Depending on the size of input parameters to the simulation, the algorithm in it
 
 ### Error Messages ###
 
-**N** must be at greater than 1, since haplotype accumulation is not possible with singletons.
+* **N** must be at greater than 1, since haplotype accumulation is not possible with singletons.
 
-**N** must be greater than or equal to **K**
+* **N** must be greater than or equal to **K**
 
-**N** must be greater than or eqal to **Hstar**
+* **N** must be greater than or equal to **Hstar**
 
-**probs** must sum to 1
+* **probs** must sum to 1
 
 ### Examples (Step 2 above) ###
 
