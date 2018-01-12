@@ -30,8 +30,6 @@ Function arguments to HAC.sim() are as follows:
 
 * **plot.out** = An option to plot generated species haplotype accumulation curves (**plot.out** = TRUE by default)
 
-**N** must be at greater than 1, since haplotype accumulation is not possible with singletons.  
-
 **perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
 HAC.sim() performs a single iteration of haplotype accumulation for a given species. Resulting output reflects current levels of sampling effort found within BOLD for a given species. If the desired level of haplotype recovery is not reached, then HAC.simrep() (which takes no arguments) is called in order to perform successive iterations until the desired fraction of haplotypes captured is at least **p**.
@@ -83,6 +81,16 @@ To run the algorithm, do the following in a fresh R script:
 **NOTE**: Users must have a system compiler (e.g. Xcode Command Line Tools on MacOS) installed in order to run the algorithm sucessfully.  
 
 Depending on the size of input parameters to the simulation, the algorithm in its current form, can be quite slow to reach full convergence. For a species with equal haplotype frequency, saturation of the haplotype accumulation curve is (usually) reached very rapidly (one exception occurs when **N** = **Hstar**). On the other hand, for a species with many rare haplotypes, the generated haplotype accumulation curve will take signficantly longer to reach an asymptote, since rare haplotypes will not be sampled as frequently as dominant ones.
+
+# Error Messages
+
+**N** must be at greater than 1, since haplotype accumulation is not possible with singletons.
+
+**N** must be greater than or equal to **K**
+
+**N** must be greater than or eqal to **Hstar**
+
+**probs** must sum to 1
 
 ### Examples (Step 2 above) ###
 
