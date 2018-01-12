@@ -82,7 +82,7 @@ To run the algorithm, do the following in a fresh R script:
 
 Depending on the size of input parameters to the simulation, the algorithm in its current form, can be quite slow to reach full convergence. For a species with equal haplotype frequency, saturation of the haplotype accumulation curve is (usually) reached very rapidly (one exception occurs when **N** = **Hstar**). On the other hand, for a species with many rare haplotypes, the generated haplotype accumulation curve will take signficantly longer to reach an asymptote, since rare haplotypes will not be sampled as frequently as dominant ones.
 
-In order to sucessfully run the simulation algorithm, the follow must hold:
+In order to sucessfully run the simulation algorithm, the following conditions must hold:
 
 * **N** must be at greater than 1, since haplotype accumulation is not possible with singletons.
 
