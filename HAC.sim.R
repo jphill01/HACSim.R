@@ -48,7 +48,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	
 	if (m != 0) {
 		pop <- array2matrix(pop)
-		ind <- sample(pop, size = ceiling(num.specs * m), replace = FALSE)
+		ind <- sample(haps, size = ceiling(num.specs * m), replace = FALSE)
 		pop[ind, ] <- pop[sample(ind), ]
 		pop <- matrix2array(pop)
 	}
@@ -69,12 +69,12 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	
 	## Compute simple summary statistics and display output ##
 	
-	P <- max(means)
-	Q <- Hstar - max(means)
-	assign("R", max(means) / Hstar, envir = .GlobalEnv)
-	S <- (Hstar - max(means)) / Hstar
-	assign("Nstar", (N * Hstar) / max(means), envir = .GlobalEnv)
-	X <- ((N * Hstar) / max(means)) - N
+	P <- tail(means, n = 1)
+	Q <- Hstar - tail(means, n = 1)
+	assign("R", tail(means, n = 1) / Hstar, envir = .GlobalEnv)
+	S <- (Hstar - tail(means, n = 1)) / Hstar
+	assign("Nstar", (N * Hstar) / tail(means, n = 1), envir = .GlobalEnv)
+	X <- ((N * Hstar) / tail(means, n = 1)) - N
 				    
 	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Mean value of N*: ", Nstar, "\n Mean number of individuals not sampled: ", X, "\n \n")
 	
