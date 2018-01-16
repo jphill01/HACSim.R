@@ -48,12 +48,12 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	
 	if (m != 0) {
 		for (i in 1:K) {
-			subpop1 <- pop[,, i]
+			subpop1 <- pop[,, i - 1]
 			subpop2 <- pop[,, sample(i, size = 1, replace = TRUE)]
 			inds <- sample(perms, size = ceiling(perms * m), replace = TRUE)
-			tmp <- subpop1[inds[1]] # temporary variable
-			subpop1[inds[1]] <- subpop2[inds[2]]
-			subpop2[inds[2]] <- tmp		
+			tmp <- subpop1[inds[1], ] # temporary variable
+			subpop1[inds[1], ] <- subpop2[inds[2], ]
+			subpop2[inds[2], ] <- tmp		
 		}		
 	}
 
