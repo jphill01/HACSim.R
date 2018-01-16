@@ -53,7 +53,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 			ind1 <- sample(nrow(pop), size = ceiling(nrow(pop) * m), replace = TRUE)
 			ind2 <- sample(nrow(pop), size = ceiling(nrow(pop) * m), replace = TRUE)
 			tmp <- subpop1[ind1] # temporary variable
-			ind1 <- subpop2[ind2]
+			subpop[ind1] <- subpop2[ind2]
 			subpop2[ind2] <- tmp		
 		}
 	}
