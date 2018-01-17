@@ -53,7 +53,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 				subpop.j <- pop[,, j]
 				inds.ij <- sample(perms, size = ceiling(perms * m), replace = TRUE)
 				tmp <- subpop.j[inds.ij[2], ] # temporary variable
-				subpop.j[inds.ij[2], ] <- subpop.i[inds[1], ]
+				subpop.j[inds.ij[2], ] <- subpop.i[inds.ij[1], ]
 				subpop.i[inds.ij[1], ] <- tmp
 			}		
 		}
