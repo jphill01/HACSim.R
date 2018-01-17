@@ -51,12 +51,17 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 			for(j in 1:K) {
 				subpop.i <- pop[,, i]
 				subpop.j <- pop[,, j]
-				inds.ij <- sample(perms, size = ceiling(perms * m), replace = TRUE)
-				tmp <- subpop.j[inds.ij[2], ] # temporary variable
-				subpop.j[inds.ij[2], ] <- subpop.i[inds.ij[1], ]
-				subpop.i[inds.ij[1], ] <- tmp
-			}		
+				inds <- sample(perms, size = ceiling(perms * m), replace = FALSE)
+				
+				migrate <- function(){
+					tmp <- subpop.i[inds[2], ]
+					subpop.i[inds[2], ] <- subpop.j[inds[1], ]
+					subpop.j[inds[1], ] <- tmp
+				}
+				
+			}
 		}
+		pop <- migrate()
 	}
 
 	## Perform haplotype accumulation ##
