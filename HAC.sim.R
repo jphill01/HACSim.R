@@ -47,10 +47,10 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	## Allow individuals to migrate between subpopulations according to migration rate m ##
 	
 	if (m != 0) {
-		for(i in 1:K) {
-			for(j in 1:K){
-				i <- sample(pop, size = ceiling(num.specs * m), replace = TRUE)
-				j <- sample(pop, size = ceiling(num.specs * m), replace = TRUE)
+		for (i in 1:K) {
+			for (j in 1:K){
+				i <- sample(perms, size = ceiling(num.specs * m), replace = TRUE)
+				j <- sample(perms, size = ceiling(num.specs * m), replace = TRUE)
 				pop[c(i, j),, ] <- pop[c(j, i),, ]
 			}
 		}
