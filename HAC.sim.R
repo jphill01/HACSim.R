@@ -47,7 +47,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c("None", "Island", "
 	## Allow individuals to migrate between subpopulations according to migration rate m ##
 	
 	if (m != 0) {
-		if (model == "IBD") {
+		if (model == "Step") {
 			for (i in 1:K) {
 				for (j in 1:K) {
 					for(k in 2:(K - 1)) {
