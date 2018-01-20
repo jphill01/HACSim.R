@@ -50,7 +50,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c("None", "Island", "
 		if (model == "IBD") {
 			for (i in 1:K) {
 				for (j in 1:K) {
-					for(k in 1:dim(pop)[3]) {
+					for(k in 2:(dim(pop)[3] - 1) {
 						i <- sample(perms, size = ceiling(perms * m/2), replace = FALSE)
 						j <- sample(perms, size = ceiling(perms * m/2), replace = FALSE)
 						tmp <- pop[i,, sample(k)]
