@@ -51,9 +51,9 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 			for (j in 1:K) {
 				i <- sample(perms, size = ceiling(perms * m), replace = FALSE)
 				j <- sample(perms, size = ceiling(perms * m), replace = FALSE)
-				tmp <- pop[c(i, j),, ]
-				pop[c(i, j),, ] <- pop[c(j, i),, ]
-				pop[c(j, i),, ] <- tmp
+				tmp <- pop[i,, ]
+				pop[i,, ] <- pop[j,, ]
+				pop[j,, ] <- tmp
 			}
 		}
 	}
