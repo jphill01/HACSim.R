@@ -49,11 +49,13 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1, plot.ou
 	if (m != 0) {
 		for (i in 1:K) {
 			for (j in 1:K) {
-				i <- sample(perms, size = ceiling(perms * m), replace = FALSE)
-				j <- sample(perms, size = ceiling(perms * m), replace = FALSE)
-				tmp <- pop[i,, ]
-				pop[i,, ] <- pop[j,, ]
-				pop[j,, ] <- tmp
+				for(k in 1:dim(pop)[3]) {
+					i <- sample(perms, size = ceiling(perms * m), replace = FALSE)
+					j <- sample(perms, size = ceiling(perms * m), replace = FALSE)
+					tmp <- pop[i,, sample(k)]
+					pop[i,, sample(k)] <- pop[j,, sample(k)]
+					pop[j,, sample(k)] <- tmp
+				}
 			}
 		}
 	}
