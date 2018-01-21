@@ -24,6 +24,8 @@ Function arguments to HAC.sim() are as follows:
 
 * **m** = Overall migration rate between (sub)populations/demes for a given species (**m** = 0 by default)
 
+* **model** = Migration/gene flow model to simulate - one of "None", "Island" or "Step" (**model** = "None" by default)
+
 * **perms** = Number of permutations to generate species haplotype accumulation curve (**perms** = 10000 by default)
 
 * **p** = Proportion of species haplotypes to recover (**p** = 1 by default)
@@ -52,7 +54,7 @@ Measures of Sampling Closeness for overall haplotype/specimen sampling completen
 
 * Mean number of individuals not sampled: N* - N
 
-In addition to users specifying unique values for **N**, **Hstar** and **probs**, default parameters can also be altered in order to produce more interesting output (e.g., simulating multiple subpopulations). It may be necessary to increase **perms** in order to smooth out the curves, but this will increase algorithm runtime substantially. 
+In addition to users specifying unique values for **N**, **Hstar** and **probs**, default parameters can also be altered in order to produce more interesting output (e.g., simulating multiple subpopulations with or without migration/gene flow). It may be necessary to increase **perms** in order to smooth out the curves, but this will increase algorithm runtime substantially. 
 
 When incorporating population structure into simulations, it is assumed that haplotype diversity is identical across demes. In addition, when there are multiple demes for a species (*i.e.*, **K** > 1), resulting statistical output will display sample size across *all* demes, while the graphical output will show haplotype accumulation curves and haplotype frequency distribution *per* deme. So, for example, if **N** = 50 and **K** = 2, then there will be **N**/**K** = 25 individuals in each deme.
 
