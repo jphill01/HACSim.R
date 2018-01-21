@@ -24,7 +24,7 @@ Function arguments to HAC.sim() are as follows:
 
 * **m** = Overall migration rate between (sub)populations/demes for a given species (**m** = 0 by default)
 
-* **model** = Migration/gene flow model to simulate - one of "None", "Island" or "Step" (**model** = "None" by default)
+* **model** = Migration/gene flow model - one of "None", "Island" or "Step" (**model** = "None" by default)
 
 * **perms** = Number of permutations to generate species haplotype accumulation curve (**perms** = 10000 by default)
 
