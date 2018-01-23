@@ -5,26 +5,29 @@
 #include <set>
 using namespace Rcpp;
 
+arma::Cube<int> pop;
+double m;
+const String model;
+int i, j, k, K, perms;
+
+IntegerVector tmp;
+
 // [[Rcpp::export]]
-arma::Cube<int> migrate(arma::Cube<int> pop) {
-    String model;
-    int i, j, k, K, perms, tmp;
-    double m;
-    IntegerVector ind1, ind2;
-    
+arma::Cube<int> migrate_cpp(arma::Cube<int> pop) {
     if (m != 0) {
         if (model == "Step") {
-            for (i = 1; i < (K - 1); i++) {
-                for (j = 1; j < (K - 1); j++) {
-                        ind1 = RcppArmadillo::sample(perms, ceil(perms * m / 2), false);
-                        ind2 = RcppArmadillo::sample(perms, ceil(perms * m / 2), false);
-                        tmp = pop[ind1, RcppArmadillo::sample(i, ind1, true)];
-                        pop[ind1, RcppArmadillo::sample(i, ind1, true)] = pop[ind2, RcppArmadillo::sample(j, ind2, true)];
-                        pop[ind2, RcppArmadillo::sample(j, ind2, true)] = tmp;
-
+            for (i = 0; i < K; i++) {
+                for (j = 0; j < K; j++) {
+                    for(k = 1; k < (K - 1); k++) {
+                        i = RcppArmadillo::sample(perms, ceil(perms * m / 2), false);
+                        j = RcppArmadillo::sample(perms, ceil(perms * m / 2), false);
+                        tmp = pop[i, RcppArmadillo::sample(k, K, true)];
+                        pop[i, RcppArmadillo::sample(k, K, true)] = pop[j, RcppArmadillo::sample(k, K, true)];
+                        pop[j, RcppArmadillo::sample(k, K, true)] = tmp;
                     }
                 }
             }
         }
+    }
     return pop;
 }
