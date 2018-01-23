@@ -8,9 +8,7 @@ using namespace Rcpp;
 arma::Cube<int> pop;
 double m;
 const String model;
-int i, j, k, K, perms;
-
-IntegerVector tmp;
+int i, j, k, K, perms, tmp;
 
 // [[Rcpp::export]]
 arma::Cube<int> migrate_cpp(arma::Cube<int> pop) {
