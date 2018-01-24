@@ -49,8 +49,8 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c("None", "Island", "
     migrate_r <- function(pop) {
         if (m != 0) {
             if (model == "Step") {
+            	 ind <- sample(perms, size = ceiling(perms * m/2), replace = FALSE)
                 for (i in 1:(K - 1)) {
-                            ind <- sample(perms, size = ceiling(perms * m/2), replace = FALSE)
                             tmp <- pop[ind,, i]
                             pop[ind,, i] <- pop[ind,, i + 1]
                             pop[ind,, i + 1] <- tmp
