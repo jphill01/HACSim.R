@@ -46,7 +46,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c("None", "Island", "
 	
 	## Allow individuals to migrate between subpopulations according to migration rate m ##
     
-    migrate_r <- function(pop) {
+    migrate.r <- function(pop) {
         if (m != 0) {
             if (model == "Step") {
             	 ind <- sample(perms, size = ceiling(perms * m/2), replace = FALSE)
@@ -57,9 +57,10 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c("None", "Island", "
 					}
 				}
 			}
-	pop
-}
-migrate_r(pop)
+        pop
+    }
+
+    migrate.r(pop)
     
     # pop <- migrate_cpp(pop)
 
