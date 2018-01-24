@@ -8,15 +8,16 @@ using namespace Rcpp;
 arma::Cube<int> pop;
 double m;
 const String model;
-int i, ind, K, perms;
-double tmp;
+int K, perms, tmp;
+
+IntegerVector ind;
 
 // [[Rcpp::export]]
-arma::Cube<int> migrate(arma::Cube<int> pop) {
+arma::Cube<int> migrate() {
     if (m != 0) {
         if (model == "Step") {
-            ind <- sample(perms, ceil(perms * m/2), false);
-            for (i = 0; i < (K - 1); i++) {
+            ind = RcppArmadillo::sample<IntegerVector>(perms, ceil(perms * m/2), false);
+            for (int i = 0; i < (K - 1); i++) {
                         tmp = pop[ind, i];
                         pop[ind, i] = pop[ind, i + 1];
                         pop[ind, i + 1] = tmp;
