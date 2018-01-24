@@ -15,7 +15,7 @@ double tmp;
 arma::Cube<int> migrate_cpp(arma::Cube<int> pop) {
     if (m != 0) {
         if (model == "Step") {
-            ind <- sample(perms, size = ceiling(perms * m/2), replace = FALSE)
+            ind <- sample(perms, ceiling(perms * m/2), false)
             for (i = 0; i < (K - 1); i++) {
                         tmp = pop[ind, i];
                         pop[ind, i] = pop[ind,, i + 1];
