@@ -12,13 +12,13 @@ int i, ind, K, perms;
 double tmp;
 
 // [[Rcpp::export]]
-arma::Cube<int> migrate_cpp(arma::Cube<int> pop) {
+arma::Cube<int> migrate(arma::Cube<int> pop) {
     if (m != 0) {
         if (model == "Step") {
-            ind <- sample(perms, ceiling(perms * m/2), false)
+            ind <- sample(perms, ceil(perms * m/2), false);
             for (i = 0; i < (K - 1); i++) {
                         tmp = pop[ind, i];
-                        pop[ind, i] = pop[ind,, i + 1];
+                        pop[ind, i] = pop[ind, i + 1];
                         pop[ind, i + 1] = tmp;
                     }
                 }
