@@ -1,6 +1,6 @@
 ### Haplotype Accumulation Curve Simulator ###
 
-HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c("None", "Island", "IBD"), perms = 10000, p = 1, plot.out = TRUE) {
+HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c("None", "Island", "Step"), perms = 10000, p = 1, plot.out = TRUE) {
 	
 	## Error messages ##
 	
@@ -45,22 +45,28 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c("None", "Island", "
 	}
 	
 	## Allow individuals to migrate between subpopulations according to migration rate m ##
-	
-	if (m != 0) {
-		if (model == "Step") {
-			for (i in 1:K) {
-				for (j in 1:K) {
-					for(k in 2:(K - 1)) {
-						i <- sample(perms, size = ceiling(perms * m/2), replace = FALSE)
-						j <- sample(perms, size = ceiling(perms * m/2), replace = FALSE)
-						tmp <- pop[i,, sample(k)]
-						pop[i,, sample(k)] <- pop[j,, sample(k)]
-						pop[j,, sample(k)] <- tmp
+    
+    migrate_r <- function(pop) {
+        if (m != 0) {
+            if (model == "Step") {
+                for (i in 1:K) {
+                    for (j in 1:K) {
+                        for (k in 1:K) {
+                            i <- sample(perms, size = ceiling(perms * m/2), replace = FALSE)
+                            j <- sample(perms, size = ceiling(perms * m/2), replace = FALSE)
+                            tmp <- pop[i,, sample(k)]
+                            pop[i,, sample(k)] <- pop[j,, sample(k)]
+                            pop[j,, sample(k)] <- tmp
 					}
 				}
 			}
 		}
 	}
+	pop
+}
+migrate_r(pop)
+    
+    # pop <- migrate_cpp(pop)
 
 	## Perform haplotype accumulation ##
 	
