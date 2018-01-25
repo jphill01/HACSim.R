@@ -5,12 +5,12 @@
 #include <set>
 using namespace Rcpp;
 
-arma::Cube<int> pop;
 double m;
-const String model;
+String model;
 int K, perms, tmp;
 
 IntegerVector ind;
+arma::Cube<int> pop;
 
 // [[Rcpp::export]]
 arma::Cube<int> migrate() {
