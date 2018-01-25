@@ -1,4 +1,4 @@
-# HACSim.R
+# HACSim.R #
 
 HACSim.R is a novel R simulation of haplotype accumulation curves. The present simulation algorithm can be employed in order to determine required sample sizes for DNA barcoding, specifically as pertaining to recovery of total haplotype variation for a given species.
 
@@ -113,13 +113,13 @@ In order to sucessfully run the simulation algorithm, the following conditions m
 * **probs** = c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10))
 
 
-#### Custom user data ####
+### Custom user data ###
 
 Users can implement their own custom species barcode datasets mined from BOLD (not necessarily 5'-COI), but will first need to collapse DNA sequences into haplotypes and then extract the haplotype frequency distribution in order to determine values for **Hstar** and **probs**. This can be accomplished in many ways including, but not limited to the R package 'spider' (Brown *et al.*, 2012), or online interfaces such as FaBox (http://users-birc.au.dk/biopv/php/fabox/). In general, alignments should be of sufficiently high quality (*i.e.*, non-GenBank, at least 500 bp in length, and free of ambiguous/missing nucleotide bases, since these can lead to overestimation of overall haplotype diversity for a given species).
 
 Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (Example 2 above) are included for download from this repository.
 
-#### Citing This Work ####
+# Citing This Work #
 
 In utilizing HAc.sim, please cite the following publication:
 
