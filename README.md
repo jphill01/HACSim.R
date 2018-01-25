@@ -119,8 +119,8 @@ Users can implement their own custom species barcode datasets mined from BOLD (n
 
 Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (Example 2 above) are included for download from this repository.
 
-# Citing This Work #
+### Citing This Work ###
 
-In utilizing HAc.sim, please cite the following publication:
+In utilizing HAC.sim, please cite the following publication:
 
 **Phillips, J.D.**, Gwiazdowski, R.A., Ashlock, D. and Hanner, R. (2015). An exploration of sufficient sampling effort to describe intraspecific DNA barcode haplotype diversity: examples from the ray-finned fishes (Chordata: Actinopterygii). *DNA Barcodes*, **3**: 66-73.
