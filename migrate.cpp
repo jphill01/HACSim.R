@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 double m;
 String model;
-int K, perms, tmp;
+int K, num_specs, perms, tmp;
 
 IntegerVector ind;
 arma::Cube<int> pop;
@@ -16,7 +16,7 @@ arma::Cube<int> pop;
 arma::Cube<int> migrate() {
     if (m != 0) {
         if (model == "Island") {
-            ind = RcppArmadillo::sample<IntegerVector>(perms, ceil(perms * m), false);
+            ind = RcppArmadillo::sample<IntegerVector>(perms, ceil(num_specs * m), true);
                 for (int i = 0; i < (K - 1); i++) {
                     tmp = pop[ind, i];
                     pop[ind, i] = pop[ind, i + 1];
