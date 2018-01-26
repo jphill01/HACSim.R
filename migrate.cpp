@@ -10,10 +10,9 @@ String model;
 int K, num_specs, perms, tmp;
 
 IntegerVector ind;
-arma::Cube<int> pop;
 
 // [[Rcpp::export]]
-arma::Cube<int> migrate() {
+arma::Cube<int> migrate(arma::Cube<int> pop) {
     if (m != 0) {
         if (model == "Island") {
             ind = RcppArmadillo::sample<IntegerVector>(perms, ceil(num_specs * m), true);
