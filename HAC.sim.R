@@ -62,9 +62,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 
     #migrate.r()
    
-    	if (model == "Step") {
-    		pop <- migrate()
-    	}
+    pop <- migrate()
 
 	## Perform haplotype accumulation ##
 	
