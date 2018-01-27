@@ -22,7 +22,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 	
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 
-	numspecs <- ceiling(N / K)
+	num.specs <- ceiling(N / K)
 	
 	## Create an ID for each haplotype ##
 	
@@ -30,15 +30,15 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 	
 	## Assign individuals (N) to each subpopulation (K) ##
 	
-	specs <- 1:numspecs
+	specs <- 1:num.specs
 	
 	## Generate permutations, assume each permutation has N individuals, and sample those individuals' haplotypes from the probabilities ##
 	
 	gen.perms <- function() {
-		sample(haps, size = numspecs, replace = TRUE, prob = probs)
+		sample(haps, size = num.specs, replace = TRUE, prob = probs)
 	}
 	
-	pop <- array(dim = c(perms, numspecs, K))
+	pop <- array(dim = c(perms, num.specs, K))
 	
 	for (i in 1:K) {
 		pop[,, i] <- replicate(perms, gen.perms())
@@ -49,7 +49,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
     #migrate <- function() {
     	#if (m != 0) {
     		#if (model == "Island") {
-    			#ind <- sample(perms, size = ceiling(numspecs * m), replace = TRUE)
+    			#ind <- sample(perms, size = ceiling(perms * m), replace = TRUE)
     				#for (i in 1:(K - 1)) {
     					#tmp <- pop[ind,, i]
                         #	pop[ind,, i] <- pop[ind,, i + 1]
@@ -104,7 +104,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 		plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
 		polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 		lines(specs, means, lwd = 2)
-		HAC.bar <- barplot(numspecs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
+		HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
 		}
 
 }
