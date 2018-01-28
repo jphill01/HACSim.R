@@ -6,11 +6,12 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-arma::Cube<int> migrate(arma::Cube<int> pop,
-                        String model,
-                        double m,
-                        int K,
-                        int perms) {
+arma::Cube<int> migrate(arma::Cube<int> pop) {
+    
+    String model,
+    double m,
+    int K,
+    int perms
     
     if (model == "Island") {
         IntegerVector ind = RcppArmadillo::sample<IntegerVector>(perms, ceil(perms * m), true);
