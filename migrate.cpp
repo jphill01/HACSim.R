@@ -9,12 +9,12 @@ using namespace Rcpp;
 arma::Cube<int> migrate(arma::Cube<int> pop) {
     String model;
     double m;
-    int K, perms;
+    int K, perms, tmp;
     
     if (model == "Island") {
         IntegerVector ind = RcppArmadillo::sample<IntegerVector>(perms, ceil(perms * m), true);
         for (int i = 0; i < (K - 1); i++) {
-            int tmp = pop[ind, i];
+            tmp = pop[ind, i];
             pop[ind, i] = pop[ind, i + 1];
             pop[ind, i + 1] = tmp;
         }
