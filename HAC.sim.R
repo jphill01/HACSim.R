@@ -32,7 +32,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 	
 	specs <- 1:num.specs
 	
-	## Generate permutations, assume each permutation has N individuals, and sample those individuals' haplotypes from the probabilities ##
+	## Generate permutations, assume each permutation has N/K individuals, and sample those individuals' haplotypes from the probabilities ##
 	
 	gen.perms <- function() {
 		sample(haps, size = num.specs, replace = TRUE, prob = probs)
