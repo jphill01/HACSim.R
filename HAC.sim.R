@@ -52,17 +52,17 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
     			#ind <- sample(perms, size = ceiling(perms * m), replace = TRUE)
     				#for (i in 1:(K - 1)) {
     					#tmp <- pop[ind,, i]
-                        #pop[ind,, i] <- pop[ind,, i + 1]
-                        	#pop[ind,, i + 1] <- tmp
-                    #}
-				#}
-			#}
-	#pop
+    					#pop[ind,, i] <- pop[ind,, i + 1]
+                       #pop[ind,, i + 1] <- tmp
+				#} 
+			#}	
+		#}
+		#pop	
 	#}
 
-    #migrate(pop)
+    # pop <- migrate(pop)
    
-   pop <- migrate(pop)
+    pop <- migrate(pop)
 
 	## Perform haplotype accumulation ##
 	
