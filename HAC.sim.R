@@ -46,23 +46,23 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 	
 	## Allow individuals to migrate between subpopulations according to migration rate m ##
     
-    migrate <- function(pop) {
-    	if (m != 0) {
-    		if (model == "Island") {
-    			ind <- sample(pop, size = ceiling(num.specs * m), replace = FALSE)
-    			for (i in 1:(K - 1)) {
-    				tmp <- pop[ind,, i]
-    				pop[ind,, i] <- pop[ind,, i + 1]
-    				pop[ind,, i + 1] <- tmp
-    			}
-			}	
-		}
-		pop
-	}
-
-    pop <- migrate(pop)
+    # migrate <- function(pop) {
+    	# if (m != 0) {
+    		# if (model == "Island") {
+    			# ind <- sample(pop, size = ceiling(perms * m), replace = FALSE)
+    			# for (i in 1:(K - 1)) {
+    				# tmp <- pop[ind,, i]
+    				# pop[ind,, i] <- pop[ind,, i + 1]
+    				# pop[ind,, i + 1] <- tmp
+    			# }
+			# }	
+		# }
+		# pop
+	# }
 
     # pop <- migrate(pop)
+
+    pop <- migrate(pop)
 
 	## Perform haplotype accumulation ##
 	
