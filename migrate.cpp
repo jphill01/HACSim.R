@@ -10,7 +10,7 @@ arma::Cube<int> migrate(arma::Cube<int> pop) {
     
     String model;
     double m = 0;
-    int K = 1;
+    int K = 0;
     int perms;
     
     if (model == "Island") {
