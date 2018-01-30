@@ -16,9 +16,9 @@ arma::Cube<int> migrate(arma::Cube<int> pop) {
     if (m != 0 && model == "Island") {
         IntegerVector ind = RcppArmadillo::sample<IntegerVector>(perms, ceil(perms * m), true);
         for (int i = 0; i < (K - 1); i++) {
-            int tmp = pop[ind, i];
-            pop[ind, i] = pop[ind, i + 1];
-            pop[ind, i + 1] = tmp;
+            int tmp = pop[ind[i]];
+            pop[ind[i]] = pop[ind[i + 1]];
+            pop[ind[i + 1]] = tmp;
         }
         return pop;
         } else {
