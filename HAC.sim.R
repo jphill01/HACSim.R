@@ -46,23 +46,21 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 	
 	## Allow individuals to migrate between subpopulations according to migration rate m ##
     
-    # migrate <- function(pop) {
-    	# if (m != 0) {
-    		# if (model == "Island") {
-    			# ind <- sample(pop, size = ceiling(perms * m), replace = FALSE)
-    			# for (i in 1:(K - 1)) {
-    				# tmp <- pop[ind,, i]
-    				# pop[ind,, i] <- pop[ind,, i + 1]
-    				# pop[ind,, i + 1] <- tmp
-    			# }
-			# }	
-		# }
-		# pop
-	# }
-
-    # pop <- migrate(pop)
+    migrate <- function(pop) {
+    	if (m != 0 && model == "Island") {
+    		ind <- sample(pop, size = ceiling(perms * m), replace = FALSE)
+    			for (i in 1:(K - 1)) {
+    				tmp <- pop[ind,, i]
+    				pop[ind,, i] <- pop[ind,, i + 1]
+    				pop[ind,, i + 1] <- tmp
+    			}
+			}
+			pop
+		}
 
     pop <- migrate(pop)
+
+    #pop <- migrate(pop)
 
 	## Perform haplotype accumulation ##
 	
@@ -99,12 +97,11 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 	
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
 	
-	if (plot.out == TRUE) {
 		par(mfrow = c(1, 2))
 		plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
 		polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 		lines(specs, means, lwd = 2)
 		HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
-		}
+
 
 }
