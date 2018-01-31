@@ -8,7 +8,7 @@ Within the simulation algorithm, species haplotypes are treated as distinct char
 
 HACSim.R comprises two main functions (relevant code found in the files HAC.sim.R and HAC.simrep.R):
 
-> HAC.sim(N, Hstar, probs, K = 1, perms = 10000, p = 1, plot.out = TRUE)
+> HAC.sim(N, Hstar, probs, K = 1, m = 0, model = NULL, perms = 10000, p = 1)
 
 > HAC.simrep().
 
@@ -24,7 +24,7 @@ Function arguments to HAC.sim() are as follows:
 
 * **m** = Overall migration rate between (sub)populations/demes for a given species (**m** = 0 by default)
 
-* **model** = Migration/gene flow model - one of "None", "Island" or "Step" (**model** = "None" by default)
+* **model** = Migration/gene flow model - one of NULL, "Island" or "Step" (**model** = NULL by default)
 
 * **perms** = Number of permutations to generate species haplotype accumulation curve (**perms** = 10000 by default)
 
@@ -76,7 +76,7 @@ To run the algorithm, do the following in a fresh R script:
 
 3. Run the following lines of code in succession:
 
-> HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, m = 0, perms = perms, p = p, plot.out = TRUE)
+> HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, m = 0, model = model, perms = perms, p = p)
 
 > HAC.simrep() **(needed only if HAC.sim() does not converge to at least p)**
 
