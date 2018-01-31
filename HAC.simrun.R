@@ -30,14 +30,12 @@ m <- 0 # migration rate between subpopulations
 model <- NULL
 perms <- 10000 # number of permutations
 p <- 1 # proportion of haplotypes to recover 
-plot.out <- TRUE # haplotype accumulation curve and haplotype frequency barplot
-
 
 ### Run simulations ###
 
 ptm <- proc.time() # set timer
 
-HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, m = m, model = model, perms = perms, p = p, plot.out = plot.out)
+HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, m = m, model = model, perms = perms, p = p)
 HAC.simrep()
 
 proc.time() - ptm
