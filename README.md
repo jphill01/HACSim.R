@@ -8,7 +8,7 @@ Within the simulation algorithm, species haplotypes are treated as distinct char
 
 HACSim.R comprises two main functions (relevant code found in the files HAC.sim.R and HAC.simrep.R):
 
-> HAC.sim(N, Hstar, probs, K = 1, m = 0, model = NULL, perms = 10000, p = 1)
+> HAC.sim(N, Hstar, probs, K = 1, m = 0, model = NULL, perms = 10000, p = 0.95)
 
 > HAC.simrep().
 
@@ -28,13 +28,13 @@ Function arguments to HAC.sim() are as follows:
 
 * **perms** = Number of permutations to generate species haplotype accumulation curve (**perms** = 10000 by default)
 
-* **p** = Proportion of species haplotypes to recover (**p** = 1 by default)
+* **p** = Proportion of species haplotypes to recover (**p** = 0.95 by default)
 
 **perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
 HAC.sim() performs a single iteration of haplotype accumulation for a given species. Resulting output reflects current levels of sampling effort found within BOLD for a given species. If the desired level of haplotype recovery is not reached, then HAC.simrep() (which takes no arguments) is called in order to perform successive iterations until the desired fraction of haplotypes captured is at least **p**.
 
-Setting **p** = 1 corresponds to uncovering all haplotypes that may exist for a given species. This corresponds to the generated haplotype accumulation curve reaching a slope close to zero. At this point, further sampling effort is unlikely to uncover any new haplotypes. 
+Setting **p** = 0.95 corresponds to uncovering 95% of all haplotypes that may exist for a given species. At this level, the generated haplotype accumulation curve reaching a slope close to zero and further sampling effort is unlikely to uncover any new haplotypes. 
 
 Both HAC.sim() and HAC.simrep() output simple "Measures of Sampling Closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proportions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species. In addition to haplotype accumulation curves, plots depicting species haplotype frequency distributions are also displayed. 
 
