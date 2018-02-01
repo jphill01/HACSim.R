@@ -35,7 +35,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 	## Generate permutations, assume each permutation has N/K individuals, and sample those individuals' haplotypes from the probabilities ##
 	
 	gen.perms <- function() {
-		sample(sample(haps), size = num.specs, replace = TRUE, prob = probs)
+		sample(haps, size = num.specs, replace = TRUE, prob = probs)
 	}
 	
 	pop <- array(dim = c(perms, num.specs, K))
@@ -100,6 +100,5 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 		polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 		lines(specs, means, lwd = 2)
 		HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
-
 
 }
