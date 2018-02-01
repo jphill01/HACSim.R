@@ -15,7 +15,7 @@ arma::Cube<int> migrate(arma::Cube<int> pop) {
     
     if (m != 0 && model == "Step") {
         for (int i = 0; i < (K - 1); i++) {
-            IntegerVector ind = RcppArmadillo::sample<IntegerVector>(pop[i], ceil(num_specs * m), false);
+            IntegerVector ind = RcppArmadillo::sample<IntegerVector>(pop[i], ceil(num_specs * m), true);
             int tmp = pop[ind[i]];
             pop[ind[i]] = pop[ind[i + 1]];
             pop[ind[i + 1]] = tmp;
