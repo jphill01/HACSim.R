@@ -1,6 +1,6 @@
 ### Haplotype Accumulation Curve Simulator ###
 
-HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "Step"), perms = 10000, p = 1) {
+HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "Step"), perms = 10000, p = 0.95) {
 	
 	## Error messages ##
 	
@@ -46,17 +46,17 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 	
 	## Allow individuals to migrate between subpopulations according to migration rate m ##
     
-    migrate <- function(pop) {
-    	if (m != 0 && model == "Step") {
-    		for (i in 1:(K - 1)) {
-    			ind <- sample(perms, size = ceiling(num.specs * m), replace = TRUE)
-    				tmp <- pop[ind,, i]
-    				pop[ind,, i] <- pop[ind,, i + 1]
-    				pop[ind,, i + 1] <- tmp
-    			}
-			}
-		pop
-	}
+    #migrate <- function(pop) {
+    	#if (m != 0 && model == "Step") {
+    		#for (i in 1:(K - 1)) {
+    			#ind <- sample(perms, size = ceiling(num.specs * m), replace = TRUE)
+    				#tmp <- pop[ind,, i]
+    				#pop[ind,, i] <- pop[ind,, i + 1]
+    				#pop[ind,, i + 1] <- tmp
+    			#}
+			#}
+		#pop
+	#}
 	
     pop <- migrate(pop)
 
