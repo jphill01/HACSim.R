@@ -11,7 +11,7 @@ arma::Cube<int> migrate(arma::Cube<int> pop) {
     String model;
     double m = 0;
     int N = 0, K = 0, perms;
-    int num_specs = ceil(N / K)
+    int num_specs = ceil(N / K);
     
     if (m != 0 && model == "Step") {
         for (int i = 0; i < (K - 1); i++) {
