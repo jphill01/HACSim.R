@@ -13,15 +13,16 @@ arma::Cube<int> migrate(arma::Cube<int> pop) {
     int N = 0, K = 0, perms;
     int num_specs = ceil(N / K);
     
-    if (m != 0 && model == "Step") {
-        for (int i = 0; i < (K - 1); i++) {
+    if (K = 1, m = 0 && model == NULL) {
+        return pop;
+    } else {
+        for (int i = 0; i < (K - 1); i++) {     // K > 1 && m != 0 && model == "Step"
             IntegerVector ind = RcppArmadillo::sample<IntegerVector>(perms, ceil(num_specs * m), true);
             int tmp = pop[ind[i]];
             pop[ind[i]] = pop[ind[i + 1]];
             pop[ind[i + 1]] = tmp;
         }
         return pop;
-        } else {
-            return pop;
-            }
+    }
+    
     }
