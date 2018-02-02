@@ -62,7 +62,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 
 	## Perform haplotype accumulation ##
 	
-	HAC.mat <- HACaccum(pop, specs, perms, K)
+	HAC.mat <- accumulate(pop, specs, perms, K)
 	
 	## Calculate the mean and CI for number of haplotypes recovered
 

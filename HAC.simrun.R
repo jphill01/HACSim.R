@@ -15,7 +15,7 @@ library(RcppArmadillo)
 
 ### Load scripts ###
 
-source("HACaccum.cpp")
+source("accumulate.cpp")
 source("migrate.cpp")
 source("HAC.sim.R")
 source("HAC.simrep.R")
