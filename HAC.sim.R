@@ -34,21 +34,21 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 	
 	## Generate permutations, assume each permutation has N/K individuals, and sample those individuals' haplotypes from the probabilities ##
 	
-	#gen.perms <- function() {
-		#sample(haps, size = num.specs, replace = TRUE, prob = probs)
-	#}
-	
-	#pop <- array(dim = c(perms, num.specs, K))
-	
-	#for(i in 1:K) {
-		#pop[,, i] <- replicate(perms, gen.perms())
-	#}
-	
-	pop <- array(sample(haps, size = num.specs, replace = TRUE, prob = probs), dim = c(perms, num.specs))
-	
-	for(i in 2:K) {
-		pop <- abind(pop, array(sample(haps, size = num.specs, replace = TRUE, prob = probs), dim = c(perms, num.specs)), along = 3)
+	gen.perms <- function() {
+		sample(haps, size = num.specs, replace = TRUE, prob = probs)
 	}
+	
+	pop <- array(dim = c(perms, num.specs, K))
+	
+	for(i in 1:K) {
+		pop[,, i] <- replicate(perms, gen.perms())
+	}
+	
+	#pop <- array(sample(haps, size = num.specs, replace = TRUE, prob = probs), dim = c(perms, num.specs))
+	
+	#for(i in 2:K) {
+		#pop <- abind(pop, array(sample(haps, size = num.specs, replace = TRUE, #prob = probs), dim = c(perms, num.specs)), along = 3)
+	#}
 
 ## Allow individuals to migrate between subpopulations according to migration rate m ##
 		
