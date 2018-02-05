@@ -29,7 +29,7 @@ K <- 1  # number of equally-sized (sub)populations
 m <- 0 # migration rate between subpopulations
 model <- NULL
 perms <- 10000 # number of permutations
-p <- 1 # proportion of haplotypes to recover 
+p <- 0.95 # proportion of haplotypes to recover 
 
 ### Run simulations ###
 
