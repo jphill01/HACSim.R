@@ -1,6 +1,6 @@
 ### Haplotype Accumulation Curve Simulator ###
 
-HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "Step"), perms = 10000, p = 0.95) {
+HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Step"), perms = 10000, p = 1) {
 	
 	## Error messages ##
 	
@@ -43,12 +43,6 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 	for(i in 1:K) {
 		pop[,, i] <- replicate(perms, gen.perms())
 	}
-	
-	#pop <- array(sample(haps, size = num.specs, replace = TRUE, prob = probs), dim = c(perms, num.specs))
-	
-	#for(i in 2:K) {
-		#pop <- abind(pop, array(sample(haps, size = num.specs, replace = TRUE, #prob = probs), dim = c(perms, num.specs)), along = 3)
-	#}
 
 ## Allow individuals to migrate between subpopulations according to migration rate m ##
 		
@@ -75,7 +69,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Island", "St
 	assign("R", tail(means, n = 1) / Hstar, envir = .GlobalEnv)
 	S <- (Hstar - tail(means, n = 1)) / Hstar
 	assign("Nstar", (N * Hstar) / tail(means, n = 1), envir = .GlobalEnv)
-	X <- ((N * Hstar) / tail(means, n = 1)) - N
+	assign("X", ((N * Hstar) / tail(means, n = 1)) - N, envir = .GlobalEnv)
 				    
 	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Mean value of N*: ", Nstar, "\n Mean number of individuals not sampled: ", X, "\n \n")
 	
