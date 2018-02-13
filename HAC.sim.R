@@ -69,7 +69,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Step"), perm
 	assign("R", tail(means, n = 1) / Hstar, envir = .GlobalEnv)
 	S <- (Hstar - tail(means, n = 1)) / Hstar
 	assign("Nstar", (N * Hstar) / tail(means, n = 1), envir = .GlobalEnv)
-	assign("X", ((N * Hstar) / tail(means, n = 1)) - N, envir = .GlobalEnv)
+	X <- ((N * Hstar) / tail(means, n = 1)) - N
 				    
 	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Mean value of N*: ", Nstar, "\n Mean number of individuals not sampled: ", X, "\n \n")
 	
@@ -78,7 +78,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, model = c(NULL, "Step"), perm
 	if (R < p) {
 		cat("Desired level of H* has not yet been reached \n")
 		} else{
-			cat("Desired level of H* has been reached")
+			cat("Desired level of H* has been reached \n")
 	}
 	
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
