@@ -1,6 +1,6 @@
 ### Haplotype Accumulation Curve Simulator ###
 
-HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 1) {
+HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 1) {
 	
 	## Error messages ##
 	
@@ -46,7 +46,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 1) {
 	
 ## Allow individuals to migrate between subpopulations according to migration rate m ##
 		
-   # pop <- migrate(pop)
+   pop <- migrate(pop)
 
 	## Perform haplotype accumulation ##
 	
@@ -69,9 +69,14 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 1) {
 	assign("R", tail(means, n = 1) / Hstar, envir = .GlobalEnv)
 	S <- (Hstar - tail(means, n = 1)) / Hstar
 	assign("Nstar", (N * Hstar) / tail(means, n = 1), envir = .GlobalEnv)
-	X <- ((N * Hstar) / tail(means, n = 1)) - N
+	assign("X", ((N * Hstar) / tail(means, n = 1)) - N, envir = .GlobalEnv)
+	
+	## Calculate slope of curve using last 10 points ##
+	
+	lin.reg <- lm(means ~ specs, data = tail(d, n = 10))
+	b1 <- coef(lin.reg)[[2]] 
 				    
-	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Mean value of N*: ", Nstar / K, "\n Mean number of individuals not sampled: ", X, "\n \n")
+	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Mean value of N*: ", Nstar / K, "\n Mean number of individuals not sampled: ", X, "\n \n Curve slope: ", b1, "\n \n One new haplotype will be found for every", ceiling(1 / b1), "DNA sequences sampled", "\n \n")
 	
 	## Check whether desired level of haplotype recovery has been reached ##
 		
