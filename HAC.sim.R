@@ -1,6 +1,14 @@
-### Haplotype Accumulation Curve Simulator ###
+### Haplotype Accumulation Curve Simulation ###
 
-HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95) {
+# N = Number of specimens (DNA sequences)
+# H = Number of observed unique haplotypes
+# probs = Probability frequency distribution of haplotypes
+# K = Number of (sub)populations (demes, sampling sites) 
+# m = Overall migration rate between (sub)populations (m  = [0, 1])
+# perms = Number of permutations
+# p = Proportion of unique haplotypes to recover
+
+HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95) {
 	
 	## Error messages ##
 	
@@ -69,7 +77,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95) {
 	assign("R", tail(means, n = 1) / Hstar, envir = .GlobalEnv)
 	S <- (Hstar - tail(means, n = 1)) / Hstar
 	assign("Nstar", (N * Hstar) / tail(means, n = 1), envir = .GlobalEnv)
-	assign("X", ((N * Hstar) / tail(means, n = 1)) - N, envir = .GlobalEnv)
+	X <- ((N * Hstar) / tail(means, n = 1)) - N
 	
 	## Calculate slope of curve using last 10 points ##
 	
