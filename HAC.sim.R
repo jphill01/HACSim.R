@@ -1,5 +1,6 @@
 ### Haplotype Accumulation Curve Simulation ###
 
+# seqs = FASTA sequence file
 # N = Number of specimens (DNA sequences)
 # H = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
@@ -8,7 +9,17 @@
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
 
-HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95) {
+HAC.sim <- function(seqs = NULL, N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95) {
+	
+	## Load sequence data ##
+	
+	if (!is.null(seqs)) {
+		seqs <- read.dna(file = file.choose(), format = "fasta")
+		N <- dim(seqs)[[1]]
+		h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
+		rownames(h) <- 1:nrow(h)
+		Hstar <- dim(h)[[1]]
+	}
 	
 	## Error messages ##
 	
