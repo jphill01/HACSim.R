@@ -1,6 +1,5 @@
 ### Haplotype Accumulation Curve Simulation ###
 
-# seqs = FASTA sequence file
 # N = Number of specimens (DNA sequences)
 # H = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
@@ -8,19 +7,22 @@
 # m = Overall migration rate between (sub)populations (m  = [0, 1])
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
+# seqs = FASTA sequence file
 
-HAC.sim <- function(seqs = NULL, N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95) {
+
+HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, seqs = FALSE) {
 	
 	## Load sequence data ##
 	
-	if (!is.null(seqs)) {
+	if (seqs == TRUE) {
 		seqs <- read.dna(file = file.choose(), format = "fasta")
 		N <- dim(seqs)[[1]]
 		h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
 		rownames(h) <- 1:nrow(h)
 		Hstar <- dim(h)[[1]]
+		probs <- rowSums(haploFreq(seqs, haplo = h)) / N
 	}
-	
+
 	## Error messages ##
 	
 	if (N < K) {
@@ -42,7 +44,7 @@ HAC.sim <- function(seqs = NULL, N, Hstar, probs, K = 1, m = 0, perms = 10000, p
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 
 	num.specs <- ceiling(N / K)
-	
+
 	## Create an ID for each haplotype ##
 	
 	haps <- 1:Hstar
