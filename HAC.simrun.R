@@ -27,13 +27,14 @@ Hstar <- 15 # total number of haplotypes
 probs <- c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10)) # haplotype frequency distribution
 K <- 2  # number of equally-sized (sub)populations
 perms <- 10000 # number of permutations
-p <- 0.95 # proportion of haplotypes to recover 
+p <- 0.95 # proportion of haplotypes to recover
+seqs <- TRUE
 
 ### Run simulations ###
 
 ptm <- proc.time() # set timer
 
-HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, m = m, model = model, perms = perms, p = p)
+HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, m = m, model = model, perms = perms, p = p, seqs = seqs)
 HAC.simrep()
 
 proc.time() - ptm
