@@ -1,26 +1,43 @@
 ### Haplotype Accumulation Curve Simulation ###
 
+## Input parameters ###
+
 # N = Number of specimens (DNA sequences)
 # H = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
 # K = Number of (sub)populations (demes, sampling sites) 
-# m = Overall migration rate between (sub)populations (m  = [0, 1])
+# m = Overall migration rate between (sub)populations
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
-# seqs = FASTA sequence file
+# input.seqs = Inputted aligned FASTA sequence file
+# sim.seqs = Simulated aligned DNA sequences
+# num.seqs = Number of simulated DNA sequences
+# seq.length = Length of simulated DNA sequences
 
-
-HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, seqs = FALSE) {
+HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, input.seqs = FALSE, sim.seqs = FALSE, num.seqs = NULL, seq.length = NULL) {
 	
-	## Load sequence data ##
+	## Load sequence data and set N, H and probs ##
 	
-	if (seqs == TRUE) {
-		seqs <- read.dna(file = file.choose(), format = "fasta")
-		N <- dim(seqs)[[1]]
-		h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
+	if (input.seqs == TRUE) {
+		assign("seq", read.dna(file = file.choose(), format = "fasta"), envir = .GlobalEnv)
+		assign("N", dim(seq)[[1]], envir = .GlobalEnv)
+		h <- sort(haplotype(seq), decreasing = TRUE, what = "frequencies")
 		rownames(h) <- 1:nrow(h)
-		Hstar <- dim(h)[[1]]
-		probs <- rowSums(haploFreq(seqs, haplo = h)) / N
+		assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
+		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)	
+	}
+	
+	if (sim.seqs == TRUE) {
+		nucl <- as.DNAbin(c("a", "c", "g", "t"))
+		gen.seqs <- function(num.seqs, seq.length){
+		replicate(seq.length, sample(nucl, size = num.seqs, replace = TRUE))
+		assign("res", class(res) <- "DNAbin", .GlobalEnv = TRUE)
+		}
+		assign("N", dim(res)[[1]], envir = .GlobalEnv)
+		h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
+		rownames(h) <- 1:nrow(h)
+		assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
+		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)	
 	}
 
 	## Error messages ##
@@ -37,7 +54,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, seqs
 		stop("N must be greater than 1")
 	}
 	
-	if (sum(probs) != 1){
+	if (sum(probs) != 1) {
 		stop("probs must sum to 1")
 	}
 	
