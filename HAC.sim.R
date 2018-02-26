@@ -9,12 +9,9 @@
 # m = Overall migration rate between (sub)populations
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
-# input.seqs = Inputted aligned FASTA sequence file
-# sim.seqs = Simulated aligned DNA sequences
-# num.seqs = Number of simulated DNA sequences
-# seq.length = Length of simulated DNA sequences
+# input.seqs = Inputted aligned FASTA DNA sequence file
 
-HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, input.seqs = FALSE, sim.seqs = FALSE, num.seqs = NULL, seq.length = NULL) {
+HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, input.seqs = FALSE) {
 	
 	## Load sequence data and set N, H and probs ##
 	
@@ -22,17 +19,6 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, inpu
 		assign("seq", read.dna(file = file.choose(), format = "fasta"), envir = .GlobalEnv)
 		assign("N", dim(seq)[[1]], envir = .GlobalEnv)
 		h <- sort(haplotype(seq), decreasing = TRUE, what = "frequencies")
-		rownames(h) <- 1:nrow(h)
-		assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
-		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)	
-	}
-	
-	if (sim.seqs == TRUE) {
-		nucl <- as.DNAbin(c("a", "c", "g", "t"))
-		res <- replicate(seq.length, sample(nucl, size = num.seqs, replace = TRUE))
-		class(res) <- "DNAbin"
-		assign("N", dim(res)[[1]], envir = .GlobalEnv)
-		h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
 		rownames(h) <- 1:nrow(h)
 		assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
 		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)	
