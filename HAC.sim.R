@@ -29,10 +29,8 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, inpu
 	
 	if (sim.seqs == TRUE) {
 		nucl <- as.DNAbin(c("a", "c", "g", "t"))
-		gen.seqs <- function(num.seqs, seq.length){
-		replicate(seq.length, sample(nucl, size = num.seqs, replace = TRUE))
-		assign("res", class(res) <- "DNAbin", .GlobalEnv = TRUE)
-		}
+		res <- replicate(seq.length, sample(nucl, size = num.seqs, replace = TRUE))
+		class(res) <- "DNAbin"
 		assign("N", dim(res)[[1]], envir = .GlobalEnv)
 		h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
 		rownames(h) <- 1:nrow(h)
