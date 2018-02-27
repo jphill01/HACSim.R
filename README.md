@@ -109,7 +109,7 @@ In order to sucessfully run the simulation algorithm, the following conditions m
 
 ### Custom user data ###
 
-Users can implement their own custom species barcode datasets mined from BOLD (not necessarily 5'-COI), but will first need to collapse DNA sequences into haplotypes and then extract the haplotype frequency distribution in order to determine values for **Hstar** and **probs**. This can be accomplished in many ways including, but not limited to the R package 'spider' (Brown *et al.*, 2012), or online interfaces such as FaBox (http://users-birc.au.dk/biopv/php/fabox/). In general, alignments should be of sufficiently high quality (*i.e.*, non-GenBank, at least 500 bp in length, and free of ambiguous/missing nucleotide bases, since these can lead to overestimation of overall haplotype diversity for a given species).
+Users can implement their own custom species barcode datasets mined from BOLD (not necessarily 5'-COI) through setting the argument **input.seqs** to TRUE. Values for **N**, **Hstar** and **probs** are calculated automatically via the R package 'pegas' (Phylogenetics and Evolution in R; Paradis *et al.* (2010), so there is no need to specify these parameters before running HAC.sim(). When HAC.sim() is run, a pop-up window will appear prompting the user 
 
 Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (Example 2 above) are included for download from this repository.
 
