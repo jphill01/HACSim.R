@@ -1,24 +1,29 @@
 ### Haplotype Accumulation Curve Simulation ###
 
+## Best run in RStudio ##
+
 ## Input parameters ###
 
 # N = Number of specimens (DNA sequences)
-# H = Number of observed unique haplotypes
+# Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
 # K = Number of (sub)populations (demes, sampling sites) 
 # m = Overall migration rate between (sub)populations
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
-# input.seqs = Inputted aligned FASTA DNA sequence file
+# input.seqs = Analyze inputted aligned FASTA DNA sequence file              (TRUE / FALSE)?
 
 HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, input.seqs = FALSE) {
 	
-	## Load sequence data and set N, H and probs ##
+	## Load sequence data and set N, Hstar and probs ##
 	
 	if (input.seqs == TRUE) {
-		assign("seq", read.dna(file = file.choose(), format = "fasta"), envir = .GlobalEnv)
-		assign("N", dim(seq)[[1]], envir = .GlobalEnv)
-		h <- sort(haplotype(seq), decreasing = TRUE, what = "frequencies")
+		assign("seqs", read.dna(file = file.choose(), format = "fasta"), envir = .GlobalEnv)
+		if (all(base.freq(seqs, all = TRUE)[5:17] != 0)) {
+			warning("Inputted DNA sequences contain missing and/or ambiguous nucleotides, which may lead to overestimation of the number of observed haplotypes.  Consider excluding sequences or alignment sites containing these data. If missing and/or ambiguous bases occur at the ends of sequences, further alignment trimming is an option")
+		}
+		assign("N", dim(seqs)[[1]], envir = .GlobalEnv)
+		h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
 		rownames(h) <- 1:nrow(h)
 		assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
 		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)	
