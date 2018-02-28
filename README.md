@@ -26,6 +26,8 @@ Function arguments to HAC.sim() are as follows:
 
 * **p** = Proportion of species haplotypes to recover (**p** = 0.95 by default)
 
+* **input.seqs** = Logical TRUE/FALSE indicating whether to analyze a user-specied DNA sequence FASTA file
+
 **perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
 HAC.sim() performs a single iteration of haplotype accumulation for a given species. Resulting output reflects current levels of sampling effort found within BOLD for a given species. If the desired level of haplotype recovery is not reached, then HAC.simrep() (which takes no arguments) is called in order to perform successive iterations until the desired fraction of haplotypes captured is at least **p**.
@@ -109,7 +111,7 @@ In order to sucessfully run the simulation algorithm, the following conditions m
 
 ### Custom user data ###
 
-Users can implement their own custom species barcode datasets mined from BOLD (not necessarily 5'-COI) through setting the argument **input.seqs** to TRUE. Values for **N**, **Hstar** and **probs** are calculated automatically via the R package 'pegas' (Phylogenetics and Evolution in R; Paradis *et al.* (2010)), so there is no need to specify these parameters before running HAC.sim(). When HAC.sim() is run, a pop-up window will appear prompting the user to select a previously aligned/trimmed FASTA sequence file.
+Users can implement their own custom species barcode datasets mined from BOLD (not necessarily 5'-COI) through setting the argument **input.seqs** to TRUE. Values for **N**, **Hstar** and **probs** are calculated automatically via the R package 'pegas' (Phylogenetics and Evolution in R; Paradis *et al.* (2010)), so there is no need to specify these parameters before running HAC.sim(). When HAC.sim() is run, a pop-up window will appear prompting the user to select a previously aligned/trimmed FASTA DNA sequence file.
 
 Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (Example 2 above) are included for download from this repository.
 
