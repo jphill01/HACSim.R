@@ -8,7 +8,7 @@ Within the simulation algorithm, species haplotypes are treated as distinct char
 
 HACSim.R comprises two main functions (relevant code found in the files HAC.sim.R and HAC.simrep.R):
 
-> HAC.sim(N, Hstar, probs, K = 1, perms = 10000, p = 0.95)
+> HAC.sim(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE)
 
 > HAC.simrep().
 
@@ -26,7 +26,7 @@ Function arguments to HAC.sim() are as follows:
 
 * **p** = Proportion of species haplotypes to recover (**p** = 0.95 by default)
 
-* **input.seqs** = Logical TRUE/FALSE indicating whether to analyze a user-specied DNA sequence FASTA file
+* **input.seqs** = Logical TRUE/FALSE indicating whether to analyze a user-specied DNA sequence FASTA file (**input.seqs** = FALSE by default)
 
 **perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
