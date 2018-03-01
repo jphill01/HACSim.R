@@ -1,6 +1,15 @@
 ### Haplotype Accumulation Curve Simulation ###
 
+##########
+
+# Author: Jarrett D. Phillips
+# Last modified: March 1, 2018
+
+##########
+
 ## Best run in RStudio ##
+
+#####
 
 ## Input parameters ###
 
@@ -8,14 +17,14 @@
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
 # K = Number of (sub)populations (demes, sampling sites) 
-# m = Overall migration rate between (sub)populations
-# migr = Number of haplotypes to migrate
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
 # input.seqs = Analyze inputted aligned FASTA DNA sequence file              (TRUE / FALSE)?
+# subset.seqs = Should a random subset (subsample) of DNA sequences be taken (TRUE / FALSE)?
 
+#####
 
-HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, migr.size = NULL, perms = 10000, p = 0.95, input.seqs = FALSE) {
+HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE, subset.seqs = FALSE, num.subs = NULL) {
 	
 	## Load sequence data and set N, Hstar and probs ##
 	
@@ -24,11 +33,20 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, migr.size = NULL, perms = 100
 		if (all(base.freq(seqs, all = TRUE)[5:17] != 0)) {
 			warning("Inputted DNA sequences contain missing and/or ambiguous nucleotides, which may lead to overestimation of the number of observed unique haplotypes.  Consider excluding sequences or alignment sites containing these data. If missing and/or ambiguous bases occur at the ends of sequences, further alignment trimming is an option.")
 		}
+		if (subset.seqs == TRUE) {
+			subs <- seqs[sample(dim(seqs)[[1]], size = num.subs, replace = TRUE),]
+			assign("N", dim(subs)[[1]], envir = .GlobalEnv)
+			h <- sort(haplotype(subs), decreasing = TRUE, what = "frequencies")
+			rownames(h) <- 1:nrow(h)
+			assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
+			assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
+			} else {
 		assign("N", dim(seqs)[[1]], envir = .GlobalEnv)
 		h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
 		rownames(h) <- 1:nrow(h)
 		assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
-		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)	
+		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
+		}
 	}
 
 	## Error messages ##
@@ -75,7 +93,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, migr.size = NULL, perms = 100
 	
 	## Allow individuals to migrate between subpopulations according to migration rate m ##
 
-   	pop <- migrate(pop)
+   	# pop <- migrate(pop)
 
 	## Perform haplotype accumulation ##
 	
@@ -107,7 +125,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, migr.size = NULL, perms = 100
 	
 	# Nei's Haplotype diversity
 	
-	hd <- (N / (N - 1)) *(1 - sum(probs^2))
+	hd <- (N / (N - 1)) * (1 - sum(probs^2))
 				    
 	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Mean value of N*: ", Nstar / K, "\n Mean number of individuals not sampled: ", X / K, "\n \n Curve slope (last 10 points): ", b1, "\n \n Haplotype diversity: ", hd,  "\n \n One new haplotype will be found for every", ceiling(1 / b1), "DNA sequences sampled (on average)", "\n \n")
 	
@@ -126,5 +144,6 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, migr.size = NULL, perms = 100
 		polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 		lines(specs, means, lwd = 2)
 		HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
+
 
 }
