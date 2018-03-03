@@ -24,23 +24,28 @@ ui <- fluidPage(
                      value = 2,
                      min = 2
                      ),
+         
          numericInput("haps",
                       "Number of haplotypes (H*)",
                       value = 1,
                       min = 1
                       ),
+         
          uiOutput("ui"),
+         
          numericInput("pops",
                       "Number of (sub)populations (K)",
                       value = 1,
                       min = 1
                       ),
+         
          numericInput("perms",
                       "Number of permutations (perms)",
                       value = 10000,
                       min = 10000,
                       max = 10000
                       ),
+         
          numericInput("prop",
                       "Proportion of haplotypes to recover (p)",
                       value = 0.95,
@@ -48,8 +53,9 @@ ui <- fluidPage(
                       max = 1,
                       step = 0.01
                       ), 
+         
          fileInput("seqs", "Upload an aligned/trimmed FASTA file"
-                    ),
+                   ),
          
          helpText("Inputted DNA sequences containing missing and/or ambiguous nucleotides may lead to overestimation of the number of observed unique haplotypes.  Consider excluding sequences or alignment sites containing these data. If missing and/or ambiguous bases occur at the ends of sequences, further alignment trimming is an option."
                   ),
@@ -57,7 +63,6 @@ ui <- fluidPage(
          actionButton("submit", "Submit"
                       ), 
          width = 5
-         
 
       ),
       
@@ -76,10 +81,11 @@ server <- function(input, output) {
                     min = 1/input$haps,
                     max = 1/input$haps
                   )
-
-)
+      
+  )
 
 }
+
 # Run the application 
 shinyApp(ui = ui, server = server)
 
