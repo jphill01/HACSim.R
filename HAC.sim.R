@@ -91,15 +91,23 @@ HAC.sim <- function(N, Hstar, probs,K = 1, m = 0, perms = 10000, p = 0.95, input
 
    # pop <- migrate(pop)
    
-   i <- sample(perms, size = num.specs, replace = TRUE)
-   j <- sample(perms, size = num.specs, replace = TRUE)
+   if (m != 0 && K > 1){
+   	
+   	i <- sample(perms, size = num.specs, replace = TRUE)
+   	j <- sample(perms, size = num.specs, replace = TRUE)
 
-	migrate <- function(pop) {
+   	migrate <- function(pop) {
 		pop[c(i, j),, ] <- pop[c(j, i),, ]
 		pop
 	}
 	
 	migrate(pop)
+		
+   }
+   
+
+	
+
 
 	## Perform haplotype accumulation ##
 	
