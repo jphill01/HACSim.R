@@ -62,7 +62,7 @@ HAC.sim <- function(N, Hstar, probs,K = 1, m = 0, perms = 10000, p = 0.95, input
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 
 	if (m != 0){
-		num.specs <- ceiling(N * m / K)
+		num.specs <- ceiling(N * (1 - m) / K)
 		} else {
 			num.specs <- ceiling(N / K)
 		}
@@ -105,10 +105,6 @@ HAC.sim <- function(N, Hstar, probs,K = 1, m = 0, perms = 10000, p = 0.95, input
 		
    }
    
-
-	
-
-
 	## Perform haplotype accumulation ##
 	
 	HAC.mat <- accumulate(pop, specs, perms, K)
