@@ -51,7 +51,7 @@ Measures of Sampling Closeness for overall haplotype/specimen sampling completen
 
 * Mean number of individuals not sampled: N* - N
 
-Generated output also returns the estimate of Nei's haplotype diversity (h) as well as the slope estimate (&beta;<sub>1 ) for the haplotype accumulation curve.
+Generated output also returns the estimate of Nei's haplotype diversity (h) as well as the slope estimate (&beta;<sub>1</sub>) for the haplotype accumulation curve.
 
 In addition to users specifying unique values for **N**, **Hstar** and **probs**, default parameters can also be altered in order to produce more interesting output (e.g., simulating multiple subpopulations with or without migration/gene flow). It may be necessary to increase **perms** in order to smooth out the curves, but this will increase algorithm runtime substantially. 
 
