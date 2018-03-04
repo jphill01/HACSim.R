@@ -51,9 +51,11 @@ Measures of Sampling Closeness for overall haplotype/specimen sampling completen
 
 * Mean number of individuals not sampled: N* - N
 
+Generated output also returns the estimate of Nei's haplotype diversity (h) as well as the slope estimate ($hat{\beta_1$}) for the haplotype accumulation curve.
+
 In addition to users specifying unique values for **N**, **Hstar** and **probs**, default parameters can also be altered in order to produce more interesting output (e.g., simulating multiple subpopulations with or without migration/gene flow). It may be necessary to increase **perms** in order to smooth out the curves, but this will increase algorithm runtime substantially. 
 
-When incorporating population structure into simulations, it is assumed that haplotype diversity is identical across demes. 
+When incorporating population structure into simulations, it is assumed that haplotype diversity is homogeneous across demes. 
 
 Determination of **K** is not straightforward, and will require good judgement on the part of the user. One option is to simply set **K** equal to the number of sampling sites, as a proxy for the "true" value of **K**. A better option is to employ software programs such as STRUCTURE (Pritchard *et al.*, 2000) in order to determine the most likely value of **K** via a Bayesian framework. 
 
