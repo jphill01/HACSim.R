@@ -24,14 +24,14 @@ ui <- fluidPage(
    sidebarLayout(
       sidebarPanel(
          numericInput("inds",
-                     "Number of individuals (N)",
-                     value = 2,
+                     "Number of observed specimens (N)",
+                     value = 100,
                      min = 2
                      ),
          
          numericInput("haps",
-                      "Number of haplotypes (H*)",
-                      value = 1,
+                      "Number of observed haplotypes (H*)",
+                      value = 5,
                       min = 1
                       ),
          
@@ -62,6 +62,9 @@ ui <- fluidPage(
                    ),
          
          helpText("Inputted DNA sequences containing missing and/or ambiguous nucleotides may lead to overestimation of the number of observed unique haplotypes.  Consider excluding sequences or alignment sites containing these data. If missing and/or ambiguous bases occur at the ends of sequences, further alignment trimming is an option."
+                  ),
+         
+         helpText("Depeding on the magnitude of parameter inputs to the algorithm, simulations may take some time to run to completion"
                   ),
          
          actionButton("submit", "Submit"
