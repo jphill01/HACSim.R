@@ -34,7 +34,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10){
     	HAC.cr <- gam(means ~ s(specs, bs = "cr", k = k), optimizer = c("outer", "bfgs"), data = d)
 		res <- resid(HAC.cr) - mean(resid(HAC.cr)) 
 		n <- length(res)
-		boot.data <- data.frame(d, res = res, fit = fitted(HAC.ps))
+		boot.data <- data.frame(d, res = res, fit = fitted(HAC.cr))
 		boot.fun <- function(data, i) {
 		boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "cr", k = k), optimizer = c("outer", "bfgs"), data = data)
 		Y0 <- R * Hstar + sample(data$res, size = 1, replace = TRUE)
