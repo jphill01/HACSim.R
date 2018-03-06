@@ -6,8 +6,12 @@
 #
 #    http://shiny.rstudio.com/
 #
-
 library(shiny)
+
+library(devtools)
+devtools::install_github("rstudio/shiny-incubator")
+library(shinyIncubator)
+
 library(pegas)
 
 # Define UI for application that draws a histogram
@@ -54,7 +58,7 @@ ui <- fluidPage(
                       step = 0.01
                       ), 
          
-         fileInput("seqs", "Upload an aligned/trimmed FASTA file"
+         fileInput("seqs", "Upload an aligned/trimmed FASTA file (optional)"
                    ),
          
          helpText("Inputted DNA sequences containing missing and/or ambiguous nucleotides may lead to overestimation of the number of observed unique haplotypes.  Consider excluding sequences or alignment sites containing these data. If missing and/or ambiguous bases occur at the ends of sequences, further alignment trimming is an option."
@@ -75,13 +79,11 @@ ui <- fluidPage(
 
 # Define server logic required to generate plots
 server <- function(input, output) {
+  
   output$ui <- renderUI(
-      numericInput("probs", "Haplotype frequency distribution (probs)",
-                    value = 1/input$haps,
-                    min = 1/input$haps,
-                    max = 1/input$haps
-                  )
-      
+    matrixInput("probs", "Haplotype frequency distribution (probs)",
+                data = data.frame(rep(1/input$haps, input$haps))
+                )
   )
 
 }

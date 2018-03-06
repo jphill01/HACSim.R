@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 2, 2018
+# Last modified: March 5, 2018
 
 ##########
 
@@ -17,19 +17,18 @@
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
 # K = Number of (sub)populations (demes, sampling sites) 
-# m = Overall migration rate between demes
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
 # input.seqs = Analyze inputted aligned FASTA DNA sequence file              (TRUE / FALSE)?
 
 #####
 
-HAC.sim <- function(N, Hstar, probs,K = 1, m = 0, perms = 10000, p = 0.95, input.seqs = FALSE) {
+HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE) {
 	
 	## Load DNA sequence data and set N, Hstar and probs ##
 	
 	if (input.seqs == TRUE) {
-		seqs <- read.dna(file = file.choose(), format = "fasta")
+		assign("seqs", read.dna(file = file.choose(), format = "fasta"), envir = .GlobalEnv)
 		if (all(base.freq(seqs, all = TRUE)[5:17] != 0)) {
 			warning("Inputted DNA sequences contain missing and/or ambiguous nucleotides, which may lead to overestimation of the number of observed unique haplotypes.  Consider excluding sequences or alignment sites containing these data. If missing and/or ambiguous bases occur at the ends of sequences, further alignment trimming is an option.")
 		}
@@ -39,8 +38,8 @@ HAC.sim <- function(N, Hstar, probs,K = 1, m = 0, perms = 10000, p = 0.95, input
 		assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
 		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
 
-	}
-	
+	}	
+		
 	## Error messages ##
 	
 	if (N < K) {
@@ -61,12 +60,8 @@ HAC.sim <- function(N, Hstar, probs,K = 1, m = 0, perms = 10000, p = 0.95, input
 	
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 
-	if (m != 0){
-		num.specs <- ceiling(N * (1 - m) / K)
-		} else {
-			num.specs <- ceiling(N / K)
-		}
-
+	num.specs <- ceiling(N / K)
+		
 	## Create an ID for each haplotype ##
 	
 	haps <- 1:Hstar
@@ -87,24 +82,6 @@ HAC.sim <- function(N, Hstar, probs,K = 1, m = 0, perms = 10000, p = 0.95, input
 		pop[,, i] <- replicate(perms, gen.perms())
 	}
 	
-	## Allow individuals to migrate between subpopulations according to migration rate m ##
-
-   # pop <- migrate(pop)
-   
-   if (m != 0 && K > 1){
-   	
-   	i <- sample(perms, size = num.specs, replace = TRUE)
-   	j <- sample(perms, size = num.specs, replace = TRUE)
-
-   	migrate <- function(pop) {
-		pop[c(i, j),, ] <- pop[c(j, i),, ]
-		pop
-	}
-	
-	migrate(pop)
-		
-   }
-   
 	## Perform haplotype accumulation ##
 	
 	HAC.mat <- accumulate(pop, specs, perms, K)
@@ -121,6 +98,8 @@ HAC.sim <- function(N, Hstar, probs,K = 1, m = 0, perms = 10000, p = 0.95, input
 	
 	## Compute simple summary statistics and display output ##
 	
+	# tail() used here instead of max() because curves may not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()  
+	
 	P <- tail(means, n = 1)
 	Q <- Hstar - tail(means, n = 1)
 	assign("R", tail(means, n = 1) / Hstar, envir = .GlobalEnv)
@@ -128,23 +107,23 @@ HAC.sim <- function(N, Hstar, probs,K = 1, m = 0, perms = 10000, p = 0.95, input
 	assign("Nstar", (N * Hstar) / tail(means, n = 1), envir = .GlobalEnv)
 	X <- ((N * Hstar) / tail(means, n = 1)) - N
 	
-	## Calculate slope of curve using last 10 points ##
+	## Calculate slope of curve using last 10 points on the curve ##
 	
 	lin.reg <- lm(means ~ specs, data = tail(d, n = 10))
 	b1 <- coef(lin.reg)[[2]]
 	
-	# Nei's Haplotype diversity
+	# Compute Nei's Haplotype diversity
 	
 	hd <- (N / (N - 1)) * (1 - sum(probs^2))
 		    
-	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Mean value of N*: ", Nstar / K, "\n Mean number of individuals not sampled: ", X / K, "\n \n Curve slope (last 10 points): ", b1, "\n \n Haplotype diversity: ", hd,  "\n \n One new haplotype will be found for every", ceiling(1 / b1), "DNA sequences sampled (on average)", "\n \n")
+	cat("\n Measures of Sampling Closeness \n \n Mean number of haplotypes sampled: " , P, "\n Mean number of haplotypes not sampled: " , Q, "\n Proportion of haplotypes sampled: " , R, "\n Proportion of haplotypes not sampled:  " , S, "\n \n Mean value of N*: ", Nstar / K, "\n Mean number of individuals not sampled: ", X / K, "\n \n Curve slope (last 10 points): ", b1, "\n \n Haplotype diversity: ", hd,  "\n \n One new haplotype will be found for every", ceiling(1 / b1), "DNA sequences sampled (on average).", "\n \n")
 	
 	## Check whether desired level of haplotype recovery has been reached ##
 		
 	if (R < p) {
 		cat("Desired level of H* has not yet been reached \n")
 		} else{
-			cat("Desired level of H* has been reached \n")
+			cat("Desired level of H* has been reached. \n\n The algorithm converged in", iters, "steps.", "\n")
 	}
 	
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
