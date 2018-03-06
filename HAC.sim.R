@@ -123,7 +123,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	if (R < p) {
 		cat("Desired level of H* has not yet been reached \n")
 		} else{
-			cat("Desired level of H* has been reached. \n\n The algorithm converged in", iters, "steps.", "\n")
+			cat("Desired level of H* has been reached. \n\n The algorithm converged after", iters, "iterations.", "\n")
 	}
 	
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
