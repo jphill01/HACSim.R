@@ -1,40 +1,95 @@
-##### Unequal haplotype frequency - Lake whitefish (Coregonus clupeaformis) #####
+### Run HAC Simulations ###
 
-### Set working directory ###
+##########
+
+##### Set working directory #####
 
 setwd("/Users/jarrettphillips/Desktop/HAC simulation")
 
-### Clear memory ###
+##### Clear memory #####
 
 remove(list = ls())
 
-### Load libraries ###
+##### Load packages #####
 
 library(Rcpp)
 library(RcppArmadillo)
+library(pegas)
+library(adegenet)
 
 ### Load scripts ###
 
-source("accumulate.cpp")
-source("migrate.cpp")
+sourceCpp("accumulate.cpp")
+# sourceCpp("migrate.cpp")
 source("HAC.sim.R")
 source("HAC.simrep.R")
 
+library(boot) # This package is for bootstrapping
+library(investr) # This package performs inverse estimation
+library(rootSolve) # This package employs the bisection method
+library(mgcv) # This package fits GAMs and Kriging models
+library(scam) # This package fits SCAMs
+library(doParallel)
+
+source("HAC.simplot.R")
+source("HAC.simest.R")
+source("HAC.simfit.R")
+source("HAC.simboot.R")
+source("inv.predict.R")
+
 ### Set parameters ###
 
-N <- 240 # total number of sampled individuals
-Hstar <- 15 # total number of haplotypes
-probs <- c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10)) # haplotype frequency distribution
-K <- 2  # number of equally-sized (sub)populations
+# Simulate hypothetical species
+
+N <- 10 # total number of sampled individuals
+Hstar <- 10 # total number of haplotypes
+probs <- c(0.30, 0.30, 0.30, rep(0.10/7, 7))
+# probs <- rep(1/Hstar, Hstar)
+K <- 1 # number of equally-sized (sub)populations
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
-seqs <- TRUE
+input.seqs <- FALSE
+
+# Simulate real species
+
+K <- 1 # number of equally-sized (sub)populations
+perms <- 10000 # number of permutations
+p <- 0.95 # proportion of haplotypes to recover
+input.seqs <- TRUE
+
+##########
 
 ### Run simulations ###
 
-ptm <- proc.time() # set timer
+ptm <- proc.time()
 
-HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, m = m, model = model, perms = perms, p = p, seqs = seqs)
+HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, perms = perms, p = p, input.seqs = input.seqs)
 HAC.simrep()
 
 proc.time() - ptm
+
+##########
+
+# Visualization plots
+
+HAC.simplot(model = "GAM", k = 40)
+HAC.simplot(model = "SCAM", k = 40)
+HAC.simplot(model = "Krig", k = 40)
+
+# AIC
+
+HAC.simfit(model = "GAM", k = 40)
+HAC.simfit(model = "SCAM", k = 40)
+HAC.simfit(model = "Krig", k = 40)
+
+# Parameter Estimation
+
+HAC.simest(model = "GAM", k = 40)
+HAC.simest(model = "SCAM", k = 40)
+HAC.simest(model = "Krig", k = 40)
+
+# Bootstrap simulation
+
+HAC.simboot(model = "GAM", k = 40)
+HAC.simboot(model = "SCAM", k = 40)
+HAC.simboot(model = "Krig", k = 40)

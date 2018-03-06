@@ -15,12 +15,12 @@ int sample_n_distinct(const IntegerVector& x,
                       int k,
                       const int * pop_ptr) {
 
-  IntegerVector ind_index = RcppArmadillo::sample(x, k, false); 
-  std::set<int> distinct_container;
+    IntegerVector ind_index = RcppArmadillo::sample(x, k, false);
+    std::set<int> distinct_container;
 
-  for (int i = 0; i < k; i++) {
-    distinct_container.insert(pop_ptr[ind_index[i]]);
-  }
+    for (int i = 0; i < k; i++) {
+        distinct_container.insert(pop_ptr[ind_index[i]]);
+    }
 
   return distinct_container.size();
 }

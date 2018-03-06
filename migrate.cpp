@@ -8,17 +8,17 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 arma::Cube<int> migrate(arma::Cube<int> pop) {
     
-    String model;
+    // String model;
     double m = 0;
-    int K = 0, perms;
-    int N;
-    int num_specs = ceil(N / K);
+    int K = 0, perms = 0;
+    // N = 0;
+    // int num_specs = ceil(N / K);
     
-    if (K = 1, m = 0 && model == NULL) {
+    if (m == 0) { // K == 1 && model == NULL
         return pop;
     } else {
-        for (int i = 0; i < (K - 1); i++) {     // K > 1 && m != 0 && model == "Step"
-            IntegerVector ind = RcppArmadillo::sample<IntegerVector>(perms, ceil(num_specs * m), false);
+        IntegerVector ind = RcppArmadillo::sample<IntegerVector>(perms, ceil(perms * m), false);
+        for (int i = 0; i < (K - 1); i++) {     // K > 1 && m == 0 && model == "Step"
             int tmp = pop[ind[i]];
             pop[ind[i]] = pop[ind[i + 1]];
             pop[ind[i + 1]] = tmp;
@@ -27,3 +27,4 @@ arma::Cube<int> migrate(arma::Cube<int> pop) {
     }
     
     }
+
