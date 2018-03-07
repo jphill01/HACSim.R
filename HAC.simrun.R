@@ -15,7 +15,6 @@ remove(list = ls())
 library(Rcpp)
 library(RcppArmadillo)
 library(pegas)
-library(adegenet)
 
 ### Load scripts ###
 

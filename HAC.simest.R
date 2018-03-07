@@ -1,4 +1,4 @@
-HAC.simest <- function(model = c("GAM", "SCAM", "Krig"), k = 20){
+HAC.simest <- function(model = c("GAM", "SCAM", "Krig"), k = 10){
 	
 	if (model == "GAM") {
 		
@@ -27,9 +27,9 @@ HAC.simest <- function(model = c("GAM", "SCAM", "Krig"), k = 20){
 	if (model == "SCAM") {
 		
 			cat("\n Monotonically increasing smooth (mpi) \n")
-		HAC.micv <- scam(means ~ s(specs, bs = "micv", k = k), data = d)
-		HAC.micv <- inv.predict(HAC.micv, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-		print(HAC.micv)
+		HAC.mpi <- scam(means ~ s(specs, bs = "mpi", k = k), data = d)
+		HAC.mpi <- inv.predict(HAC.mpi, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+		print(HAC.mpi)
 		
 			cat("\n Concave smooth (cv) \n")
 		HAC.cv <- scam(means ~ s(specs, bs = "cv", k = k), data = d)
