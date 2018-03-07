@@ -60,12 +60,8 @@ input.seqs <- TRUE
 
 ### Run simulations ###
 
-ptm <- proc.time()
-
 HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, perms = perms, p = p, input.seqs = input.seqs)
 HAC.simrep()
-
-proc.time() - ptm
 
 ##########
 

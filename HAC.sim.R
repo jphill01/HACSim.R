@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 5, 2018
+# Last modified: March 7, 2018
 
 ##########
 
@@ -24,7 +24,7 @@
 #####
 
 HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE) {
-	
+
 	## Load DNA sequence data and set N, Hstar and probs ##
 	
 	if (input.seqs == TRUE) {
@@ -116,7 +116,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	
 	hd <- (N / (N - 1)) * (1 - sum(probs^2))
 		    
-	cat("--- Measures of Sampling Closeness --- \n\n", 
+	cat("\n --- Measures of Sampling Closeness --- \n\n", 
 	"Mean number of haplotypes sampled: " , P, 
 	"\n Mean number of haplotypes not sampled: " , Q, 
 	"\n Proportion of haplotypes (specimens) sampled: " , R, 
@@ -141,6 +141,6 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 			polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 			lines(specs, means, lwd = 2)
 			HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
-
+			
 
 }
