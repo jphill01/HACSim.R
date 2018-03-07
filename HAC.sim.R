@@ -87,11 +87,12 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, inpu
 	
 	pop <- migrate(pop)
 	
-	## Update probabilities to accort for migrated individuals
-	
+	## Update probabilities to account for migrated individuals
+
 	if (K > 1 && m != 0) {
 	  probs <- (1 - m) * probs + m * probs[i]
-	}
+	  probs <- probs / sum(probs)
+	} 
 	
 	## Perform haplotype accumulation ##
 	
