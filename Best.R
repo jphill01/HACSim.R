@@ -1,7 +1,7 @@
 ##### Best Model Output
 
-summary.HAC.sim <- function(k = 10) {
-
+summary.HAC.sim <- function() {
+  
 		#cat("\n Thin plate smooth (tp) \n")
 		HAC.tp1 <- gam(means ~ s(specs, bs = "tp", k = k), optimizer = c("outer", "bfgs"), data = d)
 		HAC.tp2 <- inv.predict(HAC.tp1, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
