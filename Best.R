@@ -56,7 +56,7 @@ summary.HAC.sim <- function() {
 		
 			
 	cat("----- Model Summary -----
-    \n Best model: ",
+    	\n Best model: ",
 		"\n AIC: ", min(c(HAC.tp1$aic, HAC.cr1$aic, HAC.ps1$aic, HAC.ad1$aic, HAC.mpi1$aic, HAC.cv1$aic, HAC.micv1$aic,  HAC.matern1$aic, HAC.sph1$aic, HAC.exp1$aic)),
 		"\n Bootstrap SE: ",
 		"\n Bootstrap bias: ",

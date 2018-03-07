@@ -17,13 +17,14 @@
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
 # K = Number of (sub)populations (demes, sampling sites) 
+# m = Overall migration rate between demes
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
 # input.seqs = Analyze inputted aligned FASTA DNA sequence file              (TRUE / FALSE)?
 
 #####
 
-HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE) {
+HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, input.seqs = FALSE) {
 
 	## Load DNA sequence data and set N, Hstar and probs ##
 	
@@ -59,7 +60,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	}
 	
 	## Set up container(s) to hold the identity of each individual from each permutation ##
-
+	
 	num.specs <- ceiling(N / K)
 		
 	## Create an ID for each haplotype ##
@@ -80,6 +81,16 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	
 	for (i in 1:K) {
 		pop[,, i] <- replicate(perms, gen.perms())
+	}
+	
+	## Allow individuals to migrate between subpopulations according to migration rate m ##
+	
+	pop <- migrate(pop)
+	
+	## Update probabilities to accort for migrated individuals
+	
+	if (K > 1 && m != 0) {
+	  probs <- (1 - m) * probs + m * probs[i]
 	}
 	
 	## Perform haplotype accumulation ##
