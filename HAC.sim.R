@@ -85,14 +85,18 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, inpu
 	
 	## Allow individuals to migrate between subpopulations according to migration rate m ##
 	
-	pop <- migrate(pop)
+	inds1 <- sample(haps, size = ceiling(num.specs * m), replace = TRUE)
+	inds2 <- sample(haps, size = ceiling(num.specs * m), replace = TRUE)
 	
-	## Update probabilities to account for migrated individuals
-
 	if (K > 1 && m != 0) {
-	  probs <- (1 - m) * probs + m * probs[i]
-	  probs <- probs / sum(probs)
-	} 
+	
+	for (i in 1:K) {
+		tmp <- pop[inds1]
+		pop[inds1] <- pop[inds2]
+		pop[inds2] <- tmp
+	  }
+	}
+
 	
 	## Perform haplotype accumulation ##
 	
