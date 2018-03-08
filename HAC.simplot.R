@@ -44,12 +44,12 @@ HAC.simplot <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 	  gam.check(HAC.matern)
 		
 		cat("\n Spherical covariance function (sph) \n")
-		HAC.matern <- gam(means ~ s(specs, bs = "gp", k = k, m = 1), optimizer = c("outer", "bfgs"), data = d)
-		gam.check(HAC.matern)
+		HAC.sph <- gam(means ~ s(specs, bs = "gp", k = k, m = 1), optimizer = c("outer", "bfgs"), data = d)
+		gam.check(HAC.sph)
 		
 		cat("\n Exponential covariance function (exp) \n")
-		HAC.matern <- gam(means ~ s(specs, bs = "gp", k = k, m = 2), optimizer = c("outer", "bfgs"), data = d)
-		gam.check(HAC.matern)
+		HAC.exp <- gam(means ~ s(specs, bs = "gp", k = k, m = 2), optimizer = c("outer", "bfgs"), data = d)
+		gam.check(HAC.exp)
 
 	}
 

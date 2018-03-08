@@ -45,7 +45,7 @@ Hstar <- 10 # total number of haplotypes
 probs <- c(0.30, 0.30, 0.30, rep(0.10/7, 7))
 # probs <- rep(1/Hstar, Hstar)
 K <- 2 # number of equally-sized (sub)populations
-m <- 0.90
+m <- 0.10
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 input.seqs <- FALSE
@@ -53,7 +53,7 @@ input.seqs <- FALSE
 # Simulate real species
 
 K <- 2 # number of equally-sized (sub)populations
-m <- 0.99
+m <- 0
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 input.seqs <- TRUE
