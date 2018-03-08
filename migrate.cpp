@@ -13,6 +13,7 @@ arma::Cube<int> migrate(arma::Cube<int> pop) {
     int K = 0, N = 0;
     int num_specs = ceil(N / K);
     IntegerVector haps;
+    NumericVector probs;
     
     if (m == 0) { // K == 1 && model == NULL
         return pop;
@@ -22,6 +23,12 @@ arma::Cube<int> migrate(arma::Cube<int> pop) {
             int tmp = pop[ind[i]];
             pop[ind[i]] = pop[ind[i + 1]];
             pop[ind[i + 1]] = tmp;
+        }
+
+    // Update probabilities to account for migrated individuals
+        if (K > 1 && m != 0) {
+            probs = (1 - m) * probs + m * probs[ind]
+            probs = probs / sum(probs)
         }
         return pop;
     }

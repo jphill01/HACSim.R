@@ -19,7 +19,7 @@ library(pegas)
 ### Load scripts ###
 
 sourceCpp("accumulate.cpp")
-sourceCpp("migrate.cpp")
+# sourceCpp("migrate.cpp")
 source("HAC.sim.R")
 source("HAC.simrep.R")
 
@@ -45,7 +45,7 @@ Hstar <- 10 # total number of haplotypes
 probs <- c(0.30, 0.30, 0.30, rep(0.10/7, 7))
 # probs <- rep(1/Hstar, Hstar)
 K <- 2 # number of equally-sized (sub)populations
-m <- 0.20
+m <- 0.90
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 input.seqs <- FALSE
@@ -53,7 +53,7 @@ input.seqs <- FALSE
 # Simulate real species
 
 K <- 2 # number of equally-sized (sub)populations
-m <- 0.20
+m <- 0.99
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 input.seqs <- TRUE

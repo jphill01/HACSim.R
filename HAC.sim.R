@@ -85,16 +85,20 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, inpu
 	
 	## Allow individuals to migrate between subpopulations according to migration rate m ##
 	
-	inds1 <- sample(haps, size = ceiling(num.specs * m), replace = TRUE)
-	inds2 <- sample(haps, size = ceiling(num.specs * m), replace = TRUE)
+	inds <- sample(haps, size = ceiling(num.specs * m), replace = TRUE)
 	
 	if (K > 1 && m != 0) {
-	
-	for (i in 1:K) {
-		tmp <- pop[inds1]
-		pop[inds1] <- pop[inds2]
-		pop[inds2] <- tmp
-	  }
+		
+	inds <- sample(perms, size = ceiling(num.specs * m), replace = TRUE)
+		
+	  for (i in 1:K) {
+			for(j in 1:K) {
+				tmp <- pop[inds,, i]
+				pop[inds,, i] <- pop[inds,, j]
+				pop[inds,, j] <- tmp
+			}
+	  	}
+	  
 	}
 
 	
