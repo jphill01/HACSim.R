@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 7, 2018
+# Last modified: March 11, 2018
 
 ##########
 
@@ -17,14 +17,13 @@
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
 # K = Number of (sub)populations (demes, sampling sites) 
-# m = Overall migration rate between demes
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
-# input.seqs = Analyze inputted aligned FASTA DNA sequence file              (TRUE / FALSE)?
+# input.seqs = Analyze inputted aligned FASTA DNA sequence file (TRUE / FALSE)?
 
 #####
 
-HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, input.seqs = FALSE) {
+HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE) {
 
 	## Load DNA sequence data and set N, Hstar and probs ##
 	
@@ -82,25 +81,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, inpu
 	for (i in 1:K) {
 		pop[,, i] <- replicate(perms, gen.perms())
 	}
-	
-	## Allow individuals to migrate between subpopulations according to migration rate m ##
-	
-	if (K > 1 && m != 0) {
-		
-	inds1 <- sample(perms, size = ceiling(num.specs * m), replace = TRUE)
-	inds2 <- sample(perms, size = ceiling(num.specs * m), replace = TRUE)
-		
-	  for (i in 1:K) {
-			for(j in 1:K) {
-				tmp <- pop[inds1,, i]
-				pop[inds1,, i] <- pop[inds2,, j]
-				pop[inds2,, j] <- tmp
-				}
-	  	}
-	  
-	}
 
-	
 	## Perform haplotype accumulation ##
 	
 	HAC.mat <- accumulate(pop, specs, perms, K)
@@ -128,6 +109,8 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, inpu
 	
 	## Calculate slope of curve using last 10 points on the curve ##
 	
+	# perms must be large enough to ensure monotonicity and a non-negative slope
+	
 	lin.reg <- lm(means ~ specs, data = tail(d, n = 10))
 	b1 <- coef(lin.reg)[[2]]
 	
@@ -150,7 +133,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, inpu
 	if (R < p) {
 		cat("Desired level of H* has not yet been reached \n")
 		} else{
-			cat("Desired level of H* has been reached. \n\n The algorithm converged after", iters, "iterations.", "\n")
+			cat("Desired level of H* has been reached. \n\n\n The algorithm converged after", iters, "iterations.", "\n")
 	}
 	
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
@@ -161,5 +144,13 @@ HAC.sim <- function(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, inpu
 			lines(specs, means, lwd = 2)
 			HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
 			
+			## Combine results into a data frame ##
+			
+			#name <- c("Step", "H", "H* - H", "H / H*", "(H* - H) / H*", "N*", "N* - N", "b1", "h", "1 / b1")
+			
+			#for(i in 1:iters){
+				#value <- c(iters, P, Q, R, S, Nstar / K, X / K, b1, hd, 1/b1)
+        #assign("df", data.frame(name, value), envir = .GlobalEnv) 
+			#}
 
 }
