@@ -1,6 +1,6 @@
 ### Bootstrap Simulation ###
 
-HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRUE, n.cores = detectCores() - 1){
+HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
   
   ## Set progress bar ##
   
@@ -11,7 +11,6 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
 	if (model == "GAM"){
 		
 		cat("\n Thin plate smooth (tp) \n")
-    HAC.tp <- gam(means ~ s(specs, bs = "tp", k = k), optimizer = c("outer", "bfgs"), data = d)
 		res <- resid(HAC.tp) - mean(resid(HAC.tp)) # centre the residuals
 		n <- length(res)
 		boot.data <- data.frame(d, res = res, fit = fitted(HAC.tp))
@@ -34,7 +33,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
 		}
 }
 
-		res <- boot(boot.data, boot.fun, R = 1000, parallel = "multicore", cl = detectCores())  
+		res <- boot(boot.data, boot.fun, R = 1000)  
 		print(res)
 		rel.bias <- (mean(res$t, na.rm = TRUE) - res$t0) / res$t0 # relative bias
 		cat("\n Percent relative bias: ", rel.bias*100) 
@@ -44,7 +43,6 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
 		
 		
 		cat("\n Cubic spline smooth (cr) \n")
-    	HAC.cr <- gam(means ~ s(specs, bs = "cr", k = k), optimizer = c("outer", "bfgs"), data = d)
 		res <- resid(HAC.cr) - mean(resid(HAC.cr)) 
 		n <- length(res)
 		boot.data <- data.frame(d, res = res, fit = fitted(HAC.cr))
@@ -65,7 +63,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
 		}
 }
 
-		res <- boot(boot.data, boot.fun, R = 1000, parallel = "multicore", cl = detectCores())  
+		res <- boot(boot.data, boot.fun, R = 1000)  
 		print(res)
 		rel.bias <- (mean(res$t, na.rm = TRUE) - res$t0) / res$t0 # relative bias
 		cat("\n Percent relative bias: ", rel.bias*100) 
@@ -75,7 +73,6 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
     
     
     cat("\n P-spline smooth (ps) \n")
-    HAC.ps <- gam(means ~ s(specs, bs = "ps", k = k), optimizer = c("outer", "bfgs"), data = d)
 		res <- resid(HAC.ps) - mean(resid(HAC.ps)) 
 		n <- length(res)
 		boot.data <- data.frame(d, res = res, fit = fitted(HAC.ps))
@@ -106,7 +103,6 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
 		
 		
 		cat("\n Adaptive smooth (ad) \n")
-    HAC.ad <- gam(means ~ s(specs, bs = "ad", k = k), optimizer = c("outer", "bfgs"), data = d)
 		res <- resid(HAC.ad) - mean(resid(HAC.ad))
 		n <- length(res)
 		boot.data <- data.frame(d, res = res, fit = fitted(HAC.ad))
@@ -140,7 +136,6 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
     if (model == "SCAM"){
     	
     cat("\n Monotonically increasing smooth (mpi) \n")
-		HAC.mpi <- scam(means ~ s(specs, bs = "mpi", k = k), data = d)
 		res <- resid(HAC.mpi) - mean(resid(HAC.mpi))  
 		n <- length(res)
 		boot.data <- data.frame(d,  fit = fitted(HAC.mpi), res = res)
@@ -171,7 +166,6 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
 		
 		
 		cat("\n Concave smooth (cv) \n")
-		HAC.cv <- scam(means ~ s(specs, bs = "cv", k = k), data = d)
 		res <- resid(HAC.cv) - mean(resid(HAC.cv))  
 		n <- length(res)
 		boot.data <- data.frame(d,  fit = fitted(HAC.cv), res = res)
@@ -202,7 +196,6 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
  
 
 		cat("\n Monotonically increasing and concave smooth (micv) \n")
-		HAC.micv <- scam(means ~ s(specs, bs = "micv", k = k), data = d)
 		res <- resid(HAC.micv) - mean(resid(HAC.micv))  
 		n <- length(res)
 		boot.data <- data.frame(d,  fit = fitted(HAC.micv), res = res)
@@ -236,7 +229,6 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
  	if (model == "Krig") {
  	  
  	  cat("\n Matern covariance function \n")
- 	  HAC.matern <- gam(means ~ s(specs, bs = "gp", k = k), optimizer = c("outer", "bfgs"), data = d)
  	  res <- resid(HAC.matern) - mean(resid(HAC.matern))  
  	  n <- length(res)
  	  boot.data <- data.frame(d, res = res, fit = fitted(HAC.matern))
@@ -267,7 +259,6 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
  	  
  		
  		cat("\n Spherical covariance function (sph) \n")
- 		HAC.sph <- gam(means ~ s(specs, bs = "gp", k = k, m = 1), optimizer = c("outer", "bfgs"), data = d)
  		res <- resid(HAC.sph) - mean(resid(HAC.sph))  
 		n <- length(res)
 		boot.data <- data.frame(d, res = res, fit = fitted(HAC.sph))
@@ -298,7 +289,6 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
 		print(boot.ci(res, type = "all"))  
 
 	  cat("\n Exponential covariance function (exp) \n")
- 		HAC.exp <- gam(means ~ s(specs, bs = "gp", k = k, m = 2), optimizer = c("outer", "bfgs"), data = d)
  		res <- resid(HAC.exp) - mean(resid(HAC.exp))  
 		n <- length(res)
 		boot.data <- data.frame(d, res = res, fit = fitted(HAC.exp))
