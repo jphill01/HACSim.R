@@ -23,7 +23,11 @@
 
 #####
 
-HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE) {
+HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE, progress = TRUE) {
+	
+	if (progress == TRUE) {
+		pb <- utils::txtProgressBar(min = 0, max = K, style = 3)
+	}
 
 	## Load DNA sequence data and set N, Hstar and probs ##
 	
@@ -86,6 +90,11 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	
 	HAC.mat <- accumulate(pop, specs, perms, K)
 	
+	## Update progress bar ##
+	if (progress == TRUE) {
+	  utils::setTxtProgressBar(pb, i)
+	}
+	
 	## Calculate the mean and CI for number of haplotypes recovered
 
 	means <- apply(HAC.mat, MARGIN = 2, mean)
@@ -98,7 +107,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	
 	## Compute simple summary statistics and display output ##
 	
-	# tail() is used here instead of max() because curves may not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()  
+	# tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()  
 	
 	P <- tail(means, n = 1)
 	Q <- Hstar - tail(means, n = 1)
@@ -144,13 +153,4 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 			lines(specs, means, lwd = 2)
 			HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
 			
-			## Combine results into a data frame ##
-			
-			#name <- c("Step", "H", "H* - H", "H / H*", "(H* - H) / H*", "N*", "N* - N", "b1", "h", "1 / b1")
-			
-			#for(i in 1:iters){
-				#value <- c(iters, P, Q, R, S, Nstar / K, X / K, b1, hd, 1/b1)
-        #assign("df", data.frame(name, value), envir = .GlobalEnv) 
-			#}
-
 }

@@ -21,7 +21,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, progress = TRU
 		  
 		  #if (progress == TRUE) {
 		    #utils::setTxtProgressBar(pb, i)
-		  #s}
+		  #}
 		  
 		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "tp", k = k), optimizer = c("outer", "bfgs"), data = data)
 		  # Simulate the correct variance
