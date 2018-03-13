@@ -24,6 +24,8 @@
 #####
 
 HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE, progress = TRUE) {
+  
+  cat("\n")
 	
 	if (progress == TRUE) {
 		pb <- utils::txtProgressBar(min = 0, max = K, style = 3)
@@ -116,6 +118,8 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	assign("Nstar", (N * Hstar) / tail(means, n = 1), envir = .GlobalEnv)
 	X <- ((N * Hstar) / tail(means, n = 1)) - N
 	
+  
+
 	## Calculate slope of curve using last 10 points on the curve ##
 	
 	# perms must be large enough to ensure monotonicity and a non-negative slope
@@ -125,15 +129,15 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	
 	# Compute Nei's Haplotype diversity
 	
-	hd <- (N / (N - 1)) * (1 - sum(probs^2))
+	hd <- (Nstar / (Nstar - 1)) * (1 - sum(probs^2))
 		    
-	cat("\n --- Measures of Sampling Closeness --- \n\n", 
+	cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
 	"Mean number of haplotypes sampled: " , P, 
 	"\n Mean number of haplotypes not sampled: " , Q, 
 	"\n Proportion of haplotypes (specimens) sampled: " , R, 
 	"\n Proportion of haplotypes (specimens) not sampled:  " , S, 
 	"\n \n Mean value of N*: ", Nstar / K, 
-	"\n Mean number of specimens not sampled: ", X / K, "\n \n Curve slope (last 10 points): ", b1, 
+	"\n Mean number of specimens not sampled: ", X / K, "\n\n Curve slope (last 10 points): ", b1, 
 	"\n \n Haplotype diversity: ", hd,  
 	"\n \n One new haplotype will be found for every", ceiling(1 / b1), "specimens sampled (on average).", "\n \n")
 	

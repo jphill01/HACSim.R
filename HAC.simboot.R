@@ -93,7 +93,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		}
 }
 
-		res <- boot(boot.data, boot.fun, R = 1000, parallel = "multicore", cl = detectCores())  
+		res <- boot(boot.data, boot.fun, R = 1000)  
 		print(res)
 		rel.bias <- (mean(res$t, na.rm = TRUE) - res$t0) / res$t0
 		cat("\n Percent relative bias: ", rel.bias*100) 
@@ -123,7 +123,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		}
 }
 
-		res <- boot(boot.data, boot.fun, R = 1000, parallel = "multicore", cl = detectCores())  
+		res <- boot(boot.data, boot.fun, R = 1000)  
 		print(res)
 		rel.bias <- (mean(res$t, na.rm = TRUE) - res$t0) / res$t0
 		cat("\n Percent relative bias: ", rel.bias*100) 
