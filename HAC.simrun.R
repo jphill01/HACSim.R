@@ -1,5 +1,7 @@
 ### Run HAC Simulations ###
 
+# Run algorithm with N = 10, 50, 100, 500, 1000,s with prespecified H*, probs K and p
+
 ##########
 
 ##### Set working directory #####
@@ -19,7 +21,6 @@ library(pegas)
 ### Load scripts ###
 
 sourceCpp("accumulate.cpp")
-# sourceCpp("migrate.cpp")
 source("HAC.sim.R")
 source("HAC.simrep.R")
 
@@ -47,7 +48,7 @@ probs <- c(0.45, 0.45, rep(0.10/8, 8))
 # probs <- rep(1/Hstar, Hstar)
 K <- 1 # number of equally-sized (sub)populations
 perms <- 10000 # number of permutations
-p <- 0.90 # proportion of haplotypes to recover
+p <- 0.60 # proportion of haplotypes to recover
 input.seqs <- FALSE
 
 # Simulate real species
@@ -61,18 +62,21 @@ input.seqs <- TRUE
 
 ### Run simulations ###
 
-HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, perms = perms, p = p, input.seqs = input.seqs)
+ptm <- proc.time()
+
 HAC.simrep()
+
+proc.time() - ptm
 
 ##########
 
 # Models
 
-HAC.simmodels(k = 40)
+HAC.simmodels(k = 100)
 
 # Visualization plots
 
-HAC.simplot(model = "GAM", k = 200)
+HAC.simplot(model = "GAM", k = 100)
 HAC.simplot(model = "SCAM", k = 200)
 HAC.simplot(model = "Krig", k = 200)
 
@@ -90,6 +94,6 @@ HAC.simest(model = "Krig", k = 200)
 
 # Bootstrap simulation
 
-HAC.simboot(model = "GAM", k = 40)
-HAC.simboot(model = "SCAM", k = 40)
-HAC.simboot(model = "Krig", k = 40)
+HAC.simboot(model = "GAM", k = 200)
+HAC.simboot(model = "SCAM", k = 200)
+HAC.simboot(model = "Krig", k = 200)

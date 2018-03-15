@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 11, 2018
+# Last modified: March 14, 2018
 
 ##########
 
@@ -118,8 +118,6 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	assign("Nstar", (N * Hstar) / tail(means, n = 1), envir = .GlobalEnv)
 	X <- ((N * Hstar) / tail(means, n = 1)) - N
 	
-  
-
 	## Calculate slope of curve using last 10 points on the curve ##
 	
 	# perms must be large enough to ensure monotonicity and a non-negative slope
