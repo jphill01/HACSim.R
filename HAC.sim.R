@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 14, 2018
+# Last modified: March 16, 2018
 
 ##########
 
@@ -112,11 +112,11 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	# tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()  
 	
 	P <- tail(means, n = 1)
-	Q <- Hstar - tail(means, n = 1)
-	assign("R", tail(means, n = 1) / Hstar, envir = .GlobalEnv)
-	S <- (Hstar - tail(means, n = 1)) / Hstar
-	assign("Nstar", (N * Hstar) / tail(means, n = 1), envir = .GlobalEnv)
-	X <- ((N * Hstar) / tail(means, n = 1)) - N
+	Q <- Hstar - P
+	assign("R", P / Hstar, envir = .GlobalEnv)
+	S <- (Hstar - P) / Hstar
+	assign("Nstar", (N * Hstar) / P, envir = .GlobalEnv)
+	X <- ((N * Hstar) / P) - N
 	
 	## Calculate slope of curve using last 10 points on the curve ##
 	
