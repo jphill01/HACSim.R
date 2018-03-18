@@ -5,7 +5,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
   ## Set progress bar ##
   
   #if (progress == TRUE) {
-    #pb <- utils::txtProgressBar(min = 0, max = iters, style = 3)
+    #pb <- utils::txtProgressBar(min = 0, max = K, style = 3)
   #}
 	
 	if (model == "GAM"){
@@ -52,7 +52,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		  
 		  #if (progress == TRUE) {
 		    #utils::setTxtProgressBar(pb, i)
-		  #}
+		  #s}
 		  
 		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "cr", k = k), optimizer = c("outer", "bfgs"), data = data)
 		  Y0 <- R * Hstar + sample(data$res, size = 1, replace = TRUE)
