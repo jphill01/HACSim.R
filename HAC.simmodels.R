@@ -1,6 +1,6 @@
 HAC.simmodels <- function(k = 10) {
-  
-  ## GAMs ##
+	
+	 ## GAMs ##
 
   assign("HAC.tp", gam(means ~ s(specs, bs = "tp", k = k), optimizer = c("outer", "bfgs"), data = d), envir = .GlobalEnv)
   assign("HAC.cr", gam(means ~ s(specs, bs = "cr", k = k), optimizer = c("outer", "bfgs"), data = d), envir = .GlobalEnv)
@@ -18,5 +18,5 @@ HAC.simmodels <- function(k = 10) {
   assign("HAC.matern", gam(means ~ s(specs, bs = "gp", k = k), optimizer = c("outer", "bfgs"), data = d), envir = .GlobalEnv)
   assign("HAC.sph", gam(means ~ s(specs, bs = "gp", k = k, m = 1), optimizer = c("outer", "bfgs"), data = d), envir = .GlobalEnv)
   assign("HAC.exp", gam(means ~ s(specs, bs = "gp", k = k, m = 2), optimizer = c("outer", "bfgs"), data = d), envir = .GlobalEnv)
-  
-}
+
+  }

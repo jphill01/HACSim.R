@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 16, 2018
+# Last modified: March 18, 2018
 
 ##########
 
@@ -134,10 +134,11 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	"\n Mean number of haplotypes not sampled: " , Q, 
 	"\n Proportion of haplotypes (specimens) sampled: " , R, 
 	"\n Proportion of haplotypes (specimens) not sampled:  " , S, 
+	"\n \n Haplotype diversity: ", hd, 
+	"\n\n Curve slope (last 10 points): ", b1,
+	"\n \n One new haplotype will be found for every", ceiling(1 / b1), "specimens sampled (on average).",
 	"\n \n Mean value of N*: ", Nstar / K, 
-	"\n Mean number of specimens not sampled: ", X / K, "\n\n Curve slope (last 10 points): ", b1, 
-	"\n \n Haplotype diversity: ", hd,  
-	"\n \n One new haplotype will be found for every", ceiling(1 / b1), "specimens sampled (on average).", "\n \n")
+	"\n Mean number of specimens not sampled: ", X / K, "\n \n")
 	
 	## Check whether desired level of haplotype recovery has been reached ##
 		

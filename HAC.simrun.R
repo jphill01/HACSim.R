@@ -29,7 +29,7 @@ library(investr) # This package performs inverse estimation
 library(rootSolve) # This package employs the bisection method
 library(mgcv) # This package fits GAMs and Kriging models
 library(scam) # This package fits SCAMs
-library(doParallel)
+library(snow) # This package is for parallel processing
 
 source("HAC.simmodels.R")
 source("HAC.simplot.R")
@@ -48,7 +48,7 @@ probs <- c(0.45, 0.45, rep(0.10/8, 8))
 # probs <- rep(1/Hstar, Hstar)
 K <- 1 # number of equally-sized (sub)populations
 perms <- 10000 # number of permutations
-p <- 0.95 # proportion of haplotypes to recover
+p <- 0.90 # proportion of haplotypes to recover
 input.seqs <- FALSE
 
 # Simulate real species
@@ -88,12 +88,13 @@ HAC.simfit(model = "Krig", k = 40)
 
 # Parameter Estimation
 
-HAC.simest(model = "GAM", k = 200)
-HAC.simest(model = "SCAM", k = 200)
-HAC.simest(model = "Krig", k = 200)
+HAC.simest(model = "GAM", k = 40)
+HAC.simest(model = "SCAM", k = 40)
+HAC.simest(model = "Krig", k = 40)
 
 # Bootstrap simulation
 
 HAC.simboot(model = "GAM", k = 40)
-HAC.simboot(model = "SCAM", k = 200)
-HAC.simboot(model = "Krig", k = 200)
+HAC.simboot(model = "SCAM", k = 40)
+HAC.simboot(model = "Krig", k = 40)
+
