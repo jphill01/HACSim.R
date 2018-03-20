@@ -8,6 +8,7 @@
 ##########
 
 ## Best run in RStudio ##
+## DO NOT change order of code (can throw errors)!
 
 #####
 
@@ -104,7 +105,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975))
 	
 	## Make data accessible to user ##
-
+	
 	assign("d", data.frame(specs, means), envir = .GlobalEnv)
 	
 	## Compute simple summary statistics and display output ##
@@ -139,6 +140,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	"\n \n One new haplotype will be found for every", ceiling(1 / b1), "specimens sampled (on average).",
 	"\n \n Mean value of N*: ", Nstar / K, 
 	"\n Mean number of specimens not sampled: ", X / K, "\n \n")
+
 	
 	## Check whether desired level of haplotype recovery has been reached ##
 		
