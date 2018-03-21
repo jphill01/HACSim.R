@@ -25,6 +25,35 @@ inv.predict <- function(object, y, x.name, lower, upper, interval = FALSE, level
   res
 }
 
+
+# Newton-Raphson method
+
+inv.predict.newton <- function(object, y, x.name, start, interval = FALSE, level = 0.95,...) {
+  .fun1 <- function(x) {
+    predFit(object, newdata = setNames(data.frame(x), x.name)) - y
+  }
+  .fun2 <- function(x) {
+    predFit(object, newdata = setNames(data.frame(x), x.name), 
+            interval = "confidence")[, "upr"] - y
+  }
+  .fun3 <- function(x) {
+    predFit(object, newdata = setNames(data.frame(x), x.name), 
+            interval = "confidence")[, "lwr"] - y
+  }
+  x0.est <- multiroot(start, ..., f = .fun1)$root
+  res <- if (interval) {
+    lwr <- multiroot(start = c(lower = lower, x0.est), ..., f = .fun2)$root
+    upr <- multiroot(start = c(x0.est, upper = upper), ..., f = .fun3)$root
+    lwr <- min(c(lwr, upr))
+    upr <- max(c(lwr, upr))
+    c("estimate" = x0.est, "lower" = lwr, "upper" = upr)
+  } else {
+    x0.est
+  }
+  res
+}
+
+
 #' GAM prediction
 
 #' @rdname predFit

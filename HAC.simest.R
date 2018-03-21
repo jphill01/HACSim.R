@@ -3,53 +3,72 @@ HAC.simest <- function(model = c("GAM", "SCAM", "Krig"), k = 10){
 	if (model == "GAM") {
 		
 		cat("\n Thin plate smooth (tp) \n")
-		HAC.tp <- inv.predict(HAC.tp, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-		print(HAC.tp)
+		HAC.tp.bisect <- inv.predict(HAC.tp, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+		cat(HAC.tp.bisect, "(bisection) \n")
+		HAC.tp.newton <- inv.predict.newton(HAC.tp, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)[1L]
+		cat(HAC.tp.newton, "(Newton) \n \n")
 				
 		cat("\n Cubic spline smooth (cr) \n")
-		HAC.cr <- inv.predict(HAC.cr, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-		print(HAC.cr)
+		HAC.cr.bisect <- inv.predict(HAC.cr, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+		cat(HAC.cr.bisect, "(bisection) \n")
+		HAC.cr.newton <- inv.predict.newton(HAC.cr, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)[1L]
+		cat(HAC.cr.newton, "(Newton) \n \n")
 	
 		cat("\n P-spline smooth (ps) \n")
-		HAC.ps <- inv.predict(HAC.ps, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-		print(HAC.ps)
+		HAC.ps.bisect <- inv.predict(HAC.ps, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+		cat(HAC.ps.bisect, "(bisection) \n")
+		HAC.ps.newton <- inv.predict.newton(HAC.ps, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)[1L]
+		cat(HAC.ps.newton, "(Newton) \n \n")
 	
 		cat("\n Adaptive smooth (ad) \n")
-		HAC.ad <- inv.predict(HAC.ad, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-		print(HAC.ad)
+		HAC.ad.bisect <- inv.predict(HAC.ad, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+		cat(HAC.ad.bisect, "(bisection) \n")
+		HAC.ad.newton <- inv.predict.newton(HAC.ad, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)[1L]
+		cat(HAC.ps.newton, "(Newton) \n \n")
 	
 	}
 	
 	if (model == "SCAM") {
 		
 		cat("\n Monotonically increasing smooth (mpi) \n")
-		HAC.mpi <- inv.predict(HAC.mpi, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-		print(HAC.mpi)
+		HAC.mpi.bisect <- inv.predict(HAC.mpi, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+		cat(HAC.mpi.bisect, "(bisection) \n")
+		HAC.mpi.newton <- inv.predict.newton(HAC.mpi, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)[1L]
+		cat(HAC.mpi.newton, "(Newton) \n \n")
 		
 		cat("\n Concave smooth (cv) \n")
-		HAC.cv <- inv.predict(HAC.cv, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-		print(HAC.cv)
+		HAC.cv.bisect <- inv.predict(HAC.cv, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+		cat(HAC.cv.bisect, "(bisection) \n")
+		HAC.cv.newton <- inv.predict.newton(HAC.cv, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)[1L]
+		cat(HAC.cv.newton, "(Newton) \n \n")
 	
 		cat("\n Monotonically increasing and concave smooth (micv) \n")
-		HAC.micv <- inv.predict(HAC.micv, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-		print(HAC.micv)
+		HAC.micv.bisect <- inv.predict(HAC.micv, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+		cat(HAC.micv.bisect, "(bisection) \n")
+		HAC.micv.newton <- inv.predict.newton(HAC.micv, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)[1L]
+		cat(HAC.micv.newton, "(Newton) \n \n")
 	
 	}
 	
 	if (model == "Krig") {
 		
 		cat("\n Matern covariance function (Matern) \n")
-		HAC.matern <- inv.predict(HAC.matern, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-		print(HAC.matern)
+		HAC.matern.bisect <- inv.predict(HAC.matern, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+		cat(HAC.matern.bisect, "(bisection) \n")
+		HAC.matern.newton <- inv.predict.newton(HAC.matern, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)[1L]
+	  cat(HAC.matern.newton, "(Newton) \n \n")
 		
 		cat("\n Spherical covariance function (sph) \n")
-		HAC.sph <- inv.predict(HAC.sph, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-		print(HAC.sph)	
+		HAC.sph.bisect <- inv.predict(HAC.sph, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+		cat(HAC.sph.bisect, "(bisection) \n")
+		HAC.sph.newton <- inv.predict.newton(HAC.sph, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)[1L]
+		cat(HAC.sph.newton, "(Newton) \n \n")
 		
 		cat("\n Exponential covariance function (exp) \n")
-		HAC.exp <- inv.predict(HAC.exp, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-		print(HAC.exp)
-		
+		HAC.exp.bisect <- inv.predict(HAC.exp, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+		cat(HAC.exp.bisect, "(bisection) \n")
+		HAC.exp.newton <- inv.predict.newton(HAC.exp, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)[1L]
+		cat(HAC.exp.newton, "(Newton) \n \n")
 	}
 	
 }

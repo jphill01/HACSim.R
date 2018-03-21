@@ -30,7 +30,8 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 				inv.predict(HAC.tp, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
 			} else {
 				inv.predict(boot.fit, y = Y0, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-		}
+			}
+		  
 }
 
 		res <- boot(boot.data, boot.fun, R = 1000)  

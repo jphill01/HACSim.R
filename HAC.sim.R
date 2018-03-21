@@ -3,12 +3,12 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 18, 2018
+# Last modified: March 21, 2018
 
 ##########
 
 ## Best run in RStudio ##
-## DO NOT change order of code (can throw errors)!
+## DO NOT change order of code (can throw errors)! ##
 
 #####
 
@@ -136,19 +136,10 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	"\n Proportion of haplotypes (specimens) sampled: " , R, 
 	"\n Proportion of haplotypes (specimens) not sampled:  " , S, 
 	"\n \n Haplotype diversity: ", hd, 
-	"\n\n Curve slope (last 10 points): ", b1,
+	"\n \n Curve slope (last 10 points): ", b1,
 	"\n \n One new haplotype will be found for every", ceiling(1 / b1), "specimens sampled (on average).",
 	"\n \n Mean value of N*: ", Nstar / K, 
 	"\n Mean number of specimens not sampled: ", X / K, "\n \n")
-
-	
-	## Check whether desired level of haplotype recovery has been reached ##
-		
-	if (R < p) {
-		cat("Desired level of H* has not yet been reached \n")
-		} else{
-			cat("Desired level of H* has been reached. \n\n\n The algorithm converged after", iters, "iterations.", "\n")
-	}
 	
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
 
