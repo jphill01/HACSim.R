@@ -39,11 +39,8 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 		if (all(base.freq(seqs, all = TRUE)[5:17] != 0)) {
 			warning("Inputted DNA sequences contain missing and/or ambiguous nucleotides, which may lead to overestimation of the number of observed unique haplotypes.  Consider excluding sequences or alignment sites containing these data. If missing and/or ambiguous bases occur at the ends of sequences, further alignment trimming is an option.")
 		}
-		#assign("N", dim(seqs)[[1]], envir = .GlobalEnv)
 		h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
 		rownames(h) <- 1:nrow(h)
-		#assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
-		#assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
 		
 		lst <- list("N" = dim(seqs)[[1]], "Hstar" = dim(h)[[1]], "probs" = lengths(attr(h, "index")) / N)
 		list2env(lst, envir = .GlobalEnv)
