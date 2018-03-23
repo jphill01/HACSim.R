@@ -12,10 +12,10 @@ inv.predict <- function(object, y, x.name, lower, upper, interval = FALSE, level
     predFit(object, newdata = setNames(data.frame(x), x.name), 
             interval = "confidence")[, "lwr"] - y
   }
-  x0.est <- uniroot.all(lower = lower, upper = upper, ..., f = .fun1)
+  x0.est <- uniroot.all(lower = lower, upper = upper,..., f = .fun1)
   res <- if (interval) {
-    lwr <- uniroot.all(lower = lower, upper = x0.est, ..., f = .fun2)
-    upr <- uniroot.all(lower = x0.est, upper = upper, ..., f = .fun3)
+    lwr <- uniroot.all(lower = lower, upper = x0.est,..., f = .fun2)
+    upr <- uniroot.all(lower = x0.est, upper = upper,..., f = .fun3)
     lwr <- min(c(lwr, upr))
     upr <- max(c(lwr, upr))
     c("estimate" = x0.est, "lower" = lwr, "upper" = upr)

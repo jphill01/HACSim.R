@@ -26,7 +26,7 @@ source("HAC.simrep.R")
 
 library(boot) # This package is for bootstrapping
 library(investr) # This package performs inverse estimation
-library(rootSolve) # This package employs the bisection method
+library(rootSolve) # This package employs bisection and Newton's method
 library(mgcv) # This package fits GAMs and Kriging models
 library(scam) # This package fits SCAMs
 library(snow) # This package is for parallel processing
@@ -48,7 +48,7 @@ probs <- c(0.45, 0.45, rep(0.10/8, 8))
 # probs <- rep(1/Hstar, Hstar)
 K <- 1 # number of equally-sized (sub)populations
 perms <- 10000 # number of permutations
-p <- 0.9 # proportion of haplotypes to recover
+p <- 0.95 # proportion of haplotypes to recover
 input.seqs <- FALSE
 
 # Simulate real species
@@ -67,6 +67,7 @@ ptm <- proc.time()
 HAC.simrep()
 
 proc.time() - ptm
+
 
 ##########
 
