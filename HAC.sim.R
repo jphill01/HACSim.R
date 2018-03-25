@@ -20,13 +20,14 @@
 # K = Number of (sub)populations (demes, sampling sites) 
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
-# input.seqs = Analyze inputted aligned FASTA DNA sequence file (TRUE / FALSE)?
+# input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
+
 
 #####
 
-HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE, progress = TRUE) {
-  
-  cat("\n")
+HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE, sim.seqs = FALSE, num.seqs = NULL, length.seqs = NULL, progress = TRUE) {
+	
+	cat("\n")
 	
 	if (progress == TRUE) {
 		pb <- utils::txtProgressBar(min = 0, max = K, style = 3)
@@ -39,31 +40,31 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 		if (all(base.freq(seqs, all = TRUE)[5:17] != 0)) {
 			warning("Inputted DNA sequences contain missing and/or ambiguous nucleotides, which may lead to overestimation of the number of observed unique haplotypes.  Consider excluding sequences or alignment sites containing these data. If missing and/or ambiguous bases occur at the ends of sequences, further alignment trimming is an option.")
 		}
+		assign("N", dim(seqs)[[1]], envir = .GlobalEnv)
 		h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
 		rownames(h) <- 1:nrow(h)
-		
-		lst <- list("N" = dim(seqs)[[1]], "Hstar" = dim(h)[[1]], "probs" = lengths(attr(h, "index")) / N)
-		list2env(lst, envir = .GlobalEnv)
+		assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
+		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
 
-	}	
-		
-	## Error messages ##
-	
-	if (N < K) {
-		stop("N must be greater than or equal to K")
 	}
-	
-	if (N < Hstar) {
-		stop("N must be greater than or equal to Hstar")
-	}
-	
-	if (N == 1) {
-		stop("N must be greater than 1")
-	}
-	
-	if (sum(probs) != 1) {
-		stop("probs must sum to 1")
-	}
+  
+  ## Error messages ##
+  
+  if (N < K) {
+    stop("N must be greater than or equal to K")
+  }
+  
+  if (N < Hstar) {
+    stop("N must be greater than or equal to Hstar")
+  }
+  
+  if (N == 1) {
+    stop("N must be greater than 1")
+  }
+  
+  if (sum(probs) != 1) {
+    stop("probs must sum to 1")
+  }
 	
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
