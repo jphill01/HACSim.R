@@ -118,7 +118,7 @@ Users can implement their own custom species barcode datasets mined from BOLD (n
 
 **NOTE**: Inputted sequence alignment files should be free of missing/ambiguous nucleotide data (Ns, gaps (--) and IUPAC ambiguity codes) in order to avoid overestimation of intraspecific haplotype diversity. 
 
-Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (Example 2 above) are included for download from this repository.
+Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (**Example 2** above) are included for download from this repository.
 
 ### Citing This Work ###
 
