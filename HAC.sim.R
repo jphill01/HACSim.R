@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 23, 2018
+# Last modified: March 26, 2018
 
 ##########
 
@@ -142,6 +142,8 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	"\n \n One new haplotype will be found for every", ceiling(1 / b1), "specimens sampled (on average).",
 	"\n \n Mean value of N*: ", Nstar / K, 
 	"\n Mean number of specimens not sampled: ", X / K, "\n \n")
+	
+	write(c(P, Q, R, S, hd, b1, ceiling(1 / b1), Nstar / K, X / K), ncolumns = 1)
 	
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
 
