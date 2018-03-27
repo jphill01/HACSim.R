@@ -73,11 +73,9 @@ To run the algorithm, do the following in a fresh R script:
 
 2. Set up all algorithm input parameters using standard R variable assignment. 
 
-3. Run the following lines of code in succession:
+3. Run the following line of code in succession:
 
-> HAC.sim(N = N, Hstar = Hstar, probs = probs, K = K, perms = perms, p = p)
-
-> HAC.simrep() **(needed only if HAC.sim() does not converge to at least p)**
+> HAC.simrep()
 
 **NOTE**: Users must have a system compiler (e.g. Xcode Command Line Tools on MacOS) installed in order to run the algorithm sucessfully.  
 
