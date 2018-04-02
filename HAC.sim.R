@@ -175,12 +175,18 @@ HAC.sim <- function(N,
 	"\n \n Mean value of N*: ", Nstar / K, 
 	"\n Mean number of specimens not sampled: ", X / K, "\n \n")
 	
-	name <-c("Mean number of haplotypes sampled", "Mean number of haplotypes not sampled", 
-	         "Proportion of haplotypes (specimens) sampled", "Proportion of haplotypes (specimens) not sampled", 
-	         "Haplotype diversity", "Curve slope (last 10 points)", "Mean number of specimens required to observe one new haplotype", 
-	         "Mean value of N*", "Mean number of specimens not sampled")
-	tbl <- c(P, Q, R, S, Nstar / K, X / K, b1, 1 / b1, hd)
-	write(tbl, "data.txt", sep = "\n", append = TRUE)
+	name <-c("Mean number of haplotypes sampled", 
+	         "Mean number of haplotypes not sampled", 
+	         "Proportion of haplotypes (specimens) sampled", 
+	         "Proportion of haplotypes (specimens) not sampled", 
+	         "Haplotype diversity", 
+	         "Curve slope (last 10 points)", 
+	         "Mean number of specimens required to observe one new haplotype", 
+	         "Mean value of N*", 
+	         "Mean number of specimens not sampled")
+	vals <- c(P, Q, R, S, hd, b1, 1 / b1, Nstar / K, X / K)
+	tbl <- cbind(name, vals)
+	write(tbl, file = "data.txt", append = TRUE)
 	
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
 
