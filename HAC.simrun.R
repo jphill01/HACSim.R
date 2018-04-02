@@ -42,11 +42,12 @@ source("inv.predict.R")
 
 # Simulate hypothetical species
 
-N <- 100 # total number of sampled individuals
+N <- 10 # total number of sampled individuals
 Hstar <- 10  # total number of haplotypes
 probs <- c(0.45, 0.45, rep(0.10/8, 8))
 # probs <- rep(1/Hstar, Hstar)
 K <- 1 # number of equally-sized (sub)populations
+m <- 0
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 input.seqs <- FALSE
@@ -55,8 +56,9 @@ input.seqs <- FALSE
 
 K <- 1 # number of equally-sized (sub)populations
 perms <- 10000 # number of permutations
-p <- 0.80 # proportion of haplotypes to recover
+p <- 0.95 # proportion of haplotypes to recover
 input.seqs <- TRUE
+
 
 ##########
 

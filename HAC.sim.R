@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 26, 2018
+# Last modified: April 2, 2018
 
 ##########
 
@@ -17,7 +17,8 @@
 # N = Number of specimens (DNA sequences)
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
-# K = Number of (sub)populations (demes, sampling sites) 
+# K = Number of (sub)populations (demes, sampling sites)
+# m = Overall migration rate between demes
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
@@ -25,7 +26,15 @@
 
 #####
 
-HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE, sim.seqs = FALSE, num.seqs = NULL, length.seqs = NULL, progress = TRUE) {
+HAC.sim <- function(N, 
+                    Hstar, 
+                    probs, 
+                    K = 1, 
+                    m = 0,
+                    perms = 10000, 
+                    p = 0.95, 
+                    input.seqs = FALSE, 
+                    progress = TRUE) {
 	
 	cat("\n")
 	
@@ -38,7 +47,10 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	if (input.seqs == TRUE) {
 		seqs <- read.dna(file = file.choose(), format = "fasta")
 		if (all(base.freq(seqs, all = TRUE)[5:17] != 0)) {
-			warning("Inputted DNA sequences contain missing and/or ambiguous nucleotides, which may lead to overestimation of the number of observed unique haplotypes.  Consider excluding sequences or alignment sites containing these data. If missing and/or ambiguous bases occur at the ends of sequences, further alignment trimming is an option.")
+			warning("Inputted DNA sequences contain missing and/or ambiguous nucleotides, which may lead 
+			        to overestimation of the number of observed unique haplotypes.  Consider excluding 
+			        sequences or alignment sites containing these data. If missing and/or ambiguous bases 
+			        occur at the ends of sequences, further alignment trimming is an option.")
 		}
 		assign("N", dim(seqs)[[1]], envir = .GlobalEnv)
 		h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
@@ -78,7 +90,8 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	
 	specs <- 1:num.specs
 	
-	## Generate permutations, assume each permutation has N/K individuals, and sample those individuals' haplotypes from the probabilities ##
+	## Generate permutations, assume each permutation has N/K individuals, and sample those 
+	# individuals' haplotypes from the probabilities ##
 	
 	gen.perms <- function() {
 		sample(haps, size = num.specs, replace = TRUE, prob = probs)
@@ -94,6 +107,23 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	
 	HAC.mat <- accumulate(pop, specs, perms, K)
 	
+	## Allow individuals to migrate between subpopulations according to migration rate m ##
+	
+	if (K > 1 && m != 0) {
+	  
+	  inds1 <- sample(perms, size = ceiling(num.specs * m), replace = TRUE)
+	  inds2 <- sample(perms, size = ceiling(num.specs * m), replace = TRUE)
+	  
+	  for (i in 1:K) {
+	    for(j in 1:K) {
+	      tmp <- pop[inds1,, i]
+	      pop[inds1,, i] <- pop[inds2,, j]
+	      pop[inds2,, j] <- tmp
+	    }
+	  }
+	  
+	}
+	
 	## Update progress bar ##
 	
 	if (progress == TRUE) {
@@ -108,7 +138,7 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	
 	## Make data accessible to user ##
 	
-	d <- data.frame(specs, means)
+	assign("d", data.frame(specs, means), envir = .GlobalEnv)
 	
 	## Compute simple summary statistics and display output ##
 	
@@ -131,6 +161,8 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	# Compute Nei's Haplotype diversity
 	
 	hd <- (Nstar / (Nstar - 1)) * (1 - sum(probs^2))
+	
+	## Output results to R console and text file ##
 		    
 	cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
 	"Mean number of haplotypes sampled: " , P, 
@@ -139,11 +171,16 @@ HAC.sim <- function(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs 
 	"\n Proportion of haplotypes (specimens) not sampled:  " , S, 
 	"\n \n Haplotype diversity: ", hd, 
 	"\n \n Curve slope (last 10 points): ", b1,
-	"\n \n One new haplotype will be found for every", ceiling(1 / b1), "specimens sampled (on average).",
+	"\n \n Mean number of specimens required to observe one new haplotype: ", 1 / b1,
 	"\n \n Mean value of N*: ", Nstar / K, 
 	"\n Mean number of specimens not sampled: ", X / K, "\n \n")
 	
-	write(c(P, Q, R, S, hd, b1, ceiling(1 / b1), Nstar / K, X / K), ncolumns = 1)
+	name <-c("Mean number of haplotypes sampled", "Mean number of haplotypes not sampled", 
+	         "Proportion of haplotypes (specimens) sampled", "Proportion of haplotypes (specimens) not sampled", 
+	         "Haplotype diversity", "Curve slope (last 10 points)", "Mean number of specimens required to observe one new haplotype", 
+	         "Mean value of N*", "Mean number of specimens not sampled")
+	tbl <- c(P, Q, R, S, Nstar / K, X / K, b1, 1 / b1, hd)
+	write(tbl, "data.txt", sep = "\n", append = TRUE)
 	
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
 

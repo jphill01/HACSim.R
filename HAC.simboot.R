@@ -26,17 +26,17 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		  # Simulate the correct variance
 		  Y0 <- R * Hstar + sample(data$res, size = 1, replace = TRUE)
 		# Make sure the original estimate also gets returned
-		#if (all(i == 1:n)) {
-				#inv.predict(HAC.tp, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-			#} else {
-				#inv.predict(boot.fit, y = Y0, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
-			#}
+		if (all(i == 1:n)) {
+				inv.predict(HAC.tp, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+			} else {
+				inv.predict(boot.fit, y = Y0, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+			}
 		  
-		  if (all(i == 1:n)) {
-		    inv.predict.newton(HAC.tp, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)
-		  } else {
-		    inv.predict.newton(boot.fit, y = Y0, x.name = "specs", start = N, interval = FALSE)
-		  }
+		  #if (all(i == 1:n)) {
+		    #inv.predict.newton(HAC.tp, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)
+		  #} else {
+		    #inv.predict.newton(boot.fit, y = Y0, x.name = "specs", start = N, interval = FALSE)
+		  #}
 		  
 }
 
