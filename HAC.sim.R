@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: April 2, 2018
+# Last modified: April 3, 2018
 
 ##########
 
@@ -194,6 +194,7 @@ HAC.sim <- function(N,
 			plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
 			polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 			lines(specs, means, lwd = 2)
+			abline(h = p * Hstar, lty = 2)
 			HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
 			
 }
