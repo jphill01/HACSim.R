@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: April 3, 2018
+# Last modified: April 5, 2018
 
 ##########
 
@@ -184,9 +184,16 @@ HAC.sim <- function(N,
 	         "Mean number of specimens required to observe one new haplotype", 
 	         "Mean value of N*", 
 	         "Mean number of specimens not sampled")
-	vals <- c(P, Q, R, S, hd, b1, 1 / b1, Nstar / K, X / K)
-	tbl <- cbind(name, vals)
-	write(tbl, file = "data.txt", append = TRUE)
+
+	write(P, file = "P.txt", append = TRUE)
+	write(Q, file = "Q.txt", append = TRUE)
+	write(R, file = "R.txt", append = TRUE)
+	write(S, file = "S.txt", append = TRUE)
+	write(hd, file = "hd.txt", append = TRUE)
+	write(b1, file = "b1.txt", append = TRUE)
+	write(1/b1, file = "invb1.txt", append = TRUE)
+	write(Nstar / K, file = "Nstar.txt", append = TRUE)
+	write(X / K, file = "X.txt", append = TRUE)
 	
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
 
@@ -194,7 +201,7 @@ HAC.sim <- function(N,
 			plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
 			polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 			lines(specs, means, lwd = 2)
-			abline(h = p * Hstar, lty = 2)
+			# abline(h = p * Hstar, lty = 2)
 			HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
 			
 }
