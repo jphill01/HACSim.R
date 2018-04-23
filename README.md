@@ -8,7 +8,7 @@ Within the simulation algorithm, species haplotypes are treated as distinct char
 
 HACSim.R comprises two main functions (relevant code found in the files HAC.sim.R and HAC.simrep.R):
 
-> HAC.sim(N, Hstar, probs, K = 1, perms = 10000, p = 0.95, input.seqs = FALSE)
+> HAC.sim(N, Hstar, probs, K = 1, m = 0, perms = 10000, p = 0.95, input.seqs = FALSE)
 
 > HAC.simrep().
 
@@ -75,7 +75,7 @@ To run the algorithm, do the following in a fresh R script:
 
 2. Set up all algorithm input parameters using standard R variable assignment. 
 
-3. Run the following line of code in succession:
+3. Run the following line of code:
 
 > HAC.simrep()
 
