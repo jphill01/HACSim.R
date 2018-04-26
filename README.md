@@ -41,17 +41,17 @@ Both HAC.sim() and HAC.simrep() output simple "Measures of Sampling Closeness" f
 
 Measures of Sampling Closeness for overall haplotype/specimen sampling completeness are given by the following fomulae (Phillips *et al.*, 2015):
 
-* Mean number of haplotypes sampled: **H**
+* Mean number of haplotypes sampled: H
 
-* Number of haplotypes not sampled: **H*** **- H**
+* Number of haplotypes not sampled: H* - H
 
-* Proportion of haplotypes (specimens) sampled: **H / H*** (alternatively, **N / N***)
+* Proportion of haplotypes (specimens) sampled: H / H* (alternatively, N / N*)
 
-* Proportion of haplotypes (specimens) not sampled: **(H* - H) / H*** (alternatively, **(N* - N) / N***)
+* Proportion of haplotypes (specimens) not sampled: (H* - H) / H* (alternatively, (N* - N) / N*)
 
-* Mean value of N*: **NH* / H**
+* Mean value of N*: NH* / H
 
-* Mean number of specimens not sampled: **N* - N**
+* Mean number of specimens not sampled: N* - N
 
 Generated output also returns the slope estimate (*&beta;*<sub>1</sub>) for the haplotype accumulation curve, calculated using the last 10 points occurring on the curve. In addition, the quantity 1 / *&beta;*<sub>1</sub> is also returned. This is a measure of the number of additional specimens needed to be sampled to observe one new haplotype.
 
