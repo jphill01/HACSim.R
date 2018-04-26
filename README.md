@@ -43,7 +43,7 @@ Measures of Sampling Closeness for overall haplotype/specimen sampling completen
 
 * Mean number of haplotypes sampled: **H**
 
-* Number of haplotypes not sampled: ** H* - H **
+* Number of haplotypes not sampled: **H*** **- H**
 
 * Proportion of haplotypes (specimens) sampled: **H / H*** (alternatively, **N / N***)
 
