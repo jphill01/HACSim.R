@@ -3,6 +3,7 @@
 ## Run HAC Simulator until convergence (saturation) is reached ##
 
 HAC.simrep <- function(reps) {
+  ptm <- proc.time()
   iters <- 1
     HAC.sim(N = N, 
             Hstar = Hstar, 
@@ -10,7 +11,7 @@ HAC.simrep <- function(reps) {
             K = K,
             m = 0,
             perms = perms, 
-            p = p, 
+            p = p,
             input.seqs = input.seqs
             )
 	  while (R < p) {
@@ -19,10 +20,11 @@ HAC.simrep <- function(reps) {
 		          probs = probs, 
 		          K = K,
 		          m = 0,
-		          perms = perms, 
+		          perms = perms,
 		          p = p
             )
 	    iters <- iters + 1
+	    amt <- proc.time() - ptm
         }
   
   ## Check whether desired level of haplotype recovery has been reached ##
@@ -31,7 +33,7 @@ HAC.simrep <- function(reps) {
     cat("Desired level of H* has not yet been reached \n")
   } else{
     cat("\n Desired level of H* has been reached. \n \n The algorithm converged after", 
-        iters, "iterations.", "\n")
+        iters, "iterations and took", amt[3] / 60, "minutes.", "\n")
   }
 
 }
