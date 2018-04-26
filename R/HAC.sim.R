@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: April 21, 2018
+# Last modified: April 24, 2018
 
 ##########
 
@@ -33,14 +33,13 @@ HAC.sim <- function(N,
                     m = 0,
                     perms = 10000, 
                     p = 0.95,
-                    input.seqs = FALSE,
-                    progress = TRUE) {
+                    input.seqs = FALSE) {
 	
 	cat("\n")
 	
-	if (progress == TRUE) {
-		pb <- utils::txtProgressBar(min = 0, max = K, style = 3)
-	}
+    # if (progress == TRUE) {
+    # pb <- utils::txtProgressBar(min = 0, max = K, style = 3)
+    # }
 
 	## Load DNA sequence data and set N, Hstar and probs ##
 	
@@ -103,36 +102,36 @@ HAC.sim <- function(N,
 	
 	pop <- array(dim = c(perms, num.specs, K))
 	
-	for (i in 1:K) {
-		pop[,, i] <- replicate(perms, gen.perms())
-	}
+	  for (i in 1:K) {
+	    pop[,, i] <- replicate(perms, gen.perms())
+    }
     
     ## Allow individuals to migrate among subpopulations according to migration rate m ##
     
     if (K > 1 && m != 0) {
         
-        inds1 <- sample(perms, size = ceiling(perms * m), replace = TRUE)
-        inds2 <- sample(perms, size = ceiling(perms * m), replace = TRUE)
+        inds1 <- sample(perms, size = ceiling(perms * m), replace = FALSE)
+        inds2 <- sample(perms, size = ceiling(perms * m), replace = FALSE)
         
-        for (i in 1:K) {
+          for (i in 1:K) {
             for(j in 1:K) {
-                tmp <- pop[inds1,, i]
-                pop[inds1,, i] <- pop[inds2,, j]
-                pop[inds2,, j] <- tmp
-            }
-        }
-        
-    }
+              tmp <- pop[inds1,, i]
+              pop[inds1,, i] <- pop[inds2,, j]
+              pop[inds2,, j] <- tmp
+          }
+        } 
+      }
+
 
 	## Perform haplotype accumulation ##
 	
-	HAC.mat <- accumulate(pop, specs, perms, K)
-	
+    HAC.mat <- accumulate(pop, specs, perms, K)
+
 	## Update progress bar ##
 	
-	if (progress == TRUE) {
-	  utils::setTxtProgressBar(pb, i)
-	}
+    # if (progress == TRUE) {
+    # utils::setTxtProgressBar(pb, i)
+    # }
 	
 	## Calculate the mean and CI for number of haplotypes recovered
 
@@ -144,7 +143,6 @@ HAC.sim <- function(N,
 	  
 	  assign("d", data.frame(specs, means), envir = .GlobalEnv)
 
-	
 	## Compute simple summary statistics and display output ##
 	
 	# tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()  
@@ -162,16 +160,10 @@ HAC.sim <- function(N,
     
     lin.reg <- lm(means ~ specs, data = tail(d, n = 10))
     b1 <- coef(lin.reg)[[2]]
-    
-    
-	# Compute Nei's Haplotype diversity
-	
-    # hd <- (Nstar / (Nstar - 1)) * (1 - sum(probs^2))
-	
 	
     ## Output results to R console and text file ##
 		    
-	cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
+	cat("--- Measures of Sampling Closeness --- \n \n", 
 	"Mean number of haplotypes sampled: " , P, 
 	"\n Mean number of haplotypes not sampled: " , Q, 
 	"\n Proportion of haplotypes (specimens) sampled: " , R, 
@@ -195,7 +187,6 @@ HAC.sim <- function(N,
 # write(Q, file = "Q.txt", append = TRUE)
 # write(R, file = "R.txt", append = TRUE)
 # write(S, file = "S.txt", append = TRUE)
-# write(hd, file = "hd.txt", append = TRUE)
 # write(b1, file = "b1.txt", append = TRUE)
 # write(1/b1, file = "invb1.txt", append = TRUE)
 # write(Nstar / K, file = "Nstar.txt", append = TRUE)
