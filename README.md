@@ -41,17 +41,17 @@ Both HAC.sim() and HAC.simrep() output simple "Measures of Sampling Closeness" f
 
 Measures of Sampling Closeness for overall haplotype/specimen sampling completeness are given by the following fomulae (Phillips *et al.*, 2015):
 
-* Mean number of haplotypes sampled: H
+* Mean number of haplotypes sampled: **H**
 
-* Number of haplotypes not sampled: H* - H
+* Number of haplotypes not sampled: **H* - H**
 
-* Proportion of haplotypes (specimens) sampled: H / H* (alternatively, N / N*)
+* Proportion of haplotypes (specimens) sampled: **H / H*** (alternatively, **N / N***)
 
-* Proportion of haplotypes (specimens) not sampled: (H* - H) / H* (alternatively, (N* - N) / N*)
+* Proportion of haplotypes (specimens) not sampled: **(H* - H) / H*** (alternatively, **(N* - N) / N***)
 
-* Mean value of N*: NH* / H
+* Mean value of N*: **NH* / H**
 
-* Mean number of specimens not sampled: N* - N
+* Mean number of specimens not sampled: **N* - N**
 
 Generated output also returns the slope estimate (*&beta;*<sub>1</sub>) for the haplotype accumulation curve, calculated using the last 10 points occurring on the curve. In addition, the quantity 1 / *&beta;*<sub>1</sub> is also returned. This is a measure of the number of additional specimens needed to be sampled to observe one new haplotype.
 
@@ -109,10 +109,10 @@ In order to sucessfully run the simulation algorithm, the following conditions m
  
 * **Hstar** = 15 
  
-* **probs** = c(220/N, rep(3/N, 2), rep(2/N, 2), rep(1/N, 10)) (or see **Custom user data** below)
+* **probs** = c(220/N, rep(3/**N**, 2), rep(2/**N**, 2), rep(1/**N**, 10)) (or see **Custom User Data** below)
 
 
-### Custom user data ###
+### Custom User Data ###
 
 Users can implement their own custom species barcode datasets mined from BOLD (not necessarily 5'-COI) through setting the argument **input.seqs** to TRUE. Values for **N**, **Hstar** and **probs** are calculated automatically via the R packages 'ape' (Analyses of Phylogenetics and Evolution; Paradis, 2004) and 'pegas' (Phylogenetics and Evolution in R; Paradis *et al.* (2010)), so there is no need to specify these parameters before running HAC.simrep(). When HAC.simrep() is run, a pop-up window will appear prompting the user to select a previously aligned/trimmed FASTA DNA sequence file.
 
