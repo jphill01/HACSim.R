@@ -43,7 +43,7 @@ Measures of Sampling Closeness for overall haplotype/specimen sampling completen
 
 * Mean number of haplotypes sampled: **H**
 
-* Number of haplotypes not sampled: **H* - H**
+* Number of haplotypes not sampled: ** H* - H **
 
 * Proportion of haplotypes (specimens) sampled: **H / H*** (alternatively, **N / N***)
 
@@ -109,7 +109,7 @@ In order to sucessfully run the simulation algorithm, the following conditions m
  
 * **Hstar** = 15 
  
-* **probs** = c(220/N, rep(3/**N**, 2), rep(2/**N**, 2), rep(1/**N**, 10)) (or see **Custom User Data** below)
+* **probs** = c(220/**N**, rep(3/**N**, 2), rep(2/**N**, 2), rep(1/**N**, 10)) (or see **Custom User Data** below)
 
 
 ### Custom User Data ###
