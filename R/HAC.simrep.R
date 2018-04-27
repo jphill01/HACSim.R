@@ -2,7 +2,7 @@
 
 ## Run HAC Simulator until convergence (saturation) is reached ##
 
-HAC.simrep <- function(reps) {
+HAC.simrep <- function() {
   ptm <- proc.time()
   iters <- 1
     HAC.sim(N = N, 
@@ -33,7 +33,7 @@ HAC.simrep <- function(reps) {
     cat("Desired level of H* has not yet been reached \n")
   } else{
     cat("\n Desired level of H* has been reached. \n \n The algorithm converged after", 
-        iters, "iterations and took", amt[3] / 60, "minutes.", "\n")
+        iters, "iterations and took", amt[3], "s.", "\n")
   }
 
 }
