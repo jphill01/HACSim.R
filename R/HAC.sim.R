@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: April 24, 2018
+# Last modified: April 29, 2018
 
 ##########
 
@@ -126,6 +126,7 @@ HAC.sim <- function(N,
 	## Perform haplotype accumulation ##
 	
     HAC.mat <- accumulate(pop, specs, perms, K)
+    HAC.mat <- apply(HAC.mat, MARGIN = 2, '[')
 
 	## Update progress bar ##
 	
@@ -133,7 +134,7 @@ HAC.sim <- function(N,
     # utils::setTxtProgressBar(pb, i)
     # }
 	
-	## Calculate the mean and CI for number of haplotypes recovered
+	## Calculate the mean and CI for number of haplotypes recovered over all permutations
 
 	  means <- apply(HAC.mat, MARGIN = 2, mean)
 	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025))
