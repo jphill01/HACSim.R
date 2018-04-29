@@ -126,7 +126,6 @@ HAC.sim <- function(N,
 	## Perform haplotype accumulation ##
 	
     HAC.mat <- accumulate(pop, specs, perms, K)
-    HAC.mat <- apply(HAC.mat, MARGIN = 2, '[')
 
 	## Update progress bar ##
 	
