@@ -33,13 +33,14 @@ HAC.sim <- function(N,
                     m = 0,
                     perms = 10000, 
                     p = 0.95,
-                    input.seqs = FALSE) {
+                    input.seqs = FALSE,
+                    progress = TRUE) {
 	
 	cat("\n")
 	
-    # if (progress == TRUE) {
-    # pb <- utils::txtProgressBar(min = 0, max = K, style = 3)
-    # }
+    if (progress == TRUE) {
+      pb <- utils::txtProgressBar(min = 0, max = K, style = 3)
+    }
 
 	## Load DNA sequence data and set N, Hstar and probs ##
 	
@@ -113,8 +114,8 @@ HAC.sim <- function(N,
         inds1 <- sample(perms, size = ceiling(perms * m), replace = FALSE)
         inds2 <- sample(perms, size = ceiling(perms * m), replace = FALSE)
         
-          for (i in 1:K) {
-            for(j in 1:K) {
+          for (i in 1:(K - 1) && 2:K) {
+            for(j in 1:(K - 1) && 2:K) {
               tmp <- pop[inds1,, i]
               pop[inds1,, i] <- pop[inds2,, j]
               pop[inds2,, j] <- tmp
@@ -129,9 +130,9 @@ HAC.sim <- function(N,
 
 	## Update progress bar ##
 	
-    # if (progress == TRUE) {
-    # utils::setTxtProgressBar(pb, i)
-    # }
+    if (progress == TRUE) {
+      utils::setTxtProgressBar(pb, i)
+    }
 	
 	## Calculate the mean and CI for number of haplotypes recovered over all permutations
 
@@ -163,7 +164,7 @@ HAC.sim <- function(N,
 	
     ## Output results to R console and text file ##
 		    
-	cat("--- Measures of Sampling Closeness --- \n \n", 
+	cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
 	"Mean number of haplotypes sampled: " , P, 
 	"\n Mean number of haplotypes not sampled: " , Q, 
 	"\n Proportion of haplotypes (specimens) sampled: " , R, 
