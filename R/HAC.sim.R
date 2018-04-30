@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: April 29, 2018
+# Last modified: April 30, 2018
 
 ##########
 
@@ -114,8 +114,21 @@ HAC.sim <- function(N,
         inds1 <- sample(perms, size = ceiling(perms * m), replace = FALSE)
         inds2 <- sample(perms, size = ceiling(perms * m), replace = FALSE)
         
-          for (i in 1:(K - 1) && 2:K) {
+        # Linear Stepping Stone Model
+        
+        for (i in 1:(K - 1) && 2:K) {
             for(j in 1:(K - 1) && 2:K) {
+              tmp <- pop[inds1,, i]
+              pop[inds1,, i] <- pop[inds2,, j]
+              pop[inds2,, j] <- tmp
+          }
+        } 
+      }
+      
+      # Island Model
+      
+      for (i in 1:K) {
+            for(j in 1:K) {
               tmp <- pop[inds1,, i]
               pop[inds1,, i] <- pop[inds2,, j]
               pop[inds2,, j] <- tmp
