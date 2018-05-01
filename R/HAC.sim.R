@@ -31,6 +31,7 @@ HAC.sim <- function(N,
                     probs, 
                     K = 1,
                     m = 0,
+                    mig.model = NULL,
                     perms = 10000, 
                     p = 0.95,
                     input.seqs = FALSE,
@@ -98,7 +99,7 @@ HAC.sim <- function(N,
 	# individuals' haplotypes from the probabilities ##
 	
 	gen.perms <- function() {
-		sample(haps, size = num.specs, replace = TRUE, prob = probs)
+	    sample(haps, size = num.specs, replace = TRUE, prob = probs)
 	}
 	
 	pop <- array(dim = c(perms, num.specs, K))
@@ -116,25 +117,33 @@ HAC.sim <- function(N,
         
         # Linear Stepping Stone Model
         
-        for (i in 1:(K - 1) && 2:K) {
+        if (mig.model == "Step") {
+          for (i in 1:(K - 1) && 2:K) {
             for(j in 1:(K - 1) && 2:K) {
               tmp <- pop[inds1,, i]
               pop[inds1,, i] <- pop[inds2,, j]
               pop[inds2,, j] <- tmp
+            }
           }
-        } 
-      }
+        }
       
       # Island Model
       
-      for (i in 1:K) {
-            for(j in 1:K) {
-              tmp <- pop[inds1,, i]
-              pop[inds1,, i] <- pop[inds2,, j]
-              pop[inds2,, j] <- tmp
+      if (mig.model == "island") {
+        for (i in 1:K) {
+          for(j in 1:K) {
+            tmp <- pop[inds1,, i]
+            pop[inds1,, i] <- pop[inds2,, j]
+            pop[inds2,, j] <- tmp
           }
-        } 
-      }
+        }
+      } 
+        
+     if (is.null(mig.model)) {
+       pop
+     }
+  
+    }
 
 
 	## Perform haplotype accumulation ##
@@ -155,7 +164,7 @@ HAC.sim <- function(N,
 	
 	## Make data accessible to user ##
 	  
-	  assign("d", data.frame(specs, means), envir = .GlobalEnv)
+	 assign("d", data.frame(specs, means), envir = .GlobalEnv)
 
 	## Compute simple summary statistics and display output ##
 	
@@ -163,10 +172,10 @@ HAC.sim <- function(N,
 	
 	P <- tail(means, n = 1)
 	Q <- Hstar - P
-	assign("R", P / Hstar, envir = .GlobalEnv)
+	R <- P / HstarS
 	S <- (Hstar - P) / Hstar
-	assign("Nstar", (N * Hstar) / P, envir = .GlobalEnv)
-	assign("X", ((N * Hstar) / P) - N, envir = .GlobalEnv)
+	Nstar <- (N * Hstar) / P
+	X <- ((N * Hstar) / P) - N
 	
 	## Calculate slope of curve using last 10 points on curve
 	

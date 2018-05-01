@@ -10,6 +10,7 @@ HAC.simrep <- function() {
             probs = probs, 
             K = K,
             m = 0,
+            mig.model = mig.model,
             perms = perms, 
             p = p,
             input.seqs = input.seqs
@@ -20,6 +21,7 @@ HAC.simrep <- function() {
 		          probs = probs, 
 		          K = K,
 		          m = 0,
+		          mig.model = mig.model,
 		          perms = perms,
 		          p = p
             )
@@ -32,7 +34,7 @@ HAC.simrep <- function() {
   if (R < p) {
     cat("Desired level of H* has not yet been reached \n")
   } else{
-    cat("\n Desired level of H* has been reached. \n \n The algorithm converged after", 
+      cat("\n Desired level of H* has been reached. \n \n The algorithm converged after", 
         iters, "iterations and took", amt[3], "s.", "\n")
   }
 
