@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: May 6, 2018
+# Last modified: May 7, 2018
 
 ##########
 
@@ -112,13 +112,14 @@ HAC.sim <- function(N,
   ## Allow individuals (columns) to migrate among subpopulations (levels) according to migration rate m ##
     
   if (K > 1 && m != 0) {
-        
-    inds1 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE)
-    inds2 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE)
-      
+    
     # Island Model
       
       if (mig.model == "Island") {
+        
+        inds1 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE)
+        inds2 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE)
+        
         for (i in 1:K) {
           for(j in 1:K) {
             tmp <- pop[, inds1, i]
@@ -131,6 +132,10 @@ HAC.sim <- function(N,
     # Linear Stepping Stone Model
     
     if (mig.model == "Step") {
+      
+      inds1 <- sample(num.specs, size = ceiling(num.specs * m / 2), replace = FALSE)
+      inds2 <- sample(num.specs, size = ceiling(num.specs * m / 2), replace = FALSE)
+      
       for (i in 1:(K - 1) && 2:K) {
         for(j in 1:(K - 1) && 2:K) {
           tmp <- pop[, inds1, i]
@@ -160,10 +165,10 @@ HAC.sim <- function(N,
     }
 	
 	## Calculate the mean and CI for number of haplotypes recovered over all permutations
-
-	  means <- apply(HAC.mat, MARGIN = 2, mean)
-	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025))
-	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975))
+    
+        means <- apply(HAC.mat, MARGIN = 2, mean)
+  	    lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025))
+        upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975))
 	
 	## Make data accessible to user ##
 	  
