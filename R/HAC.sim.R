@@ -70,6 +70,10 @@ HAC.sim <- function(N,
   if (sum(probs) != 1) {
     stop("probs must sum to 1")
   }
+  
+  ## Create container to hold N individuals
+  
+  num.specs <- N
 		
 	## Create an ID for each haplotype ##
 	
@@ -77,7 +81,7 @@ HAC.sim <- function(N,
 	
 	## Assign individuals (N) ##
 	
-	specs <- 1:(N / K)
+	specs <- 1:num.specs
 	
 	## Generate permutations, assume each permutation has N individuals, and sample those 
 	# individuals' haplotypes from the probabilities ##
@@ -86,13 +90,13 @@ HAC.sim <- function(N,
 	   sample(haps, size = num.specs, replace = TRUE, prob = probs)
 	  }
 	
-	pop <- array(dim = c(perms, N))
+	pop <- array(dim = c(perms, N, K))
 	
 	    pop <- replicate(perms, gen.perms())
 
 	## Perform haplotype accumulation ##
 	
-    HAC.mat <- accumulate(pop, specs, perms)
+    HAC.mat <- accumulate(pop, specs, perms, K)
 
   ## Update progress bar ##
 	
