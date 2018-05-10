@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: May 7, 2018
+# Last modified: May 10, 2018
 
 ##########
 
@@ -31,7 +31,7 @@ HAC.sim <- function(N,
                     Hstar, 
                     probs,
                     K = 1,
-                    m = 0,
+                    m,
                     mig.model = NULL,
                     perms = 10000, 
                     p = 0.95,
@@ -96,12 +96,12 @@ HAC.sim <- function(N,
 	
 	specs <- 1:num.specs
 	
-	## Generate permutations, assume each permutation has N/K individuals, and sample those 
+	## Generate permutations, assume each permutation has N / K individuals, and sample those 
 	# individuals' haplotypes from the probabilities ##
 	
 	gen.perms <- function() {
 	   sample(haps, size = num.specs, replace = TRUE, prob = probs)
-	}
+	  }
 	
 	pop <- array(dim = c(perms, num.specs, K))
 	
@@ -109,7 +109,7 @@ HAC.sim <- function(N,
 	    pop[,, i] <- replicate(perms, gen.perms())
 	  }
     
-  ## Allow individuals (columns) to migrate among subpopulations (levels) according to migration rate m ##
+  ## Allow individuals (columns) to migrate among subpopulations (array levels) according to migration rate m ##
     
   if (K > 1 && m != 0) {
     
@@ -117,8 +117,8 @@ HAC.sim <- function(N,
       
       if (mig.model == "Island") {
         
-        inds1 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE)
-        inds2 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE)
+        inds1 <- sample(haps, size = ceiling(num.specs * m), replace = TRUE, prob = probs)
+        inds2 <- sample(haps, size = ceiling(num.specs * m), replace = TRUE, prob = probs)
         
         for (i in 1:K) {
           for(j in 1:K) {
@@ -127,31 +127,33 @@ HAC.sim <- function(N,
             pop[, inds2, j] <- tmp
           }
         }
+      
       }
     
-    # Linear Stepping Stone Model
+    # Linear Stepping Stone Model (can only move between adjacent demes)
     
     if (mig.model == "Step") {
       
       inds1 <- sample(num.specs, size = ceiling(num.specs * m / 2), replace = FALSE)
       inds2 <- sample(num.specs, size = ceiling(num.specs * m / 2), replace = FALSE)
       
-      for (i in 1:(K - 1) && 2:K) {
-        for(j in 1:(K - 1) && 2:K) {
+      for (i in 1:K) {
+        for(j in 1:K) {
           tmp <- pop[, inds1, i]
           pop[, inds1, i] <- pop[, inds2, j]
           pop[, inds2, j] <- tmp
         }
       }
+    
     }
     
-    # No model
+  }
+    
+    # No migration model
         
      if (is.null(mig.model)) {
        pop
      }
-  
-    }
 
 
 	## Perform haplotype accumulation ##
