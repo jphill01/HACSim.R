@@ -19,25 +19,30 @@ library(HACSim)
 
 ### Load scripts ###
 
-library(Rcpp)
-library(RcppArmadillo)
+#library(Rcpp)
+#library(RcppArmadillo)
 
-sourceCpp("accumulate.cpp")
-# source("HAC.sim.R")
-# source("HAC.simrep.R")
+#sourceCpp("accumulate.cpp")
+#source("HAC.sim.R")
+#source("HAC.simrep.R")
 
+# library(abind)
 # library(boot) # This package is for bootstrapping
 # library(investr) # This package performs inverse estimation
 # library(rootSolve) # This package employs bisection and Newton's method
 # library(mgcv) # This package fits GAMs and Kriging models
 # library(scam) # This package fits SCAMs
 
-# source("HAC.simmodels.R")
-# source("HAC.simplot.R")
-# source("HAC.simest.R")
-# source("HAC.simfit.R")
-# source("HAC.simboot.R")
-# source("inv.predict.R")
+#source("HAC.simmodels.R")
+#source("HAC.simaic.R")
+#source("HAC.simplot.R")
+#source("HAC.simest.R")
+#source("HAC.simfit.R")
+#source("HAC.simmodels.R")
+#source("HAC.simboot.bisect.R")
+#source("HAC.simboot.newton.R")
+#source("HAC.simpost.R")
+#source("inv.predict.R")
 
 ### Set parameters ###
 
@@ -47,16 +52,12 @@ N <- 10 # total number of sampled individuals
 Hstar <- 5  # total number of haplotypes
 probs <- c(0.45, 0.45, rep(0.10/3, 3)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar)
-K <- 2 # number of equally-sized (sub)populations
-m <- 0 # overall migration rate
-mig.model <- NULL
-perms <- 10000 # number of permutations
-p <- 0.90 # proportion of haplotypes to recover
+perms <- 100000 # number of permutations
+p <- 0.95 # proportion of haplotypes to recover
 input.seqs <- FALSE
 
 # Simulate real species
 
-K <- 1 # number of equally-sized (sub)populations
 perms <- 10000 # number of permutations
 p <- 0.80 # proportion of haplotypes to recover
 input.seqs <- TRUE
