@@ -17,9 +17,6 @@
 # N = Number of specimens (DNA sequences)
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
-# K = Number of (sub)populations (demes, sampling sites)
-# m = Overall migration rate between demes
-# mig.model = migration rate model - one of NULL, "Island", or "Step" (NULL by default)
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
@@ -30,9 +27,7 @@
 HAC.sim <- function(N, 
                     Hstar, 
                     probs,
-                    K = 1,
-                    m,
-                    mig.model = NULL,
+                    K = 1, # DO NOT CHANGE
                     perms = 10000, 
                     p = 0.95,
                     input.seqs = FALSE,
@@ -64,10 +59,6 @@ HAC.sim <- function(N,
   
   ## Error messages ##
   
-  if (N < K) {
-    stop("N must be greater than or equal to K")
-  }
-  
   if (N < Hstar) {
     stop("N must be greater than or equal to Hstar")
   }
@@ -79,86 +70,29 @@ HAC.sim <- function(N,
   if (sum(probs) != 1) {
     stop("probs must sum to 1")
   }
-  
-  if (K == 1 && m != 0) {
-    stop("K must be at least 2 when m is greater than 0")
-  }
-	
-	## Set up container(s) to hold the identity of each individual from each permutation ##
-	
-	num.specs <- ceiling(N / K)
 		
 	## Create an ID for each haplotype ##
 	
 	haps <- 1:Hstar
 	
-	## Assign individuals (N) to each subpopulation (K) ##
+	## Assign individuals (N) ##
 	
-	specs <- 1:num.specs
+	specs <- 1:(N / K)
 	
-	## Generate permutations, assume each permutation has N / K individuals, and sample those 
+	## Generate permutations, assume each permutation has N individuals, and sample those 
 	# individuals' haplotypes from the probabilities ##
 	
 	gen.perms <- function() {
 	   sample(haps, size = num.specs, replace = TRUE, prob = probs)
 	  }
 	
-	pop <- array(dim = c(perms, num.specs, K))
+	pop <- array(dim = c(perms, N))
 	
-	  for (i in 1:K) {
-	    pop[,, i] <- replicate(perms, gen.perms())
-	  }
-    
-  ## Allow individuals (columns) to migrate among subpopulations (array levels) according to migration rate m ##
-    
-  if (K > 1 && m != 0) {
-    
-    # Island Model
-      
-      if (mig.model == "Island") {
-        
-        inds1 <- sample(haps, size = ceiling(num.specs * m), replace = TRUE, prob = probs)
-        inds2 <- sample(haps, size = ceiling(num.specs * m), replace = TRUE, prob = probs)
-        
-        for (i in 1:K) {
-          for(j in 1:K) {
-            tmp <- pop[, inds1, i]
-            pop[, inds1, i] <- pop[, inds2, j]
-            pop[, inds2, j] <- tmp
-          }
-        }
-      
-      }
-    
-    # Linear Stepping Stone Model (can only move between adjacent demes)
-    
-    if (mig.model == "Step") {
-      
-      inds1 <- sample(num.specs, size = ceiling(num.specs * m / 2), replace = FALSE)
-      inds2 <- sample(num.specs, size = ceiling(num.specs * m / 2), replace = FALSE)
-      
-      for (i in 1:K) {
-        for(j in 1:K) {
-          tmp <- pop[, inds1, i]
-          pop[, inds1, i] <- pop[, inds2, j]
-          pop[, inds2, j] <- tmp
-        }
-      }
-    
-    }
-    
-  }
-    
-    # No migration model
-        
-     if (is.null(mig.model)) {
-       pop
-     }
-
+	    pop <- replicate(perms, gen.perms())
 
 	## Perform haplotype accumulation ##
 	
-    HAC.mat <- accumulate(pop, specs, perms, K)
+    HAC.mat <- accumulate(pop, specs, perms)
 
   ## Update progress bar ##
 	
@@ -201,8 +135,8 @@ HAC.sim <- function(N,
 	  "\n Mean number of haplotypes not sampled: " , Q, 
 	  "\n Proportion of haplotypes (specimens) sampled: " , R, 
 	  "\n Proportion of haplotypes (specimens) not sampled: " , S,
-	  "\n \n Mean value of N*: ", Nstar / K,
-	  "\n Mean number of specimens not sampled: ", X / K, 
+	  "\n \n Mean value of N*: ", Nstar,
+	  "\n Mean number of specimens not sampled: ", X, 
 	  "\n \n Curve slope (last 10 points): ", b1,
 	  "\n \n Mean number of specimens required to observe one new haplotype: ", 1 / b1, "\n \n")
 	
@@ -216,14 +150,14 @@ HAC.sim <- function(N,
 	         # "Mean number of specimens not sampled")
 
   # write(P, file = "data.txt", append = TRUE)
-  # write.table(c(P, Q, R, S, b1, 1 / b1, Nstar /K, X / K, file = "data.txt", append = TRUE)
+  # write.table(c(P, Q, R, S, b1, 1 / b1, Nstar, X, file = "data.txt", append = TRUE)
   # write(Q, file = "Q.txt", append = TRUE)
   # write(R, file = "R.txt", append = TRUE)
   # write(S, file = "S.txt", append = TRUE)
   # write(b1, file = "b1.txt", append = TRUE)
   # write(1/b1, file = "invb1.txt", append = TRUE)
-  # write(Nstar / K, file = "Nstar.txt", append = TRUE)
-  # write(X / K, file = "X.txt", append = TRUE)
+  # write(Nstar, file = "Nstar.txt", append = TRUE)
+  # write(X, file = "X.txt", append = TRUE)
 	
 	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
 
