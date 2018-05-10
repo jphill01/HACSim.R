@@ -27,8 +27,8 @@
 HAC.sim <- function(N, 
                     Hstar, 
                     probs,
+                    perms = 10000,
                     K = 1, # DO NOT CHANGE
-                    perms = 10000, 
                     p = 0.95,
                     input.seqs = FALSE,
                     progress = TRUE) {
@@ -36,7 +36,7 @@ HAC.sim <- function(N,
 	cat("\n")
 	
     if (progress == TRUE) {
-      pb <- utils::txtProgressBar(min = 0, max = K, style = 3)
+      pb <- utils::txtProgressBar(min = 0, max = 1, style = 3)
     }
 
 	## Load DNA sequence data and set N, Hstar and probs ##
@@ -70,30 +70,32 @@ HAC.sim <- function(N,
   if (sum(probs) != 1) {
     stop("probs must sum to 1")
   }
-  
-  ## Create container to hold N individuals
-  
-  num.specs <- N
+	
+	## Set up container(s) to hold the identity of each individual from each permutation ##
+	
+	num.specs <- N / K
 		
 	## Create an ID for each haplotype ##
 	
 	haps <- 1:Hstar
 	
-	## Assign individuals (N) ##
+	## Assign individuals (N) to each subpopulation (K) ##
 	
 	specs <- 1:num.specs
 	
-	## Generate permutations, assume each permutation has N individuals, and sample those 
+	## Generate permutations, assume each permutation has N/K individuals, and sample those 
 	# individuals' haplotypes from the probabilities ##
 	
 	gen.perms <- function() {
-	   sample(haps, size = num.specs, replace = TRUE, prob = probs)
-	  }
+	    sample(haps, size = num.specs, replace = TRUE, prob = probs)
+	}
 	
-	pop <- array(dim = c(perms, N, K))
+	pop <- array(dim = c(perms, num.specs, K))
 	
-	    pop <- replicate(perms, gen.perms())
-
+	  for (i in 1:K) {
+	    pop[,, i] <- replicate(perms, gen.perms())
+    }
+    
 	## Perform haplotype accumulation ##
 	
     HAC.mat <- accumulate(pop, specs, perms, K)
@@ -105,10 +107,10 @@ HAC.sim <- function(N,
     }
 	
 	## Calculate the mean and CI for number of haplotypes recovered over all permutations
-    
-        means <- apply(HAC.mat, MARGIN = 2, mean)
-  	    lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025))
-        upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975))
+
+	  means <- apply(HAC.mat, MARGIN = 2, mean)
+	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025))
+	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975))
 	
 	## Make data accessible to user ##
 	  
@@ -117,7 +119,7 @@ HAC.sim <- function(N,
 	## Compute simple summary statistics and display output ##
 	
 	# tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()  
-	 
+	
 	  P <- tail(means, n = 1)
 	  Q <- Hstar - P
     assign("R", P / Hstar, envir = .GlobalEnv)
@@ -154,7 +156,7 @@ HAC.sim <- function(N,
 	         # "Mean number of specimens not sampled")
 
   # write(P, file = "data.txt", append = TRUE)
-  # write.table(c(P, Q, R, S, b1, 1 / b1, Nstar, X, file = "data.txt", append = TRUE)
+  # write.table(c(P, Q, R, S, b1, 1 / b1, Nstar /K, X / K, file = "data.txt", append = TRUE)
   # write(Q, file = "Q.txt", append = TRUE)
   # write(R, file = "R.txt", append = TRUE)
   # write(S, file = "S.txt", append = TRUE)
@@ -169,7 +171,7 @@ HAC.sim <- function(N,
 	plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
 	polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 	lines(specs, means, lwd = 2)
-	HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps)
+	HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
             
 			
 }
