@@ -8,9 +8,6 @@ HAC.simrep <- function() {
     HAC.sim(N = N, 
             Hstar = Hstar, 
             probs = probs, 
-            K = K,
-            m = 0,
-            mig.model = mig.model,
             perms = perms, 
             p = p,
             input.seqs = input.seqs
@@ -18,10 +15,7 @@ HAC.simrep <- function() {
 	  while (R < p) {
 		  HAC.sim(N = ceiling(Nstar), 
 		          Hstar = Hstar, 
-		          probs = probs, 
-		          K = K,
-		          m = 0,
-		          mig.model = mig.model,
+		          probs = probs,
 		          perms = perms,
 		          p = p
             )
