@@ -26,7 +26,6 @@ library(HACSim)
 #source("HAC.sim.R")
 #source("HAC.simrep.R")
 
-# library(abind)
 # library(boot) # This package is for bootstrapping
 # library(investr) # This package performs inverse estimation
 # library(rootSolve) # This package employs bisection and Newton's method
