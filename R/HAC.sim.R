@@ -87,7 +87,7 @@ HAC.sim <- function(N,
 	# individuals' haplotypes from the probabilities ##
 	
 	gen.perms <- function() {
-	    sample(haps, size = num.specs, replace = TRUE, prob = probs)
+	   sample(haps, size = num.specs, replace = TRUE, prob = probs)
 	}
 	
 	pop <- array(dim = c(perms, num.specs, K))
@@ -165,7 +165,7 @@ HAC.sim <- function(N,
   # write(Nstar, file = "Nstar.txt", append = TRUE)
   # write(X, file = "X.txt", append = TRUE)
 	
-	## Plot the haplotype accumulation curve and haplotype frequency barplot ##
+	## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
 
 	par(mfrow = c(1, 2))
 	plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
