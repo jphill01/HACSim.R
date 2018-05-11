@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: May 10, 2018
+# Last modified: May 11, 2018
 
 ##########
 
@@ -31,6 +31,7 @@ HAC.sim <- function(N,
                     K = 1, # DO NOT CHANGE
                     p = 0.95,
                     input.seqs = FALSE,
+                    prop.seqs,
                     progress = TRUE) {
 	
 	cat("\n")
@@ -41,14 +42,19 @@ HAC.sim <- function(N,
 
 	## Load DNA sequence data and set N, Hstar and probs ##
 	
-	if (input.seqs == TRUE) {
-		seqs <- read.dna(file = file.choose(), format = "fasta")
-		if (all(base.freq(seqs, all = TRUE)[5:17] != 0)) {
-			warning("Inputted DNA sequences contain missing and/or ambiguous nucleotides, which may lead 
-			        to overestimation of the number of observed unique haplotypes.  Consider excluding 
-			        sequences or alignment sites containing these data. If missing and/or ambiguous bases 
-			        occur at the ends of sequences, further alignment trimming is an option.")
+	  if (input.seqs == TRUE) {
+		  seqs <- read.dna(file = file.choose(), format = "fasta")
+	  if (all(base.freq(seqs, all = TRUE)[5:17] != 0)) {
+		warning("Inputted DNA sequences contain missing and/or ambiguous nucleotides, which may lead 
+			       to overestimation of the number of observed unique haplotypes.  Consider excluding 
+			       sequences or alignment sites containing these data. If missing and/or ambiguous bases 
+			       occur at the ends of sequences, further alignment trimming is an option.")
 		}
+	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
+	                             # can be use to account for migration/gene flow
+		  seqs <- sample(seqs, size = prop.seqs * dim(seqs)[[1]], replace = FALSE)
+	  }
+		 
 		assign("N", dim(seqs)[[1]], envir = .GlobalEnv)
 		h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
 		rownames(h) <- 1:nrow(h)
@@ -156,7 +162,6 @@ HAC.sim <- function(N,
 	         # "Mean number of specimens not sampled")
 
   # write(P, file = "data.txt", append = TRUE)
-  # write.table(c(P, Q, R, S, b1, 1 / b1, Nstar /K, X / K, file = "data.txt", append = TRUE)
   # write(Q, file = "Q.txt", append = TRUE)
   # write(R, file = "R.txt", append = TRUE)
   # write(S, file = "S.txt", append = TRUE)
@@ -164,6 +169,7 @@ HAC.sim <- function(N,
   # write(1/b1, file = "invb1.txt", append = TRUE)
   # write(Nstar, file = "Nstar.txt", append = TRUE)
   # write(X, file = "X.txt", append = TRUE)
+	# write.table(c(P, Q, R, S, b1, 1 / b1, Nstar, X), file = "data.txt", append = TRUE)
 	
 	## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
 
