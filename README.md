@@ -20,10 +20,6 @@ Function arguments to HAC.sim() are as follows:
 
 * **probs** = Haplotype frequency distribution for a given species (must sum to 1)
 
-* **K** = Number of (equally-sized) (sub)populations/demes for a given species (**K** = 1 by default)
-
-* **m** = Overall migration rate (between 0 and 1, inclusive) of individuals among demes (**m** = 0 by default)
-
 * **perms** = Number of permutations to generate species haplotype accumulation curve (**perms** = 10000 by default)
 
 * **p** = Proportion of species haplotypes to recover (**p** = 0.95 by default)
@@ -56,10 +52,6 @@ Measures of Sampling Closeness for overall haplotype/specimen sampling completen
 Generated output also returns the slope estimate (*&beta;*<sub>1</sub>) for the haplotype accumulation curve, calculated using the last 10 points occurring on the curve. In addition, the quantity 1 / *&beta;*<sub>1</sub> is also returned. This is a measure of the number of additional specimens needed to be sampled to observe one new haplotype.
 
 In addition to users specifying unique values for **N**, **Hstar** and **probs**, default parameters can also be altered in order to produce more interesting output (e.g., simulating multiple subpopulations with or without migration/gene flow). It may be necessary to increase **perms** in order to smooth out the curves, but this will increase algorithm runtime substantially. 
-
-When incorporating population structure into simulations, it is assumed that haplotype diversity is homogeneous across demes. 
-
-Determination of **K** is not straightforward, and will require good judgement on the part of the user. One option is to simply set **K** equal to the number of sampling sites, as a proxy for the "true" value of **K**. A better option is to employ software programs such as STRUCTURE (Pritchard *et al.*, 2000) in order to determine the most likely value of **K** via a Bayesian framework. 
 
 ### Running the Simulation ###
 
