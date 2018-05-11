@@ -20,6 +20,7 @@
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
+# prop.seqs = Proportion of DNA sequences to sample 
 
 
 #####
@@ -31,7 +32,8 @@ HAC.sim <- function(N,
                     K = 1, # DO NOT CHANGE
                     p = 0.95,
                     input.seqs = FALSE,
-                    prop.seqs,
+                    subset.seqs = FALSE,
+                    prop.seqs = NULL,
                     progress = TRUE) {
 	
 	cat("\n")
@@ -49,10 +51,13 @@ HAC.sim <- function(N,
 			       to overestimation of the number of observed unique haplotypes.  Consider excluding 
 			       sequences or alignment sites containing these data. If missing and/or ambiguous bases 
 			       occur at the ends of sequences, further alignment trimming is an option.")
-		}
+	  }
+		  
 	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
-	                             # can be use to account for migration/gene flow
-		  seqs <- sample(seqs, size = prop.seqs * dim(seqs)[[1]], replace = FALSE)
+	                             # can be used to simulate migration/gene flow
+	    seqs <- as.list(seqs)
+		  seqs <- sample(seqs, size = ceiling(prop.seqs * length(seqs)), replace = FALSE)
+		  seqs <- as.matrix(seqs)
 	  }
 		 
 		assign("N", dim(seqs)[[1]], envir = .GlobalEnv)

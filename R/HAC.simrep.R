@@ -10,14 +10,18 @@ HAC.simrep <- function() {
             probs = probs, 
             perms = perms, 
             p = p,
-            input.seqs = input.seqs
+            input.seqs = input.seqs,
+            subset.seqs = subset.seqs,
+            prop.seqs = prop.seqs
             )
 	  while (R < p) {
 		  HAC.sim(N = ceiling(Nstar), 
 		          Hstar = Hstar, 
 		          probs = probs,
 		          perms = perms,
-		          p = p
+		          p = p,
+		          subset.seqs = subset.seqs,
+		          prop.seqs = prop.seqs
             )
 	    iters <- iters + 1
 	    amt <- proc.time() - ptm
