@@ -51,16 +51,17 @@ N <- 10 # total number of sampled individuals
 Hstar <- 5  # total number of haplotypes
 probs <- c(0.45, 0.45, rep(0.10/3, 3)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar)
-perms <- 100000 # number of permutations
+perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
-input.seqs <- FALSE
+input.seqs <- FALSE # analyze DNA sequence file?
 
 # Simulate real species
 
 perms <- 10000 # number of permutations
-p <- 0.80 # proportion of haplotypes to recover
-input.seqs <- TRUE
-
+p <- 0.95 # proportion of haplotypes to recover
+input.seqs <- TRUE # analyze DNA sequence file?
+subset.seqs <- TRUE # subset DNA sequrnces?
+prop.seqs <- 0.50 # proportion of sequences to subsample
 
 ##########
 
