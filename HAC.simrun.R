@@ -2,16 +2,22 @@
 
 ## Input parameters ###
 
+# Required #
+
 # N = Number of specimens (DNA sequences)
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
+
+# Optional #
+
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
+# subset.seqs = Take random subsample of DNA sequences (TRUE/FALSE)?
 # prop.seqs = Proportion of DNA sequences to sample 
 
 
-# Run algorithm with N = 10, 50, 100, with prespecified H*, probs, K, m and p
+# Run algorithm with N = 10, 50, 100, with prespecified H*, probs and p
 
 ##########
 
