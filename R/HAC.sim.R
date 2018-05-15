@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: May 11, 2018
+# Last modified: May 13, 2018
 
 ##########
 
@@ -14,13 +14,19 @@
 
 ## Input parameters ###
 
+# Required #
+
 # N = Number of specimens (DNA sequences)
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
 # perms = Number of permutations
 # p = Proportion of unique haplotypes to recover
+
+# Optional #
+
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
 # prop.seqs = Proportion of DNA sequences to sample 
+
 
 
 #####
@@ -90,15 +96,15 @@ HAC.sim <- function(N,
 	
 	haps <- 1:Hstar
 	
-	## Assign individuals (N) to each subpopulation (K) ##
+	## Assign individuals (N) ##
 	
 	specs <- 1:num.specs
 	
-	## Generate permutations, assume each permutation has N/K individuals, and sample those 
+	## Generate permutations. Assume each permutation has N individuals, and sample those 
 	# individuals' haplotypes from the probabilities ##
 	
 	gen.perms <- function() {
-	   sample(haps, size = num.specs, replace = TRUE, prob = probs)
+	  sample(haps, size = num.specs, replace = TRUE, prob = probs)
 	}
 	
 	pop <- array(dim = c(perms, num.specs, K))
@@ -182,7 +188,6 @@ HAC.sim <- function(N,
 	plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
 	polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 	lines(specs, means, lwd = 2)
-	HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = 1:Hstar)
-            
-			
+	HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps)
+
 }
