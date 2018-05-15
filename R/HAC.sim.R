@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: May 13, 2018
+# Last modified: May 15, 2018
 
 ##########
 
@@ -90,7 +90,7 @@ HAC.sim <- function(N,
 	
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
-	num.specs <- N / K
+	num.specs <- N
 		
 	## Create an ID for each haplotype ##
 	
@@ -126,8 +126,8 @@ HAC.sim <- function(N,
 	## Calculate the mean and CI for number of haplotypes recovered over all permutations
 
 	  means <- apply(HAC.mat, MARGIN = 2, mean)
-	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025))
-	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975))
+	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025)) 
+	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975)) 
 	
 	## Make data accessible to user ##
 	  
@@ -188,6 +188,8 @@ HAC.sim <- function(N,
 	plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
 	polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 	lines(specs, means, lwd = 2)
+	abline(v = N, lty = 2)
+	abline(h = c(p * Hstar, R * Hstar), lty = 2)
 	HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps)
 
 }
