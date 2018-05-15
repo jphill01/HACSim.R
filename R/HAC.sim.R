@@ -188,8 +188,7 @@ HAC.sim <- function(N,
 	plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
 	polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 	lines(specs, means, lwd = 2)
-	abline(v = N, lty = 2)
-	abline(h = c(p * Hstar, R * Hstar), lty = 2)
+	abline(h = c(p * Hstar, R * Hstar), v = N, lty = 2)
 	HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps)
 
 }
