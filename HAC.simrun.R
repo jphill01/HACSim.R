@@ -1,5 +1,16 @@
 ### Run HAC Simulations ###
 
+## Input parameters ###
+
+# N = Number of specimens (DNA sequences)
+# Hstar = Number of observed unique haplotypes
+# probs = Probability frequency distribution of haplotypes
+# perms = Number of permutations
+# p = Proportion of unique haplotypes to recover
+# input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
+# prop.seqs = Proportion of DNA sequences to sample 
+
+
 # Run algorithm with N = 10, 50, 100, with prespecified H*, probs, K, m and p
 
 ##########
@@ -47,9 +58,9 @@ library(HACSim)
 
 # Simulate hypothetical species
 
-N <- 10 # total number of sampled individuals
-Hstar <- 5  # total number of haplotypes
-probs <- c(0.45, 0.45, rep(0.10/3, 3)) # must sum to 1
+N <- 20 # total number of sampled individuals
+Hstar <- 10  # total number of haplotypes
+probs <- c(0.45, 0.45, rep(0.1/8, 8)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar)
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
@@ -61,7 +72,7 @@ perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 input.seqs <- TRUE # analyze DNA sequence file?
 subset.seqs <- TRUE # subset DNA sequrnces?
-prop.seqs <- 0.50 # proportion of sequences to subsample
+prop.seqs <- 0.90 # proportion of sequences to subsample
 
 ##########
 
