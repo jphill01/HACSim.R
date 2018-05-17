@@ -71,22 +71,23 @@ probs <- c(0.45, 0.45, rep(0.1/8, 8)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
-input.seqs <- FALSE # analyze DNA sequence file?
-prop.haps <- 0.60
+subset.seqs <- NULL # subset DNA sequences? # DO NOT CHANGE
+prop.haps <- 0.60 # proportion of haplotypes to subsample
 
 # Simulate real species
 
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 input.seqs <- TRUE # analyze DNA sequence file?
-subset.seqs <- TRUE # subset DNA sequrnces?
-prop.seqs <- 0.30 # proportion of DNA sequences to subsample
+subset.seqs <- TRUE # subset DNA sequences?
+prop.seqs <- 0.40 # proportion of DNA sequences to subsample
+subset.haps <- NULL # DO NOT CHANGE
 
 ##########
 
 ### Run simulations ###
 
-if (!is.null(prop.haps)) {
+if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetical species
   subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
 }
 
