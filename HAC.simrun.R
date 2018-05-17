@@ -7,7 +7,7 @@
 # N = Number of specimens (DNA sequences)
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
-# perms = Number of permutations
+# perms = Number of permutations (replications)
 # p = Proportion of unique haplotypes to recover
 
 # Optional #
@@ -15,7 +15,8 @@
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
 # subset.seqs = Take random subsample of DNA sequences (TRUE/FALSE)?
 # prop.seqs = Proportion of DNA sequences to sample 
-
+# prop.haps = Proportion of haplotypes to sample 
+# subset.haps = Random subsample of haplotypes to analyze
 
 # Run algorithm with N = 10, 50, 100, with prespecified H*, probs and p
 
@@ -64,13 +65,14 @@ library(HACSim)
 
 # Simulate hypothetical species
 
-N <- 20 # total number of sampled individuals
+N <- 50 # total number of sampled individuals
 Hstar <- 10  # total number of haplotypes
 probs <- c(0.45, 0.45, rep(0.1/8, 8)) # must sum to 1
-# probs <- rep(1/Hstar, Hstar)
+# probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 input.seqs <- FALSE # analyze DNA sequence file?
+prop.haps <- 0.60
 
 # Simulate real species
 
@@ -78,11 +80,16 @@ perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 input.seqs <- TRUE # analyze DNA sequence file?
 subset.seqs <- TRUE # subset DNA sequrnces?
-prop.seqs <- 0.90 # proportion of sequences to subsample
+prop.seqs <- 0.30 # proportion of DNA sequences to subsample
 
 ##########
 
 ### Run simulations ###
+
+if (!is.null(prop.haps)) {
+  subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
+}
+
 HAC.simrep()
 
 
@@ -90,7 +97,7 @@ HAC.simrep()
 
 # Models
 
-k <- 10
+k <- 40
 HAC.simmodels(k = k)
 
 # Visualization plots
