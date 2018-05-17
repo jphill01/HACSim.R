@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: May 15, 2018
+# Last modified: May 16, 2018
 
 ##########
 
@@ -19,7 +19,7 @@
 # N = Number of specimens (DNA sequences)
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
-# perms = Number of permutations
+# perms = Number of permutations (replications)
 # p = Proportion of unique haplotypes to recover
 
 # Optional #
@@ -39,10 +39,14 @@ HAC.sim <- function(N,
                     p = 0.95,
                     input.seqs = FALSE,
                     subset.seqs = FALSE,
+                    subset.haps = NULL,
                     prop.seqs = NULL,
+                    prop.haps = NULL,
                     progress = TRUE) {
 	
-	cat("\n")
+	  cat("\n")
+  
+  ## Display progress bar ##
 	
     if (progress == TRUE) {
       pb <- utils::txtProgressBar(min = 0, max = 1, style = 3)
@@ -76,38 +80,46 @@ HAC.sim <- function(N,
   
   ## Error messages ##
   
-  if (N < Hstar) {
-    stop("N must be greater than or equal to Hstar")
+    if (N < Hstar) {
+      stop("N must be greater than or equal to Hstar")
   }
   
-  if (N == 1) {
-    stop("N must be greater than 1")
+    if (N == 1) {
+      stop("N must be greater than 1")
   }
   
-  if (sum(probs) != 1) {
-    stop("probs must sum to 1")
-  }
+    if (sum(probs) != 1) {
+      stop("probs must sum to 1")
+    }
 	
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
-	num.specs <- N
+	  num.specs <- N
 		
 	## Create an ID for each haplotype ##
-	
-	haps <- 1:Hstar
-	
+
+	  if (is.null(subset.haps)) {
+	    haps <- 1:Hstar
+	  } else {
+	    subset.haps
+	  }
+	  
 	## Assign individuals (N) ##
 	
-	specs <- 1:num.specs
+	  specs <- 1:num.specs
 	
 	## Generate permutations. Assume each permutation has N individuals, and sample those 
 	# individuals' haplotypes from the probabilities ##
 	
-	gen.perms <- function() {
-	  sample(haps, size = num.specs, replace = TRUE, prob = probs)
-	}
+	  gen.perms <- function() {
+	    if (is.null(subset.haps)) {
+	      sample(haps, size = num.specs, replace = TRUE, prob = probs)
+	    } else {
+	      sample(subset.haps, size = num.specs, replace = TRUE, prob = probs[subset.haps])
+	    }
+	  }
 	
-	pop <- array(dim = c(perms, num.specs, K))
+	  pop <- array(dim = c(perms, num.specs, K))
 	
 	  for (i in 1:K) {
 	    pop[,, i] <- replicate(perms, gen.perms())
@@ -137,13 +149,22 @@ HAC.sim <- function(N,
 	
 	# tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()  
 	
-	  P <- tail(means, n = 1)
-	  Q <- Hstar - P
-    assign("R", P / Hstar, envir = .GlobalEnv)
-	  S <- (Hstar - P) / Hstar
-	  assign("Nstar", (N * Hstar) / P, envir = .GlobalEnv)
-	  assign("X", ((N * Hstar) / P) - N, envir = .GlobalEnv)
-	
+	 if (is.null(subset.haps)) {
+	   P <- tail(means, n = 1)
+	   Q <- Hstar - P
+	   assign("R", P / Hstar, envir = .GlobalEnv)
+	   S <- (Hstar - P) / Hstar
+	   assign("Nstar", (N * Hstar) / P, envir = .GlobalEnv)
+	   assign("X", ((N * Hstar) / P) - N, envir = .GlobalEnv)
+	 } else {
+	   P <- tail(means, n = 1)
+	   Q <- length(subset.haps) - P
+	   assign("R", P / length(subset.haps), envir = .GlobalEnv)
+	   S <- (length(subset.haps) - P) / length(subset.haps)
+	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
+	   assign("X", ((N * length(subset.haps)) / P) - N, envir = .GlobalEnv)
+	 }
+	 
 	## Calculate slope of curve using last 10 points on curve
 	
 	# perms must be large enough to ensure monotonicity and a non-negative slope
@@ -151,7 +172,7 @@ HAC.sim <- function(N,
     lin.reg <- lm(means ~ specs, data = tail(d, n = 10))
     b1 <- coef(lin.reg)[[2]]
 	
-    ## Output results to R console and text file ##
+  ## Output results to R console and text file ##
 		    
 	  cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
 	  "Mean number of haplotypes sampled: " , P, 
@@ -172,23 +193,32 @@ HAC.sim <- function(N,
 	         # "Mean value of N*", 
 	         # "Mean number of specimens not sampled")
 
-  # write(P, file = "data.txt", append = TRUE)
-  # write(Q, file = "Q.txt", append = TRUE)
-  # write(R, file = "R.txt", append = TRUE)
-  # write(S, file = "S.txt", append = TRUE)
-  # write(b1, file = "b1.txt", append = TRUE)
-  # write(1/b1, file = "invb1.txt", append = TRUE)
-  # write(Nstar, file = "Nstar.txt", append = TRUE)
-  # write(X, file = "X.txt", append = TRUE)
-	# write.table(c(P, Q, R, S, b1, 1 / b1, Nstar, X), file = "data.txt", append = TRUE)
+    # write(P, file = "data.txt", append = TRUE)
+    # write(Q, file = "Q.txt", append = TRUE)
+    # write(R, file = "R.txt", append = TRUE)
+    # write(S, file = "S.txt", append = TRUE)
+    # write(b1, file = "b1.txt", append = TRUE)
+    # write(1/b1, file = "invb1.txt", append = TRUE)
+    # write(Nstar, file = "Nstar.txt", append = TRUE)
+    # write(X, file = "X.txt", append = TRUE)
+	  # write.table(c(P, Q, R, S, b1, 1 / b1, Nstar, X), file = "data.txt", append = TRUE)
 	
-	## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
+  ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
 
-	par(mfrow = c(1, 2))
-	plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
-	polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
-	lines(specs, means, lwd = 2)
-	abline(h = c(p * Hstar, R * Hstar), v = N, lty = 2)
-	HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps)
-
+	  par(mfrow = c(1, 2))
+	  if (is.null(subset.haps)) {
+	    plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
+	  } else {
+	    plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, length(subset.haps)))
+	  }
+	  polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
+	  lines(specs, means, lwd = 2)
+	  if (is.null(subset.haps)) {
+	    abline(h = c(p * Hstar, R * Hstar), v = N, lty = 2)
+	    HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps)
+	  } else {
+	    abline(h = c(p * length(subset.haps), R * length(subset.haps)), v = N, lty = 2)
+	    HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps)
+	  }
+	  
 }

@@ -12,7 +12,9 @@ HAC.simrep <- function() {
             p = p,
             input.seqs = input.seqs,
             subset.seqs = subset.seqs,
-            prop.seqs = prop.seqs
+            subset.haps = subset.haps,
+            prop.seqs = prop.seqs,
+            prop.haps = prop.haps
             )
 	  while (R < p) {
 		  HAC.sim(N = ceiling(Nstar), 
@@ -21,17 +23,19 @@ HAC.simrep <- function() {
 		          perms = perms,
 		          p = p,
 		          subset.seqs = subset.seqs,
-		          prop.seqs = prop.seqs
+		          subset.haps = subset.haps,
+		          prop.seqs = prop.seqs,
+		          prop.haps = prop.haps
             )
 	    iters <- iters + 1
 	    amt <- proc.time() - ptm
-        }
+    }
   
   ## Check whether desired level of haplotype recovery has been reached ##
   
   if (R < p) {
     cat("Desired level of H* has not yet been reached \n")
-  } else{
+  } else {
       cat("\n Desired level of H* has been reached. \n \n The algorithm converged after", 
         iters, "iterations and took", amt[3], "s.", "\n")
   }
