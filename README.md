@@ -29,7 +29,11 @@ Function arguments to HAC.sim() are as follows:
 
 * **subset.seqs** = subsample DNA sequences? (**subset.seqs** = FALSE by default)
 
+* **subset.haps** = subsample DNA sequences? (**subset.haps** = FALSE by default)
+
 * **prop.seqs** = proportion of DNA sequences to subsample (**prop.seqs** = NULL by default)
+
+* **prop.haps** = proportion of haplotypes to subsample (**prop.haps** = NULL by default)
 
 **perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
