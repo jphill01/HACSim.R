@@ -116,7 +116,7 @@ Users can implement their own custom species barcode datasets mined from BOLD (n
 
 **NOTE**: Inputted sequence alignment files should be free of missing/ambiguous nucleotide data (Ns, gaps (--) and IUPAC ambiguity codes) in order to avoid overestimation of intraspecific haplotype diversity. 
 
-Users can also sample a random subset of DNA sequences with the arguments (**subset.seqs** and **prop.seqs**). This can be employed to simulate migration/gene flow of individuals/haplotypes. 
+Users can also subsample a random subset of DNA sequences or haplotypes with the arguments (**subset.seqs**, **prop.seqs** **subset.haps**, and **prop.haps**). This can be employed to simulate migration/gene flow of individuals/haplotypes. 
 
 Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (**Example 2** above) are included for download from this repository.
 
