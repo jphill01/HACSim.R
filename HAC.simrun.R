@@ -67,21 +67,22 @@ N <- 50 # total number of sampled individuals
 Hstar <- 10  # total number of haplotypes
 probs <- c(0.45, 0.45, rep(0.1/8, 8)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
+
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 
-# Simulate hypothetical species WITHOUT migration/gene flow
+## Simulate hypothetical species WITHOUT migration/gene flow ##
 
 input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
-subset.seqs <- NULL # subset DNA sequences? DO NOT CHANGE
+subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?
 prop.haps <- NULL # proportion of haplotypes to subsample
 
-# Simulate hypothetical species WITH migration/gene flow
+## Simulate hypothetical species WITH migration/gene flow ##
 
 input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
-subset.seqs <- NULL # subset DNA sequences? DO NOT CHANGE
+subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 prop.haps <- 0.20 # proportion of haplotypes to subsample
 
@@ -89,7 +90,7 @@ if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetica
   subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
 }
 
-# Simulate real species WITHOUT migration/gene flow
+## Simulate real species WITHOUT migration/gene flow ##
 
 input.seqs <- TRUE # analyze DNA sequence file?
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
@@ -97,7 +98,7 @@ prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 
-# Simulate real species WITH migration/gene flow
+## Simulate real species WITH migration/gene flow ##
 
 input.seqs <- TRUE # analyze DNA sequence file?
 subset.seqs <- TRUE # subset DNA sequences?
