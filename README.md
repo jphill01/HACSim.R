@@ -87,8 +87,6 @@ In order to sucessfully run the simulation algorithm, the following conditions m
 
 * **N** must be greater than 1
 
-* **N** must be greater than or equal to **K**
-
 * **N** must be greater than or equal to **Hstar**
 
 * **probs** must sum to 1
