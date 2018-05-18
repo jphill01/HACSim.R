@@ -118,7 +118,7 @@ Users can implement their own custom species barcode datasets mined from BOLD (n
 
 Users can also subsample a random subset of DNA sequences or haplotypes with the arguments (**subset.seqs**, **prop.seqs** **subset.haps**, and **prop.haps**). This can be employed to simulate migration/gene flow of individuals/haplotypes. 
 
-Aligned and trimmed 652 bp COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (**Example 2** above) are included for download from this repository.
+Aligned and trimmed 652 bp 5'-COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (**Example 2** above) are included for download from this repository.
 
 ### Citing This Work ###
 
