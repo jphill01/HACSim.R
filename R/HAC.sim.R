@@ -91,6 +91,10 @@ HAC.sim <- function(N,
     if (sum(probs) != 1) {
       stop("probs must sum to 1")
     }
+  
+    if (prop.haps == 1 / Hstar) {
+      stop("prop.haps cannot equal 1 / Hstar")
+    }
 	
 	## Set up container(s) to hold the identity of each individual from each permutation ##
 	
