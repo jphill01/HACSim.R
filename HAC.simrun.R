@@ -63,9 +63,9 @@ library(HACSim)
 
 ### Set parameters ###
 
-N <- 50 # total number of sampled individuals
+N <- 60 # total number of sampled individuals
 Hstar <- 10  # total number of haplotypes
-probs <- c(0.45, 0.45, rep(0.1/8, 8)) # must sum to 1
+probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 perms <- 10000 # number of permutations
@@ -85,6 +85,8 @@ input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 prop.haps <- 0.20 # proportion of haplotypes to subsample
+
+# subset.haps cannot have a length of 1
 
 if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetical species
   subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
