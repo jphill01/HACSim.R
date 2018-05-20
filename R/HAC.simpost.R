@@ -45,7 +45,7 @@
 HAC.simpost <- function(model = c("GAM", "SCAM", "Krig"), k = 10){
 	
 	n <- 1000
-	g <- data.frame(specs = seq(1, (Nstar / K) - X, length = 1000)) # fine grid for predictor
+	g <- data.frame(specs = seq(1, Nstar - X, length = 1000)) # fine grid for predictor
 
 	if (model == "GAM") {
 	  
@@ -62,14 +62,17 @@ HAC.simpost <- function(model = c("GAM", "SCAM", "Krig"), k = 10){
 	    opt[i] <- g$specs[which.max(pred)]
 	  }
 	  
-	  mu <- mean(opt) # mean
-	  cat("N*: ", mu, "\n")
+      mu <- mean(opt) # mean
+      cat("N*: ", mu, "\n")
       
       se <- sd(opt) / sqrt(n) # standard error
       cat("SE: ", se , "\n")
       
       ci <- mu + c(-1, 1) * qnorm(0.975) * se # confidence interval
       cat("95% CI: ", ci , "\n")
+      
+      cat(opt)
+      cat(quantile(opt, c(0.025, 0.975)))
 	  
 	  cat("\n Cubic spline smooth \n\n")
 	  gg  <- predict(HAC.cr, newdata = g, type = "response")
@@ -84,14 +87,16 @@ HAC.simpost <- function(model = c("GAM", "SCAM", "Krig"), k = 10){
 	    opt[i] <- g$specs[which.max(pred)]
 	  }
 	  
-	  mu <- mean(opt) # mean
-	  cat("N*: ", mu, "\n")
+      # mu <- mean(opt) # mean
+      # cat("N*: ", mu, "\n")
       
-      se <- sd(opt) / sqrt(n) # standard error
-      cat("SE: ", se , "\n")
+      # se <- sd(opt) / sqrt(n) # standard error
+      # cat("SE: ", se , "\n")
       
-      ci <- mu + c(-1, 1) * qnorm(0.975) * se # confidence interval
-      cat("95% CI: ", ci , "\n")
+       quantile(opt, c(0.025, 0.975))
+      
+      # ci <- mu + c(-1, 1) * qnorm(0.975) * se # confidence interval
+      # cat("95% CI: ", ci , "\n")
 
 		cat("\n P-spline smooth \n\n")
 		gg  <- predict(HAC.ps, newdata = g, type = "response")
@@ -106,14 +111,16 @@ HAC.simpost <- function(model = c("GAM", "SCAM", "Krig"), k = 10){
     	opt[i] <- g$specs[which.max(pred)]
 		}
 		
-		mu <- mean(opt) # mean
-		cat("N*: ", mu, "\n")
+        # mu <- mean(opt) # mean
+        # cat("N*: ", mu, "\n")
         
-        se <- sd(opt) / sqrt(n) # standard error
-        cat("SE: ", se , "\n")
+        # se <- sd(opt) / sqrt(n) # standard error
+        # cat("SE: ", se , "\n")
         
-        ci <- mu + c(-1, 1) * qnorm(0.975) * se # confidence interval
-        cat("95% CI: ", ci , "\n")
+        quantile(opt, c(0.025, 0.975))
+        
+        # ci <- mu + c(-1, 1) * qnorm(0.975) * se # confidence interval
+        # cat("95% CI: ", ci , "\n")
 		
 		cat("\n Adaptive smooth \n\n")
 		gg  <- predict(HAC.ad, newdata = g, type = "response")
@@ -127,16 +134,18 @@ HAC.simpost <- function(model = c("GAM", "SCAM", "Krig"), k = 10){
 		  pred <- ilink(Xp %*% mrand[i, ])
 		  opt[i] <- g$specs[which.max(pred)]
 		}
-f
+
 		
-		mu <- mean(opt) # mean
-		cat("N*: ", mu, "\n")
+        # mu <- mean(opt) # mean
+        # cat("N*: ", mu, "\n")
         
-        se <- sd(opt) / sqrt(n) # standard error
-        cat("SE: ", se , "\n")
+        # se <- sd(opt) / sqrt(n) # standard error
+        # cat("SE: ", se , "\n")
         
-        ci <- mu + c(-1, 1) * qnorm(0.975) * se # confidence interval
-        cat("95% CI: ", ci , "\n")
+        quantile(opt, c(0.025, 0.975))
+        
+        # ci <- mu + c(-1, 1) * qnorm(0.975) * se # confidence interval
+        # cat("95% CI: ", ci , "\n")
 
 		}
 
