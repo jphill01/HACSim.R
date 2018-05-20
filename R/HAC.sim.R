@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: May 16, 2018
+# Last modified: May 20, 2018
 
 ##########
 
@@ -92,11 +92,11 @@ HAC.sim <- function(N,
       stop("probs must sum to 1")
     }
   
-    if (prop.haps <= 1 / Hstar) {
+    if (!is.null(prop.haps) && prop.haps <= 1 / Hstar) {
       stop("prop.haps must be greater than 1 / Hstar")
     }
 	
-	## Set up container(s) to hold the identity of each individual from each permutation ##
+	## Set up container to hold the identity of each individual from each permutation ##
 	
 	  num.specs <- N
 		
