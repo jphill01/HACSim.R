@@ -35,11 +35,17 @@ Function arguments to HAC.sim() are as follows:
 
 * **prop.haps** = proportion of haplotypes to subsample (**prop.haps** = NULL by default)
 
+* **num.pts** = number of terminal data points used to calculate curve slope (**num.pts = 10** by default)
+
+* **prop.pts** = proportion of terminal data points used to compute curve slope (**prop.pts** = NULL by default)
+
 **perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
 HAC.sim() performs a single iteration of haplotype accumulation for a given species. Resulting output reflects current levels of sampling effort found within BOLD for a given species. If the desired level of haplotype recovery is not reached, then HAC.simrep() (which takes no arguments) is called in order to perform successive iterations until the desired fraction of haplotypes captured is at least **p**.
 
 Setting **p** = 0.95 corresponds to uncovering 95% of all haplotypes that may exist for a given species. At this level, the generated haplotype accumulation curve reaches a slope close to zero and further sampling effort is unlikely to uncover any new haplotypes. 
+
+Users can specify either **num.pts** or **prop.pts** in calculating the terminal slope of the generated haplotype accumulation curve.
 
 Both HAC.sim() and HAC.simrep() output simple "Measures of Sampling Closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proportions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species. In addition to haplotype accumulation curves, plots depicting species haplotype frequency distributions are also displayed. 
 
