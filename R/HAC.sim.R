@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: May 20, 2018
+# Last modified: May 21, 2018
 
 ##########
 
@@ -25,9 +25,12 @@
 # Optional #
 
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
+# subset.seqs = Subset of DNA sequences to sample
 # prop.seqs = Proportion of DNA sequences to sample 
-
-
+# prop.haps = Proportion of haplotypes to sample 
+# subset.haps = Subset of haplotypes to sample
+# num.pts = Number of points used to calculate curve slope 
+# prop.pts = Proportion of points used to calculate curve slope
 
 #####
 
@@ -42,6 +45,8 @@ HAC.sim <- function(N,
                     subset.haps = NULL,
                     prop.seqs = NULL,
                     prop.haps = NULL,
+                    prop.pts = NULL,
+                    num.pts = 10,
                     progress = TRUE) {
 	
 	  cat("\n")
@@ -58,7 +63,7 @@ HAC.sim <- function(N,
 		  seqs <- read.dna(file = file.choose(), format = "fasta")
 	  if (all(base.freq(seqs, all = TRUE)[5:17] != 0)) {
 		warning("Inputted DNA sequences contain missing and/or ambiguous nucleotides, which may lead 
-			       to overestimation of the number of observed unique haplotypes.  Consider excluding 
+			       to overestimation of the number of observed unique haplotypes. Consider excluding 
 			       sequences or alignment sites containing these data. If missing and/or ambiguous bases 
 			       occur at the ends of sequences, further alignment trimming is an option.")
 	  }
@@ -173,9 +178,16 @@ HAC.sim <- function(N,
 	
 	# perms must be large enough to ensure monotonicity and a non-negative slope
     
-    lin.reg <- lm(means ~ specs, data = tail(d, n = 10))
-    b1 <- coef(lin.reg)[[2]]
-	
+	  if (!is.null(prop.pts) && is.null(num.pts)) { 
+	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * length(d))))
+	    assign("beta1", coef(lin.reg)[[2]], envir = .GlobalEnv)
+	  }
+	 
+	 if (!is.null(num.pts) && is.null(prop.pts)) {
+	    lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
+	    assign("beta1", coef(lin.reg)[[2]], envir = .GlobalEnv)
+	  }
+	 
   ## Output results to R console and text file ##
 		    
 	  cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
@@ -185,17 +197,18 @@ HAC.sim <- function(N,
 	  "\n Proportion of haplotypes (specimens) not sampled: " , S,
 	  "\n \n Mean value of N*: ", Nstar,
 	  "\n Mean number of specimens not sampled: ", X, 
-	  "\n \n Curve slope (last 10 points): ", b1,
-	  "\n \n Mean number of specimens required to observe one new haplotype: ", 1 / b1, "\n \n")
+	  "\n \n Haplotype accumulation curve slope: ", beta1,
+	  "\n \n Mean number of specimens required to observe one new haplotype: ", 1 / beta1, "\n \n")
 	
-    # name <- c("Mean number of haplotypes sampled", 
-	         # "Mean number of haplotypes not sampled", 
-	         # "Proportion of haplotypes (specimens) sampled", 
-	         # "Proportion of haplotypes (specimens) not sampled",
-	         # "Curve slope (last 10 points)", 
-	         # "Mean number of specimens required to observe one new haplotype", 
-	         # "Mean value of N*", 
-	         # "Mean number of specimens not sampled")
+    name <- c("Mean number of haplotypes sampled", 
+	         "Mean number of haplotypes not sampled", 
+	         "Proportion of haplotypes (specimens) sampled", 
+	         "Proportion of haplotypes (specimens) not sampled",
+	         "Mean value of N*", 
+	         "Mean number of specimens not sampled",
+	         "Haplotype accumulation curve slope", 
+	         "Mean number of specimens required to observe one new haplotype" 
+	         )
 
     # write(P, file = "data.txt", append = TRUE)
     # write(Q, file = "Q.txt", append = TRUE)
@@ -205,7 +218,7 @@ HAC.sim <- function(N,
     # write(1/b1, file = "invb1.txt", append = TRUE)
     # write(Nstar, file = "Nstar.txt", append = TRUE)
     # write(X, file = "X.txt", append = TRUE)
-	  # write.table(c(P, Q, R, S, b1, 1 / b1, Nstar, X), file = "data.txt", append = TRUE)
+	  write.table(c(P, Q, R, S, Nstar, X, beta1, 1 / beta1), row.names = name, file = "data.txt", append = TRUE)
 	
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
 

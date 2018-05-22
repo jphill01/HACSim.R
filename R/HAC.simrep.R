@@ -14,7 +14,9 @@ HAC.simrep <- function() {
             subset.seqs = subset.seqs,
             subset.haps = subset.haps,
             prop.seqs = prop.seqs,
-            prop.haps = prop.haps
+            prop.haps = prop.haps,
+            prop.pts = NULL,
+            num.pts = 10
             )
 	  while (R < p) {
 		  HAC.sim(N = ceiling(Nstar), 
@@ -25,7 +27,9 @@ HAC.simrep <- function() {
 		          subset.seqs = subset.seqs,
 		          subset.haps = subset.haps,
 		          prop.seqs = prop.seqs,
-		          prop.haps = prop.haps
+		          prop.haps = prop.haps,
+		          prop.pts = NULL,
+		          num.pts = 10
             )
 	    iters <- iters + 1
 	    amt <- proc.time() - ptm
