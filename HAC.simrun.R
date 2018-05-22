@@ -13,10 +13,13 @@
 # Optional #
 
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
-# subset.seqs = Take random subsample of DNA sequences (TRUE/FALSE)?
+# subset.seqs = Subset of DNA sequences to sample
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
-# subset.haps = Random subsample of haplotypes to analyze
+# subset.haps = Subset of haplotypes to sample
+# num.pts = Number of points used to calculate curve slope 
+# prop.pts = Proportion of points used to calculate curve slope
+
 
 # Run algorithm with N = 10, 50, 100, with prespecified H*, probs and p
 
@@ -63,13 +66,15 @@ library(HACSim)
 
 ### Set parameters ###
 
-N <- 60 # total number of sampled individuals
+N <- 10 # total number of sampled individuals
 Hstar <- 10  # total number of haplotypes
 probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 perms <- 10000 # number of permutations
-p <- 0.95 # proportion of haplotypes to recover
+p <- 0.90 # proportion of haplotypes to recover
+prop.pts <- 0.10
+num.pts <- NULL
 
 ## Simulate hypothetical species WITHOUT migration/gene flow ##
 
@@ -84,7 +89,7 @@ prop.haps <- NULL # proportion of haplotypes to subsample
 input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
-prop.haps <- 0.20 # proportion of haplotypes to subsample
+prop.haps <- 0.5 # proportion of haplotypes to subsample
 
 # subset.haps cannot have a length of 1
 
@@ -104,7 +109,7 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 
 input.seqs <- TRUE # analyze DNA sequence file?
 subset.seqs <- TRUE # subset DNA sequences?
-prop.seqs <- 0.20 # proportion of DNA sequences to subsample
+prop.seqs <- 0.80 # proportion of DNA sequences to subsample
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 
@@ -114,6 +119,7 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 ### Run simulations ###
 
 HAC.simrep()
+
 
 ##########
 
