@@ -24,20 +24,20 @@ Function arguments to HAC.sim() are as follows:
 
 * **p** = Proportion of species haplotypes to recover (**p** = 0.95 by default)
 
-* **input.seqs** = analyze a user-specified DNA sequence FASTA file?
+* **input.seqs** = Analyze a user-specified DNA sequence FASTA file?
 (**input.seqs** = FALSE by default)
 
-* **subset.seqs** = subsample DNA sequences? (**subset.seqs** = FALSE by default)
+* **subset.seqs** = Subsample DNA sequences? (**subset.seqs** = FALSE by default)
 
-* **subset.haps** = subsample DNA sequences? (**subset.haps** =  NULL by default)
+* **subset.haps** = Subsample DNA sequences? (**subset.haps** =  NULL by default)
 
-* **prop.seqs** = proportion of DNA sequences to subsample (**prop.seqs** = NULL by default)
+* **prop.seqs** = Proportion of DNA sequences to subsample (**prop.seqs** = NULL by default)
 
-* **prop.haps** = proportion of haplotypes to subsample (**prop.haps** = NULL by default)
+* **prop.haps** = Proportion of haplotypes to subsample (**prop.haps** = NULL by default)
 
-* **num.pts** = number of terminal data points used to calculate curve slope (**num.pts = 10** by default)
+* **num.pts** = Number of terminal data points used to calculate curve slope (**num.pts = 10** by default)
 
-* **prop.pts** = proportion of terminal data points used to compute curve slope (**prop.pts** = NULL by default)
+* **prop.pts** = Proportion of terminal data points used to compute curve slope (**prop.pts** = NULL by default)
 
 **perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
