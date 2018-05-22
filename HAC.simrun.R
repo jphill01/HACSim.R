@@ -17,8 +17,8 @@
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
 # subset.haps = Subset of haplotypes to sample
-# num.pts = Number of points used to calculate curve slope 
-# prop.pts = Proportion of points used to calculate curve slope
+# num.pts = Number of terminal data points used to calculate curve slope 
+# prop.pts = Proportion of terminal data points used to calculate curve slope
 
 
 # Run algorithm with N = 10, 50, 100, with prespecified H*, probs and p
@@ -73,8 +73,9 @@ probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
 
 perms <- 10000 # number of permutations
 p <- 0.90 # proportion of haplotypes to recover
-prop.pts <- 0.10
-num.pts <- NULL
+num.pts <- 20 # number of terminal data points for curve slope calculation
+prop.pts <- NULL # proportion of terminal data points for curve slope calculation
+
 
 ## Simulate hypothetical species WITHOUT migration/gene flow ##
 
