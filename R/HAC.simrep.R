@@ -10,26 +10,27 @@ HAC.simrep <- function() {
             probs = probs, 
             perms = perms, 
             p = p,
+            subset.haps = subset.haps,
+            prop.haps = prop.haps,
             input.seqs = input.seqs,
             subset.seqs = subset.seqs,
-            subset.haps = subset.haps,
             prop.seqs = prop.seqs,
-            prop.haps = prop.haps,
-            prop.pts = NULL,
-            num.pts = 10
+            num.pts = 10,
+            prop.pts = NULL
             )
+    amt <- proc.time() - ptm
 	  while (R < p) {
 		  HAC.sim(N = ceiling(Nstar), 
 		          Hstar = Hstar, 
 		          probs = probs,
 		          perms = perms,
 		          p = p,
-		          subset.seqs = subset.seqs,
 		          subset.haps = subset.haps,
-		          prop.seqs = prop.seqs,
 		          prop.haps = prop.haps,
-		          prop.pts = NULL,
-		          num.pts = 10
+		          subset.seqs = subset.seqs,
+		          prop.seqs = prop.seqs,
+		          num.pts = 10,
+		          prop.pts = NULL
             )
 	    iters <- iters + 1
 	    amt <- proc.time() - ptm
