@@ -40,13 +40,13 @@ HAC.sim <- function(N,
                     perms = 10000,
                     K = 1, # DO NOT CHANGE
                     p = 0.95,
+                    subset.haps = NULL,
+                    prop.haps = NULL,
                     input.seqs = FALSE,
                     subset.seqs = FALSE,
-                    subset.haps = NULL,
                     prop.seqs = NULL,
-                    prop.haps = NULL,
-                    prop.pts = NULL,
                     num.pts = 10,
+                    prop.pts = NULL,
                     progress = TRUE) {
 	
 	  cat("\n")
@@ -231,10 +231,12 @@ HAC.sim <- function(N,
 	  polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 	  lines(specs, means, lwd = 2)
 	  if (is.null(subset.haps)) {
-	    abline(h = c(p * Hstar, R * Hstar), v = N, lty = 2)
+	    abline(h = R * Hstar, v = N, lty = 2) # dashed line
+	    abline(h = p * Hstar, lty = 3) # dotted line
 	    HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps)
 	  } else {
-	    abline(h = c(p * length(subset.haps), R * length(subset.haps)), v = N, lty = 2)
+	    abline(h = c(R * length(subset.haps)), v = N, lty = 2) # dashed line
+	    abline(h = p * length(subset.haps), lty = 3) # dotted line
 	    HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps)
 	  }
 	  
