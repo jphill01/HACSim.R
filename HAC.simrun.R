@@ -64,6 +64,22 @@ library(HACSim)
 #source("HAC.simpost.R")
 #source("inv.predict.R")
 
+
+
+##### SCENARIOS #####
+
+# N = 10, 50, 100
+# H = 5, 10, 20
+
+## Examples for Hstar = 10 ##
+
+# probs = rep(1/Hstar, Hstar) # equal haplotype frequency
+# probs = c(0.90, rep(0.10/9, 9)) # 1 dominant haplotype
+# probs = c(0.45, 0.45, rep(0.10/8, 8)) # 2 dominant haplotypes
+# probs = c(0.30, 0.30, 0.30,, rep(0.10/7, 7)) # 3 dominant haplotypes
+
+
+
 ### Set parameters ###
 
 N <- 10 # total number of sampled individuals
@@ -121,24 +137,25 @@ prop.seqs <- 0.10 # proportion of DNA sequences to subsample
 HAC.simrep()
 
 
+
 ##########
 
 # Models
 
-k <- 40
+k <- 10 # default k - likely will have to double each time until k is big enough
 HAC.simmodels(k = k)
 
-# Visualization plots
+# Visualization plots - check to 
 
-HAC.simfit(model = "GAM", k = k)
+HAC.simfit(model = "GAM", k = k) # check to ensure k is big enough - dashed line should be monotone increasing and go through all data points
 HAC.simfit(model = "SCAM", k = k)
 HAC.simfit(model = "Krig", k = k)
 
-HAC.simplot(model = "GAM", k = k)
+HAC.simplot(model = "GAM", k = k) # histograms, QQplots - check to ensure k is big enough
 HAC.simplot(model = "SCAM", k = k)
 HAC.simplot(model = "Krig", k = k)
 
-# AIC
+# AIC for all 10 models
 
 HAC.simaic(model = "GAM", k = k)
 HAC.simaic(model = "SCAM", k = k)
@@ -151,7 +168,6 @@ HAC.simbestaic(model = "SCAM")
 HAC.simbestaic(model = "Krig")
 HAC.simbestaic(model = "All")
 
-
 # Parameter Estimation - CI is outputted 
 
 HAC.simest(model = "GAM", k = k)
@@ -163,7 +179,6 @@ HAC.simest(model = "Krig", k = k)
 HAC.simpost(model = "GAM", k = k)
 HAC.simpost(model = "SCAM", k = k)
 HAC.simpost(model = "Krig", k = k)
-
 
 # Bootstrap simulation - VERY SLOW 
 
