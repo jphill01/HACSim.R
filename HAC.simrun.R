@@ -72,8 +72,8 @@ probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 perms <- 10000 # number of permutations
-p <- 0.90 # proportion of haplotypes to recover
-num.pts <- 20 # number of terminal data points for curve slope calculation
+p <- 0.95 # proportion of haplotypes to recover
+num.pts <- 10 # number of terminal data points for curve slope calculation
 prop.pts <- NULL # proportion of terminal data points for curve slope calculation
 
 
@@ -82,15 +82,15 @@ prop.pts <- NULL # proportion of terminal data points for curve slope calculatio
 input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
-subset.haps <- NULL # subset haplotypes?
-prop.haps <- NULL # proportion of haplotypes to subsample
+subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
+prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 
 ## Simulate hypothetical species WITH migration/gene flow ##
 
 input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
-prop.haps <- 0.5 # proportion of haplotypes to subsample
+prop.haps <- 0.10 # proportion of haplotypes to subsample
 
 # subset.haps cannot have a length of 1
 
@@ -100,7 +100,7 @@ if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetica
 
 ## Simulate real species WITHOUT migration/gene flow ##
 
-input.seqs <- TRUE # analyze DNA sequence file?
+input.seqs <- TRUE # analyze DNA sequence file? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
@@ -108,9 +108,9 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 
 ## Simulate real species WITH migration/gene flow ##
 
-input.seqs <- TRUE # analyze DNA sequence file?
+input.seqs <- TRUE # analyze DNA sequence file? DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences?
-prop.seqs <- 0.80 # proportion of DNA sequences to subsample
+prop.seqs <- 0.10 # proportion of DNA sequences to subsample
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 
@@ -145,6 +145,14 @@ HAC.simaic(model = "GAM", k = k)
 HAC.simaic(model = "SCAM", k = k)
 HAC.simaic(model = "Krig", k = k)
 
+# Best Model + AIC
+
+HAC.simbestaic(model = "GAM")
+HAC.simbestaic(model = "SCAM")
+HAC.simbestaic(model = "Krig")
+HAC.simbestaic(model = "All")
+
+
 # Parameter Estimation - CI is outputted 
 
 HAC.simest(model = "GAM", k = k)
@@ -156,6 +164,7 @@ HAC.simest(model = "Krig", k = k)
 HAC.simpost(model = "GAM", k = k)
 HAC.simpost(model = "SCAM", k = k)
 HAC.simpost(model = "Krig", k = k)
+
 
 # Bootstrap simulation - VERY SLOW 
 
