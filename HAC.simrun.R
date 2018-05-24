@@ -71,12 +71,18 @@ library(HACSim)
 # N = 10, 50, 100
 # H = 5, 10, 20
 
-## Examples for Hstar = 10 ##
+## Example probs for Hstar = 10 - you can come up with others ##
 
 # probs = rep(1/Hstar, Hstar) # equal haplotype frequency
 # probs = c(0.90, rep(0.10/9, 9)) # 1 dominant haplotype
 # probs = c(0.45, 0.45, rep(0.10/8, 8)) # 2 dominant haplotypes
-# probs = c(0.30, 0.30, 0.30,, rep(0.10/7, 7)) # 3 dominant haplotypes
+# probs = c(0.30, 0.30, 0.30, rep(0.10/7, 7)) # 3 dominant haplotypes
+
+## Haplotype Recovery ## 
+
+# p = 0.90
+# p = 0.95
+# p = 0.99
 
 
 
