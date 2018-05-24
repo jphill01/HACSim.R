@@ -109,11 +109,10 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 ## Simulate real species WITH migration/gene flow ##
 
 input.seqs <- TRUE # analyze DNA sequence file? DO NOT CHANGE
-subset.seqs <- TRUE # subset DNA sequences?
-prop.seqs <- 0.10 # proportion of DNA sequences to subsample
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
-
+subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
+prop.seqs <- 0.10 # proportion of DNA sequences to subsample
 
 ##########
 
