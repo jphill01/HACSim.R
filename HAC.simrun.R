@@ -69,7 +69,7 @@ library(HACSim)
 ##### SCENARIOS #####
 
 # N = 10, 50, 100
-# H = 5, 10, 20
+# Hstar = 5, 10, 20
 
 ## Example probs for Hstar = 10 - you can come up with others ##
 
