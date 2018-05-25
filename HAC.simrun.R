@@ -148,7 +148,7 @@ HAC.simrep()
 
 # Models
 
-k <- 10 # default k - likely will have to double each time until k is big enough
+k <- 60 # default k - likely will have to double each time until k is big enough
 HAC.simmodels(k = k)
 
 # Visualization plots - check to 
@@ -174,19 +174,7 @@ HAC.simbestaic(model = "SCAM")
 HAC.simbestaic(model = "Krig")
 HAC.simbestaic(model = "All")
 
-# Parameter Estimation - CI is outputted 
-
-HAC.simest(model = "GAM", k = k)
-HAC.simest(model = "SCAM", k = k)
-HAC.simest(model = "Krig", k = k)
-
-# Posterior Simulation (MVN distribution)
-
-HAC.simpost(model = "GAM", k = k)
-HAC.simpost(model = "SCAM", k = k)
-HAC.simpost(model = "Krig", k = k)
-
-# Bootstrap simulation - VERY SLOW 
+# Bootstrap simulation - CAN BE SLOW 
 
 HAC.simboot.bisect(model = "GAM", k = k)
 HAC.simboot.bisect(model = "SCAM", k = k)
