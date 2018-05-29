@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: May 21, 2018
+# Last modified: May 28, 2018
 
 ##########
 
@@ -156,17 +156,17 @@ HAC.sim <- function(N,
 
 	## Compute simple summary statistics and display output ##
 	
-	# tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()  
+	# tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()
+	 
+	 P <- tail(means, n = 1)
 	
 	 if (is.null(subset.haps)) {
-	   P <- tail(means, n = 1)
 	   Q <- Hstar - P
 	   assign("R", P / Hstar, envir = .GlobalEnv)
 	   S <- (Hstar - P) / Hstar
 	   assign("Nstar", (N * Hstar) / P, envir = .GlobalEnv)
 	   assign("X", ((N * Hstar) / P) - N, envir = .GlobalEnv)
 	 } else {
-	   P <- tail(means, n = 1)
 	   Q <- length(subset.haps) - P
 	   assign("R", P / length(subset.haps), envir = .GlobalEnv)
 	   S <- (length(subset.haps) - P) / length(subset.haps)
@@ -224,20 +224,20 @@ HAC.sim <- function(N,
 
 	  par(mfrow = c(1, 2))
 	  if (is.null(subset.haps)) {
-	    plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar))
+	    plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar), main = "Haplotype accumulation curve")
 	  } else {
-	    plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, length(subset.haps)))
+	    plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, length(subset.haps)), main = "Haplotype accumulation curve")
 	  }
 	  polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 	  lines(specs, means, lwd = 2)
 	  if (is.null(subset.haps)) {
 	    abline(h = R * Hstar, v = N, lty = 2) # dashed line
 	    abline(h = p * Hstar, lty = 3) # dotted line
-	    HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps)
+	    HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps, main = "Haplotype frequency distribution")
 	  } else {
 	    abline(h = c(R * length(subset.haps)), v = N, lty = 2) # dashed line
 	    abline(h = p * length(subset.haps), lty = 3) # dotted line
-	    HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps)
+	    HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
 	  }
 	  
 }
