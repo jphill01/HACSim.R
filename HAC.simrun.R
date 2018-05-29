@@ -83,7 +83,7 @@ library(HACSim)
 # p = 0.90
 # p = 0.95
 # p = 0.99
-
+# p = 1 - long runtime
 
 
 ### Set parameters ###
@@ -94,7 +94,7 @@ probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 perms <- 10000 # number of permutations
-p <- 0.95 # proportion of haplotypes to recover
+p <- 0.70 # proportion of haplotypes to recover
 num.pts <- 10 # number of terminal data points for curve slope calculation
 prop.pts <- NULL # proportion of terminal data points for curve slope calculation
 
@@ -112,7 +112,7 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
-prop.haps <- 0.10 # proportion of haplotypes to subsample
+prop.haps <- 0.70 # proportion of haplotypes to subsample
 
 # subset.haps cannot have a length of 1
 
@@ -134,13 +134,13 @@ input.seqs <- TRUE # analyze DNA sequence file? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.10 # proportion of DNA sequences to subsample
+prop.seqs <- 0.20 # proportion of DNA sequences to subsample
 
 ##########
 
 ### Run simulations ###
 
-HAC.simrep()
+HAC.simrep(filename = "output")
 
 
 
