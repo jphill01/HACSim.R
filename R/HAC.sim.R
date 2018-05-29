@@ -47,6 +47,7 @@ HAC.sim <- function(N,
                     prop.seqs = NULL,
                     num.pts = 10,
                     prop.pts = NULL,
+                    df = NULL, # dataframe
                     progress = TRUE) {
 	
 	  cat("\n")
@@ -200,26 +201,8 @@ HAC.sim <- function(N,
 	  "\n \n Haplotype accumulation curve slope: ", beta1,
 	  "\n \n Mean number of specimens required to observe one new haplotype: ", 1 / beta1, "\n \n")
 	
-    name <- c("Mean number of haplotypes sampled", 
-	         "Mean number of haplotypes not sampled", 
-	         "Proportion of haplotypes (specimens) sampled", 
-	         "Proportion of haplotypes (specimens) not sampled",
-	         "Mean value of N*", 
-	         "Mean number of specimens not sampled",
-	         "Haplotype accumulation curve slope", 
-	         "Mean number of specimens required to observe one new haplotype" 
-	         )
-
-    # write(P, file = "data.txt", append = TRUE)
-    # write(Q, file = "Q.txt", append = TRUE)
-    # write(R, file = "R.txt", append = TRUE)
-    # write(S, file = "S.txt", append = TRUE)
-    # write(b1, file = "b1.txt", append = TRUE)
-    # write(1/b1, file = "invb1.txt", append = TRUE)
-    # write(Nstar, file = "Nstar.txt", append = TRUE)
-    # write(X, file = "X.txt", append = TRUE)
-	  write.table(c(P, Q, R, S, Nstar, X, beta1, 1 / beta1), row.names = name, file = "data.txt", append = TRUE)
-	
+    df[nrow(df) + 1, ] <- c(P, Q, R, S, Nstar, X, beta1, 1 / beta1)
+    
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
 
 	  par(mfrow = c(1, 2))
@@ -239,5 +222,5 @@ HAC.sim <- function(N,
 	    abline(h = p * length(subset.haps), lty = 3) # dotted line
 	    HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
 	  }
-	  
+	  df
 }
