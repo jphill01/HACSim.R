@@ -17,7 +17,7 @@ HAC.simrep <- function(filename = "output") {
          "Mean number of specimens required to observe one new haplotype")
   colnames(df) <- x
   
-  df <-HAC.sim(N = N, 
+  df <- HAC.sim(N = N, 
                Hstar = Hstar, 
                probs = probs, 
                perms = perms, 
@@ -31,7 +31,18 @@ HAC.simrep <- function(filename = "output") {
                prop.pts = NULL,
                df = df
   )
+  
+  ## Check whether desired level of haplotype recovery has been reached ##
+  
+  if (R < p) {
+    cat("Desired level of H* has not yet been reached \n")
+  } else {
+    cat("\n Desired level of H* has been reached. \n \n The algorithm converged after", 
+        iters, "iterations and took", amt[3], "s.", "\n")
+  }
+  
   amt <- proc.time() - ptm
+  
   while (R < p) {
     df <- HAC.sim(N = ceiling(Nstar), 
                   Hstar = Hstar, 
@@ -46,16 +57,20 @@ HAC.simrep <- function(filename = "output") {
                   prop.pts = NULL,
                   df = df
     )
+    
+    ## Check whether desired level of haplotype recovery has been reached ##
+    
+    if (R < p) {
+      cat("Desired level of H* has not yet been reached \n")
+    } else {
+      cat("\n Desired level of H* has been reached. \n \n The algorithm converged after", 
+          iters, "iterations and took", amt[3], "s.", "\n")
+    }
+    
     iters <- iters + 1
     amt <- proc.time() - ptm
+    
   }
   
-  ## Check whether desired level of haplotype recovery has been reached ##
-  if (R < p) {
-    cat("Desired level of H* has not yet been reached \n")
-  } else {
-    cat("\n Desired level of H* has been reached. \n \n The algorithm converged after", 
-        iters, "iterations and took", amt[3], "s.", "\n")
-  }
-  write.csv(df, file = paste(filename,".csv",sep = ""))
+  write.csv(df, file = paste(filename, ".csv", sep = ""))
 }
