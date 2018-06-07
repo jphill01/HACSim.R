@@ -7,11 +7,11 @@
 # N = Number of specimens (DNA sequences)
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
-# perms = Number of permutations (replications)
-# p = Proportion of unique haplotypes to recover
 
 # Optional #
 
+# p = Proportion of unique haplotypes to recover
+# perms = Number of permutations (replications) 
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
 # subset.seqs = Subset of DNA sequences to sample
 # prop.seqs = Proportion of DNA sequences to sample 
@@ -81,20 +81,20 @@ library(HACSim)
 ## Haplotype Recovery ## 
 
 # p = 0.90
-# p = 0.95
+# p = 0.95 - default
 # p = 0.99
 # p = 1 - long runtime
 
 
 ### Set parameters ###
 
-N <- 10 # total number of sampled individuals
+N <- 100 # total number of sampled individuals
 Hstar <- 10  # total number of haplotypes
-probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
-# probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
+# probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
+probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 perms <- 10000 # number of permutations
-p <- 0.70 # proportion of haplotypes to recover
+p <- 0.95 # proportion of haplotypes to recover
 num.pts <- 10 # number of terminal data points for curve slope calculation
 prop.pts <- NULL # proportion of terminal data points for curve slope calculation
 
@@ -134,9 +134,8 @@ input.seqs <- TRUE # analyze DNA sequence file? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.20 # proportion of DNA sequences to subsample
+prop.seqs <- 0.50 # proportion of DNA sequences to subsample
 
-##########
 
 ### Run simulations ###
 
@@ -148,7 +147,7 @@ HAC.simrep(filename = "output")
 
 # Models
 
-k <- 60 # default k - likely will have to double each time until k is big enough
+k <- 40 # default k - likely will have to double each time until k is big enough
 HAC.simmodels(k = k)
 
 # Visualization plots - check to 
