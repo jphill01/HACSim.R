@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: May 28, 2018
+# Last modified: June 3, 2018
 
 ##########
 
@@ -19,11 +19,12 @@
 # N = Number of specimens (DNA sequences)
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
-# perms = Number of permutations (replications)
-# p = Proportion of unique haplotypes to recover
+
 
 # Optional #
 
+# p = Proportion of unique haplotypes to recover
+# perms = Number of permutations (replications)
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
 # subset.seqs = Subset of DNA sequences to sample
 # prop.seqs = Proportion of DNA sequences to sample 
@@ -82,7 +83,7 @@ HAC.sim <- function(N,
 		assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
 		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
 
-	}
+	  }
   
   ## Error messages ##
   
@@ -205,7 +206,7 @@ HAC.sim <- function(N,
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
 
-	  par(mfrow = c(1, 2))
+    par(mfrow = c(1, 2))
 	  if (is.null(subset.haps)) {
 	    plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar), main = "Haplotype accumulation curve")
 	  } else {
