@@ -58,7 +58,7 @@ HAC.simrep <- function(filename = "output") {
                   df = df
     )
     
-    assign("iters", iters, .GlobalEnv)
+    assign("iters", iters + 1, .GlobalEnv)
     amt <- proc.time() - ptm
     
     ## Check whether desired level of haplotype recovery has been reached ##
