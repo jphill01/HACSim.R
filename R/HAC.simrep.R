@@ -21,7 +21,6 @@ HAC.simrep <- function(filename = "output") {
                Hstar = Hstar, 
                probs = probs, 
                perms = perms,
-               K = K,
                p = p,
                subset.haps = subset.haps,
                prop.haps = prop.haps,
@@ -49,7 +48,6 @@ HAC.simrep <- function(filename = "output") {
                   Hstar = Hstar, 
                   probs = probs,
                   perms = perms,
-                  K = K,
                   p = p,
                   subset.haps = subset.haps,
                   prop.haps = prop.haps,
@@ -60,7 +58,7 @@ HAC.simrep <- function(filename = "output") {
                   df = df
     )
     
-    assign("iters", iters + 1, .GlobalEnv)
+    assign("iters", iters, .GlobalEnv)
     amt <- proc.time() - ptm
     
     ## Check whether desired level of haplotype recovery has been reached ##
