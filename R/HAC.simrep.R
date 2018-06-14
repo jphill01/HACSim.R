@@ -67,7 +67,7 @@ HAC.simrep <- function(filename = "output") {
       cat("Desired level of H* has not yet been reached \n")
     } else {
       cat("\n Desired level of H* has been reached. \n \n The algorithm converged after", 
-          iters + 1, "iterations and took", amt[3], "s.", "\n")
+          iters, "iterations and took", amt[3], "s.", "\n")
     }
     
     
