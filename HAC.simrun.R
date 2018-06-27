@@ -10,6 +10,8 @@
 
 # Optional #
 
+# K = Number of subpopulations/demes
+# m = Overall migration rate between subpopulations/demes
 # p = Proportion of unique haplotypes to recover
 # perms = Number of permutations (replications) 
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
@@ -88,12 +90,12 @@ library(HACSim)
 
 ### Set parameters ###
 
-N <- 100 # total number of sampled individuals
+N <- 10 # total number of sampled individuals
 Hstar <- 10  # total number of haplotypes
-# probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
-probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
+probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
+# probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
-perms <- 10000 # number of permutations
+perms <- 2 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 num.pts <- 10 # number of terminal data points for curve slope calculation
 prop.pts <- NULL # proportion of terminal data points for curve slope calculation
@@ -106,19 +108,21 @@ subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
+K <- 2
+m <- 0.40
 
 ## Simulate hypothetical species WITH migration/gene flow ##
 
 input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
-prop.haps <- 0.70 # proportion of haplotypes to subsample
+prop.haps <- 0.10 # proportion of haplotypes to subsample - add random noise to avoid error
 
 # subset.haps cannot have a length of 1
 
-if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetical species
-  subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
-}
+  if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetical species
+    subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
+  }
 
 ## Simulate real species WITHOUT migration/gene flow ##
 
@@ -134,8 +138,7 @@ input.seqs <- TRUE # analyze DNA sequence file? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.50 # proportion of DNA sequences to subsample
-
+prop.seqs <- 0.60 # proportion of DNA sequences to subsample
 
 ### Run simulations ###
 
