@@ -95,7 +95,7 @@ Hstar <- 10  # total number of haplotypes
 probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
-perms <- 2 # number of permutations
+perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 num.pts <- 10 # number of terminal data points for curve slope calculation
 prop.pts <- NULL # proportion of terminal data points for curve slope calculation
@@ -109,7 +109,7 @@ prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 K <- 2
-m <- 0.40
+m <- 0
 
 ## Simulate hypothetical species WITH migration/gene flow ##
 
