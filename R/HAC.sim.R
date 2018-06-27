@@ -1,9 +1,9 @@
-### Haplotype Accumulation Curve Simulation ###
+ ### Haplotype Accumulation Curve Simulation ###
 
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: June 3, 2018
+# Last modified: June 24, 2018
 
 ##########
 
@@ -19,7 +19,6 @@
 # N = Number of specimens (DNA sequences)
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
-
 
 # Optional #
 
@@ -40,6 +39,7 @@ HAC.sim <- function(N,
                     probs,
                     perms = 10000,
                     K = 1, # DO NOT CHANGE
+                    m = 0,
                     p = 0.95,
                     subset.haps = NULL,
                     prop.haps = NULL,
@@ -56,7 +56,7 @@ HAC.sim <- function(N,
   ## Display progress bar ##
 	
     if (progress == TRUE) {
-      pb <- utils::txtProgressBar(min = 0, max = 1, style = 3)
+      pb <- utils::txtProgressBar(min = 0, max = K, style = 3)
     }
 
 	## Load DNA sequence data and set N, Hstar and probs ##
@@ -102,18 +102,23 @@ HAC.sim <- function(N,
     if (!is.null(prop.haps) && prop.haps <= 1 / Hstar) {
       stop("prop.haps must be greater than 1 / Hstar")
     }
+  
+    if (!is.null(prop.seqs) && prop.seqs <= 1 / N)  {
+      stop("prop.seqs must be greater than 1 / N")
+    }
 	
 	## Set up container to hold the identity of each individual from each permutation ##
 	
-	  num.specs <- N
+    num.specs <- ceiling(N / K)
 		
 	## Create an ID for each haplotype ##
-
+	  
 	  if (is.null(subset.haps)) {
 	    haps <- 1:Hstar
 	  } else {
-	    subset.haps
+	    subset.haps <- subset.haps
 	  }
+	  
 	  
 	## Assign individuals (N) ##
 	
@@ -121,21 +126,47 @@ HAC.sim <- function(N,
 	
 	## Generate permutations. Assume each permutation has N individuals, and sample those 
 	# individuals' haplotypes from the probabilities ##
-	
-	  gen.perms <- function() {
-	    if (is.null(subset.haps)) {
-	      sample(haps, size = num.specs, replace = TRUE, prob = probs)
+	  
+	  #gen.perms <- function() {
+	    #if (is.null(subset.haps)) {
+	      #sample(haps, num.specs, replace = TRUE, prob = probs)
+	    #} else {
+	      #sample(subset.haps, num.specs, replace = TRUE, prob = probs[subset.haps])
+	  #}
+	#}
+	  
+	  if (is.null(subset.haps)) {
+	    y <- replicate(K, sample(haps, num.specs, replace = TRUE))
 	    } else {
-	      sample(subset.haps, size = num.specs, replace = TRUE, prob = probs[subset.haps])
-	    }
-	  }
-	
+	      y <- replicate(K, sample(subset.haps, num.specs, replace = TRUE))
+	      }
+
 	  pop <- array(dim = c(perms, num.specs, K))
-	
+	  
+	  #for (i in 1:K) {
+	    #pop[,, i] <- replicate(perms, gen.perms())
+	  #}
+	  
 	  for (i in 1:K) {
-	    pop[,, i] <- replicate(perms, gen.perms())
-    }
-    
+	    pop[,, i] <- sample(y[,i], size = num.specs * perms, replace = TRUE, prob = probs[y[, i]])
+	  }
+	  
+	  ## Allow individuals (columns) to migrate among subpopulations (array levels) according to migration rate m ##
+	  
+	  if (K > 1 && m != 0) {
+	    
+	    inds1 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE)
+	    inds2 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE)
+	  
+	    for (i in 1:K) {
+	      for(j in 1:K) {
+	        tmp <- pop[, inds1, i]
+	        pop[, inds1, i] <- pop[, inds2, j]
+	        pop[, inds2, j] <- tmp
+	      }
+	     }
+	    }
+	  
 	## Perform haplotype accumulation ##
 	
     HAC.mat <- accumulate(pop, specs, perms, K)
@@ -174,7 +205,7 @@ HAC.sim <- function(N,
 	   S <- (length(subset.haps) - P) / length(subset.haps)
 	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
 	   assign("X", ((N * length(subset.haps)) / P) - N, envir = .GlobalEnv)
-	 }
+	   }
 	 
 	## Calculate slope of curve using last 10 points on curve
 	
@@ -197,12 +228,12 @@ HAC.sim <- function(N,
 	  "\n Mean number of haplotypes not sampled: " , Q, 
 	  "\n Proportion of haplotypes (specimens) sampled: " , R, 
 	  "\n Proportion of haplotypes (specimens) not sampled: " , S,
-	  "\n \n Mean value of N*: ", Nstar,
-	  "\n Mean number of specimens not sampled: ", X, 
+	  "\n \n Mean value of N*: ", Nstar / K,
+	  "\n Mean number of specimens not sampled: ", X / K, 
 	  "\n \n Haplotype accumulation curve slope: ", beta1,
 	  "\n \n Mean number of specimens required to observe one new haplotype: ", 1 / beta1, "\n \n")
 	
-    df[nrow(df) + 1, ] <- c(P, Q, R, S, Nstar, X, beta1, 1 / beta1)
+    df[nrow(df) + 1, ] <- c(P, Q, R, S, Nstar / K, X / K, beta1, 1 / beta1)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
 
@@ -215,11 +246,11 @@ HAC.sim <- function(N,
 	  polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
 	  lines(specs, means, lwd = 2)
 	  if (is.null(subset.haps)) {
-	    abline(h = R * Hstar, v = N, lty = 2) # dashed line
+	    abline(h = R * Hstar, v = N / K, lty = 2) # dashed line
 	    abline(h = p * Hstar, lty = 3) # dotted line
 	    HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps, main = "Haplotype frequency distribution")
 	  } else {
-	    abline(h = c(R * length(subset.haps)), v = N, lty = 2) # dashed line
+	    abline(h = c(R * length(subset.haps)), v = N / K, lty = 2) # dashed line
 	    abline(h = p * length(subset.haps), lty = 3) # dotted line
 	    HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
 	  }
