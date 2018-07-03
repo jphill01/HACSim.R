@@ -128,17 +128,15 @@ HAC.sim <- function(N,
 	# individuals' haplotypes from the probabilities ##
 	  
 	  if (is.null(subset.haps)) {
-	    y <- split(sample(haps), sample(K, size = Hstar, replace = TRUE))
+	    y <- replicate(K, sample(haps, size = num.specs, replace = TRUE))
 	    } else {
-	      y <- split(sample(subset.haps), sample(K, size = length(subset.haps), replace = TRUE))
+	      y <- replicate(K, sample(subset.haps, size = num.specs, replace = TRUE))
 	    }
-	  
-	  y <- sapply(y, "length<-", max(lengths(y)))
 
 	  pop <- array(dim = c(perms, num.specs, K))
 	  
 	  for (i in 1:K) {
-	    pop[,, i] <- sample(na.omit(y[, i]), size = num.specs * perms, replace = TRUE, prob = na.omit(probs[y[, i]]))
+	    pop[,, i] <- sample(y[, i], size = num.specs * perms, replace = TRUE, prob = probs[y[, i]])
 	  }
 	  
 	  ## Allow individuals (columns) to migrate among subpopulations (array levels) according to migration rate m ##
