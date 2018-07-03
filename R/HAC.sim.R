@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: July 2, 2018
+# Last modified: July 3, 2018
 
 ##########
 
@@ -132,10 +132,11 @@ HAC.sim <- function(N,
 	    } else {
 	      y <- replicate(K, sample(subset.haps, size = num.specs, replace = TRUE))
 	    }
-
+	  
 	  pop <- array(dim = c(perms, num.specs, K))
 	  
 	  for (i in 1:K) {
+	    y[!duplicated(y[,i]), ]
 	    pop[,, i] <- sample(y[, i], size = num.specs * perms, replace = TRUE, prob = probs[y[, i]])
 	  }
 	  
