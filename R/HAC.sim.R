@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: June 24, 2018
+# Last modified: July 2, 2018
 
 ##########
 
@@ -127,35 +127,25 @@ HAC.sim <- function(N,
 	## Generate permutations. Assume each permutation has N individuals, and sample those 
 	# individuals' haplotypes from the probabilities ##
 	  
-	  #gen.perms <- function() {
-	    #if (is.null(subset.haps)) {
-	      #sample(haps, num.specs, replace = TRUE, prob = probs)
-	    #} else {
-	      #sample(subset.haps, num.specs, replace = TRUE, prob = probs[subset.haps])
-	  #}
-	#}
-	  
 	  if (is.null(subset.haps)) {
-	    y <- replicate(K, sample(haps, num.specs, replace = TRUE))
+	    y <- split(sample(haps), sample(K, size = Hstar, replace = TRUE))
 	    } else {
-	      y <- replicate(K, sample(subset.haps, num.specs, replace = TRUE))
-	      }
+	      y <- split(sample(subset.haps), sample(K, size = length(subset.haps), replace = TRUE))
+	    }
+	  
+	  y <- sapply(y, "length<-", max(lengths(y)))
 
 	  pop <- array(dim = c(perms, num.specs, K))
 	  
-	  #for (i in 1:K) {
-	    #pop[,, i] <- replicate(perms, gen.perms())
-	  #}
-	  
 	  for (i in 1:K) {
-	    pop[,, i] <- sample(y[,i], size = num.specs * perms, replace = TRUE, prob = probs[y[, i]])
+	    pop[,, i] <- sample(na.omit(y[, i]), size = num.specs * perms, replace = TRUE, prob = na.omit(probs[y[, i]]))
 	  }
 	  
 	  ## Allow individuals (columns) to migrate among subpopulations (array levels) according to migration rate m ##
 	  
 	  if (K > 1 && m != 0) {
 	    
-	    inds1 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE)
+	    inds1 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE) # columns to migrate
 	    inds2 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE)
 	  
 	    for (i in 1:K) {
@@ -207,7 +197,7 @@ HAC.sim <- function(N,
 	   assign("X", ((N * length(subset.haps)) / P) - N, envir = .GlobalEnv)
 	   }
 	 
-	## Calculate slope of curve using last 10 points on curve
+	## Calculate slope of curve using last n points (or proportion of points) on curve
 	
 	# perms must be large enough to ensure monotonicity and a non-negative slope
     
@@ -219,7 +209,7 @@ HAC.sim <- function(N,
 	 if (!is.null(num.pts) && is.null(prop.pts)) {
 	    lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
 	    assign("beta1", coef(lin.reg)[[2]], envir = .GlobalEnv)
-	  }
+	 }
 	 
   ## Output results to R console and text file ##
 		    
