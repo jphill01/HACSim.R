@@ -136,7 +136,6 @@ HAC.sim <- function(N,
 	  pop <- array(dim = c(perms, num.specs, K))
 	  
 	  for (i in 1:K) {
-	    y[!duplicated(y[,i]), ]
 	    pop[,, i] <- sample(y[, i], size = num.specs * perms, replace = TRUE, prob = probs[y[, i]])
 	  }
 	  
