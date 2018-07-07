@@ -63,8 +63,12 @@ HAC.sim <- function(N,
 	
 	  if (input.seqs == TRUE) {
 		  seqs <- read.dna(file = file.choose(), format = "fasta")
-	  if (all(base.freq(seqs, all = TRUE)[5:17] != 0) != TRUE) {
-		  stop("Inputted DNA sequences contain missing and/or ambiguous nucleotides, which may lead to overestimation of the number of observed unique haplotypes. Consider excluding sequences or alignment sites containing these data. If missing and/or ambiguous bases occur at the ends of sequences, further alignment trimming is an option.")
+	  if (any(base.freq(seqs, all = TRUE)[5:17] > 0)) {
+		  stop("Inputted DNA sequences contain missing and/or ambiguous 
+	nucleotides, which may lead to overestimation of the number of 
+	observed unique haplotypes. Consider excluding sequences or alignment 
+	sites containing these data. If missing and/or ambiguous bases occur 
+	at the ends of sequences, further alignment trimming is an option.")
 	  }
 		  
 	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
