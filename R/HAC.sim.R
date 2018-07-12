@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: July 6, 2018
+# Last modified: July 12, 2018
 
 ##########
 
@@ -38,8 +38,7 @@ HAC.sim <- function(N,
                     Hstar, 
                     probs,
                     perms = 10000,
-                    K = 1, # DO NOT CHANGE
-                    m = 0,
+                    K = 1, # DO NOT CHANGE,
                     p = 0.95,
                     subset.haps = NULL,
                     prop.haps = NULL,
@@ -110,7 +109,7 @@ HAC.sim <- function(N,
 	
 	## Set up container to hold the identity of each individual from each permutation ##
 	
-    num.specs <- ceiling(N / K)
+    num.specs <- N
 		
 	## Create an ID for each haplotype ##
 	  
@@ -128,33 +127,19 @@ HAC.sim <- function(N,
 	## Generate permutations. Assume each permutation has N individuals, and sample those 
 	# individuals' haplotypes from the probabilities ##
 	  
-	  if (is.null(subset.haps)) {
-	    y <- replicate(K, sample(haps, size = num.specs, replace = TRUE))
+	  gen.perms <- function() {
+	    if (is.null(subset.haps)) {
+	      sample(haps, size = num.specs, replace = TRUE, prob = probs)
 	    } else {
-	      y <- replicate(K, sample(subset.haps, size = num.specs, replace = TRUE))
+	      sample(subset.haps, size = num.specs, replace = TRUE, prob = probs[subset.haps])
 	    }
+	  }
 	  
 	  pop <- array(dim = c(perms, num.specs, K))
 	  
 	  for (i in 1:K) {
-	    pop[,, i] <- sample(y[, i], size = num.specs * perms, replace = TRUE, prob = probs[y[, i]])
+	    pop[,, i] <- replicate(perms, gen.perms())
 	  }
-	  
-	  ## Allow individuals (columns) to migrate among subpopulations (array levels) according to migration rate m ##
-	  
-	  if (K > 1 && m != 0) {
-	    
-	    inds1 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE) # columns to migrate
-	    inds2 <- sample(num.specs, size = ceiling(num.specs * m), replace = FALSE)
-	  
-	    for (i in 1:K) {
-	      for(j in 1:K) {
-	        tmp <- pop[, inds1, i]
-	        pop[, inds1, i] <- pop[, inds2, j]
-	        pop[, inds2, j] <- tmp
-	      }
-	     }
-	    }
 	  
 	## Perform haplotype accumulation ##
 	
@@ -202,12 +187,12 @@ HAC.sim <- function(N,
     
 	  if (!is.null(prop.pts) && is.null(num.pts)) { 
 	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * length(d))))
-	    assign("beta1", coef(lin.reg)[[2]], envir = .GlobalEnv)
+	    assign("beta1", abs(coef(lin.reg)[[2]]), envir = .GlobalEnv)
 	  }
 	 
 	 if (!is.null(num.pts) && is.null(prop.pts)) {
 	    lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
-	    assign("beta1", coef(lin.reg)[[2]], envir = .GlobalEnv)
+	    assign("beta1", abs(coef(lin.reg)[[2]]), envir = .GlobalEnv)
 	 }
 	 
   ## Output results to R console and text file ##
