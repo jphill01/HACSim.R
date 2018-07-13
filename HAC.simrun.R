@@ -10,8 +10,6 @@
 
 # Optional #
 
-# K = Number of subpopulations/demes
-# m = Overall migration rate between subpopulations/demes
 # p = Proportion of unique haplotypes to recover
 # perms = Number of permutations (replications) 
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
@@ -57,6 +55,7 @@ library(HACSim)
 
 #source("HAC.simmodels.R")
 #source("HAC.simaic.R")
+#source("HAC.simbestaic.R")
 #source("HAC.simplot.R")
 #source("HAC.simest.R")
 #source("HAC.simfit.R")
@@ -71,7 +70,7 @@ library(HACSim)
 ##### SCENARIOS #####
 
 # N = 10, 50, 100
-# Hstar = 5, 10, 20
+# Hstar = 10, 20, 25
 
 ## Example probs for Hstar = 10 - you can come up with others ##
 
@@ -108,15 +107,13 @@ subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
-K <- 2
-m <- 0
 
 ## Simulate hypothetical species WITH migration/gene flow ##
 
 input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
-prop.haps <- 0.10 # proportion of haplotypes to subsample - add random noise to avoid error
+prop.haps <- 0.50 # proportion of haplotypes to subsample
 
 # subset.haps cannot have a length of 1
 
@@ -138,12 +135,12 @@ input.seqs <- TRUE # analyze DNA sequence file? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.60 # proportion of DNA sequences to subsample
+prop.seqs <- 0.20 # proportion of DNA sequences to subsample
+
 
 ### Run simulations ###
 
 HAC.simrep(filename = "output")
-
 
 
 ##########
