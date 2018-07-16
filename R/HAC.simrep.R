@@ -6,7 +6,7 @@ HAC.simrep <- function(filename = "output") {
   ptm <- proc.time()
   assign("iters", 1, .GlobalEnv)
   
-  df <- data.frame(matrix(ncol = 8, nrow = 0))
+  df <- data.frame(matrix(ncol = 10, nrow = 0))
   x <- c("Mean number of haplotypes sampled", 
          "Mean number of haplotypes not sampled", 
          "Proportion of haplotypes (specimens) sampled", 
@@ -37,9 +37,9 @@ HAC.simrep <- function(filename = "output") {
   ## Check whether desired level of haplotype recovery has been reached ##
   
   if (R < p) {
-    cat("Desired level of H* has not yet been reached \n")
+    cat("\n \n \n Desired level of H* has not yet been reached \n")
   } else {
-    cat("\n Desired level of H* has been reached. \n \n The algorithm converged after", 
+    cat("\n \n \n Desired level of H* has been reached. \n \n The algorithm converged after", 
         iters, "iterations and took", amt[3], "s.", "\n")
   }
   
@@ -64,9 +64,9 @@ HAC.simrep <- function(filename = "output") {
     ## Check whether desired level of haplotype recovery has been reached ##
     
     if (R < p) {
-      cat("Desired level of H* has not yet been reached \n")
+      cat("\n \n \n Desired level of H* has not yet been reached \n")
     } else {
-      cat("\n Desired level of H* has been reached. \n \n The algorithm converged after", 
+      cat("\n \n \n Desired level of H* has been reached. \n \n \n The algorithm converged after", 
           iters, "iterations and took", amt[3], "s.", "\n")
     }
     
