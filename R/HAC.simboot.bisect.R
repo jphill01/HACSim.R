@@ -22,7 +22,7 @@ HAC.simboot.bisect <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		    #utils::setTxtProgressBar(pb, i)
 		  #}
 		  
-		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "tp", k = k), optimizer = c("outer", "bfgs"), data = data)
+		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "tp", k = k), method = "GCV.Cp", optimizer = c("outer", "bfgs"), data = data)
 		  # Simulate the correct variance
 		  Y0 <- R * Hstar + sample(data$res, size = 1, replace = TRUE)
 		# Make sure the original estimate also gets returned
@@ -55,7 +55,7 @@ HAC.simboot.bisect <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		    #utils::setTxtProgressBar(pb, i)
 		  #s}
 		  
-		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "cr", k = k), optimizer = c("outer", "bfgs"), data = data)
+		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "cr", k = k), method = "GCV.Cp", optimizer = c("outer", "bfgs"), data = data)
 		  Y0 <- R * Hstar + sample(data$res, size = 1, replace = TRUE)
             if (all(i == 1:n)) {
                 inv.predict(HAC.cr, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
@@ -73,7 +73,6 @@ HAC.simboot.bisect <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		cat("\n\n")
 		print(boot.ci(res, type = "all"))     
     
-    
     cat("\n P-spline smooth (ps) \n")
 		res <- resid(HAC.ps) - mean(resid(HAC.ps)) 
 		n <- length(res)
@@ -86,7 +85,7 @@ HAC.simboot.bisect <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		    #utils::setTxtProgressBar(pb, i)
 		  #}
 		  
-		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "ps", k = k), optimizer = c("outer", "bfgs"), data = data)
+		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "ps", k = k), method = "GCV.Cp", optimizer = c("outer", "bfgs"), data = data)
 		  Y0 <- R * Hstar + sample(data$res, size = 1, replace = TRUE)
               if (all(i == 1:n)) {
                   inv.predict(HAC.ps, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
@@ -117,7 +116,7 @@ HAC.simboot.bisect <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		    #utils::setTxtProgressBar(pb, i)
 		  #}
 		  
-		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "ad", k = k), optimizer = c("outer", "bfgs"), data = data)
+		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "ad", k = k), method = "GCV.Cp", optimizer = c("outer", "bfgs"), data = data)
 		  Y0 <- R * Hstar + sample(data$res, size = 1, replace = TRUE)
               if (all(i == 1:n)) {
                   inv.predict(HAC.ad, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
@@ -133,7 +132,7 @@ HAC.simboot.bisect <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		cat("\n Percent relative bias: ", rel.bias*100) 
 		plot(res)
 		cat("\n\n")
-		print(boot.ci(res, type = "all"))    
+		print(boot.ci(res, type = "all"))
 
 	}
     
@@ -247,7 +246,7 @@ HAC.simboot.bisect <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
  	      #utils::setTxtProgressBar(pb, i)
  	    #}
  	    
- 	    boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "gp", k = k), optimizer = c("outer", "bfgs"), data = data)
+ 	    boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "gp", k = k), method = "GCV.Cp", optimizer = c("outer", "bfgs"), data = data)
  	    Y0 <- R * Hstar + sample(data$res, size = 1, replace = TRUE)
             if (all(i == 1:n)) {
                 inv.predict(HAC.matern, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
@@ -279,7 +278,7 @@ HAC.simboot.bisect <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		  #}
 		  
 		  
- 		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "gp", k = k, m = 1), optimizer = c("outer", "bfgs"), data = data)
+ 		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "gp", k = k, m = 1), method = "GCV.Cp", optimizer = c("outer", "bfgs"), data = data)
 		  Y0 <- R * Hstar + sample(data$res, size = 1, replace = TRUE)
               if (all(i == 1:n)) {
                   inv.predict(HAC.sph, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
@@ -309,7 +308,7 @@ HAC.simboot.bisect <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		    #utils::setTxtProgressBar(pb, i)
 		  #}
 		  
- 		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "gp", k = k, m = 2), optimizer = c("outer", "bfgs"), data = data)
+ 		  boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = "gp", k = k, m = 2), method = "GCV.Cp", optimizer = c("outer", "bfgs"), data = data)
 		  Y0 <- R * Hstar + sample(data$res, size = 1, replace = TRUE)
               if (all(i == 1:n)) {
 				inv.predict(HAC.exp, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
