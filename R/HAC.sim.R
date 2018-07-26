@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: July 13, 2018
+# Last modified: July 23, 2018
 
 ##########
 
@@ -179,7 +179,7 @@ HAC.sim <- function(N,
 	   S <- (length(subset.haps) - P) / length(subset.haps)
 	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
 	   assign("X", ((N * length(subset.haps)) / P) - N, envir = .GlobalEnv)
-	 }
+	   }
 	 
 	## Calculate slope of curve using last n points (or proportion of points) on curve
 	
@@ -207,8 +207,8 @@ HAC.sim <- function(N,
 	  "\n \n Haplotype accumulation curve slope: ", beta1,
 	  "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1)
 	  
-	  cat("\n \n 95% CI for mean number of haplotypes recovered: ", c(max(lower), max(upper)))
-	  
+	  cat("\n \n 95% CI for number of haplotypes recovered: ", c(max(lower), max(upper)))
+	
     df[nrow(df) + 1, ] <- c(P, max(lower), max(upper), Q, R, S, Nstar / K, X / K, beta1, 1 / beta1)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##

@@ -7,7 +7,9 @@ HAC.simrep <- function(filename = "output") {
   assign("iters", 1, .GlobalEnv)
   
   df <- data.frame(matrix(ncol = 10, nrow = 0))
-  x <- c("Mean number of haplotypes sampled", 
+  x <- c("Mean number of haplotypes sampled",
+         "Lower 95% confidence limit for number of haplotypes recovered",
+         "Upper 95% confidence limit for number of haplotypes recovered",
          "Mean number of haplotypes not sampled", 
          "Proportion of haplotypes (specimens) sampled", 
          "Proportion of haplotypes (specimens) not sampled",
@@ -66,7 +68,7 @@ HAC.simrep <- function(filename = "output") {
     if (R < p) {
       cat("\n \n \n Desired level of H* has not yet been reached \n")
     } else {
-      cat("\n \n \n Desired level of H* has been reached. \n \n \n The algorithm converged after", 
+      cat("\n \n \n Desired level of H* has been reached. \n \n The algorithm converged after", 
           iters, "iterations and took", amt[3], "s.", "\n")
     }
     
