@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: July 26, 2018
+# Last modified: July 29, 2018
 
 ##########
 
@@ -43,6 +43,11 @@ HAC.sim <- function(N,
                     subset.haps = NULL,
                     prop.haps = NULL,
                     input.seqs = FALSE,
+                    sim.seqs = FALSE,
+                    num.seqs = NULL,
+                    length.seqs = NULL,
+                    transition.rate = NULL,
+                    transversion.rate = NULL,
                     subset.seqs = FALSE,
                     prop.seqs = NULL,
                     num.pts = 10,
@@ -69,6 +74,52 @@ HAC.sim <- function(N,
 	sites containing these data. If missing and/or ambiguous bases occur 
 	at the ends of sequences, further alignment trimming is an option.")
 	  }
+		  
+		  if (sim.seqs == TRUE) {
+		    
+		    nucl <- as.DNAbin(c("a", "c", "g", "t"))
+		    transition.set <- list('a'=as.DNAbin('g'), 'g'=as.DNAbin('a'), 'c'=as.DNAbin('t'), 't'=as.DNAbin('c'))
+		    transversion.set <- list('a'=as.DNAbin(c('c','t')), 'g'=as.DNAbin(c('c','t')), 'c'=as.DNAbin(c('a','g')), 't'=as.DNAbin(c('a','g')))
+		    
+		    res <- sample(nucl, size = length.seqs, replace = TRUE)
+		    
+		    ## create transitions 
+		    transitions <- function(res){
+		      unlist(transition.set[as.character(res)])
+		    }
+		    
+		    ## create transversions
+		    transversions <- function(res){
+		      sapply(transversion.set[as.character(res)], sample, 1)
+		    }
+		    
+		    seq.dupli <- function(res) { 
+		      ## transitions ##
+		      n.transitions <- rbinom(n = 1, size = length.seqs, prob = transition.rate) # total number of transitions
+		      if (n.transitions > 0) {
+		        idx <- sample(1:length.seqs, size = n.transitions, replace = FALSE)
+		        res[idx] <- transitions(res[idx])
+		      }
+		      
+		      ## transversions ##
+		      n.transversions <- rbinom(n=1, size=length.seqs, prob = transversion.rate) # total number of transitions
+		      if (n.transversions > 0) {
+		        idx <- sample(1:length.seqs, size = n.transversions, replace = FALSE)
+		        res[idx] <- transversions(res[idx])
+		      }
+		      res
+		    }
+		    
+		    res <- t(replicate(num.seqs, seq.dupli(res)))
+	
+		    class(res) <- "DNAbin"
+		    assign("N", dim(res)[[1]], envir = .GlobalEnv)
+		    h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
+		    rownames(h) <- 1:nrow(h)
+		    assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
+		    assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
+		    
+		  }
 		  
 	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
 	                             # can be used to simulate migration/gene flow
