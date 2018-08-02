@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: July 29, 2018
+# Last modified: August 2, 2018
 
 ##########
 
@@ -92,51 +92,55 @@ HAC.sim <- function(N,
   
   if (sim.seqs == TRUE) {
     
-    nucl <- as.DNAbin(c("A", "C", "G", "T"))
-    transiset <- list("A" = as.DNAbin("G"), 
-                           "C" = as.DNAbin("T"),
-                           "G" = as.DNAbin("A"), 
-                           "T" = as.DNAbin("C"))
-    transvset <- list("A" = as.DNAbin(c("C", "T")),
-                             "C" = as.DNAbin(c("A", "G")),
-                             "G" = as.DNAbin(c("C", "T")),
-                             "T" = as.DNAbin(c("A", "G")))
+    NUCL <- as.DNAbin(c("a","t","c","g"))
+    TRANSISET <- list('a'=as.DNAbin('g'), 'g'=as.DNAbin('a'), 'c'=as.DNAbin('t'), 't'=as.DNAbin('c'))
+    TRANSVSET <- list('a'=as.DNAbin(c('c','t')), 'g'=as.DNAbin(c('c','t')), 'c'=as.DNAbin(c('a','g')), 't'=as.DNAbin(c('a','g')))
     
-    res <- sample(nucl, size = length.seqs, replace = TRUE)
+    ## AUXILIARY FUNCTIONS ##
+    ## generate sequence from scratch
     
-    ## create transitions 
-    transi <- function(res){
-      unlist(transiset[as.character(res)])
+    res <- sample(NUCL, size=length.seqs, replace=TRUE)
+    
+    ## create transitions for defined SNPs
+    transi <- function(snp){
+      res <- unlist(TRANSISET[as.character(snp)])
+      class(res) <- "DNAbin"
+      return(res)
     }
     
-    ## create transversions
+    ## create transversions for defined SNPs
     transv <- function(res){
-      sapply(transvset[as.character(res)], sample, 1)
+      res <- sapply(TRANSVSET[as.character(res)],sample,1)
+      class(res) <- "DNAbin"
+      return(res)
     }
     
-    seq.dupli <- function(res) { 
-      
-      ## transitions ##
-      n.transi <- rbinom(n = 1, size = length.seqs, prob = mu.transi) # total number of transitions
-      if (n.transi > 0) {
-        idx <- sample(length.seqs, size = n.transi, replace = FALSE)
+    ## duplicate a sequence (including possible mutations)
+    seq.dupli <- function(res){
+      n.transi <- rbinom(n=1, size=length.seqs, prob=mu.transi) # total number of transitions
+      if(n.transi>0) {
+        idx <- sample(length.seqs, size=n.transi, replace=FALSE)
         res[idx] <- transi(res[idx])
       }
       
       ## transversions ##
-      n.transv <- rbinom(n = 1, size = length.seqs, prob = mu.transv) # total number of transversions
-      if (n.transv > 0) {
-        idx <- sample(length.seqs, size = n.transv, replace = FALSE)
+      n.transv <- rbinom(n=1, size=length.seqs, prob=mu.transv) # total number of transitions
+      if(n.transv>0) {
+        idx <- sample(length.seqs, size=n.transv, replace=FALSE)
         res[idx] <- transv(res[idx])
       }
-
-      res
+      return(res)
     }
     
-    res <- as.matrix(res)
-    res <- t(matrix(rep(seq.dupli(res), num.seqs), ncol = num.seqs, byrow = TRUE))
+    class(res) <- "DNAbin"
+    
+    res <- replicate(num.seqs, seq.dupli(res))
+    res <- as.matrix.DNAbin(res)
     
     class(res) <- "DNAbin"
+    
+    res <- t(res)
+    
     assign("N", dim(res)[[1]], envir = .GlobalEnv)
     h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
     rownames(h) <- 1:nrow(h)
