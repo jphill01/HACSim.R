@@ -13,6 +13,13 @@
 # p = Proportion of unique haplotypes to recover
 # perms = Number of permutations (replications) 
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
+# sim.seqs = Simulate DNA sequences (TRUE / FALSE)?
+# num.seqs = Number of DNA sequences to simulate
+# length.seqs = Basepair length of DNA sequences to simulate
+# subst.model = Substitution model to simulate DNA sequences
+# mu.rate = Substitution rate of nucleotides of simulated DNA sequences under Jukes-Cantor model
+# transi.rate = Substitution rate of transitions of simulated DNA sequences under K2P model
+# transv.rate = Substitution rate of transversions of simulated DNA sequences under K2P model
 # subset.seqs = Subset of DNA sequences to sample
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
@@ -89,10 +96,10 @@ library(HACSim)
 
 ### Set parameters ###
 
-N <- 10 # total number of sampled individuals
-Hstar <- 10  # total number of haplotypes
-probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
-# probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
+N <- 20 # total number of sampled individuals
+Hstar <- 20  # total number of haplotypes
+# probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
+probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
@@ -121,6 +128,7 @@ prop.haps <- 0.50 # proportion of haplotypes to subsample
     subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
   }
 
+
 ## Simulate real species WITHOUT migration/gene flow ##
 
 input.seqs <- TRUE # analyze DNA sequence file? DO NOT CHANGE
@@ -135,7 +143,39 @@ input.seqs <- TRUE # analyze DNA sequence file? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.20 # proportion of DNA sequences to subsample
+prop.seqs <- 0.10 # proportion of DNA sequences to subsample
+
+
+## Simulate DNA sequences under JC
+
+input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
+subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
+prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
+subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
+prop.seqs <- 0.10 # proportion of DNA sequences to subsample
+sim.seqs <- TRUE # simulate DNA sequences?
+num.seqs <- 100 # number of DNA sequences to simulate
+length.seqs <- 648 # length of DNA sequences to simulate
+subst.model <- "JC" # substitution model to simulate DNA sequences
+mu.rate <- 1e-6 # substitution rate
+transi.rate <- NULL # transition rate
+transv.rate <- NULL # transversion rate
+
+
+## Simulate DNA sequences under K2P
+
+input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
+subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
+prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
+subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
+prop.seqs <- 0.10 # proportion of DNA sequences to subsample
+sim.seqs <- TRUE # simulate DNA sequences?
+num.seqs <- 100 # number of DNA sequences to simulate
+length.seqs <- 648 # length of DNA sequences to simulate
+subst.model <- "K2P" # substitution model to simulate DNA sequences
+mu.rate <- NULL # substitution rate
+transi.rate <- 1e-4 # transition rate
+transv.rate <- transi.rate / 2 # transversion rate
 
 
 ### Run simulations ###
