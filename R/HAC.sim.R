@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: August 2, 2018
+# Last modified: August 4, 2018
 
 ##########
 
@@ -25,6 +25,13 @@
 # p = Proportion of unique haplotypes to recover
 # perms = Number of permutations (replications)
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
+# sim.seqs = Simulate DNA sequences (TRUE / FALSE)?
+# num.seqs = Number of DNA sequences to simulate
+# length.seqs = Basepair length of DNA sequences to simulate
+# subst.model = Substitution model to simulate DNA sequences
+# mu.rate = Substitution rate of nucleotides of simulated DNA sequences under Jukes-Cantor model
+# transi.rate = Substitution rate of transitions of simulated DNA sequences under K2P model
+# transv.rate = Substitution rate of transversions of simulated DNA sequences under K2P model
 # subset.seqs = Subset of DNA sequences to sample
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
@@ -46,6 +53,8 @@ HAC.sim <- function(N,
                     sim.seqs = FALSE,
                     num.seqs = NULL,
                     length.seqs = NULL,
+                    subst.model = NULL,
+                    mu.rate = NULL,
                     transi.rate = NULL,
                     transv.rate = NULL,
                     subset.seqs = FALSE,
@@ -90,62 +99,93 @@ HAC.sim <- function(N,
 
 	  }
   
-  if (sim.seqs == TRUE) {
-    
-    nucl <- as.DNAbin(c("a","c","g","t"))
-    
-    transi.set <- list('a' = as.DNAbin('g'), 
-                      'c' = as.DNAbin('t'),
-                      'g' = as.DNAbin('a'), 
-                      't' = as.DNAbin('c'))
-    transv.set <- list('a' = as.DNAbin(c('c', 't')),
-                      'c' = as.DNAbin(c('a', 'g')),
-                      'g' = as.DNAbin(c('c', 't')), 
-                      't' = as.DNAbin(c('a', 'g')))
-    
-    res <- sample(nucl, size = length.seqs, replace = TRUE)
-    
-    transi <- function(res){
-      unlist(transi.set[as.character(res)])
-    }
-    
-    transv <- function(res){
-      sapply(transv.set[as.character(res)], sample, 1)
-    }
-    
-    duplicate.seq <- function(res) {
-      num.transi <- rbinom(n = 1, size = length.seqs, prob = transi.rate) # total number of transitions
-      if(num.transi > 0) {
-        idx <- sample(length.seqs, size = num.transi, replace = FALSE)
-        res[idx] <- transi(res[idx])
-      }
+    if (sim.seqs == TRUE) {
       
-      num.transv <- rbinom(n = 1, size = length.seqs, prob = transv.rate) # total number of transitions
-      if(num.transv > 0) {
-        idx <- sample(length.seqs, size = num.transv, replace = FALSE)
-        res[idx] <- transv(res[idx])
+      nucl <- as.DNAbin(c('a','c','g','t'))
+      res <- sample(nucl, size = length.seqs, replace = TRUE)
+    
+      if (subst.model == "JC") {
+      
+        mu.set <- list('a' = as.DNAbin('c'),
+                      'a' = as.DNAbin('g'),
+                      'a' = as.DNAbin('t'),
+                      'c' = as.DNAbin('a'),
+                      'c' = as.DNAbin('g'),
+                      'c' = as.DNAbin('t'),
+                      'g' = as.DNAbin('a'),
+                      'g' = as.DNAbin('c'),
+                      'g' = as.DNAbin('t'),
+                      't' = as.DNAbin('a'),
+                      't' = as.DNAbin('c'),
+                      't' = as.DNAbin('g'))
+      
+        muts <- function(res) {
+          unlist(mu.set[as.character(res)])
+        }
+      
+        duplicate.seq <- function(res) {
+          num.muts <- rbinom(n = 1, size = length.seqs, prob = mu.rate) # total number of mutations
+          if (num.muts > 0) {
+            idx <- sample(length.seqs, size = num.muts, replace = FALSE)
+            res[idx] <- muts(res[idx])
+          }
+          res
+        }
       }
-      res
+    
+      if (subst.model == "K2P") {
+      
+        transi.set <- list('a' = as.DNAbin('g'), 
+                          'c' = as.DNAbin('t'),
+                          'g' = as.DNAbin('a'), 
+                          't' = as.DNAbin('c'))
+        transv.set <- list('a' = as.DNAbin(c('c', 't')),
+                          'c' = as.DNAbin(c('a', 'g')),
+                          'g' = as.DNAbin(c('c', 't')), 
+                          't' = as.DNAbin(c('a', 'g')))
+      
+        transi <- function(res) {
+          unlist(transi.set[as.character(res)])
+        }
+      
+        transv <- function(res) {
+          sapply(transv.set[as.character(res)], sample, 1)
+        }
+      
+        duplicate.seq <- function(res) {
+          num.transi <- rbinom(n = 1, size = length.seqs, prob = transi.rate) # total number of transitions
+          if (num.transi > 0) {
+            idx <- sample(length.seqs, size = num.transi, replace = FALSE)
+            res[idx] <- transi(res[idx])
+          }
+        
+          num.transv <- rbinom(n = 1, size = length.seqs, prob = transv.rate) # total number of transitions
+          if (num.transv > 0) {
+            idx <- sample(length.seqs, size = num.transv, replace = FALSE)
+            res[idx] <- transv(res[idx])
+          }
+          res
+          }
+        }
+    
+      class(res) <- "DNAbin"
+    
+      res <- replicate(num.seqs, duplicate.seq(res))
+      res <- as.matrix.DNAbin(res)
+    
+      class(res) <- "DNAbin"
+    
+      res <- t(res)
+    
+      write.dna(res, file = "seqs.fas", format = "fasta")
+    
+      assign("N", dim(res)[[1]], envir = .GlobalEnv)
+      h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
+      rownames(h) <- 1:nrow(h)
+      assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
+      assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
+    
     }
-    
-    class(res) <- "DNAbin"
-    
-    res <- replicate(num.seqs, duplicate.seq(res))
-    res <- as.matrix.DNAbin(res)
-    
-    class(res) <- "DNAbin"
-    
-    res <- t(res)
-    
-    write.dna(res, file = "seqs.fas", format = "fasta")
-    
-    assign("N", dim(res)[[1]], envir = .GlobalEnv)
-    h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
-    rownames(h) <- 1:nrow(h)
-    assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
-    assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
-    
-  }
   
   ## Error messages ##
   
