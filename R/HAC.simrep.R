@@ -33,6 +33,7 @@ HAC.simrep <- function(filename = "output") {
                num.seqs = num.seqs,
                length.seqs = length.seqs,
                subst.model = subst.model,
+               nucl.freqs = nucl.freqs,
                mu.rate = mu.rate,
                transi.rate = transi.rate,
                transv.rate = transv.rate,

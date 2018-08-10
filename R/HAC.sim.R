@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: August 4, 2018
+# Last modified: August 10, 2018
 
 ##########
 
@@ -29,6 +29,7 @@
 # num.seqs = Number of DNA sequences to simulate
 # length.seqs = Basepair length of DNA sequences to simulate
 # subst.model = Substitution model to simulate DNA sequences
+# nucl.freqs = Frequencies of DNA nucleotides
 # mu.rate = Substitution rate of nucleotides of simulated DNA sequences under Jukes-Cantor model
 # transi.rate = Substitution rate of transitions of simulated DNA sequences under K2P model
 # transv.rate = Substitution rate of transversions of simulated DNA sequences under K2P model
@@ -54,6 +55,7 @@ HAC.sim <- function(N,
                     num.seqs = NULL,
                     length.seqs = NULL,
                     subst.model = NULL,
+                    nucl.freqs = NULL,
                     mu.rate = NULL,
                     transi.rate = NULL,
                     transv.rate = NULL,
@@ -76,7 +78,8 @@ HAC.sim <- function(N,
 	
 	  if (input.seqs == TRUE) {
 		  seqs <- read.dna(file = file.choose(), format = "fasta")
-	  if (any(base.freq(seqs, all = TRUE)[5:17] > 0)) {
+	  
+		if (any(base.freq(seqs, all = TRUE)[5:17] > 0)) {
 		  stop("Inputted DNA sequences contain missing and/or ambiguous 
 	nucleotides, which may lead to overestimation of the number of 
 	observed unique haplotypes. Consider excluding sequences or alignment 
@@ -102,9 +105,16 @@ HAC.sim <- function(N,
     if (sim.seqs == TRUE) {
       
       nucl <- as.DNAbin(c('a','c','g','t'))
-      res <- sample(nucl, size = length.seqs, replace = TRUE)
+      
+      if ((subst.model == "JC69") || (subst.model == "K80")) {
+        res <- sample(nucl, size = length.seqs, replace = TRUE, prob = rep(0.25, 4))
+      }
+      
+      if ((subst.model == "F81") || (subst.model == "HKY85")) {
+        res <- sample(nucl, size = length.seqs, replace = TRUE, prob = nucl.freqs)
+      }
     
-      if (subst.model == "JC") {
+      if (subst.model == "JC69") {
       
         mu.set <- list('a' = as.DNAbin('c'),
                       'a' = as.DNAbin('g'),
@@ -124,7 +134,7 @@ HAC.sim <- function(N,
         }
       
         duplicate.seq <- function(res) {
-          num.muts <- rbinom(n = 1, size = length.seqs, prob = mu.rate) # total number of mutations
+          num.muts <- rbinom(n = 1, size = length.seqs, prob = mu.rate) # total number of substitutions
           if (num.muts > 0) {
             idx <- sample(length.seqs, size = num.muts, replace = FALSE)
             res[idx] <- muts(res[idx])
@@ -133,7 +143,7 @@ HAC.sim <- function(N,
         }
       }
     
-      if (subst.model == "K2P") {
+      if (subst.model == "K80") {
       
         transi.set <- list('a' = as.DNAbin('g'), 
                           'c' = as.DNAbin('t'),
@@ -159,7 +169,7 @@ HAC.sim <- function(N,
             res[idx] <- transi(res[idx])
           }
         
-          num.transv <- rbinom(n = 1, size = length.seqs, prob = transv.rate) # total number of transitions
+          num.transv <- rbinom(n = 1, size = length.seqs, prob = transv.rate) # total number of transversions
           if (num.transv > 0) {
             idx <- sample(length.seqs, size = num.transv, replace = FALSE)
             res[idx] <- transv(res[idx])
@@ -167,8 +177,70 @@ HAC.sim <- function(N,
           res
           }
         }
-    
-      class(res) <- "DNAbin"
+        
+      if (subst.model == "F81") {
+        
+        mu.set <- list('a' = as.DNAbin('c'),
+                       'a' = as.DNAbin('g'),
+                       'a' = as.DNAbin('t'),
+                       'c' = as.DNAbin('a'),
+                       'c' = as.DNAbin('g'),
+                       'c' = as.DNAbin('t'),
+                       'g' = as.DNAbin('a'),
+                       'g' = as.DNAbin('c'),
+                       'g' = as.DNAbin('t'),
+                       't' = as.DNAbin('a'),
+                       't' = as.DNAbin('c'),
+                       't' = as.DNAbin('g'))
+        
+        muts <- function(res) {
+          unlist(mu.set[as.character(res)])
+        }
+        
+        duplicate.seq <- function(res) {
+          num.muts <- rbinom(n = 1, size = length.seqs, prob = mu.rate) 
+          if (num.muts > 0) {
+            idx <- sample(length.seqs, size = num.muts, replace = FALSE)
+            res[idx] <- muts(res[idx])
+          }
+          res
+        }
+      }
+      
+      if (subst.model == "HKY85") {
+        
+        transi.set <- list('a' = as.DNAbin('g'), 
+                           'c' = as.DNAbin('t'),
+                           'g' = as.DNAbin('a'), 
+                           't' = as.DNAbin('c'))
+        transv.set <- list('a' = as.DNAbin(c('c', 't')),
+                           'c' = as.DNAbin(c('a', 'g')),
+                           'g' = as.DNAbin(c('c', 't')), 
+                           't' = as.DNAbin(c('a', 'g')))
+        
+        transi <- function(res) {
+          unlist(transi.set[as.character(res)])
+        }
+        
+        transv <- function(res) {
+          sapply(transv.set[as.character(res)], sample, 1)
+        }
+        
+        duplicate.seq <- function(res) {
+          num.transi <- rbinom(n = 1, size = length.seqs, prob = transi.rate) 
+          if (num.transi > 0) {
+            idx <- sample(length.seqs, size = num.transi, replace = FALSE)
+            res[idx] <- transi(res[idx])
+          }
+          
+          num.transv <- rbinom(n = 1, size = length.seqs, prob = transv.rate) 
+          if (num.transv > 0) {
+            idx <- sample(length.seqs, size = num.transv, replace = FALSE)
+            res[idx] <- transv(res[idx])
+          }
+          res
+        }
+      }
     
       res <- replicate(num.seqs, duplicate.seq(res))
       res <- as.matrix.DNAbin(res)
@@ -328,7 +400,7 @@ HAC.sim <- function(N,
 	    abline(h = p * Hstar, lty = 3) # dotted line
 	    HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps, main = "Haplotype frequency distribution")
 	  } else {
-	    abline(h = c(R * length(subset.haps)), v = N / K, lty = 2) # dashed line
+	    abline(h = R * length(subset.haps), v = N / K, lty = 2) # dashed line
 	    abline(h = p * length(subset.haps), lty = 3) # dotted line
 	    HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
 	  }
