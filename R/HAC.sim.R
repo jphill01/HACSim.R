@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: August 14, 2018
+# Last modified: August 15, 2018
 
 ##########
 
@@ -137,6 +137,7 @@ HAC.sim <- function(N,
       }
     
       res <- matrix(replicate(num.seqs, duplicate.seq(res)), byrow = TRUE, nrow = num.seqs)
+      res <- res[sample(nrow(res), size = num.seqs, replace = TRUE), ]
       
       class(res) <- "DNAbin"
     
@@ -296,4 +297,4 @@ HAC.sim <- function(N,
 	    HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
 	  }
 	  df
-}
+} # end HAC.sim
