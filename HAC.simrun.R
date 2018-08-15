@@ -16,9 +16,6 @@
 # sim.seqs = Simulate DNA sequences (TRUE / FALSE)?
 # num.seqs = Number of DNA sequences to simulate
 # length.seqs = Basepair length of DNA sequences to simulate
-# subst.model = Substitution model to simulate DNA sequences
-# nucl.freqs = Frequencies of DNA nucleotides
-# mu.rate = Substitution rate of nucleotides of simulated DNA sequences under Jukes-Cantor model
 # transi.rate = Substitution rate of transitions of simulated DNA sequences under K2P model
 # transv.rate = Substitution rate of transversions of simulated DNA sequences under K2P model
 # subset.seqs = Subset of DNA sequences to sample
@@ -99,8 +96,8 @@ library(HACSim)
 
 N <- 20 # total number of sampled individuals
 Hstar <- 20  # total number of haplotypes
-# probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
-probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
+probs <- c(0.30, 0.30, 0.30, rep(0.1/17, 17)) # must sum to 1
+# probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
@@ -153,12 +150,7 @@ prop.seqs <- 0.10 # proportion of DNA sequences to subsample
 
 ## Simulate DNA sequences
 
-# JC69: mu.transi = mu.transv, A = C = G = T = 0.25
-# K80: mu.transi != mu.transv, A = C = G = T = 0.25
-# F81: mu.transi = mu.transv, A != C != G != T
-# HKY85: mu.transi != mu.transv, A != C != G != T
-
-# JC69
+# K2P: mu.transi != mu.transv, A = C = G = T = 0.25
 
 input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  
@@ -166,61 +158,9 @@ prop.haps <- NULL # proportion of haplotypes to subsample
 subset.seqs <- FALSE # subset DNA sequences? 
 prop.seqs <- NULL # proportion of DNA sequences to subsample
 sim.seqs <- TRUE # simulate DNA sequences?
-num.seqs <- 100 # number of DNA sequences to simulate
-length.seqs <- 658 # length of DNA sequences to simulate
-subst.model <- "JC" # substitution model to simulate DNA sequences
-nucl.freqs <- NULL # nucleotide frequencies
-mu.rate <- 1e-6 # overall mutation rate
-transi.rate <- NULL # transition rate
-transv.rate <- NULL  # transversion rate
-
-
-# K80
-
-input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
-subset.haps <- NULL # subset haplotypes?  
-prop.haps <- NULL # proportion of haplotypes to subsample 
-subset.seqs <- FALSE # subset DNA sequences? 
-prop.seqs <- NULL # proportion of DNA sequences to subsample
-sim.seqs <- TRUE # simulate DNA sequences?
-num.seqs <- 100 # number of DNA sequences to simulate
-length.seqs <- 658 # length of DNA sequences to simulate
-subst.model <- "K80" # substitution model to simulate DNA sequences
-nucl.freqs <- NULL # nucleotide frequencies
-mu.rate <- NULL # overall mutation rate
-transi.rate <- 1e-6 # transition rate
-transv.rate <- transi.rate / 2  # transversion rate
-
-# F81
-
-input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
-subset.haps <- NULL # subset haplotypes?  
-prop.haps <- NULL # proportion of haplotypes to subsample 
-subset.seqs <- FALSE # subset DNA sequences? 
-prop.seqs <- NULL # proportion of DNA sequences to subsample
-sim.seqs <- TRUE # simulate DNA sequences?
-num.seqs <- 100 # number of DNA sequences to simulate
-length.seqs <- 658 # length of DNA sequences to simulate
-subst.model <- "F81" # substitution model to simulate DNA sequences
-nucl.freqs <- c(0.30, 0.20, 0.20, 0.30) # nucleotide frequencies
-mu.rate <- 1e-6 # overall mutation rate
-transi.rate <- NULL # transition rate
-transv.rate <- NULL  # transversion rate
-
-# HKY85
-
-input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
-subset.haps <- NULL # subset haplotypes?  
-prop.haps <- NULL # proportion of haplotypes to subsample 
-subset.seqs <- FALSE # subset DNA sequences? 
-prop.seqs <- NULL # proportion of DNA sequences to subsample
-sim.seqs <- TRUE # simulate DNA sequences?
-num.seqs <- 100 # number of DNA sequences to simulate
-length.seqs <- 658 # length of DNA sequences to simulate
-subst.model <- "HKY85" # substitution model to simulate DNA sequences
-nucl.freqs <- c(0.30, 0.20, 0.20, 0.30) # nucleotide frequencies
-mu.rate <- NULL # overall mutation rate
-transi.rate <- 1e-6 # transition rate
+num.seqs <- 234 # number of DNA sequences to simulate
+length.seqs <- 652 # length of DNA sequences to simulate
+transi.rate <- 4.5e-4 # transition rate
 transv.rate <- transi.rate / 2  # transversion rate
 
 
