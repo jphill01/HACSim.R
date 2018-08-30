@@ -51,6 +51,9 @@ HAC.sim <- function(N,
                     sim.seqs = FALSE,
                     num.seqs = NULL,
                     length.seqs = NULL,
+                    nucl.freq = NULL,
+                    subst.model = NULL,
+                    mu.rate = NULL,
                     transi.rate = NULL,
                     transv.rate = NULL,
                     subset.seqs = FALSE,
@@ -58,7 +61,8 @@ HAC.sim <- function(N,
                     num.pts = 10,
                     prop.pts = NULL,
                     df = NULL, # dataframe
-                    progress = TRUE) {
+                    progress = TRUE
+                    ) {
 	
 	  cat("\n")
   
@@ -100,44 +104,81 @@ HAC.sim <- function(N,
       
       nucl <- as.DNAbin(c('a','c','g','t'))
       
-      res <- sample(nucl, size = length.seqs, replace = TRUE, prob = rep(0.25, 4))
+      if ((subst.model == "JC69") || (subst.model == "K80")) {
+        res <- sample(nucl, size = length.seqs, replace = TRUE, prob = rep(0.25, 4))
+      }
+        
+      if ((subst.model == "F81") || (subst.model == "HKY85")) {
+        res <- sample(nucl, size = length.seqs, replace = TRUE, prob = nucl.freq)
+      }
+
       
-      # K2P Substitution model
-  
-      transi.set <- list('a' = as.DNAbin('g'), 
+      if ((subst.model == "JC69") || (subst.model == "F81")) {
+        
+        mu.set <- list('a' = as.DNAbin('c'),
+                       'a' = as.DNAbin('g'),
+                       'a' = as.DNAbin('t'),
+                       'c' = as.DNAbin('a'),
+                       'c' = as.DNAbin('g'),
+                       'c' = as.DNAbin('t'),
+                       'g' = as.DNAbin('a'),
+                       'g' = as.DNAbin('c'),
+                       'g' = as.DNAbin('t'),
+                       't' = as.DNAbin('a'),
+                       't' = as.DNAbin('c'),
+                       't' = as.DNAbin('g'))
+        
+        muts <- function(res) {
+          unlist(mu.set[as.character(res)])
+        }
+        
+        duplicate.seq <- function(res) {
+          num.muts <- rbinom(n = 1, size = length.seqs, prob = mu.rate) # total number of substitutions
+          if (num.muts > 0) {
+            idx <- sample(length.seqs, size = num.muts, replace = FALSE)
+            res[idx] <- muts(res[idx])
+          }
+          res
+        }
+      
+      }
+      
+      if ((subst.model == "K80") || (subst.model == "HKY85")) {
+        
+        transi.set <- list('a' = as.DNAbin('g'), 
                            'c' = as.DNAbin('t'),
                            'g' = as.DNAbin('a'), 
                            't' = as.DNAbin('c'))
-      transv.set <- list('a' = as.DNAbin(c('c', 't')),
+        transv.set <- list('a' = as.DNAbin(c('c', 't')),
                            'c' = as.DNAbin(c('a', 'g')),
                            'g' = as.DNAbin(c('c', 't')), 
                            't' = as.DNAbin(c('a', 'g')))
-      
-      transi <- function(res) {
-        unlist(transi.set[as.character(res)])
-      }
         
-      transv <- function(res) {
-        sapply(transv.set[as.character(res)], sample, 1)
-      }
-        
-      duplicate.seq <- function(res) {
-        num.transi <- rbinom(n = 1, size = length.seqs, prob = transi.rate) # total number of transitions
-        if (num.transi > 0) {
-          idx <- sample(length.seqs, size = num.transi, replace = FALSE)
-          res[idx] <- transi(res[idx])
+        transi <- function(res) {
+          unlist(transi.set[as.character(res)])
         }
+        
+        transv <- function(res) {
+          sapply(transv.set[as.character(res)], sample, 1)
+        }
+        
+        duplicate.seq <- function(res) {
+          num.transi <- rbinom(n = 1, size = length.seqs, prob = transi.rate) # total number of transitions
+          if (num.transi > 0) {
+            idx <- sample(length.seqs, size = num.transi, replace = FALSE)
+            res[idx] <- transi(res[idx])
+          }
           
-      num.transv <- rbinom(n = 1, size = length.seqs, prob = transv.rate) # total number of transversions
-        if (num.transv > 0) {
-          idx <- sample(length.seqs, size = num.transv, replace = FALSE)
-          res[idx] <- transv(res[idx])
+          num.transv <- rbinom(n = 1, size = length.seqs, prob = transv.rate) # total number of transversions
+          if (num.transv > 0) {
+            idx <- sample(length.seqs, size = num.transv, replace = FALSE)
+            res[idx] <- transv(res[idx])
+          }
+          res
+          }
         }
-        res
-      }
-    
+      
       res <- matrix(replicate(num.seqs, duplicate.seq(res)), byrow = TRUE, nrow = num.seqs)
-      res <- res[sample(nrow(res), size = num.seqs, replace = TRUE), ]
       
       class(res) <- "DNAbin"
     
