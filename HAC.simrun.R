@@ -16,6 +16,8 @@
 # sim.seqs = Simulate DNA sequences (TRUE / FALSE)?
 # num.seqs = Number of DNA sequences to simulate
 # length.seqs = Basepair length of DNA sequences to simulate
+# mu.rate = Substitution rate of simulated DNA sequences under JC model
+# subst.model = Nucleotide substition model
 # transi.rate = Substitution rate of transitions of simulated DNA sequences under K2P model
 # transv.rate = Substitution rate of transversions of simulated DNA sequences under K2P model
 # subset.seqs = Subset of DNA sequences to sample
@@ -26,7 +28,7 @@
 # prop.pts = Proportion of terminal data points used to calculate curve slope
 
 
-# Run algorithm with N = 10, 50, 100, with prespecified H*, probs and p
+# Run algorithm with N = 25, 50, 100, with prespecified H*, probs and p
 
 ##########
 
@@ -94,8 +96,8 @@ library(HACSim)
 
 ### Set parameters ###
 
-N <- 20 # total number of sampled individuals
-Hstar <- 20  # total number of haplotypes
+N <- 100 # total number of sampled individuals
+Hstar <- 10  # total number of haplotypes
 probs <- c(0.30, 0.30, 0.30, rep(0.1/17, 17)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
@@ -103,7 +105,6 @@ perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 num.pts <- 10 # number of terminal data points for curve slope calculation
 prop.pts <- NULL # proportion of terminal data points for curve slope calculation
-
 
 ## Simulate hypothetical species WITHOUT migration/gene flow ##
 
@@ -116,7 +117,7 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 
 ## Simulate hypothetical species WITH migration/gene flow ##
 
-input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE\
+input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
@@ -145,23 +146,85 @@ sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.10 # proportion of DNA sequences to subsample
+prop.seqs <- 0.50 # proportion of DNA sequences to subsample
 
 
 ## Simulate DNA sequences
 
-# K2P: mu.transi != mu.transv, A = C = G = T = 0.25
+# JC69: mu.transi = mu.transv, A = C = G = T = 0.25
+# K80: mu.transi != mu.transv, A = C = G = T = 0.25
+
+# F81: mu.transi = mu.transv, A != C != G != T != 0.25
+# HKY85: mu.transi != mu.transv, A != C != G != T != 0.25
+
+
+# JC69
 
 input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
-subset.haps <- NULL # subset haplotypes?  
-prop.haps <- NULL # proportion of haplotypes to subsample 
-subset.seqs <- FALSE # subset DNA sequences? 
-prop.seqs <- NULL # proportion of DNA sequences to subsample
-sim.seqs <- TRUE # simulate DNA sequences?
-num.seqs <- 234 # number of DNA sequences to simulate
+subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
+prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
+subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE 
+prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
+sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
+num.seqs <- 100 # number of DNA sequences to simulate
 length.seqs <- 652 # length of DNA sequences to simulate
-transi.rate <- 4.5e-4 # transition rate
+subst.model <- "JC69" # nucleotide substitution model DO NOT CHANGE
+nucl.freq <- NULL # nucleotide frequencies DO NOT CHANGE
+mu.rate <- 1e-4 # mutation rate
+transi.rate <- NULL # transition rate DO NOT CHANGE
+transv.rate <- NULL  # transversion rate DO NOT CHANGE
+
+
+# K80
+
+input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
+subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
+prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
+subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
+prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
+sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
+num.seqs <- 100 # number of DNA sequences to simulate
+length.seqs <- 658 # length of DNA sequences to simulate
+subst.model <- "K80" # nucleotide substitution model DO NOT CHANGE
+nucl.freq <- NULL # nucleotide frequencies DO NOT CHANGE
+mu.rate <- NULL # mutation rate DO NOT CHANGE
+transi.rate <- 1e-4 # transition rate
 transv.rate <- transi.rate / 2  # transversion rate
+
+
+# F81
+
+input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
+subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
+prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
+subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
+prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
+sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
+num.seqs <- 100 # number of DNA sequences to simulate
+length.seqs <- 658 # length of DNA sequences to simulate
+subst.model <- "F81" # nucleotide substitution model DO NOT CHANGE
+nucl.freq <- c(0.30, 0.20, 0.30, 0.20)
+mu.rate <- 1e-4 # mutation rate
+transi.rate <- NULL # transition rate DO NOT CHANGE
+transv.rate <- NULL  # transversion rate DO NOT CHANGE
+
+
+# HKY85
+
+input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
+subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
+prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
+subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
+prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
+sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
+num.seqs <- 100 # number of DNA sequences to simulate
+length.seqs <- 658 # length of DNA sequences to simulate
+subst.model <- "HKY85" # nucleotide substitution model DO NOT CHANGE
+nucl.freq <- c(0.30, 0.20, 0.30, 0.20)
+mu.rate <- NULL # mutation rate DO NOT CHANGE
+transi.rate <- 1e-4 # transition rate
+transv.rate <- transi.rate / 2  # transversion rate
+
 
 
 ### Run simulations ###
