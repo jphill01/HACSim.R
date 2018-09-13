@@ -61,8 +61,7 @@ HAC.sim <- function(N,
                     num.pts = 10,
                     prop.pts = NULL,
                     df = NULL, # dataframe
-                    progress = TRUE
-                    ) {
+                    progress = TRUE) {
 	
 	  cat("\n")
   
@@ -107,11 +106,10 @@ HAC.sim <- function(N,
       if ((subst.model == "JC69") || (subst.model == "K80")) {
         res <- sample(nucl, size = length.seqs, replace = TRUE, prob = rep(0.25, 4))
       }
-        
+      
       if ((subst.model == "F81") || (subst.model == "HKY85")) {
         res <- sample(nucl, size = length.seqs, replace = TRUE, prob = nucl.freq)
       }
-
       
       if ((subst.model == "JC69") || (subst.model == "F81")) {
         
@@ -177,7 +175,7 @@ HAC.sim <- function(N,
           res
           }
         }
-      
+    
       res <- matrix(replicate(num.seqs, duplicate.seq(res)), byrow = TRUE, nrow = num.seqs)
       
       class(res) <- "DNAbin"
@@ -293,7 +291,7 @@ HAC.sim <- function(N,
 	# perms must be large enough to ensure monotonicity and a non-negative slope
     
 	  if (!is.null(prop.pts) && is.null(num.pts)) { 
-	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * length(d))))
+	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d))))
 	    assign("beta1", abs(coef(lin.reg)[[2]]), envir = .GlobalEnv)
 	  }
 	 
