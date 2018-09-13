@@ -28,7 +28,7 @@
 # prop.pts = Proportion of terminal data points used to calculate curve slope
 
 
-# Run algorithm with N = 25, 50, 100, with prespecified H*, probs and p
+# Run algorithm with N = 10, 50, 100, with prespecified H*, probs and p
 
 ##########
 
@@ -97,14 +97,15 @@ library(HACSim)
 ### Set parameters ###
 
 N <- 100 # total number of sampled individuals
-Hstar <- 10  # total number of haplotypes
-probs <- c(0.30, 0.30, 0.30, rep(0.1/17, 17)) # must sum to 1
-# probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
+Hstar <- 10 # total number of haplotypes
+# probs <- c(0.60, rep(0.4/19, 19)) # must sum to 1
+probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 num.pts <- 10 # number of terminal data points for curve slope calculation
 prop.pts <- NULL # proportion of terminal data points for curve slope calculation
+
 
 ## Simulate hypothetical species WITHOUT migration/gene flow ##
 
@@ -146,7 +147,7 @@ sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.50 # proportion of DNA sequences to subsample
+prop.seqs <- 0.10 # proportion of DNA sequences to subsample
 
 
 ## Simulate DNA sequences
@@ -167,7 +168,7 @@ subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
 num.seqs <- 100 # number of DNA sequences to simulate
-length.seqs <- 652 # length of DNA sequences to simulate
+length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "JC69" # nucleotide substitution model DO NOT CHANGE
 nucl.freq <- NULL # nucleotide frequencies DO NOT CHANGE
 mu.rate <- 1e-4 # mutation rate
@@ -236,7 +237,7 @@ HAC.simrep(filename = "output")
 
 # Models
 
-k <- 40 # default k - likely will have to double each time until k is big enough
+k <- 10 # default k - likely will have to double each time until k is big enough
 HAC.simmodels(k = k)
 
 # Visualization plots - check to 
