@@ -27,6 +27,20 @@ Function arguments to HAC.sim() are as follows:
 * **input.seqs** = Analyze a user-specified DNA sequence FASTA file?
 (**input.seqs** = FALSE by default)
 
+* **sim.seqs** = Simulate DNA sequences? (**sim.seqs** = FALSE by default)
+
+* **num.seqs** = Number of DNA sequences to simulate (**num.seqs** = NULL by default)
+
+* **length.seqs** = Basepair length of DNA sequences to simulate (**length.seqs** = NULL by default)
+
+* **subst.model** = Nucleotide substition model (**subst.model** = NULL by default)
+
+* **mu.rate** = Substitution rate of simulated DNA sequences under JC69 or K80 model (**mu.rate** = NULL by default)
+
+* **transi.rate** = Substitution rate of transitions of simulated DNA sequences under K80 or HKY85 model (**transi.rate** = NULL by default)
+
+* **transv.rate** = Substitution rate of transversions of simulated DNA sequences under K80 or HKY85 model (**transv.rate** = NULL by default)
+
 * **subset.seqs** = Subsample DNA sequences? (**subset.seqs** = FALSE by default)
 
 * **subset.haps** = Subsample DNA sequences? (**subset.haps** =  NULL by default)
