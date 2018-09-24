@@ -264,7 +264,7 @@ HAC.sim <- function(N,
 	
 	## Make data accessible to user ##
 	  
-	 assign("d", data.frame(specs, means), envir = .GlobalEnv)
+	 assign("d", data.frame(specs, means, lower, upper), envir = .GlobalEnv)
 
 	## Compute simple summary statistics and display output ##
 	
@@ -290,12 +290,12 @@ HAC.sim <- function(N,
 	
 	# perms must be large enough to ensure monotonicity and a non-negative slope
     
-	  if (!is.null(prop.pts) && is.null(num.pts)) { 
+	  if ((!is.null(prop.pts)) && (is.null(num.pts))) { 
 	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d))))
 	    assign("beta1", abs(coef(lin.reg)[[2]]), envir = .GlobalEnv)
 	  }
 	 
-	 if (!is.null(num.pts) && is.null(prop.pts)) {
+	 if ((!is.null(num.pts)) && (is.null(prop.pts))) {
 	    lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
 	    assign("beta1", abs(coef(lin.reg)[[2]]), envir = .GlobalEnv)
 	 }
