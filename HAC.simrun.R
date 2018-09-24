@@ -16,7 +16,7 @@
 # sim.seqs = Simulate DNA sequences (TRUE / FALSE)?
 # num.seqs = Number of DNA sequences to simulate
 # length.seqs = Basepair length of DNA sequences to simulate
-# mu.rate = Substitution rate of simulated DNA sequences under JC model
+# mu.rate = Substitution rate of simulated DNA sequences
 # subst.model = Nucleotide substition model
 # transi.rate = Substitution rate of transitions of simulated DNA sequences under K2P model
 # transv.rate = Substitution rate of transversions of simulated DNA sequences under K2P model
@@ -93,18 +93,21 @@ library(HACSim)
 # p = 0.99
 # p = 1 - long runtime
 
-
-### Set parameters ###
-
-N <- 100 # total number of sampled individuals
-Hstar <- 10 # total number of haplotypes
-# probs <- c(0.60, rep(0.4/19, 19)) # must sum to 1
-probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
+### Run for all simulations ##
 
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
 num.pts <- 10 # number of terminal data points for curve slope calculation
 prop.pts <- NULL # proportion of terminal data points for curve slope calculation
+
+
+### Set parameters for hypothetical species ###
+
+N <- 100 # total number of sampled individuals
+Hstar <- 15 # total number of haplotypes
+# probs <- c(53/76, 13/76, 9/76, 1/76) # must sum to 1
+probs <- c(214/234, rep(3/234, 2), rep(2/234, 2), rep(1/234, 10))
+# probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 
 ## Simulate hypothetical species WITHOUT migration/gene flow ##
@@ -204,7 +207,7 @@ sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
 num.seqs <- 100 # number of DNA sequences to simulate
 length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "F81" # nucleotide substitution model DO NOT CHANGE
-nucl.freq <- c(0.30, 0.20, 0.30, 0.20)
+nucl.freq <- c(0.70, 0.10, 0.10, 0.10)
 mu.rate <- 1e-4 # mutation rate
 transi.rate <- NULL # transition rate DO NOT CHANGE
 transv.rate <- NULL  # transversion rate DO NOT CHANGE
@@ -221,7 +224,7 @@ sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
 num.seqs <- 100 # number of DNA sequences to simulate
 length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "HKY85" # nucleotide substitution model DO NOT CHANGE
-nucl.freq <- c(0.30, 0.20, 0.30, 0.20)
+nucl.freq <- c(0.70, 0.10, 0.10, 0.10)
 mu.rate <- NULL # mutation rate DO NOT CHANGE
 transi.rate <- 1e-4 # transition rate
 transv.rate <- transi.rate / 2  # transversion rate
