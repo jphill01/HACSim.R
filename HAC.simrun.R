@@ -93,7 +93,10 @@ library(HACSim)
 # p = 0.99
 # p = 1 - long runtime
 
-### Run for all simulations ##
+
+### SET PARAMETERS ###
+
+## Run for all simulations ##
 
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
@@ -101,7 +104,7 @@ num.pts <- 10 # number of terminal data points for curve slope calculation
 prop.pts <- NULL # proportion of terminal data points for curve slope calculation
 
 
-### Set parameters for hypothetical species ###
+## Set parameters for hypothetical species ##
 
 N <- 100 # total number of sampled individuals
 Hstar <- 15 # total number of haplotypes
@@ -129,9 +132,9 @@ prop.haps <- 0.50 # proportion of haplotypes to subsample
 
 # subset.haps cannot have a length of 1
 
-  if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetical species
-    subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
-  }
+if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetical species
+  subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
+}
 
 
 ## Simulate real species WITHOUT migration/gene flow ##
@@ -153,7 +156,7 @@ subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- 0.10 # proportion of DNA sequences to subsample
 
 
-## Simulate DNA sequences
+## Simulate DNA sequences ## 
 
 # JC69: mu.transi = mu.transv, A = C = G = T = 0.25
 # K80: mu.transi != mu.transv, A = C = G = T = 0.25
