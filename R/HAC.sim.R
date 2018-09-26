@@ -177,6 +177,7 @@ HAC.sim <- function(N,
         }
     
       res <- matrix(replicate(num.seqs, duplicate.seq(res)), byrow = TRUE, nrow = num.seqs)
+      res <- res[sample(nrow(res), size = num.seqs, replace = TRUE), ]
       
       class(res) <- "DNAbin"
     
