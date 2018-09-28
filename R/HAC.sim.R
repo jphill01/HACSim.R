@@ -310,9 +310,8 @@ HAC.sim <- function(N,
 	  "\n \n Mean value of N*: ", Nstar / K,
 	  "\n Mean number of specimens not sampled: ", X / K, 
 	  "\n \n Haplotype accumulation curve slope: ", beta1,
-	  "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1)
-	  
-	  cat("\n \n 95% CI for number of haplotypes recovered: ", c(max(lower), max(upper)))
+	  "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1,
+	  "\n \n 95% CI for number of haplotypes recovered: ", c(max(lower), max(upper)))
 	
     df[nrow(df) + 1, ] <- c(P, max(lower), max(upper), Q, R, S, Nstar / K, X / K, beta1, 1 / beta1)
     
