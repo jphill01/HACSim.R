@@ -106,7 +106,7 @@ HAC.sim <- function(N,
       if ((subst.model == "JC69") || (subst.model == "K80")) {
         res <- sample(nucl, size = length.seqs, replace = TRUE, prob = rep(0.25, 4))
       }
-      
+        
       if ((subst.model == "F81") || (subst.model == "HKY85")) {
         res <- sample(nucl, size = length.seqs, replace = TRUE, prob = nucl.freq)
       }
@@ -177,7 +177,7 @@ HAC.sim <- function(N,
         }
     
       res <- matrix(replicate(num.seqs, duplicate.seq(res)), byrow = TRUE, nrow = num.seqs)
-      
+
       class(res) <- "DNAbin"
     
       write.dna(res, file = "seqs.fas", format = "fasta")
@@ -277,13 +277,13 @@ HAC.sim <- function(N,
 	   assign("R", P / Hstar, envir = .GlobalEnv)
 	   S <- (Hstar - P) / Hstar
 	   assign("Nstar", (N * Hstar) / P, envir = .GlobalEnv)
-	   assign("X", ((N * Hstar) / P) - N, envir = .GlobalEnv)
+	   X <- ((N * Hstar) / P) - N
 	 } else {
 	   Q <- length(subset.haps) - P
 	   assign("R", P / length(subset.haps), envir = .GlobalEnv)
 	   S <- (length(subset.haps) - P) / length(subset.haps)
 	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
-	   assign("X", ((N * length(subset.haps)) / P) - N, envir = .GlobalEnv)
+	   ((N * length(subset.haps)) / P) - N
 	   }
 	 
 	## Calculate slope of curve using last n points (or proportion of points) on curve
@@ -292,12 +292,12 @@ HAC.sim <- function(N,
     
 	  if ((!is.null(prop.pts)) && (is.null(num.pts))) { 
 	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d))))
-	    assign("beta1", abs(coef(lin.reg)[[2]]), envir = .GlobalEnv)
+	    beta1 <- abs(coef(lin.reg)[[2]])
 	  }
 	 
 	 if ((!is.null(num.pts)) && (is.null(prop.pts))) {
 	    lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
-	    assign("beta1", abs(coef(lin.reg)[[2]]), envir = .GlobalEnv)
+	    beta1 <- abs(coef(lin.reg)[[2]])
 	 }
 	 
   ## Output results to R console and text file ##
