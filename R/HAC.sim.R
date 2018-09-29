@@ -86,9 +86,7 @@ HAC.sim <- function(N,
 		  
 	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
 	                             # can be used to simulate migration/gene flow
-	    seqs <- as.list(seqs)
-		  seqs <- sample(seqs, size = ceiling(prop.seqs * length(seqs)), replace = FALSE)
-		  seqs <- as.matrix(seqs)
+		  seqs <- seqs[sample(nrow(seqs), size = ceiling(prop.seqs * nrow(seqs)), replace = FALSE), ]
 	  }
 		 
 		assign("N", dim(seqs)[[1]], envir = .GlobalEnv)
@@ -177,10 +175,11 @@ HAC.sim <- function(N,
         }
     
       res <- matrix(replicate(num.seqs, duplicate.seq(res)), byrow = TRUE, nrow = num.seqs)
+      #res <- res[sample(nrow(res), size = nrow(res), replace = TRUE), ]
 
       class(res) <- "DNAbin"
     
-      write.dna(res, file = "seqs.fas", format = "fasta")
+      #write.dna(res, file = "seqs.fas", format = "fasta")
     
       assign("N", dim(res)[[1]], envir = .GlobalEnv)
       h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
