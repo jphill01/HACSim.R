@@ -68,7 +68,7 @@ HAC.sim <- function(N,
   ## Display progress bar ##
 	
     if (progress == TRUE) {
-      pb <- utils::txtProgressBar(min = 0, max = K, style = 3)
+      pb <- utils::txtProgressBar(min = 0, max = 1, style = 3)
     }
 
 	## Load DNA sequence data and set N, Hstar and probs ##
@@ -214,7 +214,7 @@ HAC.sim <- function(N,
 	
 	## Set up container to hold the identity of each individual from each permutation ##
 	
-    num.specs <- N / K
+    num.specs <- N
 		
 	## Create an ID for each haplotype ##
 	  
@@ -301,38 +301,39 @@ HAC.sim <- function(N,
 	 }
 	 
   ## Output results to R console and text file ##
-		    
-	  cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
-	  "Mean number of haplotypes sampled: " , P, 
-	  "\n Mean number of haplotypes not sampled: " , Q, 
-	  "\n Proportion of haplotypes (specimens) sampled: " , R, 
-	  "\n Proportion of haplotypes (specimens) not sampled: " , S,
-	  "\n \n Mean value of N*: ", Nstar / K,
-	  "\n Mean number of specimens not sampled: ", X / K, 
-	  "\n \n Haplotype accumulation curve slope: ", beta1,
-	  "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1,
-	  "\n \n 95% CI for number of haplotypes recovered: ", c(max(lower), max(upper)))
-	
-    df[nrow(df) + 1, ] <- c(P, max(lower), max(upper), Q, R, S, Nstar / K, X / K, beta1, 1 / beta1)
+
+	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
+	       "Mean number of haplotypes sampled: " , P, 
+	       "\n Mean number of haplotypes not sampled: " , Q, 
+	       "\n Proportion of haplotypes (specimens) sampled: " , R, 
+	       "\n Proportion of haplotypes (specimens) not sampled: " , S,
+	       "\n \n Mean value of N*: ", Nstar,
+	       "\n Mean number of specimens not sampled: ", X, 
+	       "\n \n Haplotype accumulation curve slope: ", beta1,
+	       "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1,
+	       "\n \n 95% CI for number of haplotypes recovered: ", c(max(lower), max(upper)))
+
+    df[nrow(df) + 1, ] <- c(P, max(lower), max(upper), Q, R, S, Nstar, X, beta1, 1 / beta1)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
 
-    par(mfrow = c(1, 2))
-	  if (is.null(subset.haps)) {
-	    plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar), main = "Haplotype accumulation curve")
-	  } else {
-	    plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, length(subset.haps)), main = "Haplotype accumulation curve")
-	  }
-	  polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
-	  lines(specs, means, lwd = 2)
-	  if (is.null(subset.haps)) {
-	    abline(h = R * Hstar, v = N / K, lty = 2) # dashed line
-	    abline(h = p * Hstar, lty = 3) # dotted line
-	    HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps, main = "Haplotype frequency distribution")
-	  } else {
-	    abline(h = R * length(subset.haps), v = N / K, lty = 2) # dashed line
-	    abline(h = p * length(subset.haps), lty = 3) # dotted line
-	    HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
-	  }
+      par(mfrow = c(1, 2))
+      if (is.null(subset.haps)) {
+        plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar), main = "Haplotype accumulation curve")
+      } else {
+        plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, length(subset.haps)), main = "Haplotype accumulation curve")
+      }
+      polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
+      lines(specs, means, lwd = 2)
+      if (is.null(subset.haps)) {
+        abline(h = R * Hstar, v = N, lty = 2) # dashed line
+        abline(h = p * Hstar, lty = 3) # dotted line
+        HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps, main = "Haplotype frequency distribution")
+      } else {
+        abline(h = R * length(subset.haps), v = N, lty = 2) # dashed line
+        abline(h = p * length(subset.haps), lty = 3) # dotted line
+        HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
+    }
+
 	  df
 } # end HAC.sim
