@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: September 28, 2018
+# Last modified: September 29, 2018
 
 ##########
 
@@ -88,6 +88,8 @@ HAC.sim <- function(N,
 	                             # can be used to simulate migration/gene flow
 		  seqs <- seqs[sample(nrow(seqs), size = ceiling(prop.seqs * nrow(seqs)), replace = FALSE), ]
 	  }
+		
+		write.dna(seqs, file = "seqs.fas", format = "fasta")
 		 
 		assign("N", dim(seqs)[[1]], envir = .GlobalEnv)
 		h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
@@ -179,7 +181,7 @@ HAC.sim <- function(N,
 
       class(res) <- "DNAbin"
     
-      #write.dna(res, file = "seqs.fas", format = "fasta")
+      write.dna(res, file = "res.fas", format = "fasta")
     
       assign("N", dim(res)[[1]], envir = .GlobalEnv)
       h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
