@@ -284,7 +284,7 @@ HAC.sim <- function(N,
 	   assign("R", P / length(subset.haps), envir = .GlobalEnv)
 	   S <- (length(subset.haps) - P) / length(subset.haps)
 	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
-	   ((N * length(subset.haps)) / P) - N
+	   X <- ((N * length(subset.haps)) / P) - N
 	   }
 	 
 	## Calculate slope of curve using last n points (or proportion of points) on curve
