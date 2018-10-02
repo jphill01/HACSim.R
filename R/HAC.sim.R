@@ -216,7 +216,7 @@ HAC.sim <- function(N,
 	
     num.specs <- N
     
-  # Subsample haplotypes - subset.haps cannot have a length of 1
+  # Subsample haplotypes - subset.haps cannot have a length of 1 ##
     
     if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetical species
       subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
