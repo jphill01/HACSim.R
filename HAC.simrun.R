@@ -56,6 +56,7 @@ library(HACSim)
 
 # library(boot) # This package is for bootstrapping
 # library(investr) # This package performs inverse estimation
+# library(pegas)
 # library(rootSolve) # This package employs bisection and Newton's method
 # library(mgcv) # This package fits GAMs and Kriging models
 # library(scam) # This package fits SCAMs
@@ -103,13 +104,11 @@ p <- 0.95 # proportion of haplotypes to recover
 num.pts <- 10 # number of terminal data points for curve slope calculation
 prop.pts <- NULL # proportion of terminal data points for curve slope calculation
 
-
 ## Set parameters for hypothetical species ##
 
 N <- 100 # total number of sampled individuals
-Hstar <- 15 # total number of haplotypes
-# probs <- c(53/76, 13/76, 9/76, 1/76) # must sum to 1
-probs <- c(214/234, rep(3/234, 2), rep(2/234, 2), rep(1/234, 10))
+Hstar <- 10 # total number of haplotypes
+probs <- c(0.30, 0.30, 0.30, rep(0.10/7, 7)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 
@@ -122,6 +121,7 @@ prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 
+
 ## Simulate hypothetical species WITH migration/gene flow ##
 
 input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
@@ -129,12 +129,6 @@ sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 prop.haps <- 0.50 # proportion of haplotypes to subsample
-
-# subset.haps cannot have a length of 1
-
-if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetical species
-  subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
-}
 
 
 ## Simulate real species WITHOUT migration/gene flow ##
@@ -146,6 +140,7 @@ prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 
+
 ## Simulate real species WITH migration/gene flow ##
 
 input.seqs <- TRUE # analyze DNA sequence file? DO NOT CHANGE
@@ -153,7 +148,7 @@ sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.10 # proportion of DNA sequences to subsample
+prop.seqs <- 0.50 # proportion of DNA sequences to subsample
 
 
 ## Simulate DNA sequences ## 
@@ -210,7 +205,7 @@ sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
 num.seqs <- 100 # number of DNA sequences to simulate
 length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "F81" # nucleotide substitution model DO NOT CHANGE
-nucl.freq <- c(0.70, 0.10, 0.10, 0.10)
+nucl.freq <- c(0.90, rep(0.1/3, 3))
 mu.rate <- 1e-4 # mutation rate
 transi.rate <- NULL # transition rate DO NOT CHANGE
 transv.rate <- NULL  # transversion rate DO NOT CHANGE
