@@ -76,19 +76,19 @@ HAC.sim <- function(N,
 	  if (input.seqs == TRUE) {
 		  seqs <- read.dna(file = file.choose(), format = "fasta")
 	  
-		if (any(base.freq(seqs, all = TRUE)[5:17] > 0)) {
-		  stop("Inputted DNA sequences contain missing and/or ambiguous 
-	nucleotides, which may lead to overestimation of the number of 
-	observed unique haplotypes. Consider excluding sequences or alignment 
-	sites containing these data. If missing and/or ambiguous bases occur 
-	at the ends of sequences, further alignment trimming is an option.")
-	  }
+		  if (any(base.freq(seqs, all = TRUE)[5:17] > 0)) {
+		    stop("Inputted DNA sequences contain missing and/or ambiguous 
+	    nucleotides, which may lead to overestimation of the number of 
+	    observed unique haplotypes. Consider excluding sequences or alignment 
+	    sites containing these data. If missing and/or ambiguous bases occur 
+	    at the ends of sequences, further alignment trimming is an option.")
+	   }
 		  
 	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
 	                             # can be used to simulate migration/gene flow
 		  seqs <- seqs[sample(nrow(seqs), size = ceiling(prop.seqs * nrow(seqs)), replace = FALSE), ]
 	  }
-		
+		  
 		write.dna(seqs, file = "seqs.fas", format = "fasta")
 		 
 		assign("N", dim(seqs)[[1]], envir = .GlobalEnv)
@@ -177,7 +177,6 @@ HAC.sim <- function(N,
         }
     
       res <- matrix(replicate(num.seqs, duplicate.seq(res)), byrow = TRUE, nrow = num.seqs)
-      #res <- res[sample(nrow(res), size = nrow(res), replace = TRUE), ]
 
       class(res) <- "DNAbin"
     
@@ -216,6 +215,12 @@ HAC.sim <- function(N,
 	## Set up container to hold the identity of each individual from each permutation ##
 	
     num.specs <- N
+    
+  # subset.haps cannot have a length of 1
+    
+    if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetical species
+      subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
+    }
 		
 	## Create an ID for each haplotype ##
 	  
