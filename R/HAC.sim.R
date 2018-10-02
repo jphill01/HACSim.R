@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: September 29, 2018
+# Last modified: October 1, 2018
 
 ##########
 
@@ -216,7 +216,7 @@ HAC.sim <- function(N,
 	
     num.specs <- N
     
-  # subset.haps cannot have a length of 1
+  # Subsample haplotypes - subset.haps cannot have a length of 1
     
     if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetical species
       subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
