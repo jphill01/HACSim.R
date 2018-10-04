@@ -78,18 +78,17 @@ HAC.sim <- function(N,
 	  
 		  if (any(base.freq(seqs, all = TRUE)[5:17] > 0)) {
 		    stop("Inputted DNA sequences contain missing and/or ambiguous 
-	    nucleotides, which may lead to overestimation of the number of 
-	    observed unique haplotypes. Consider excluding sequences or alignment 
-	    sites containing these data. If missing and/or ambiguous bases occur 
-	    at the ends of sequences, further alignment trimming is an option.")
-	   }
+	      nucleotides, which may lead to overestimation of the number of 
+	      observed unique haplotypes. Consider excluding sequences or alignment 
+	      sites containing these data. If missing and/or ambiguous bases occur 
+	      at the ends of sequences, further alignment trimming is an option.")
+	    }
 		  
 	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
 	                             # can be used to simulate migration/gene flow
 		  seqs <- seqs[sample(nrow(seqs), size = ceiling(prop.seqs * nrow(seqs)), replace = FALSE), ]
+		  write.dna(seqs, file = "seqs.fas", format = "fasta")
 	  }
-		  
-		write.dna(seqs, file = "seqs.fas", format = "fasta")
 		 
 		assign("N", dim(seqs)[[1]], envir = .GlobalEnv)
 		h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
@@ -290,7 +289,7 @@ HAC.sim <- function(N,
 	   S <- (length(subset.haps) - P) / length(subset.haps)
 	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
 	   X <- ((N * length(subset.haps)) / P) - N
-	   }
+	 }
 	 
 	## Calculate slope of curve using last n points (or proportion of points) on curve
 	
@@ -317,7 +316,7 @@ HAC.sim <- function(N,
 	       "\n Mean number of specimens not sampled: ", X, 
 	       "\n \n Haplotype accumulation curve slope: ", beta1,
 	       "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1,
-	       "\n \n 95% CI for number of haplotypes recovered: ", c(max(lower), max(upper)))
+	       "\n \n 95% CI for number of haplotypes recovered: ", paste(max(lower), max(upper), sep = "-"))
 
     df[nrow(df) + 1, ] <- c(P, max(lower), max(upper), Q, R, S, Nstar, X, beta1, 1 / beta1)
     
