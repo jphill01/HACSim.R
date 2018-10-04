@@ -1,20 +1,19 @@
 \name{HACSim-package}
 \alias{HACSim-package}
 \alias{HAC.simaic}
+\alias{HAC.simbestaic}
 \alias{HAC.simboot.bisect}
 \alias{HAC.simboot.Newton}
-\alias{HAC.simest}
 \alias{HAC.simfit}
 \alias{HAC.simmodels}
 \alias{HAC.simplot}
-\alias{HAC.simpost}
 \alias{HAC.simrep}
 \docType{package}
 \title{
 \packageTitle{HACSim}
 }
 \description{
-HACSim employs a novel method of iteratively generating species haplotype accumulation curves in order to assess sampling completeness based on the approach of Phillips et al. (2015). Inverse estimation methods for univariate semiparametric fitting of haplotype accumulation curves via Gaussian generalized additive models (GAMs), Gaussian shape-constrained additve models (SCAMs) and Gaussian processes/kriging models for the calculation of specimen sample sizes are available, including bootstrap estimation of bias, standard error and confidence intervals. Posterior simulation for sample size estimation via a multivariate Normal distribution is also included. 
+HACSim employs a novel method of iteratively generating species haplotype accumulation curves through extrapolation in order to assess sampling completeness based on the approach of Phillips et al. (2015). Inverse estimation methods for univariate semiparametric fitting of haplotype accumulation curves via Gaussian generalized additive models (GAMs), Gaussian shape-constrained additve models (SCAMs) and Gaussian processes/kriging models for the calculation of specimen sample sizes are available, including bootstrap estimation of bias, standard error and confidence intervals. Posterior simulation for sample size estimation via a multivariate Normal distribution is also included. 
 }
 \details{
 
