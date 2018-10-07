@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: October 1, 2018
+# Last modified: October 7, 2018
 
 ##########
 
@@ -66,23 +66,23 @@ HAC.sim <- function(N,
 	  cat("\n")
   
   ## Display progress bar ##
-	
+    
     if (progress == TRUE) {
       pb <- utils::txtProgressBar(min = 0, max = 1, style = 3)
     }
 
 	## Load DNA sequence data and set N, Hstar and probs ##
-	
-	  if (input.seqs == TRUE) {
+	  
+    if (input.seqs == TRUE) {
 		  seqs <- read.dna(file = file.choose(), format = "fasta")
 	  
-		  if (any(base.freq(seqs, all = TRUE)[5:17] > 0)) {
-		    stop("Inputted DNA sequences contain missing and/or ambiguous 
-	      nucleotides, which may lead to overestimation of the number of 
-	      observed unique haplotypes. Consider excluding sequences or alignment 
-	      sites containing these data. If missing and/or ambiguous bases occur 
-	      at the ends of sequences, further alignment trimming is an option.")
-	    }
+		if (any(base.freq(seqs, all = TRUE)[5:17] > 0)) {
+      stop("Inputted DNA sequences contain missing and/or ambiguous 
+	    nucleotides, which may lead to overestimation of the number of 
+	    observed unique haplotypes. Consider excluding sequences or alignment 
+	    sites containing these data. If missing and/or ambiguous bases occur 
+	    at the ends of sequences, further alignment trimming is an option.")
+	  }
 		  
 	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
 	                             # can be used to simulate migration/gene flow
@@ -97,9 +97,8 @@ HAC.sim <- function(N,
 		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
 
 	  }
-  
+
     if (sim.seqs == TRUE) {
-      
       nucl <- as.DNAbin(c('a','c','g','t'))
       
       if ((subst.model == "JC69") || (subst.model == "K80")) {
@@ -107,6 +106,9 @@ HAC.sim <- function(N,
       }
         
       if ((subst.model == "F81") || (subst.model == "HKY85")) {
+        if (sum(nucl.freq) != 1) {
+          stop("Nucleotide frequencies must sum to 1")
+        }
         res <- sample(nucl, size = length.seqs, replace = TRUE, prob = nucl.freq)
       }
       
@@ -172,11 +174,10 @@ HAC.sim <- function(N,
             res[idx] <- transv(res[idx])
           }
           res
-          }
         }
+      }
     
       res <- matrix(replicate(num.seqs, duplicate.seq(res)), byrow = TRUE, nrow = num.seqs)
-
       class(res) <- "DNAbin"
     
       write.dna(res, file = "res.fas", format = "fasta")
@@ -189,15 +190,16 @@ HAC.sim <- function(N,
     
     }
   
-  ## Error messages ##
   
+  ## Error messages ##
+    
     if (N < Hstar) {
       stop("N must be greater than or equal to Hstar")
-  }
+    }
   
     if (N == 1) {
       stop("N must be greater than 1")
-  }
+    }
   
     if (sum(probs) != 1) {
       stop("probs must sum to 1")
@@ -211,33 +213,26 @@ HAC.sim <- function(N,
       stop("prop.seqs must be greater than 1 / N")
     }
 	
-	## Set up container to hold the identity of each individual from each permutation ##
-	
+  ## Set up container to hold the identity of each individual from each permutation ##
+    
     num.specs <- N
-    
-  # Subsample haplotypes - subset.haps cannot have a length of 1 ##
-    
-    if (!is.null(prop.haps)) { # take random subsample of haplotypes for hypothetical species
-      subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
-    }
 		
 	## Create an ID for each haplotype ##
 	  
-	  if (is.null(subset.haps)) {
+    if (is.null(subset.haps)) {
 	    haps <- 1:Hstar
 	  } else {
 	    subset.haps <- subset.haps
 	  }
 	  
-	  
 	## Assign individuals (N) ##
-	
-	  specs <- 1:num.specs
+	  
+    specs <- 1:num.specs
 	
 	## Generate permutations. Assume each permutation has N individuals, and sample those 
 	# individuals' haplotypes from the probabilities ##
 	  
-	  gen.perms <- function() {
+    gen.perms <- function() {
 	    if (is.null(subset.haps)) {
 	      sample(haps, size = num.specs, replace = TRUE, prob = probs)
 	    } else {
@@ -252,30 +247,29 @@ HAC.sim <- function(N,
 	  }
 	  
 	## Perform haplotype accumulation ##
-	
-    HAC.mat <- accumulate(pop, specs, perms, K)
+    
+	  HAC.mat <- accumulate(pop, specs, perms, K)
 
   ## Update progress bar ##
-	
-    if (progress == TRUE) {
+    
+	  if (progress == TRUE) {
       utils::setTxtProgressBar(pb, i)
     }
 	
 	## Calculate the mean and CI for number of haplotypes recovered over all permutations
-
+	  
 	  means <- apply(HAC.mat, MARGIN = 2, mean)
 	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025)) 
 	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975)) 
 	
 	## Make data accessible to user ##
-	  
-	 assign("d", data.frame(specs, means, lower, upper), envir = .GlobalEnv)
+	 
+	  assign("d", data.frame(specs, means, lower, upper), envir = .GlobalEnv)
 
 	## Compute simple summary statistics and display output ##
-	
 	# tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()
 	 
-	 P <- tail(means, n = 1)
+	  P <- tail(means, n = 1)
 	
 	 if (is.null(subset.haps)) {
 	   Q <- Hstar - P
@@ -292,9 +286,8 @@ HAC.sim <- function(N,
 	 }
 	 
 	## Calculate slope of curve using last n points (or proportion of points) on curve
-	
 	# perms must be large enough to ensure monotonicity and a non-negative slope
-    
+	  
 	  if ((!is.null(prop.pts)) && (is.null(num.pts))) { 
 	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d))))
 	    beta1 <- abs(coef(lin.reg)[[2]])
@@ -306,7 +299,7 @@ HAC.sim <- function(N,
 	 }
 	 
   ## Output results to R console and text file ##
-
+	   
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
 	       "Mean number of haplotypes sampled: " , P, 
 	       "\n Mean number of haplotypes not sampled: " , Q, 
@@ -321,15 +314,18 @@ HAC.sim <- function(N,
     df[nrow(df) + 1, ] <- c(P, max(lower), max(upper), Q, R, S, Nstar, X, beta1, 1 / beta1)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
-
-      par(mfrow = c(1, 2))
+      
+    par(mfrow = c(1, 2))
+    
       if (is.null(subset.haps)) {
         plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar), main = "Haplotype accumulation curve")
       } else {
         plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, length(subset.haps)), main = "Haplotype accumulation curve")
       }
+      
       polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
       lines(specs, means, lwd = 2)
+      
       if (is.null(subset.haps)) {
         abline(h = R * Hstar, v = N, lty = 2) # dashed line
         abline(h = p * Hstar, lty = 3) # dotted line
