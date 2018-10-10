@@ -65,8 +65,7 @@ HAC.simrep <- function(filename = "output") {
                   prop.seqs = prop.seqs,
                   num.pts = 10,
                   prop.pts = NULL,
-                  df = df
-    )
+                  df = df)
     
     assign("iters", iters + 1, .GlobalEnv)
     amt <- proc.time() - ptm
@@ -76,10 +75,10 @@ HAC.simrep <- function(filename = "output") {
     if (R < p) {
       cat("\n \n \n Desired level of H* has not yet been reached \n")
     } else {
-      cat("\n \n \n Desired level of H* has been reached. \n \n The algorithm converged after", 
-          iters, "iterations and took", amt[3], "s.", "\n")
+      cat("\n \n ---------- Finished. ---------- \n \n Desired level of H* has been reached. 
+          \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
+          "\n \n The estimate of sampling sufficiency for", p * 100,"% haplotype recovery is:" , max(d$specs))
     }
-    
     
   }
   

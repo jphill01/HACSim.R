@@ -61,9 +61,10 @@ HAC.sim <- function(N,
                     num.pts = 10,
                     prop.pts = NULL,
                     df = NULL, # dataframe
-                    progress = TRUE) {
+                    progress = FALSE) {
 	
-	  cat("\n")
+      cat("\n ---------- Simulating haplotype accumulation... ----------")
+
   
   ## Display progress bar ##
     
@@ -230,7 +231,7 @@ HAC.sim <- function(N,
     specs <- 1:num.specs
 	
 	## Generate permutations. Assume each permutation has N individuals, and sample those 
-	# individuals' haplotypes from the probabilities ##
+	## individuals' haplotypes from the probabilities ##
 	  
     gen.perms <- function() {
 	    if (is.null(subset.haps)) {
@@ -267,7 +268,7 @@ HAC.sim <- function(N,
 	  assign("d", data.frame(specs, means, lower, upper), envir = .GlobalEnv)
 
 	## Compute simple summary statistics and display output ##
-	# tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()
+	## tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()
 	 
 	  P <- tail(means, n = 1)
 	
@@ -286,7 +287,7 @@ HAC.sim <- function(N,
 	 }
 	 
 	## Calculate slope of curve using last n points (or proportion of points) on curve
-	# perms must be large enough to ensure monotonicity and a non-negative slope
+	## perms must be large enough to ensure monotonicity and a non-negative slope
 	  
 	  if ((!is.null(prop.pts)) && (is.null(num.pts))) { 
 	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d))))
