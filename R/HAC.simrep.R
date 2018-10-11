@@ -49,7 +49,7 @@ HAC.simrep <- function(filename = "output") {
   ## Check whether desired level of haplotype recovery has been reached ##
   
   if (R < p) {
-    cat("\n \n \n Desired level of H* has not yet been reached \n \n")
+    cat("\n \n \n Desired level of H* has not yet been reached \n")
   } else {
     cat("\n \n Desired level of H* has been reached \n \n \n ---------- Finished. ----------
           \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
@@ -76,7 +76,7 @@ HAC.simrep <- function(filename = "output") {
     ## Check whether desired level of haplotype recovery has been reached ##
     
     if (R < p) {
-      cat("\n \n \n Desired level of H* has not yet been reached \n \n")
+      cat("\n \n \n Desired level of H* has not yet been reached \n")
     } else {
       cat("\n \n Desired level of H* has been reached \n \n \n ---------- Finished. ----------
           \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
