@@ -19,6 +19,8 @@ HAC.simrep <- function(filename = "output") {
          "Mean number of specimens required to observe one new haplotype")
   colnames(df) <- x
   
+  cat("\n Simulating haplotype accumulation...")
+  
   df <- HAC.sim(N = N, 
                Hstar = Hstar, 
                probs = probs, 

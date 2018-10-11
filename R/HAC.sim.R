@@ -62,10 +62,7 @@ HAC.sim <- function(N,
                     prop.pts = NULL,
                     df = NULL, # dataframe
                     progress = FALSE) {
-	
-      cat("\n ---------- Simulating haplotype accumulation... ----------")
 
-  
   ## Display progress bar ##
     
     if (progress == TRUE) {
