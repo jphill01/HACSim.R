@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: October 7, 2018
+# Last modified: October 16, 2018
 
 ##########
 
@@ -61,7 +61,9 @@ HAC.sim <- function(N,
                     num.pts = 10,
                     prop.pts = NULL,
                     df = NULL, # dataframe
-                    progress = FALSE) {
+                    progress = TRUE) {
+  
+    cat("\n \n")
 
   ## Display progress bar ##
     
@@ -176,6 +178,7 @@ HAC.sim <- function(N,
       }
     
       res <- matrix(replicate(num.seqs, duplicate.seq(res)), byrow = TRUE, nrow = num.seqs)
+      
       class(res) <- "DNAbin"
     
       write.dna(res, file = "res.fas", format = "fasta")
