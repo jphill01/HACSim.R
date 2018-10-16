@@ -51,9 +51,10 @@ HAC.simrep <- function(filename = "output") {
   if (R < p) {
     cat("\n \n \n Desired level of H* has not yet been reached \n")
   } else {
-    cat("\n \n Desired level of H* has been reached \n \n \n ---------- Finished. ----------
-          \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
-          "\n \n The estimate of sampling sufficiency for", p * 100,"% haplotype recovery is" , max(d$specs), "individuals.")
+    cat("\n \n \n Desired level of H* has been reached \n \n \n ---------- Finished. ----------
+        \n Initial guess for sampling sufficiency: ", N,
+        "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
+        "\n \n The estimate of sampling sufficiency for", p * 100,"% haplotype recovery is" , max(d$specs), "individuals.")
   }
   
   while (R < p) {
@@ -79,7 +80,8 @@ HAC.simrep <- function(filename = "output") {
       cat("\n \n \n Desired level of H* has not yet been reached \n")
     } else {
       cat("\n \n \n Desired level of H* has been reached \n \n \n ---------- Finished. ----------
-          \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
+          \n Initial guess for sampling sufficiency: ", N,
+          "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
           "\n \n The estimate of sampling sufficiency for", p * 100,"% haplotype recovery is" , max(d$specs), "individuals.")
     }
     
