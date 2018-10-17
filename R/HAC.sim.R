@@ -103,12 +103,12 @@ HAC.sim <- function(N,
       
       if ((subst.model == "JC69") || (subst.model == "K80")) {
         res <- sample(nucl, size = length.seqs, replace = TRUE, prob = rep(0.25, 4))
-      }
-        
+        }
+      
       if ((subst.model == "F81") || (subst.model == "HKY85")) {
         if (sum(nucl.freq) != 1) {
           stop("Nucleotide frequencies must sum to 1")
-        }
+          }
         res <- sample(nucl, size = length.seqs, replace = TRUE, prob = nucl.freq)
       }
       
@@ -302,10 +302,10 @@ HAC.sim <- function(N,
   ## Output results to R console and text file ##
 	   
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
-	       "Mean number of haplotypes sampled: " , P, 
-	       "\n Mean number of haplotypes not sampled: " , Q, 
-	       "\n Proportion of haplotypes (specimens) sampled: " , R, 
-	       "\n Proportion of haplotypes (specimens) not sampled: " , S,
+	       "Mean number of haplotypes sampled (H): " , P, 
+	       "\n Mean number of haplotypes not sampled (H* - H): " , Q, 
+	       "\n Proportion of haplotypes (specimens) sampled (R): " , R, 
+	       "\n Proportion of haplotypes (specimens) not sampled (1 - R): " , S,
 	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X, 
 	       "\n \n Haplotype accumulation curve slope: ", beta1,
