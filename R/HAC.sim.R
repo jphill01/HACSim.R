@@ -291,13 +291,13 @@ HAC.sim <- function(N,
 	  
 	  if ((!is.null(prop.pts)) && (is.null(num.pts))) { 
 	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d))))
-	    beta1 <- abs(coef(lin.reg)[[2]])
 	  }
 	 
 	 if ((!is.null(num.pts)) && (is.null(prop.pts))) {
 	    lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
-	    beta1 <- abs(coef(lin.reg)[[2]])
 	 }
+	 
+	 beta1 <- abs(coef(lin.reg)[[2]])
 	 
   ## Output results to R console and text file ##
 	   
