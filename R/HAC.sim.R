@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: October 16, 2018
+# Last modified: October 18, 2018
 
 ##########
 
@@ -98,6 +98,8 @@ HAC.sim <- function(N,
 
 	  }
 
+  ## Simulate DNA sequences ##
+  
     if (sim.seqs == TRUE) {
       nucl <- as.DNAbin(c('a','c','g','t'))
       
@@ -249,7 +251,7 @@ HAC.sim <- function(N,
 	  
 	## Perform haplotype accumulation ##
     
-	  HAC.mat <- accumulate(pop, specs, perms, K)
+	  HAC.mat <- accumulate(pop, specs, perms, K) # one row selected at random 
 
   ## Update progress bar ##
     
@@ -299,20 +301,19 @@ HAC.sim <- function(N,
 	 
 	 beta1 <- abs(coef(lin.reg)[[2]])
 	 
-  ## Output results to R console and text file ##
+  ## Output results to R console and CSV file ##
 	   
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
-	       "Mean number of haplotypes sampled (H): " , P, 
+	       "Mean number of haplotypes sampled (H): " , P, "( 95% CI:", paste(ceiling(max(lower)), ceiling(max(upper)), sep = "-"), ")",
 	       "\n Mean number of haplotypes not sampled (H* - H): " , Q, 
 	       "\n Proportion of haplotypes (specimens) sampled (R): " , R, 
 	       "\n Proportion of haplotypes (specimens) not sampled (1 - R): " , S,
 	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X, 
 	       "\n \n Haplotype accumulation curve slope: ", beta1,
-	       "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1,
-	       "\n \n 95% CI for number of haplotypes recovered: ", paste(ceiling(max(lower)), ceiling(max(upper)), sep = "-"))
+	       "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1)
 
-    df[nrow(df) + 1, ] <- c(P, max(lower), max(upper), Q, R, S, Nstar, X, beta1, 1 / beta1)
+    df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X, beta1, 1 / beta1)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       
