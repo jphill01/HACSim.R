@@ -16,8 +16,8 @@
 # sim.seqs = Simulate DNA sequences (TRUE / FALSE)?
 # num.seqs = Number of DNA sequences to simulate
 # length.seqs = Basepair length of DNA sequences to simulate
-# mu.rate = Substitution rate of simulated DNA sequences
 # subst.model = Nucleotide substition model
+# mu.rate = Substitution rate of simulated DNA sequences
 # transi.rate = Substitution rate of transitions of simulated DNA sequences under K2P model
 # transv.rate = Substitution rate of transversions of simulated DNA sequences under K2P model
 # subset.seqs = Subset of DNA sequences to sample
@@ -107,9 +107,9 @@ prop.pts <- NULL # proportion of terminal data points for curve slope calculatio
 ## Set parameters for hypothetical species ##
 
 N <- 30 # total number of sampled individuals
-Hstar <- 20 # total number of haplotypes
-probs <- c(0.45, 0.45, rep(0.1/18, 18)) # must sum to 1
-# probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
+Hstar <- 10 # total number of haplotypes
+# probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
+probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 
 ## Simulate hypothetical species WITHOUT migration/gene flow ##
@@ -134,6 +134,7 @@ prop.haps <- 0.60 # proportion of haplotypes to subsample
 
 subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
 
+
 ## Simulate real species WITHOUT migration/gene flow ##
 
 input.seqs <- TRUE # analyze DNA sequence file? DO NOT CHANGE
@@ -151,7 +152,7 @@ sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.60 # proportion of DNA sequences to subsample
+prop.seqs <- 0.55 # proportion of DNA sequences to subsample
 
 
 ## Simulate DNA sequences ## 
@@ -189,7 +190,7 @@ subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
 num.seqs <- 100 # number of DNA sequences to simulate
-length.seqs <- 1500 # length of DNA sequences to simulate
+length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "K80" # nucleotide substitution model DO NOT CHANGE
 nucl.freq <- NULL # nucleotide frequencies DO NOT CHANGE
 mu.rate <- NULL # mutation rate DO NOT CHANGE
@@ -205,10 +206,10 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
-num.seqs <- 450 # number of DNA sequences to simulate
+num.seqs <- 100 # number of DNA sequences to simulate
 length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "F81" # nucleotide substitution model DO NOT CHANGE
-nucl.freq <- c(0.293, 0.165, 0.148, 0.394)
+nucl.freq <- c(0.30, 0.2, 0.20, 0.30)
 mu.rate <- 1e-4 # mutation rate
 transi.rate <- NULL # transition rate DO NOT CHANGE
 transv.rate <- NULL  # transversion rate DO NOT CHANGE
@@ -244,7 +245,7 @@ HAC.simrep(filename = "output")
 k <- 25 # default k - likely will have to double each time until k is big enough
 HAC.simmodels(k = k)
 
-# Visualization plots - check to 
+# Visualization plots 
 
 HAC.simfit(model = "GAM", k = k) # check to ensure k is big enough - dashed line should be monotone increasing and go through all data points
 HAC.simfit(model = "SCAM", k = k)
@@ -267,13 +268,24 @@ HAC.simbestaic(model = "SCAM")
 HAC.simbestaic(model = "Krig")
 HAC.simbestaic(model = "All")
 
-# Bootstrap simulation - CAN BE SLOW 
+## Bootstrap simulation - CAN BE SLOW ##
 
-HAC.simboot.bisect(model = "GAM", k = k)
-HAC.simboot.bisect(model = "SCAM", k = k)
-HAC.simboot.bisect(model = "Krig", k = k)
+# Individual models
 
-HAC.simboot.newton(model = "GAM", k = k)
-HAC.simboot.newton(model = "SCAM", k = k)
-HAC.simboot.newton(model = "Krig", k = k)
+HAC.simboot(model = "GAM", k = k, bootType = "Bisect")
+HAC.simboot(model = "SCAM", k = k, bootType = "bisect")
+HAC.simboot(model = "Krig", k = k, bootType = "Bisect")
 
+HAC.simboot(model = "GAM", k = k, bootType = "Newton")
+HAC.simboot(model = "SCAM", k = k, bootType = "Newton")
+HAC.simboot(model = "Krig", k = k, bootType = "Newton")
+
+# Best model
+
+HAC.simboot(model = "best", k = k, bootType = "Bisect")
+HAC.simboot(model = "best", k = k, bootType = "Newton")
+
+# All models
+
+HAC.simboot(model = "all", k = k, bootType = "Bisect")
+HAC.simboot(model = "all", k = k, bootType = "Newton")
