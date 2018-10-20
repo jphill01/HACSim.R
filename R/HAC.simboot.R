@@ -44,7 +44,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, bootType="Bise
         } else if (i == 'sph') {
           modelName = "gp"; currModel = HAC.sph; displayName = "Spherical covariance function (sph)"; modelType = "Krig"; mVal = 1
         } else if (i == 'exp') {
-          modelName = "gp"; currModel = HAC.sph; displayName = "Exponential covariance function (exp)"; modelType = "Krig"; mVal = 2
+          modelName = "gp"; currModel = HAC.exp; displayName = "Exponential covariance function (exp)"; modelType = "Krig"; mVal = 2
         } else {
           stop("Invalid model")
           }
