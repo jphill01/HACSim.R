@@ -1,29 +1,34 @@
 ### Bootstrap Simulation ###
 
-HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, bootType="Bisect") {
-    "Finds the name for the best model"
-    HAC.findMinAIC <- function() {
+HAC.simboot <- function(model = c("GAM", "SCAM", "Krig", "Best", "All"), k = 10, bootType = "Bisect", boot.reps = 1000) {
+  # Finds the name for the best model
+    
+  HAC.findMinAIC <- function() {
         maxAIC <- c("tp", "cr", "ps","ad",
                     "mpi", "cv", "micv",
                     "matern","sph", "exp")[which.min(c(HAC.tp$aic, HAC.cr$aic, HAC.ps$aic, HAC.ad$aic,
                                                        HAC.mpi$aic, HAC.cv$aic, HAC.micv$aic,
                                                        HAC.matern$aic, HAC.sph$aic, HAC.exp$aic))]
     }
+    
     # Sets the models to be tested, alternatively can set to a specific model with the shortened model name as the model argument
+    
     if (model == "GAM") {
       model <- c('tp','cr','ps','ad')
     } else if (model == "SCAM") { 
       model <- c('mpi','cv','micv')
     } else if (model == "Krig") {
       model <- c('matern','sph','exp')
-    } else if (model == "best") { 
+    } else if (model == "Best") { 
       model <- HAC.findMinAIC()
-    } else if (model == "all") { 
+    } else if (model == "All") { 
       model <- c("tp", "cr", "ps", "ad", "mpi", "cv", "micv", "matern","sph", "exp")
     }
 
     for (i in model) {
+        
         # Set up the paramaters for the bootstrapping based on the model currently being tested
+        
         if (i == 'tp') {
           modelName = "tp"; currModel = HAC.tp; displayName = "Thin plate smooth (tp)"; modelType = "GAM"
         } else if(i == 'cr') {
@@ -38,7 +43,9 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, bootType="Bise
           modelName = "cv"; currModel = HAC.cv; displayName = "Concave smooth (cv)"; modelType = "SCAM"
         } else if (i == 'micv') {
           modelName = "micv"; currModel = HAC.micv; displayName = "Monotonically increasing and concave smooth (micv)"; modelType = "SCAM"
-        ###The modelType is GAM because it has similar arguments to the other GAM models, this is just for convenience (no mVal for it)
+        
+        ### The modelType is GAM because it has similar arguments to the other GAM models, this is just for convenience (no mVal for it)
+        
         } else if (i == 'matern') {
           modelName = "gp"; currModel = HAC.matern; displayName = "Matern covariance function"; modelType = "GAM"
         } else if (i == 'sph') {
@@ -54,7 +61,9 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, bootType="Bise
         n <- length(res)
         boot.data <- data.frame(d, res = res, fit = fitted(currModel))
         boot.fun <- function(data, i) {
-            ## Differenced based on the group of models. 
+            
+            ## Differenced based on the group of models 
+            
             if (modelType == "GAM"){
               boot.fit <- gam(boot.data$means + res[i] ~ s(specs, bs = modelName, k = k), method = "GCV.Cp", optimizer = c("outer", "bfgs"), data = data)
             } else if (modelType == "SCAM"){
@@ -67,7 +76,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, bootType="Bise
             Y0 <- R * Hstar + sample(data$res, size = 1, replace = TRUE)
             # Make sure the original estimate also gets returned
             
-            #The only lines that differ between the newton and bisection methods
+            # The only lines that differ between the Newton and bisection methods
             if (bootType == "Bisect") {
                 if (all(i == 1:n)) {
                     inv.predict(currModel, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
@@ -87,7 +96,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig"), k = 10, bootType="Bise
             }
         }
         
-        res <- boot(boot.data, boot.fun, R = 1000)
+        res <- boot(boot.data, boot.fun, R = boot.reps)
         print(res)
         rel.bias <- (mean(res$t, na.rm = TRUE) - res$t0) / res$t0 # relative bias
         cat("\n Percent relative bias: ", rel.bias*100) 
