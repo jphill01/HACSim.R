@@ -106,7 +106,7 @@ prop.pts <- NULL # proportion of terminal data points for curve slope calculatio
 
 ## Set parameters for hypothetical species ##
 
-N <- 30 # total number of sampled individuals
+N <- 10 # total number of sampled individuals
 Hstar <- 10 # total number of haplotypes
 # probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
 probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
@@ -128,7 +128,7 @@ input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
-prop.haps <- 0.60 # proportion of haplotypes to subsample
+prop.haps <- 0.25 # proportion of haplotypes to subsample
 
 # Subsample haplotypes - subset.haps cannot have a length of 1 ##
 
@@ -152,7 +152,7 @@ sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.55 # proportion of DNA sequences to subsample
+prop.seqs <- 0.25 # proportion of DNA sequences to subsample
 
 
 ## Simulate DNA sequences ## 
@@ -242,7 +242,7 @@ HAC.simrep(filename = "output")
 
 # Models
 
-k <- 25 # default k - likely will have to double each time until k is big enough
+k <- 10 # default k - likely will have to double each time until k is big enough
 HAC.simmodels(k = k)
 
 # Visualization plots 
@@ -255,37 +255,33 @@ HAC.simplot(model = "GAM", k = k) # histograms, QQplots - check to ensure k is b
 HAC.simplot(model = "SCAM", k = k)
 HAC.simplot(model = "Krig", k = k)
 
-# AIC for all 10 models
 
-HAC.simaic(model = "GAM", k = k)
-HAC.simaic(model = "SCAM", k = k)
-HAC.simaic(model = "Krig", k = k)
+# Model AICs
 
-# Best Model + AIC
+HAC.simaic(model = "GAM")
+HAC.simaic(model = "SCAM")
+HAC.simaic(model = "Krig")
+HAC.simaic(model = "Best")
+HAC.simaic(model = "All")
 
-HAC.simbestaic(model = "GAM")
-HAC.simbestaic(model = "SCAM")
-HAC.simbestaic(model = "Krig")
-HAC.simbestaic(model = "All")
-
-## Bootstrap simulation - CAN BE SLOW ##
+## Bootstrap simulation - 1000 reps - CAN BE SLOW ##
 
 # Individual models
 
-HAC.simboot(model = "GAM", k = k, bootType = "Bisect")
-HAC.simboot(model = "SCAM", k = k, bootType = "bisect")
-HAC.simboot(model = "Krig", k = k, bootType = "Bisect")
+HAC.simboot(model = "GAM", k = k, bootType = "Bisect", boot.reps = 1000)
+HAC.simboot(model = "SCAM", k = k, bootType = "Bisect", boot.reps = 1000)
+HAC.simboot(model = "Krig", k = k, bootType = "Bisect", boot.reps = 1000)
 
-HAC.simboot(model = "GAM", k = k, bootType = "Newton")
-HAC.simboot(model = "SCAM", k = k, bootType = "Newton")
-HAC.simboot(model = "Krig", k = k, bootType = "Newton")
+HAC.simboot(model = "GAM", k = k, bootType = "Newton", boot.reps = 1000)
+HAC.simboot(model = "SCAM", k = k, bootType = "Newton", boot.reps = 1000)
+HAC.simboot(model = "Krig", k = k, bootType = "Newton", boot.reps = 1000)
 
 # Best model
 
-HAC.simboot(model = "best", k = k, bootType = "Bisect")
-HAC.simboot(model = "best", k = k, bootType = "Newton")
+HAC.simboot(model = "Best", k = k, bootType = "Bisect", boot.reps = 1000)
+HAC.simboot(model = "Best", k = k, bootType = "Newton", boot.reps = 1000)
 
 # All models
 
-HAC.simboot(model = "all", k = k, bootType = "Bisect")
-HAC.simboot(model = "all", k = k, bootType = "Newton")
+HAC.simboot(model = "All", k = k, bootType = "Bisect", boot.reps = 1000)
+HAC.simboot(model = "All", k = k, bootType = "Newton", boot.reps = 1000)
