@@ -65,6 +65,12 @@ HAC.sim <- function(N,
                     progress = TRUE) {
   
     cat("\n \n")
+  
+  ## Set random seed ##
+  
+  if (!is.null(seed)) {
+    set.seed(seed)
+  }
 
   ## Display progress bar ##
     
