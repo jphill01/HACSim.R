@@ -61,19 +61,12 @@ library(HACSim)
 # library(mgcv) # This package fits GAMs and Kriging models
 # library(scam) # This package fits SCAMs
 
-#source("HAC.simmodels.R")
-#source("HAC.simaic.R")
-#source("HAC.simbestaic.R")
-#source("HAC.simplot.R")
-#source("HAC.simest.R")
-#source("HAC.simfit.R")
-#source("HAC.simmodels.R")
-#source("HAC.simboot.bisect.R")
-#source("HAC.simboot.newton.R")
-#source("HAC.simpost.R")
-#source("inv.predict.R")
-
-
+# source("HAC.simmodels.R")
+# source("HAC.simaic.R")
+# source("HAC.simbestaic.R")
+# source("HAC.simplot.R")
+# source("HAC.simfit.R")
+# source("inv.predict.R")
 
 ##### SCENARIOS #####
 
