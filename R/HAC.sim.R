@@ -61,6 +61,7 @@ HAC.sim <- function(N,
                     num.pts = 10,
                     prop.pts = NULL,
                     df = NULL, # dataframe
+                    seed = NULL,
                     progress = TRUE) {
   
     cat("\n \n")
@@ -304,10 +305,10 @@ HAC.sim <- function(N,
   ## Output results to R console and CSV file ##
 	   
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
-	       "Mean number of haplotypes sampled (H): " , P, "( 95% CI:", paste(ceiling(max(lower)), ceiling(max(upper)), sep = "-"),")",
-	       "\n Mean number of haplotypes not sampled (H* - H): " , Q, 
-	       "\n Proportion of haplotypes (specimens) sampled (H / H*): " , R, 
-	       "\n Proportion of haplotypes (specimens) not sampled (1 - H / H*): " , S,
+	       "Mean number of haplotypes sampled: " , P, "( 95% CI:", paste(ceiling(max(lower)), ceiling(max(upper)), sep = "-"),")",
+	       "\n Mean number of haplotypes not sampled: " , Q, 
+	       "\n Proportion of haplotypes (specimens) sampled: " , R, 
+	       "\n Proportion of haplotypes (specimens) not sampled: " , S,
 	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X, 
 	       "\n \n Haplotype accumulation curve slope: ", beta1,

@@ -7,12 +7,12 @@ HAC.simrep <- function(filename = "output") {
   assign("iters", 1, .GlobalEnv)
   
   df <- data.frame(matrix(ncol = 10, nrow = 0))
-  x <- c("Mean number of haplotypes sampled (H)",
+  x <- c("Mean number of haplotypes sampled",
          "Lower 95% confidence limit for number of haplotypes recovered",
          "Upper 95% confidence limit for number of haplotypes recovered",
-         "Mean number of haplotypes not sampled (H* - H)", 
-         "Proportion of haplotypes (specimens) sampled (R)", 
-         "Proportion of haplotypes (specimens) not sampled (1 - R)",
+         "Mean number of haplotypes not sampled", 
+         "Proportion of haplotypes (specimens) sampled", 
+         "Proportion of haplotypes (specimens) not sampled",
          "Mean value of N*", 
          "Mean number of specimens not sampled",
          "Haplotype accumulation curve slope", 
