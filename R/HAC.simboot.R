@@ -4,7 +4,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig", "Best", "All"), k = 10,
   # Finds the name for the best model
     
   HAC.findMinAIC <- function() {
-        maxAIC <- c("tp", "cr", "ps","ad",
+        minAIC <- c("tp", "cr", "ps","ad",
                     "mpi", "cv", "micv",
                     "Matern","sph", "exp")[which.min(c(HAC.tp$aic, HAC.cr$aic, HAC.ps$aic, HAC.ad$aic,
                                                        HAC.mpi$aic, HAC.cv$aic, HAC.micv$aic,
@@ -47,7 +47,7 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig", "Best", "All"), k = 10,
         ### The modelType is GAM because it has similar arguments to the other GAM models, this is just for convenience (no mVal for it)
         
         } else if (i == 'Matern') {
-          modelName = "gp"; currModel = HAC.matern; displayName = "Matern covariance function"; modelType = "GAM"
+          modelName = "gp"; currModel = HAC.matern; displayName = "Matern covariance function (Matern)"; modelType = "GAM"
         } else if (i == 'sph') {
           modelName = "gp"; currModel = HAC.sph; displayName = "Spherical covariance function (sph)"; modelType = "Krig"; mVal = 1
         } else if (i == 'exp') {
