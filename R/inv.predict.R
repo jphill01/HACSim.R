@@ -43,7 +43,7 @@ inv.predict.newton <- function(object, y, x.name, start, interval = FALSE, level
   x0.est <- multiroot(start, ..., f = .fun1)$root
   res <- if (interval) {
     lwr <- multiroot(start = c(1, x0.est), ..., f = .fun2)$root
-    upr <- multiroot(start = c(x0.est, ceiling(Nstar)), ..., f = .fun3)$root
+    upr <- multiroot(start = c(x0.est, max(d$specs)), ..., f = .fun3)$root
     lwr <- min(c(lwr, upr))
     upr <- max(c(lwr, upr))
     c("estimate" = x0.est, "lower" = lwr, "upper" = upr)
