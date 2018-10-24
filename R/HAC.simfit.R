@@ -4,22 +4,22 @@ HAC.simfit <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		
 		xx <- seq(from = min(d$specs), to = max(d$specs))
 		yy <- predict(HAC.tp, newdata = data.frame(specs = xx))
-		plot(d, main = "Thin plate smooth")
+		plot(d$specs, d$means, main = "Thin plate smooth")
 		lines(xx, yy, lty = 2, col = "red")
 		
 		xx <- seq(from = min(d$specs), to = max(d$specs))
 		yy <- predict(HAC.cr, newdata = data.frame(specs = xx))
-		plot(d, main = "Cubic smooth")
+		plot(d$specs, d$means, main = "Cubic smooth")
 		lines(xx, yy, lty = 2, col = "red")
 		
 		xx <- seq(from = min(d$specs), to = max(d$specs))
 		yy <- predict(HAC.ps, newdata = data.frame(specs = xx))
-		plot(d, main = "P-spline smooth")
+		plot(d$specs, d$means, main = "P-spline smooth")
 		lines(xx, yy, lty = 2, col = "red")
 		
 		xx <- seq(from = min(d$specs), to = max(d$specs))
 		yy <- predict(HAC.ad, newdata = data.frame(specs = xx))
-		plot(d, main = "Adaptive smooth")
+		plot(d$specs, d$means, main = "Adaptive smooth")
 		lines(xx, yy, lty = 2, col = "red")
 		
 	}
@@ -28,17 +28,17 @@ HAC.simfit <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		
 		xx <- seq(from = min(d$specs), to = max(d$specs))
 		yy <- predict(HAC.mpi, newdata = data.frame(specs = xx))
-		plot(d, main = "Monotonically increasing smooth")
+		plot(d$specs, d$means, main = "Monotonically increasing smooth")
 		lines(xx, yy, lty = 2, col = "red")
 		
 		xx <- seq(from = min(d$specs), to = max(d$specs))
 		yy <- predict(HAC.cv, newdata = data.frame(specs = xx))
-		plot(d, main = "Concave smooth")
+		plot(d$specs, d$means, main = "Concave smooth")
 		lines(xx, yy, lty = 2, col = "red")
 		
 		xx <- seq(from = min(d$specs), to = max(d$specs))
 		yy <- predict(HAC.micv, newdata = data.frame(specs = xx))
-		plot(d, main = "Monotonically increasing and concave smooth")
+		plot(d$specs, d$means, main = "Monotonically increasing and concave smooth")
 		lines(xx, yy, lty = 2, col = "red")
 		
 	}	
@@ -47,17 +47,17 @@ HAC.simfit <- function(model = c("GAM", "SCAM", "Krig"), k = 10) {
 		
 		xx <- seq(from = min(d$specs), to = max(d$specs))
 		yy <- predict(HAC.matern, newdata = data.frame(specs = xx))
-		plot(d, main = "Matern covariance function")
+		plot(d$specs, d$means, main = "Matern covariance function")
 		lines(xx, yy, lty = 2, col = "red")
 		
 		xx <- seq(from = min(d$specs), to = max(d$specs))
 		yy <- predict(HAC.sph, newdata = data.frame(specs = xx))
-		plot(d, main = "Spherical covariance function")
+		plot(d$specs, d$means, main = "Spherical covariance function")
 		lines(xx, yy, lty = 2, col = "red")
 		
 		xx <- seq(from = min(d$specs), to = max(d$specs))
 		yy <- predict(HAC.exp, newdata = data.frame(specs = xx))
-		plot(d, main = "Exponential covariance function")
+		plot(d$specs, d$means, main = "Exponential covariance function")
 		lines(xx, yy, lty = 2, col = "red")
 		
 	}	
