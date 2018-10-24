@@ -2,6 +2,7 @@
 \alias{HACSim-package}
 \alias{HAC.simaic}
 \alias{HAC.simboot}
+\alias{HAC.simest}
 \alias{HAC.simfit}
 \alias{HAC.simmodels}
 \alias{HAC.simplot}
@@ -11,7 +12,7 @@
 \packageTitle{HACSim}
 }
 \description{
-HACSim employs a novel method of iteratively generating species haplotype accumulation curves through extrapolation in order to assess sampling completeness based on the approach of Phillips et al. (2015). Inverse estimation methods for univariate semiparametric fitting of haplotype accumulation curves via Gaussian Generalized Additive Models (GAMs), Gaussian Shape-Constrained Additve Models (SCAMs) and Gaussian Process (kriging) models for the calculation of specimen sample sizes are available, including bootstrap estimation of bias, standard error and confidence intervals. 
+HACSim employs a novel method of iteratively generating species haplotype accumulation curves through extrapolation in order to assess sampling completeness based on the approach of Phillips et al. (2015). Inverse estimation methods for univariate semiparametric fitting of haplotype accumulation curves via Gaussian Generalized Additive Models (GAMs), Gaussian Shape-Constrained Additve Models (SCAMs) and Gaussian Process (kriging) models for the calculation of specimen sample sizes are available. Methods to compute both large-sample (asymptotically Normal) and bootstrap confidence intervals are also available. 
 }
 \details{
 
