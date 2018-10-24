@@ -86,9 +86,9 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig", "Best", "All"), k = 10,
             }
             else if (bootType == "Newton") {
                 if (all(i == 1:n)) {
-                    inv.predict.newton(currModel, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)[1L]
+                    inv.predict.newton(currModel, y = R*Hstar, x.name = "specs", start = max(d$specs), interval = FALSE)[1L]
                 } else {
-                    inv.predict.newton(boot.fit, y = Y0, x.name = "specs", start = N, interval = FALSE)[1L]
+                    inv.predict.newton(boot.fit, y = Y0, x.name = "specs", start = max(d$specs), interval = FALSE)[1L]
                 }
             }
             else {
