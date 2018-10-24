@@ -79,16 +79,16 @@ HAC.simboot <- function(model = c("GAM", "SCAM", "Krig", "Best", "All"), k = 10,
             # The only lines that differ between the Newton and bisection methods
             if (bootType == "Bisect") {
                 if (all(i == 1:n)) {
-                    inv.predict(currModel, y = R*Hstar, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+                    inv.predict(currModel, y = R*Hstar, x.name = "specs", lower = 1, upper = max(d$specs), interval = FALSE)[1L]
                 } else {
-                    inv.predict(boot.fit, y = Y0, x.name = "specs", lower = 1, upper = ceiling(Nstar), interval = FALSE)[1L]
+                    inv.predict(boot.fit, y = Y0, x.name = "specs", lower = 1, upper = max(d$specs), interval = FALSE)[1L]
                 }
             }
             else if (bootType == "Newton") {
                 if (all(i == 1:n)) {
-                    inv.predict.newton(currModel, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)
+                    inv.predict.newton(currModel, y = R*Hstar, x.name = "specs", start = N, interval = FALSE)[1L]
                 } else {
-                    inv.predict.newton(boot.fit, y = Y0, x.name = "specs", start = N, interval = FALSE)
+                    inv.predict.newton(boot.fit, y = Y0, x.name = "specs", start = N, interval = FALSE)[1L]
                 }
             }
             else {
