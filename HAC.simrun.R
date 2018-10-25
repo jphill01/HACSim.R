@@ -99,7 +99,7 @@ prop.pts <- NULL # proportion of terminal data points for curve slope calculatio
 
 ## Set parameters for hypothetical species ##
 
-N <- 10 # total number of sampled individuals
+N <- 100 # total number of sampled individuals
 Hstar <- 10 # total number of haplotypes
 # probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
 probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
@@ -256,6 +256,22 @@ HAC.simaic(model = "SCAM")
 HAC.simaic(model = "Krig")
 HAC.simaic(model = "Best")
 HAC.simaic(model = "All")
+
+
+## Large sample (Asymptotically Normal ) CIs ##
+
+HAC.simest(model = "GAM", k = k, method = "Bisect")
+HAC.simest(model = "SCAM", k = k, method = "Bisect")
+HAC.simest(model = "Krig", k = k, method = "Bisect")
+
+HAC.simest(model = "GAM", k = k, method = "Newton")
+HAC.simest(model = "SCAM", k = k, method = "Newton")
+HAC.simest(model = "Krig", k = k, method = "Newton")
+
+HAC.simest(model = "GAM", k = k, method = "Both")
+HAC.simest(model = "SCAM", k = k, method = "Both")
+HAC.simest(model = "Krig", k = k, method = "Both")
+
 
 ## Bootstrap simulation - 1000 reps - CAN BE SLOW ##
 
