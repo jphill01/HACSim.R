@@ -299,7 +299,10 @@ HAC.sim <- function(N,
 	    lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
 	 }
 	 
+	 beta0 <- abs(coef(lin.reg))[[1]]
 	 beta1 <- abs(coef(lin.reg)[[2]])
+	 
+	 Y <- abs((P - beta0) / beta1) # N* from linear model
 	 
   ## Output results to R console and CSV file ##
 	   
@@ -309,9 +312,11 @@ HAC.sim <- function(N,
 	       "\n Proportion of haplotypes (specimens) sampled: " , R, 
 	       "\n Proportion of haplotypes (specimens) not sampled: " , S,
 	       "\n \n Mean value of N*: ", Nstar,
-	       "\n Mean number of specimens not sampled: ", X, 
-	       "\n \n Haplotype accumulation curve slope: ", beta1,
-	       "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1)
+	       "\n Mean number of specimens not sampled: ", X,
+	       "\n \n --- Linear model results --- \n \n", 
+	       "Haplotype accumulation curve slope: ", beta1,
+	       "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1,
+	       "\n Mean value of N*: ", Y)
 
     df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X, beta1, 1 / beta1)
     
