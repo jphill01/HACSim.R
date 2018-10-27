@@ -288,21 +288,6 @@ HAC.sim <- function(N,
 	   X <- ((N * length(subset.haps)) / P) - N
 	 }
 	 
-	## Calculate slope of curve using last n points (or proportion of points) on curve
-	## perms must be large enough to ensure monotonicity and a non-negative slope
-	  
-	  if ((!is.null(prop.pts)) && (is.null(num.pts))) { 
-	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d))))
-	  }
-	 
-	 if ((!is.null(num.pts)) && (is.null(prop.pts))) {
-	    lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
-	 }
-	 
-	 beta1 <- abs(coef(lin.reg)[[2]])
-	 
-	 out <- calibrate(lin.reg, y0 = R * Hstar, interval = "inversion", mean.response = FALSE)
-	 
   ## Output results to R console and CSV file ##
 	   
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
@@ -311,13 +296,9 @@ HAC.sim <- function(N,
 	       "\n Proportion of haplotypes (specimens) sampled: " , R, 
 	       "\n Proportion of haplotypes (specimens) not sampled: " , S,
 	       "\n \n Mean value of N*: ", Nstar,
-	       "\n Mean number of specimens not sampled: ", X,
-	       "\n \n --- Linear Model Results --- \n \n", 
-	       "Haplotype accumulation curve slope: ", beta1,
-	       "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1,
-	       "\n \n Mean value of N*: ", out$estimate, "( 95% CI:", paste(ceiling(out$lower), ceiling(out$upper), sep = "-"), ")")
+	       "\n Mean number of specimens not sampled: ", X)
 
-    df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X, beta1, 1 / beta1)
+    df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       
