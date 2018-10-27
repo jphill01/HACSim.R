@@ -66,14 +66,16 @@ HAC.simrep <- function(filename = "output") {
   } else {
     cat("\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
         \n --- Summary Statistics Results ---
-        \n The initial guess for sampling sufficiency was N =", paste0(N, "."),
+        \n The initial guess for sampling sufficiency was N = ", paste0(N, "."),
         "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
         "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals.",
-        "\n \n The number of additional specimens required to be sampled for p = ", paste0(p * 100, "%"), "haplotype recovery is \n N* - N =", max(d$specs) - N, "individuals.",
+        "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(d$specs) - N, "individuals.",
         "\n \n --- Linear Model Results --- \n \n", 
         "Haplotype accumulation curve slope: ", beta1,
         "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1,
-        "\n \n Mean value of N*: ", out$estimate, "( 95% CI:", paste(ceiling(out$lower), ceiling(out$upper), sep = "-"), ")")
+        "\n \n Mean value of N*: ", out$estimate,
+        "\n 95% CI: ", paste(ceiling(out$lower), ceiling(out$upper), sep = "-"),
+        "\n SE: ", out$se)
   }
   
   while (R < p) {
@@ -122,7 +124,9 @@ HAC.simrep <- function(filename = "output") {
           "\n \n --- Linear Model Results --- \n \n", 
           "Haplotype accumulation curve slope: ", beta1,
           "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1,
-          "\n \n Mean value of N*: ", out$estimate, "( 95% CI:", paste(ceiling(out$lower), ceiling(out$upper), sep = "-"), ")")
+          "\n \n Mean value of N*: ", out$estimate,
+          "\n 95% CI: ", paste(ceiling(out$lower), ceiling(out$upper), sep = "-"),
+          "\n SE: ", out$se)
     }
     
   }
