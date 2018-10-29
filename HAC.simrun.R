@@ -24,9 +24,6 @@
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
 # subset.haps = Subset of haplotypes to sample
-# num.pts = Number of terminal data points used to calculate curve slope 
-# prop.pts = Proportion of terminal data points used to calculate curve slope
-
 
 # Run algorithm with N = 10, 50, 100, with prespecified H*, probs and p
 
@@ -94,14 +91,12 @@ library(HACSim)
 
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
-num.pts <- 10 # number of terminal data points for curve slope calculation
-prop.pts <- NULL # proportion of terminal data points for curve slope calculation
 
 ## Set parameters for hypothetical species ##
 
-N <- 100 # total number of sampled individuals
-Hstar <- 10 # total number of haplotypes
-# probs <- c(0.30, 0.30, 0.30, rep(0.1/7, 7)) # must sum to 1
+N <- 10 # total number of sampled individuals
+Hstar <- 5 # total number of haplotypes
+# probs <- c(0.45, 0.45, rep(0.10/8, 8)) # must sum to 1
 probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 
@@ -145,7 +140,7 @@ sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.25 # proportion of DNA sequences to subsample
+prop.seqs <- 0.20 # proportion of DNA sequences to subsample
 
 
 ## Simulate DNA sequences ## 
@@ -216,8 +211,8 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
-num.seqs <- 5 # number of DNA sequences to simulate
-length.seqs <- 1500 # length of DNA sequences to simulate
+num.seqs <- 100 # number of DNA sequences to simulate
+length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "HKY85" # nucleotide substitution model DO NOT CHANGE
 nucl.freq <- c(0.30, 0.20, 0.20, 0.30)
 mu.rate <- NULL # mutation rate DO NOT CHANGE
