@@ -16,10 +16,10 @@
 # sim.seqs = Simulate DNA sequences (TRUE / FALSE)?
 # num.seqs = Number of DNA sequences to simulate
 # length.seqs = Basepair length of DNA sequences to simulate
-# subst.model = Nucleotide substition model
-# mu.rate = Substitution rate of simulated DNA sequences
-# transi.rate = Substitution rate of transitions of simulated DNA sequences under K2P model
-# transv.rate = Substitution rate of transversions of simulated DNA sequences under K2P model
+# subst.model = Nucleotide substition model (JC69 / K80 / F81 / HKY85)
+# mu.rate = Substitution rate of simulated DNA sequences under JC69 or F81 model
+# transi.rate = Substitution rate of transitions of simulated DNA sequences under K80 or HKY85 model
+# transv.rate = Substitution rate of transversions of simulated DNA sequences under K80 or HKY85 model
 # subset.seqs = Subset of DNA sequences to sample
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
