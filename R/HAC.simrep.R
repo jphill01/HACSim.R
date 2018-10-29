@@ -37,27 +37,10 @@ HAC.simrep <- function(filename = "output") {
                mu.rate = mu.rate,
                transi.rate = transi.rate,
                transv.rate = transv.rate,
-               num.pts = 10,
-               prop.pts = NULL,
                df = df
   )
   
   amt <- proc.time() - ptm
-  
-  ## Calculate slope of final curve using last n points (or proportion of points) on curve
-  ## perms must be large enough to ensure monotonicity and a non-negative slope
-  
-  if ((!is.null(prop.pts)) && (is.null(num.pts))) { 
-    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d))))
-  }
-  
-  if ((!is.null(num.pts)) && (is.null(prop.pts))) {
-    lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
-  }
-  
-  beta1 <- abs(coef(lin.reg)[[2]])
-  
-  out <- calibrate(lin.reg, y0 = R * Hstar, interval = "Wald", mean.response = FALSE)
   
   ## Check whether desired level of haplotype recovery has been reached ##
   
@@ -65,17 +48,10 @@ HAC.simrep <- function(filename = "output") {
     cat("\n \n \n Desired level of haplotype recovery has not yet been reached \n")
   } else {
     cat("\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
-        \n --- Summary Statistics Results ---
         \n The initial guess for sampling sufficiency was N = ", paste0(N, "."),
         "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
         "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals.",
-        "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(d$specs) - N, "individuals.",
-        "\n \n --- Linear Model Results --- \n \n", 
-        "Haplotype accumulation curve slope: ", beta1,
-        "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1,
-        "\n \n Mean value of N*: ", out$estimate,
-        "\n 95% CI: ", paste(ceiling(out$lower), ceiling(out$upper), sep = "-"),
-        "\n SE: ", out$se)
+        "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(d$specs) - N, "individuals.")
   }
   
   while (R < p) {
@@ -88,27 +64,10 @@ HAC.simrep <- function(filename = "output") {
                   prop.haps = prop.haps,
                   subset.seqs = subset.seqs,
                   prop.seqs = prop.seqs,
-                  num.pts = 10,
-                  prop.pts = NULL,
                   df = df)
     
     assign("iters", iters + 1, .GlobalEnv)
     amt <- proc.time() - ptm
-    
-    ## Calculate slope of final curve using last n points (or proportion of points) on curve
-    ## perms must be large enough to ensure monotonicity and a non-negative slope
-    
-    if ((!is.null(prop.pts)) && (is.null(num.pts))) { 
-      lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d))))
-    }
-    
-    if ((!is.null(num.pts)) && (is.null(prop.pts))) {
-      lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
-    }
-    
-    beta1 <- abs(coef(lin.reg)[[2]])
-    
-    out <- calibrate(lin.reg, y0 = R * Hstar, interval = "Wald", mean.response = FALSE)
     
     ## Check whether desired level of haplotype recovery has been reached ##
     
@@ -116,17 +75,10 @@ HAC.simrep <- function(filename = "output") {
       cat("\n \n \n Desired level of haplotype recovery has not yet been reached \n")
     } else {
       cat("\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
-          \n --- Summary Statistics Results ---
           \n The initial guess for sampling sufficiency was N = ", paste0(N, "."),
           "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
           "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals.",
-          "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(d$specs) - N, "individuals.",
-          "\n \n --- Linear Model Results --- \n \n", 
-          "Haplotype accumulation curve slope: ", beta1,
-          "\n Mean number of specimens required to observe one new haplotype: ", 1 / beta1,
-          "\n \n Mean value of N*: ", out$estimate,
-          "\n 95% CI: ", paste(ceiling(out$lower), ceiling(out$upper), sep = "-"),
-          "\n SE: ", out$se)
+          "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(d$specs) - N, "individuals.")
     }
     
   }

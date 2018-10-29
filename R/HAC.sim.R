@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: October 18, 2018
+# Last modified: October 29, 2018
 
 ##########
 
@@ -28,14 +28,14 @@
 # sim.seqs = Simulate DNA sequences (TRUE / FALSE)?
 # num.seqs = Number of DNA sequences to simulate
 # length.seqs = Basepair length of DNA sequences to simulate
+# subst.model = Nucleotide substition model
+# mu.rate = Substitution rate of simulated DNA sequences
 # transi.rate = Substitution rate of transitions of simulated DNA sequences under K2P model
 # transv.rate = Substitution rate of transversions of simulated DNA sequences under K2P model
 # subset.seqs = Subset of DNA sequences to sample
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
 # subset.haps = Subset of haplotypes to sample
-# num.pts = Number of points used to calculate curve slope 
-# prop.pts = Proportion of points used to calculate curve slope
 
 #####
 
@@ -58,8 +58,6 @@ HAC.sim <- function(N,
                     transv.rate = NULL,
                     subset.seqs = FALSE,
                     prop.seqs = NULL,
-                    num.pts = 10,
-                    prop.pts = NULL,
                     df = NULL, # dataframe
                     progress = TRUE) {
   
