@@ -102,7 +102,7 @@ HAC.sim <- function(N,
       nucl <- as.DNAbin(c('a','c','g','t'))
       
       if ((subst.model == "JC69") || (subst.model == "K80")) {
-        res <- sample(nucl, size = length.seqs, replace = TRUE, prob = rep(0.25, 4))
+        res <- sample(nucl, size = length.seqs, replace = TRUE) # each nucl occurs with prob = 0.25
         }
       
       if ((subst.model == "F81") || (subst.model == "HKY85")) {
