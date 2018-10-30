@@ -285,7 +285,10 @@ HAC.sim <- function(N,
 	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
 	   X <- ((N * length(subset.haps)) / P) - N
 	 }
-	 
+	  
+	  lin.reg <- lm(means ~ specs, data = tail(d, n = 2))
+	  slope <- abs(coef(lin.reg)[[2]]) # curve slope at endpoint
+   
   ## Output results to R console and CSV file ##
 	   
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
@@ -294,9 +297,10 @@ HAC.sim <- function(N,
 	       "\n Proportion of haplotypes (specimens) sampled: " , R, 
 	       "\n Proportion of haplotypes (specimens) not sampled: " , S,
 	       "\n \n Mean value of N*: ", Nstar,
-	       "\n Mean number of specimens not sampled: ", X)
+	       "\n Mean number of specimens not sampled: ", X,
+	       "\n \n Accumulation curve slope: ", slope)
 
-    df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X)
+    df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X, slope)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       
