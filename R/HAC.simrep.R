@@ -15,7 +15,7 @@ HAC.simrep <- function(filename = "output") {
          "Proportion of haplotypes (specimens) not sampled",
          "Mean value of N*", 
          "Mean number of specimens not sampled",
-         "Accumulation curve slope")
+         "Mean accumulation curve slope")
   colnames(df) <- x
   
   cat("\n Simulating haplotype accumulation...")
