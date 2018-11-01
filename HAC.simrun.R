@@ -24,6 +24,8 @@
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
 # subset.haps = Subset of haplotypes to sample
+# num.pts = Number of points used to calculate curve slope 
+# prop.pts = Proportion of points used to calculate curve slope
 
 # Run algorithm with N = 10, 50, 100, with prespecified H*, probs and p
 
@@ -91,19 +93,21 @@ library(HACSim)
 
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
+num.pts <- 10 # number of points used to calculate curve slope
+prop.pts <- NULL # proportion of points used to calculate curve slope 
 
 ## Set parameters for hypothetical species ##
 
-N <- 10 # total number of sampled individuals
-Hstar <- 5 # total number of haplotypes
-# probs <- c(0.45, 0.45, rep(0.10/8, 8)) # must sum to 1
-probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
+N <- 100 # total number of sampled individuals
+Hstar <- 10 # total number of haplotypes
+probs <- c(rep(0.30, 3), rep(0.10/7, 7)) # must sum to 1
+# probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 
 ## Simulate hypothetical species WITHOUT migration/gene flow ##
 
 input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
-sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
+sim.seqs <- FALSE # simulate DNA sequences? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
@@ -116,7 +120,7 @@ input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
-prop.haps <- 0.25 # proportion of haplotypes to subsample
+prop.haps <- 0.80 # proportion of haplotypes to subsample
 
 # Subsample haplotypes - subset.haps cannot have a length of 1 ##
 
@@ -140,7 +144,7 @@ sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.20 # proportion of DNA sequences to subsample
+prop.seqs <- 0.15 # proportion of DNA sequences to subsample
 
 
 ## Simulate DNA sequences ## 
@@ -164,7 +168,7 @@ num.seqs <- 100 # number of DNA sequences to simulate
 length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "JC69" # nucleotide substitution model DO NOT CHANGE
 nucl.freq <- NULL # nucleotide frequencies DO NOT CHANGE
-mu.rate <- 1e-4 # mutation rate
+mu.rate <- 1e-3 # mutation rate
 transi.rate <- NULL # transition rate DO NOT CHANGE
 transv.rate <- NULL  # transversion rate DO NOT CHANGE
 
@@ -177,7 +181,7 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
-num.seqs <- 100 # number of DNA sequences to simulate
+num.seqs <- 30 # number of DNA sequences to simulate
 length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "K80" # nucleotide substitution model DO NOT CHANGE
 nucl.freq <- NULL # nucleotide frequencies DO NOT CHANGE
@@ -216,7 +220,7 @@ length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "HKY85" # nucleotide substitution model DO NOT CHANGE
 nucl.freq <- c(0.30, 0.20, 0.20, 0.30)
 mu.rate <- NULL # mutation rate DO NOT CHANGE
-transi.rate <- 1e-3 # transition rate
+transi.rate <- 1e-4 # transition rate
 transv.rate <- transi.rate / 2  # transversion rate
 
 
