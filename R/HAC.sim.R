@@ -312,7 +312,7 @@ HAC.sim <- function(N,
 	       "\n Proportion of haplotypes (specimens) not sampled: " , S,
 	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X,
-	       "\n \n Mean accumulation curve slope: ", beta1)
+	       "\n \n Mean haplotype accumulation curve slope: ", beta1)
 
     df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X, beta1)
     
