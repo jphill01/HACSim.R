@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: October 29, 2018
+# Last modified: November 1, 2018
 
 ##########
 
@@ -36,6 +36,8 @@
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
 # subset.haps = Subset of haplotypes to sample
+# num.pts = Number of points used to calculate curve slope 
+# prop.pts = Proportion of points used to calculate curve slope
 
 #####
 
@@ -58,6 +60,8 @@ HAC.sim <- function(N,
                     transv.rate = NULL,
                     subset.seqs = FALSE,
                     prop.seqs = NULL,
+                    num.pts = 10,
+                    prop.pts = NULL,
                     df = NULL, # dataframe
                     progress = TRUE) {
   
@@ -286,8 +290,18 @@ HAC.sim <- function(N,
 	   X <- ((N * length(subset.haps)) / P) - N
 	 }
 	  
-	  lin.reg <- lm(means ~ specs, data = tail(d, n = 2))
-	  slope <- abs(coef(lin.reg)[[2]]) # curve slope at endpoint
+	  ## Calculate slope of curve using last n points (or proportion of points) on curve
+	  ## perms must be large enough to ensure monotonicity
+	  
+	  if ((!is.null(prop.pts)) && (is.null(num.pts))) { 
+	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d))))
+	  }
+	  
+	  if ((!is.null(num.pts)) && (is.null(prop.pts))) {
+	    lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
+	  }
+	  
+	  beta1 <- abs(coef(lin.reg)[[2]]) 
    
   ## Output results to R console and CSV file ##
 	   
@@ -298,9 +312,9 @@ HAC.sim <- function(N,
 	       "\n Proportion of haplotypes (specimens) not sampled: " , S,
 	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X,
-	       "\n \n Accumulation curve slope: ", slope)
+	       "\n \n Accumulation curve slope: ", beta1)
 
-    df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X, slope)
+    df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X, beta1)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       
