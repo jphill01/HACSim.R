@@ -15,7 +15,7 @@ HAC.simrep <- function(filename = "output") {
          "Proportion of haplotypes (specimens) not sampled",
          "Mean value of N*", 
          "Mean number of specimens not sampled",
-         "Mean accumulation curve slope")
+         "Mean haplotype accumulation curve slope")
   colnames(df) <- x
   
   cat("\n Simulating haplotype accumulation...")
@@ -42,6 +42,11 @@ HAC.simrep <- function(filename = "output") {
   )
   
   amt <- proc.time() - ptm
+  
+  beta1 <- abs(coef(lin.reg)[[2]])
+  lo <- signif(confint(lin.reg, "specs")[[1]], 3)
+  hi <- signif(confint(lin.reg, "specs")[[2]], 3)
+  pval <- signif(summary(lin.reg)$coefficients[, 4][[2]], 3)
 
   ## Check whether desired level of haplotype recovery has been reached ##
   
