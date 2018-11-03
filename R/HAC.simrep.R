@@ -43,11 +43,6 @@ HAC.simrep <- function(filename = "output") {
   
   amt <- proc.time() - ptm
   
-  beta1 <- abs(coef(lin.reg)[[2]])
-  lo <- signif(confint(lin.reg, "specs")[[1]], 3)
-  hi <- signif(confint(lin.reg, "specs")[[2]], 3)
-  pval <- signif(summary(lin.reg)$coefficients[, 4][[2]], 3)
-
   ## Check whether desired level of haplotype recovery has been reached ##
   
   if (R < p) {

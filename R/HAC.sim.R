@@ -294,16 +294,14 @@ HAC.sim <- function(N,
 	  ## perms must be large enough to ensure monotonicity
 	  
 	  if ((!is.null(prop.pts)) && (is.null(num.pts))) { 
-	    assign("lin.reg", lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d)))), envir = .GlobalEnv)
+	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d))))
 	  }
 	  
 	  if ((!is.null(num.pts)) && (is.null(prop.pts))) {
-	    assign("lin.reg", lm(means ~ specs, data = tail(d, n = num.pts)), envir = .GlobalEnv)
+	    lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
 	  }
 	  
 	  beta1 <- abs(coef(lin.reg)[[2]]) # slope
-	  lo <- signif(confint(lin.reg, "specs")[[1]], 4) # 2.5th % quantile
-	  hi <- signif(confint(lin.reg, "specs")[[2]], 4) # 97.5th % quantile
 	
   ## Output results to R console and CSV file ##
 	   
@@ -314,7 +312,7 @@ HAC.sim <- function(N,
 	       "\n Proportion of haplotypes (specimens) not sampled: " , S,
 	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X,
-	       "\n \n Mean haplotype accumulation curve slope: ", beta1, paste0("( 95% CI: ", paste(lo, hi, sep = "-"), ")"))
+	       "\n \n Mean haplotype accumulation curve slope: ", beta1)
 
     df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X, beta1)
     
