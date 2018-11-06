@@ -308,8 +308,8 @@ HAC.sim <- function(N,
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
 	       "Mean number of haplotypes sampled: " , P, "( 95% CI:", paste(ceiling(max(lower)), ceiling(max(upper)), sep = "-"), ")",
 	       "\n Mean number of haplotypes not sampled: " , Q, 
-	       "\n Proportion of haplotypes (specimens) sampled: " , R, 
-	       "\n Proportion of haplotypes (specimens) not sampled: " , S,
+	       "\n Proportion of haplotypes sampled: " , R, 
+	       "\n Proportion of haplotypes not sampled: " , S,
 	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X,
 	       "\n \n Mean haplotype accumulation curve slope: ", beta1)
@@ -337,7 +337,7 @@ HAC.sim <- function(N,
         abline(h = R * length(subset.haps), v = N, lty = 2) # dashed line
         abline(h = p * length(subset.haps), lty = 3) # dotted line
         HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
-    }
-
+      }
+      
 	  df
 } # end HAC.sim
