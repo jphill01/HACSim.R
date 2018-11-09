@@ -214,9 +214,9 @@ HAC.sim <- function(N,
       stop("prop.haps must be greater than 1 / Hstar")
     }
   
-    if (!is.null(prop.seqs) && prop.seqs <= 1 / N)  {
-      stop("prop.seqs must be greater than 1 / N")
-    }
+   # if (!is.null(prop.seqs) && prop.seqs <= 1 / N)  {
+      # stop("prop.seqs must be greater than 1 / N")
+    # }
 	
   ## Set up container to hold the identity of each individual from each permutation ##
     
