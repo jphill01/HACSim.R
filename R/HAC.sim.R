@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: November 1, 2018
+# Last modified: November 9, 2018
 
 ##########
 
@@ -51,13 +51,7 @@ HAC.sim <- function(N,
                     prop.haps = NULL,
                     input.seqs = FALSE,
                     sim.seqs = FALSE,
-                    num.seqs = NULL,
-                    length.seqs = NULL,
-                    nucl.freq = NULL,
                     subst.model = NULL,
-                    mu.rate = NULL,
-                    transi.rate = NULL,
-                    transv.rate = NULL,
                     subset.seqs = FALSE,
                     prop.seqs = NULL,
                     num.pts = 10,
@@ -75,7 +69,7 @@ HAC.sim <- function(N,
 
 	## Load DNA sequence data and set N, Hstar and probs ##
 	  
-    if (input.seqs == TRUE) {
+    if ((input.seqs == TRUE) || (sim.seqs == TRUE)) {
 		  seqs <- read.dna(file = file.choose(), format = "fasta")
 	  
 		if (any(base.freq(seqs, all = TRUE)[5:17] > 0)) {
@@ -103,89 +97,14 @@ HAC.sim <- function(N,
   ## Simulate DNA sequences ##
   
     if (sim.seqs == TRUE) {
-      nucl <- as.DNAbin(c('a','c','g','t'))
       
-      if ((subst.model == "JC69") || (subst.model == "K80")) {
-        res <- sample(nucl, size = length.seqs, replace = TRUE) # each nucl occurs with prob = 0.25
-        }
+      dis <- dist.dna(seqs, model = subst.model) # K2P divergences
       
-      if ((subst.model == "F81") || (subst.model == "HKY85")) {
-        if (sum(nucl.freq) != 1) {
-          stop("Nucleotide frequencies must sum to 1")
-          }
-        res <- sample(nucl, size = length.seqs, replace = TRUE, prob = nucl.freq)
-      }
+      tr <- nj(dis) # unrooted neighbour-joining tree
       
-      if ((subst.model == "JC69") || (subst.model == "F81")) {
-        
-        mu.set <- list('a' = as.DNAbin('c'),
-                       'a' = as.DNAbin('g'),
-                       'a' = as.DNAbin('t'),
-                       'c' = as.DNAbin('a'),
-                       'c' = as.DNAbin('g'),
-                       'c' = as.DNAbin('t'),
-                       'g' = as.DNAbin('a'),
-                       'g' = as.DNAbin('c'),
-                       'g' = as.DNAbin('t'),
-                       't' = as.DNAbin('a'),
-                       't' = as.DNAbin('c'),
-                       't' = as.DNAbin('g'))
-        
-        muts <- function(res) {
-          unlist(mu.set[as.character(res)])
-        }
-        
-        duplicate.seq <- function(res) {
-          num.muts <- rbinom(n = 1, size = length.seqs, prob = mu.rate) # total number of substitutions
-          if (num.muts > 0) {
-            idx <- sample(length.seqs, size = num.muts, replace = FALSE)
-            res[idx] <- muts(res[idx])
-          }
-          res
-        }
-      
-      }
-      
-      if ((subst.model == "K80") || (subst.model == "HKY85")) {
-        
-        transi.set <- list('a' = as.DNAbin('g'), 
-                           'c' = as.DNAbin('t'),
-                           'g' = as.DNAbin('a'), 
-                           't' = as.DNAbin('c'))
-        transv.set <- list('a' = as.DNAbin(c('c', 't')),
-                           'c' = as.DNAbin(c('a', 'g')),
-                           'g' = as.DNAbin(c('c', 't')), 
-                           't' = as.DNAbin(c('a', 'g')))
-        
-        transi <- function(res) {
-          unlist(transi.set[as.character(res)])
-        }
-        
-        transv <- function(res) {
-          sapply(transv.set[as.character(res)], sample, 1)
-        }
-        
-        duplicate.seq <- function(res) {
-          num.transi <- rbinom(n = 1, size = length.seqs, prob = transi.rate) # total number of transitions
-          if (num.transi > 0) {
-            idx <- sample(length.seqs, size = num.transi, replace = FALSE)
-            res[idx] <- transi(res[idx])
-          }
-          
-          num.transv <- rbinom(n = 1, size = length.seqs, prob = transv.rate) # total number of transversions
-          if (num.transv > 0) {
-            idx <- sample(length.seqs, size = num.transv, replace = FALSE)
-            res[idx] <- transv(res[idx])
-          }
-          res
-        }
-      }
+      res <- as.DNAbin(simSeq(tr, l = ncol(seqs))) # convert to DNAbin format
     
-      res <- matrix(replicate(num.seqs, duplicate.seq(res)), byrow = TRUE, nrow = num.seqs)
-      
-      class(res) <- "DNAbin"
-    
-      write.dna(res, file = "res.fas", format = "fasta")
+      write.dna(res, file = "res.fas", format = "fasta") # output sequences to file
     
       assign("N", dim(res)[[1]], envir = .GlobalEnv)
       h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
