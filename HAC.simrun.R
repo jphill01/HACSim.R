@@ -144,12 +144,23 @@ prop.seqs <- 0.10 # proportion of DNA sequences to subsample
 
 ## Simulate DNA sequences ## 
 
-# JC69: mu.transi = mu.transv, A = C = G = T = 0.25
+# raw: proportion of nucleotide sites that differ among specimens
+
+# JC69: corrected p-distance; mu.transi = mu.transv, A = C = G = T = 0.25
 # K80: mu.transi != mu.transv, A = C = G = T = 0.25
 
 # F81: mu.transi = mu.transv, A != C != G != T != 0.25
-# HKY85: mu.transi != mu.transv, A != C != G != T != 0.25
 
+
+# p-distance
+
+input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
+subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
+prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
+subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
+prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
+sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
+subst.model <- "raw" # nucleotide substitution model DO NOT CHANGE
 
 # JC69
 
@@ -180,16 +191,6 @@ subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
 subst.model <- "F81" # nucleotide substitution model DO NOT CHANGE
-
-# HKY85 - chang this to a different model
-
-input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
-subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
-prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
-subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
-sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
-subst.model <- "HKY85" # nucleotide substitution model DO NOT CHANGE
 
 
 ### Run simulations ###
