@@ -14,12 +14,7 @@
 # perms = Number of permutations (replications) 
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
 # sim.seqs = Simulate DNA sequences (TRUE / FALSE)?
-# num.seqs = Number of DNA sequences to simulate
-# length.seqs = Basepair length of DNA sequences to simulate
 # subst.model = Nucleotide substition model (JC69 / K80 / F81 / HKY85)
-# mu.rate = Substitution rate of simulated DNA sequences under JC69 or F81 model
-# transi.rate = Substitution rate of transitions of simulated DNA sequences under K80 or HKY85 model
-# transv.rate = Substitution rate of transversions of simulated DNA sequences under K80 or HKY85 model
 # subset.seqs = Subset of DNA sequences to sample
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
@@ -144,7 +139,7 @@ sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.15 # proportion of DNA sequences to subsample
+prop.seqs <- 0.10 # proportion of DNA sequences to subsample
 
 
 ## Simulate DNA sequences ## 
@@ -164,14 +159,7 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE 
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
-num.seqs <- 100 # number of DNA sequences to simulate
-length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "JC69" # nucleotide substitution model DO NOT CHANGE
-nucl.freq <- NULL # nucleotide frequencies DO NOT CHANGE
-mu.rate <- 1e-3 # mutation rate
-transi.rate <- NULL # transition rate DO NOT CHANGE
-transv.rate <- NULL  # transversion rate DO NOT CHANGE
-
 
 # K80
 
@@ -181,14 +169,7 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
-num.seqs <- 30 # number of DNA sequences to simulate
-length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "K80" # nucleotide substitution model DO NOT CHANGE
-nucl.freq <- NULL # nucleotide frequencies DO NOT CHANGE
-mu.rate <- NULL # mutation rate DO NOT CHANGE
-transi.rate <- 1e-4 # transition rate
-transv.rate <- transi.rate / 2  # transversion rate
-
 
 # F81
 
@@ -198,16 +179,9 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
-num.seqs <- 100 # number of DNA sequences to simulate
-length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "F81" # nucleotide substitution model DO NOT CHANGE
-nucl.freq <- c(0.30, 0.2, 0.20, 0.30)
-mu.rate <- 1e-4 # mutation rate
-transi.rate <- NULL # transition rate DO NOT CHANGE
-transv.rate <- NULL  # transversion rate DO NOT CHANGE
 
-
-# HKY85
+# HKY85 - chang this to a different model
 
 input.seqs <- FALSE # analyze DNA sequence file? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes? DO NOT CHANGE
@@ -215,14 +189,7 @@ prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
 sim.seqs <- TRUE # simulate DNA sequences? DO NOT CHANGE
-num.seqs <- 100 # number of DNA sequences to simulate
-length.seqs <- 658 # length of DNA sequences to simulate
 subst.model <- "HKY85" # nucleotide substitution model DO NOT CHANGE
-nucl.freq <- c(0.30, 0.20, 0.20, 0.30)
-mu.rate <- NULL # mutation rate DO NOT CHANGE
-transi.rate <- 1e-4 # transition rate
-transv.rate <- transi.rate / 2  # transversion rate
-
 
 
 ### Run simulations ###
