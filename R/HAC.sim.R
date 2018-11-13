@@ -200,19 +200,6 @@ HAC.sim <- function(N,
 	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
 	   X <- ((N * length(subset.haps)) / P) - N
 	 }
-	  
-	  ## Calculate slope of curve using last n points (or proportion of points) on curve
-	  ## perms must be large enough to ensure monotonicity
-	  
-	  if ((!is.null(prop.pts)) && (is.null(num.pts))) { 
-	    lin.reg <- lm(means ~ specs, data = tail(d, n = ceiling(prop.pts * nrow(d))))
-	  }
-	  
-	  if ((!is.null(num.pts)) && (is.null(prop.pts))) {
-	    lin.reg <- lm(means ~ specs, data = tail(d, n = num.pts))
-	  }
-	  
-	  beta1 <- abs(coef(lin.reg)[[2]]) # slope
 	
   ## Output results to R console and CSV file ##
 	   
@@ -222,10 +209,9 @@ HAC.sim <- function(N,
 	       "\n Proportion of haplotypes sampled: " , R, 
 	       "\n Proportion of haplotypes not sampled: " , S,
 	       "\n \n Mean value of N*: ", Nstar,
-	       "\n Mean number of specimens not sampled: ", X,
-	       "\n \n Mean haplotype accumulation curve slope: ", beta1)
+	       "\n Mean number of specimens not sampled: ", X)
 
-    df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X, beta1)
+    df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       
