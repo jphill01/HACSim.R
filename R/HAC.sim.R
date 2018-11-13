@@ -151,7 +151,8 @@ HAC.sim <- function(N,
 	    if (is.null(subset.haps)) {
 	      sample(haps, size = num.specs, replace = TRUE, prob = probs)
 	    } else {
-	      sample(subset.haps, size = num.specs, replace = TRUE, prob = probs[subset.haps])
+	      resample <- function(x, ...) x[sample.int(length(x), ...)]
+	      resample(subset.haps, size = num.specs, replace = TRUE, prob = probs[subset.haps])
 	    }
 	  }
 	  
