@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: November 9, 2018
+# Last modified: November 12, 2018
 
 ##########
 
@@ -66,8 +66,10 @@ HAC.sim <- function(N,
 	  
     if ((input.seqs == TRUE) || (sim.seqs == TRUE)) {
 		  seqs <- read.dna(file = file.choose(), format = "fasta")
+		  
+		  bf <- base.freq(seqs, all = TRUE)[5:17]
 	  
-		if (any(base.freq(seqs, all = TRUE)[5:17] > 0)) {
+		if (any(bf > 0)) {
       stop("Inputted DNA sequences contain missing and/or ambiguous 
 	    nucleotides, which may lead to overestimation of the number of 
 	    observed unique haplotypes. Consider excluding sequences or alignment 
@@ -97,7 +99,9 @@ HAC.sim <- function(N,
       
       tr <- nj(dis) # unrooted neighbour-joining tree
       
-      res <- as.DNAbin(simSeq(tr, l = ncol(seqs))) # convert to DNAbin format
+      bf <- base.freq(seqs)
+      
+      res <- as.DNAbin(simSeq(tr, l = ncol(seqs), bf = bf)) # convert to DNAbin format
     
       write.dna(res, file = "res.fas", format = "fasta") # output sequences to file
     
@@ -122,10 +126,6 @@ HAC.sim <- function(N,
   
     if (sum(probs) != 1) {
       stop("probs must sum to 1")
-    }
-  
-    if (!is.null(prop.haps) && prop.haps <= 1 / Hstar) {
-      stop("prop.haps must be greater than 1 / Hstar")
     }
   
   ## Set up container to hold the identity of each individual from each permutation ##
