@@ -88,8 +88,6 @@ library(HACSim)
 
 perms <- 10000 # number of permutations
 p <- 0.95 # proportion of haplotypes to recover
-num.pts <- 10 # number of points used to calculate curve slope
-prop.pts <- NULL # proportion of points used to calculate curve slope 
 
 ## Set parameters for hypothetical species ##
 
@@ -115,9 +113,9 @@ input.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.seqs <- FALSE # subset DNA sequences? DO NOT CHANGE
 prop.seqs <- NULL # proportion of DNA sequences to subsample DO NOT CHANGE
-prop.haps <- 0.80 # proportion of haplotypes to subsample
+prop.haps <- 0.15 # proportion of haplotypes to subsample
 
-# Subsample haplotypes - subset.haps cannot have a length of 1 ##
+# Subsample haplotypes ##
 
 subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
 
