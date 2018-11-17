@@ -49,8 +49,6 @@ HAC.sim <- function(N,
                     subst.model = NULL,
                     subset.seqs = FALSE,
                     prop.seqs = NULL,
-                    num.pts = 10,
-                    prop.pts = NULL,
                     df = NULL, # dataframe
                     progress = TRUE) {
   
@@ -75,7 +73,9 @@ HAC.sim <- function(N,
 	    observed unique haplotypes. Consider excluding sequences or alignment 
 	    sites containing these data. If missing and/or ambiguous bases occur 
 	    at the ends of sequences, further alignment trimming is an option.")
-	  }
+		}
+		
+		ptm <<- proc.time()
 		  
 	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
 	                             # can be used to simulate migration/gene flow

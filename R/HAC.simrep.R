@@ -3,7 +3,7 @@
 ## Run HAC Simulator until convergence (saturation) is reached ##
 
 HAC.simrep <- function(filename = "output") {
-  ptm <- proc.time()
+  ptm <<- proc.time()
   assign("iters", 1, .GlobalEnv)
   
   df <- data.frame(matrix(ncol = 8, nrow = 0))
