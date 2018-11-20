@@ -19,8 +19,6 @@
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
 # subset.haps = Subset of haplotypes to sample
-# num.pts = Number of points used to calculate curve slope 
-# prop.pts = Proportion of points used to calculate curve slope
 
 # Run algorithm with N = 10, 50, 100, with prespecified H*, probs and p
 
@@ -91,9 +89,9 @@ p <- 0.95 # proportion of haplotypes to recover
 
 ## Set parameters for hypothetical species ##
 
-N <- 100 # total number of sampled individuals
+N <- 10 # total number of sampled individuals
 Hstar <- 10 # total number of haplotypes
-probs <- c(rep(0.30, 3), rep(0.10/7, 7)) # must sum to 1
+probs <- c(rep(0.45, 2), rep(0.10/8, 8)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 
@@ -137,7 +135,7 @@ sim.seqs <- FALSE # simulate DNA sequrnces? DO NOT CHANGE
 subset.haps <- NULL # subset haplotypes?  DO NOT CHANGE
 prop.haps <- NULL # proportion of haplotypes to subsample DO NOT CHANGE
 subset.seqs <- TRUE # subset DNA sequences? DO NOT CHANGE
-prop.seqs <- 0.10 # proportion of DNA sequences to subsample
+prop.seqs <- 0.05 # proportion of DNA sequences to subsample
 
 
 ## Simulate DNA sequences ## 
