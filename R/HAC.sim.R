@@ -31,8 +31,6 @@
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
 # subset.haps = Subset of haplotypes to sample
-# num.pts = Number of points used to calculate curve slope 
-# prop.pts = Proportion of points used to calculate curve slope
 
 #####
 
