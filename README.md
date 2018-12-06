@@ -107,7 +107,7 @@ In order to sucessfully run the simulation algorithm, the following conditions m
 
 2. #### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) ####
 
-* **N** = 240
+* **N** = 235
  
 * **Hstar** = 15 
  
