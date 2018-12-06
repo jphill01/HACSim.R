@@ -111,7 +111,7 @@ In order to sucessfully run the simulation algorithm, the following conditions m
  
 * **Hstar** = 15 
  
-* **probs** = c(214/**N**, rep(3/**N**, 2), rep(2/**N**, 2), rep(1/**N**, 10)) (or see **Custom User Data** below)
+* **probs** = c(215/**N**, rep(3/**N**, 2), rep(2/**N**, 2), rep(1/**N**, 10)) (or see **Custom User Data** below)
 
 
 ### Custom User Data ###
