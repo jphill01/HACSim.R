@@ -2,7 +2,21 @@
 
 ## Run HAC Simulator until convergence (saturation) is reached ##
 
-HAC.simrep <- function(filename = "output") {
+HAC.simrep <- function(HACSObject) {
+    N <<- HACSObject$N
+    Hstar <<- HACSObject$Hstar
+    probs <<- HACSObject$probs
+    perms <- HACSObject$perms
+    p <- HACSObject$p
+    subset.haps <- HACSObject$subset.haps
+    prop.haps <- HACSObject$prop.haps
+    subset.seqs <- HACSObject$subset.seqs
+    prop.seqs <- HACSObject$prop.seqs
+    input.seqs <- HACSObject$input.seqs
+    sim.seqs <- HACSObject$sim.seqs
+    subst.model <- HACSObject$subst.model
+    filename <- HACSObject$filename
+  
   ptm <<- proc.time()
   assign("iters", 1, .GlobalEnv)
   
@@ -76,6 +90,6 @@ HAC.simrep <- function(filename = "output") {
     }
     
   }
-  
-  write.csv(df, file = paste(filename, ".csv", sep = ""))
+  if (!is.null(filename))
+      write.csv(df, file = paste(filename, ".csv", sep = ""))
 } # end HAC.simrep
