@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: November 13, 2018
+# Last modified: January 11, 2019
 
 ##########
 
@@ -93,7 +93,7 @@ HAC.sim <- function(N,
   
     if (sim.seqs == TRUE) {
       
-      dis <- dist.dna(seqs, model = subst.model) # K2P divergences
+      dis <- dist.dna(seqs, model = subst.model) # genetic distances
       
       tr <- nj(dis) # unrooted neighbour-joining tree
       
@@ -173,12 +173,13 @@ HAC.sim <- function(N,
 	## Calculate the mean and CI for number of haplotypes recovered over all permutations
 	  
 	  means <- apply(HAC.mat, MARGIN = 2, mean)
+	  sd <- apply(HAC.mat, MARGIN = 2, sd)
 	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025)) 
 	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975)) 
 	
 	## Make data accessible to user ##
 	 
-	  assign("d", data.frame(specs, means, lower, upper), envir = .GlobalEnv)
+	  assign("d", data.frame(specs, means, sd, lower, upper), envir = .GlobalEnv)
 
 	## Compute simple summary statistics and display output ##
 	## tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()
@@ -209,7 +210,7 @@ HAC.sim <- function(N,
 	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X)
 
-    df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X)
+    df[nrow(df) + 1, ] <- c(P, tail(lower, n = 1), tail(upper, n = 1), Q, R, S, Nstar, X)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       
