@@ -122,6 +122,10 @@ HAC.sim <- function(N,
       stop("N must be greater than 1")
     }
   
+    if (length(probs) != Hstar) {
+      stop("probs must have a length equal to Hstar")
+    }
+  
     if (sum(probs) != 1) {
       stop("probs must sum to 1")
     }
