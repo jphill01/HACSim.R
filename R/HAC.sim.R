@@ -118,8 +118,8 @@ HAC.sim <- function(N,
       stop("N must be greater than or equal to Hstar")
     }
   
-    if (N == 1) {
-      stop("N must be greater than 1")
+    if ((N == 1) || (Hstar == 1))  {
+      stop("Both N and Hstar must be greater than 1")
     }
   
     if (length(probs) != Hstar) {
