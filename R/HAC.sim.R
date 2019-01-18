@@ -1,4 +1,4 @@
-### Haplotype Accumulation Curve Simulation ###
+### HACSim: Haplotype Accumulation Curve Simulator ###
 
 ##########
 
@@ -170,29 +170,29 @@ HAC.sim <- function(N,
 	   S <- (Hstar - P) / Hstar
 	   assign("Nstar", (N * Hstar) / P, envir = .GlobalEnv)
 	   X <- ((N * Hstar) / P) - N
-	   lo <- ceiling((N * Hstar) / tail(upper, n = 1))
-	   hi <- ceiling((N * Hstar) / tail(lower, n = 1))
+	   lo <<- ceiling((N * Hstar) / tail(upper, n = 1))
+	   hi <<- ceiling((N * Hstar) / tail(lower, n = 1))
 	 } else {
 	   Q <- length(subset.haps) - P
 	   assign("R", P / length(subset.haps), envir = .GlobalEnv)
 	   S <- (length(subset.haps) - P) / length(subset.haps)
 	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
 	   X <- ((N * length(subset.haps)) / P) - N
-	   lo <- ceiling((N * length(subset.haps)) / tail(upper, n = 1))
-	   hi <- ceiling((N * length(subset.haps)) / tail(lower, n = 1))
+	   lo <<- ceiling((N * length(subset.haps)) / tail(upper, n = 1))
+	   hi <<- ceiling((N * length(subset.haps)) / tail(lower, n = 1))
 	 }
 	  
   ## Output results to R console and CSV file ##
 	   
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
-	       "Mean number of haplotypes sampled: " , P, "( 95% CI:", paste(tail(lower, n = 1), tail(upper, n = 1), sep = "-"), ")",
+	       "Mean number of haplotypes sampled: " , P,
 	       "\n Mean number of haplotypes not sampled: " , Q, 
 	       "\n Proportion of haplotypes sampled: " , R, 
 	       "\n Proportion of haplotypes not sampled: " , S,
-	       "\n \n Mean value of N*: ", Nstar, "( 95% CI:", paste(lo, hi, sep = "-"), ")",
+	       "\n \n Mean value of N*: ", Nstar, 
 	       "\n Mean number of specimens not sampled: ", X)
 
-    df[nrow(df) + 1, ] <- c(P, tail(lower, n = 1), tail(upper, n = 1), Q, R, S, Nstar, X)
+    df[nrow(df) + 1, ] <- c(P, tail(lower, n = 1), tail(upper, n = 1), Q, R, S, Nstar, lo, hi, X)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       
