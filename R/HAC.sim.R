@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: January 14, 2019
+# Last modified: January 17, 2019
 
 ##########
 
@@ -25,8 +25,6 @@
 # p = Proportion of unique haplotypes to recover
 # perms = Number of permutations (replications)
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
-# sim.seqs = Simulate DNA sequences (TRUE / FALSE)?
-# subst.model = Nucleotide substition model (JC69 / K80 / F81 / HKY85)
 # subset.seqs = Subset of DNA sequences to sample
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
@@ -43,8 +41,6 @@ HAC.sim <- function(N,
                     subset.haps = NULL,
                     prop.haps = NULL,
                     input.seqs = FALSE,
-                    sim.seqs = FALSE,
-                    subst.model = NULL,
                     subset.seqs = FALSE,
                     prop.seqs = NULL,
                     df = NULL, # dataframe
@@ -60,8 +56,8 @@ HAC.sim <- function(N,
 
 	## Load DNA sequence data and set N, Hstar and probs ##
 	  
-    if ((input.seqs == TRUE) || (sim.seqs == TRUE)) {
-		  seqs <- read.dna(file = file.choose(), format = "fasta")
+    if (input.seqs == TRUE) {
+      seqs <- read.dna(file = file.choose(), format = "fasta")
 		  
 		  bf <- base.freq(seqs, all = TRUE)[5:17]
 	  
@@ -88,29 +84,6 @@ HAC.sim <- function(N,
 		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
 
 	  }
-
-  ## Simulate DNA sequences ##
-  
-    if (sim.seqs == TRUE) {
-      
-      dis <- dist.dna(seqs, model = subst.model) # genetic distances
-      
-      tr <- nj(dis) # unrooted neighbour-joining tree
-      
-      bf <- base.freq(seqs)
-      
-      res <- as.DNAbin(simSeq(tr, l = ncol(seqs), bf = bf)) # convert to DNAbin format
-    
-      write.dna(res, file = "res.fas", format = "fasta") # output sequences to file
-    
-      assign("N", dim(res)[[1]], envir = .GlobalEnv)
-      h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
-      rownames(h) <- 1:nrow(h)
-      assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
-      assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
-    
-    }
-  
   
   ## Error messages ##
     
@@ -169,18 +142,19 @@ HAC.sim <- function(N,
 	  HAC.mat <- accumulate(pop, specs, perms, K) # one row selected at random 
 
   ## Update progress bar ##
-    
+	  
 	  if (progress == TRUE) {
-      utils::setTxtProgressBar(pb, i)
-    }
-	
+	    utils::setTxtProgressBar(pb, i)
+	  }
+	  
 	## Calculate the mean and CI for number of haplotypes recovered over all permutations
 	  
 	  means <- apply(HAC.mat, MARGIN = 2, mean)
 	  sd <- apply(HAC.mat, MARGIN = 2, sd)
 	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025)) 
 	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975)) 
-	
+
+	  
 	## Make data accessible to user ##
 	 
 	  assign("d", data.frame(specs, means, sd, lower, upper), envir = .GlobalEnv)
@@ -196,22 +170,26 @@ HAC.sim <- function(N,
 	   S <- (Hstar - P) / Hstar
 	   assign("Nstar", (N * Hstar) / P, envir = .GlobalEnv)
 	   X <- ((N * Hstar) / P) - N
+	   lo <- ceiling((N * Hstar) / tail(upper, n = 1))
+	   hi <- ceiling((N * Hstar) / tail(lower, n = 1))
 	 } else {
 	   Q <- length(subset.haps) - P
 	   assign("R", P / length(subset.haps), envir = .GlobalEnv)
 	   S <- (length(subset.haps) - P) / length(subset.haps)
 	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
 	   X <- ((N * length(subset.haps)) / P) - N
+	   lo <- ceiling((N * length(subset.haps)) / tail(upper, n = 1))
+	   hi <- ceiling((N * length(subset.haps)) / tail(lower, n = 1))
 	 }
-	
+	  
   ## Output results to R console and CSV file ##
 	   
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
-	       "Mean number of haplotypes sampled: " , P, "( 95% CI:", paste(ceiling(max(lower)), ceiling(max(upper)), sep = "-"), ")",
+	       "Mean number of haplotypes sampled: " , P, "( 95% CI:", paste(tail(lower, n = 1), tail(upper, n = 1), sep = "-"), ")",
 	       "\n Mean number of haplotypes not sampled: " , Q, 
 	       "\n Proportion of haplotypes sampled: " , R, 
 	       "\n Proportion of haplotypes not sampled: " , S,
-	       "\n \n Mean value of N*: ", Nstar,
+	       "\n \n Mean value of N*: ", Nstar, "( 95% CI:", paste(lo, hi, sep = "-"), ")",
 	       "\n Mean number of specimens not sampled: ", X)
 
     df[nrow(df) + 1, ] <- c(P, tail(lower, n = 1), tail(upper, n = 1), Q, R, S, Nstar, X)

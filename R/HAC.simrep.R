@@ -13,8 +13,6 @@ HAC.simrep <- function(HACSObject) {
     subset.seqs <- HACSObject$subset.seqs
     prop.seqs <- HACSObject$prop.seqs
     input.seqs <- HACSObject$input.seqs
-    sim.seqs <- HACSObject$sim.seqs
-    subst.model <- HACSObject$subst.model
     filename <- HACSObject$filename
   
   ptm <<- proc.time()
@@ -43,8 +41,6 @@ HAC.simrep <- function(HACSObject) {
                subset.seqs = subset.seqs,
                prop.seqs = prop.seqs,
                input.seqs = input.seqs,
-               sim.seqs = sim.seqs,
-               subst.model = subst.model,
                df = df
   )
   
@@ -86,7 +82,7 @@ HAC.simrep <- function(HACSObject) {
           \n The initial guess for sampling sufficiency was N = ", paste0(N, "."),
           "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
           "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals.",
-          "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(d$specs) - N, "individuals.")
+          "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ", max(d$specs) - N, "individuals.")
     }
     
   }

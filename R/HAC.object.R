@@ -1,7 +1,5 @@
 ## Master class, both functions return an object of this type
 HACClass <- function(input.seqs = NULL,
-                     sim.seqs = NULL,
-                     subst.model = NULL,
                      subset.seqs = NULL,
                      prop.seqs = NULL,
                      prop.haps = NULL,
@@ -13,8 +11,6 @@ HACClass <- function(input.seqs = NULL,
                      perms = NA,
                      filename = NULL) {
     HACObject <- list(input.seqs = input.seqs,
-                      sim.seqs = sim.seqs,
-                      subst.model = subst.model,
                       subset.seqs = subset.seqs,
                       prop.seqs = prop.seqs,
                       prop.haps = prop.haps,
@@ -32,56 +28,32 @@ HACClass <- function(input.seqs = NULL,
     return(HACObject)
 }
 
-## This creates an evolution scenario or uses raw data from a file
-HAC <- function(type,
-                perms = 10000,
+## This uses raw data from a file
+HACReal <- function(perms = 10000,
                 p = 0.95,
                 subsample = FALSE,
                 prop = 0.1,
-                subst.model = "JC69",
                 filename = NULL) {
-    ## Type has to be set
-    if (type == "evolution") {
-        # input.seqs <- FALSE # analyze DNA sequence file? 
-        # subset.haps <- NULL # subset haplotypes? 
-        # prop.haps <- NULL # proportion of haplotypes to subsample 
-        # subset.seqs <- FALSE # subset DNA sequences? 
-        # prop.seqs <- NULL # proportion of DNA sequences to subsample 
-        # sim.seqs <- TRUE # simulate DNA sequences? 
-        # subst.model <- "JC69" # nucleotide substitution model 
-        # prop.seqs <- prop # proportion of DNA sequences to subsample
-
-        objectHAC <- HACClass(input.seqs = FALSE, 
-                              subset.seqs = FALSE, 
-                              sim.seqs = TRUE, 
-                              subst.model = subst.model,
-                              perms = perms, 
-                              p = p,
-                              filename = filename)
-    } else if (type == "real") {
         # input.seqs <- TRUE # analyze DNA sequence file? 
-        # sim.seqs <- FALSE # simulate DNA sequrnces? 
         # subset.haps <- NULL # subset haplotypes?  
         # prop.haps <- NULL # proportion of haplotypes to subsample 
         # subset.seqs <- TRUE # subset DNA sequences? 
         
         if (subsample == TRUE) {
-            subset.seqs = TRUE
+            subset.seqs <- TRUE
             prop.seqs <- prop # proportion of DNA sequences to subsample
         } else {
-            subset.seqs = FALSE
+            subset.seqs <- FALSE
             prop.seqs <- NA # proportion of haplotypes to subsample 
         }
         
         objectHAC <- HACClass(input.seqs = TRUE,
                               subset.seqs = subset.seqs,
-                              sim.seqs = FALSE,
                               prop.seqs = prop.seqs,
                               perms = perms,
                               p = p,
                               filename = filename)
-    }
-    
+
     return(objectHAC)
 }
 
@@ -107,7 +79,6 @@ HACHypothetical <- function(N,
     # Representation of what the parameters will be
   
     # input.seqs <- FALSE # subset DNA sequences? 
-    # sim.seqs <- FALSE # simulate DNA sequences? 
     # subset.seqs <- FALSE # subset DNA sequences? 
     # prop.seqs <- NULL # proportion of DNA sequences to subsample 
     # subset.haps <- NULL # subset haplotypes? 
@@ -115,16 +86,15 @@ HACHypothetical <- function(N,
     if (subsample == TRUE) {
         prop.haps <- prop # proportion of haplotypes to subsample 
         subset.haps <- sort(sample(Hstar, size = ceiling(prop.haps * Hstar), replace = FALSE))
-    } else  {
+    } else {
         prop.haps <- NULL # proportion of haplotypes to subsample
-        subset.haps=NULL
+        subset.haps <- NULL
     }
   objectHAC <- HACClass(N = N,
                         Hstar = Hstar,
                         probs = probs,
                         input.seqs = FALSE,
                         subset.seqs = FALSE,
-                        sim.seqs = FALSE,
                         prop.haps = prop.haps,
                         subset.haps = subset.haps,
                         perms = perms,
