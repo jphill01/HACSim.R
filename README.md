@@ -6,9 +6,11 @@ Most DNA barcoding studies conducted to date suggest sampling between 5-10 indiv
 
 Within the simulation algorithm, species haplotypes are treated as distinct character labels (1, 2, ...), where 1 denotes the most frequent haplotype, 2 denotes the second-most frequent haplotype, and so forth. The algorithm then randomly samples species haplotype labels in an iterative fashion, until all unique haplotypes have been observed. The idea is that levels of species haplotypic variation that are currently catalogued in BOLD can serve as proxies for total haplotype diversity that may exist for a given species.
 
-HACSim.R comprises two main functions (relevant code found in the files HAC.sim.R and HAC.simrep.R):
+HACSim.R comprises three main functions (relevant code found in the files HAC.sim.R and HAC.simrep.R):
 
-> HAC.sim()
+> HACHypothetical()
+
+> HACReal()
 
 > HAC.simrep().
 
@@ -41,7 +43,7 @@ HAC.sim() performs a single iteration of haplotype accumulation for a given spec
 
 Setting **p** = 0.95 corresponds to uncovering 95% of all haplotypes that may exist for a given species. At this level, the generated haplotype accumulation curve reaches a slope close to zero and further sampling effort is unlikely to uncover any new haplotypes. 
 
-Both HAC.sim() and HAC.simrep() output simple "Measures of Sampling Closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proportions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species. In addition to haplotype accumulation curves, plots depicting species haplotype frequency distributions are also displayed. 
+HAC.simrep() outputs simple "Measures of Sampling Closeness" for overall haplotype sampling completeness. Both absolute (counts) and relative (proportions) of species haplotypes sampled (observed) and missing (unobserved) are reported, along with estimates of the required sample size needed to uncover the specified level of species haplotypes and the number of additional specimens needed to be randomly sampled for a given species. In addition to haplotype accumulation curves, plots depicting species haplotype frequency distributions are also displayed. 
 
 Measures of Sampling Closeness for overall haplotype/specimen sampling completeness are given by the following fomulae (Phillips *et al.*, 2015):
 
@@ -57,26 +59,16 @@ Measures of Sampling Closeness for overall haplotype/specimen sampling completen
 
 * Mean number of specimens not sampled: N* - N
 
-Generated output also returns the slope estimate (*&beta;*<sub>1</sub>) for the haplotype accumulation curve, calculated using the last 10 points occurring on the curve. In addition, the quantity 1 / *&beta;*<sub>1</sub> is also returned. This is a measure of the number of additional specimens needed to be sampled to observe one new haplotype.
-
 In addition to users specifying unique values for **N**, **Hstar** and **probs**, default parameters can also be altered in order to produce more interesting output (e.g., simulating multiple subpopulations with or without migration/gene flow). It may be necessary to increase **perms** in order to smooth out the curves, but this will increase algorithm runtime substantially. 
 
 ### Running the Simulation ###
 
 To run the algorithm, do the following in a fresh R script:
 
-1. Import required C++/R scripts as follows:
+1. Set up all desired algorithm input parameters using standard R variable assignment. 
 
-> source("accumulate.cpp")
-
-> source("HAC.sim.R")
-
-> source("HAC.simrep.R")
-
-2. Set up all algorithm input parameters using standard R variable assignment. 
-
-3. Run the following line of code:
-
+3. Run the following lines of code:
+> HACHypothetical(...) for simulation of hypothetical species, or HACReal() for simulation of real species
 > HAC.simrep()
 
 **NOTE**: Users must have a system compiler (e.g. Xcode Command Line Tools on MacOS) installed in order to run the algorithm successfully.  
