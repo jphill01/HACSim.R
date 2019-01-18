@@ -27,10 +27,6 @@ Function arguments to HAC.sim() are as follows:
 * **input.seqs** = Analyze a user-specified DNA sequence FASTA file?
 (**input.seqs** = FALSE by default)
 
-* **sim.seqs** = Simulate DNA sequences? (**sim.seqs** = FALSE by default)
-
-* **subst.model** = Nucleotide substition model (**subst.model** = NULL by default)
-
 * **subset.seqs** = Subsample DNA sequences? (**subset.seqs** = FALSE by default)
 
 * **subset.haps** = Subsample DNA sequences? (**subset.haps** =  NULL by default)
