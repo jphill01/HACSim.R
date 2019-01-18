@@ -9,13 +9,8 @@ Description: Iterative extrapolation of species haplotype accumulation curves fo
 License: GPL (>= 3)
 NeedsCompilation: Yes
 Imports: ape (>= 5.0), 
-	 boot (>= 1.3-20), 
-         investr (>= 1.4.0), 
-         mgcv (>= 1.8-23), 
          pegas (>= 0.10),
-         Rcpp (>= 0.12.16), 
-         rootSolve (>= 1.7.0),
-         scam (>= 1.2-2)
+         Rcpp (>= 0.12.16)
 LinkingTo: Rcpp, 
            RcppArmadillo
 RoxygenNote: 6.0.1
