@@ -18,7 +18,7 @@ Function arguments to HAC.sim() are as follows:
 
 * **Hstar** = Number of observed haplotypes (unique DNA sequences) for a given species
 
-* **probs** = Haplotype frequency distribution for a given species (must sum to 1)
+* **probs** = Haplotype frequency distribution vector for a given species (must have a length of **Hstar** and sum to 1)
 
 * **perms** = Number of permutations to generate species haplotype accumulation curve (**perms** = 10000 by default)
 
