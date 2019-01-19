@@ -54,10 +54,10 @@ HAC.simrep <- function(HACSObject) {
     cat("\n \n \n Desired level of haplotype recovery has not yet been reached \n")
   } else {
     cat("\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
-        \n The initial guess for sampling sufficiency was N = ", paste0(N, "."),
-        "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
-        "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals with a bound of", paste(lo, hi, sep = "-"),
-        "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(d$specs) - N, "individuals with a bound of", paste(lo - N, hi - N, sep = "-"))
+        \n The initial guess for sampling sufficiency was N = ", paste0(N),
+        "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s", 
+        "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals",
+        "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(d$specs) - N, "individuals")
   }
   
   while (R < p) {
@@ -81,10 +81,10 @@ HAC.simrep <- function(HACSObject) {
       cat("\n \n \n Desired level of haplotype recovery has not yet been reached \n")
     } else {
       cat("\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
-          \n The initial guess for sampling sufficiency was N = ", paste0(N, "."),
-          "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s.", 
-          "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals with a bound of", paste(lo, hi, sep = "-", "."),
-          "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ", max(d$specs) - N, "individuals with a bound of", paste(lo - N, hi - N, sep = "-", "."))
+          \n The initial guess for sampling sufficiency was N = ", paste0(N),
+          "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s", 
+          "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals",
+          "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ", max(d$specs) - N, "individuals")
     }
     
   }
