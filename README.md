@@ -49,7 +49,7 @@ HAC.simrep() outputs simple "Measures of Sampling Closeness" for overall haploty
 
 Measures of Sampling Closeness for overall haplotype/specimen sampling completeness are given by the following fomulae (Phillips *et al.*, 2015):
 
-* Mean number of haplotypes sampled: H **(This value approaches H* as the algorithm progresses)**
+* Mean number of haplotypes sampled: H 
 
 * Number of haplotypes not sampled: H* - H
 
