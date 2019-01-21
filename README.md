@@ -71,6 +71,7 @@ To run the algorithm, do the following in a fresh R script:
 
 2. Run either of the following lines of code:
 > HACHypothetical(...) for simulation of hypothetical species
+
 > HACReal(...) for simulation of real species
 
 3. Run the simulator
