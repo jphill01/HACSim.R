@@ -69,13 +69,13 @@ To run the algorithm, do the following in a fresh R script:
 
 1. Set up all desired algorithm input parameters using standard R variable assignment. 
 
-2. Run either of the following lines of code:
-> HACHypothetical(...) for simulation of hypothetical species
+2. Run either of the following lines of code for simulation of either hypothetical or real species:
+> HACHypothetical(...) 
 
-> HACReal(...) for simulation of real species
+> HACReal(...)
 
 3. Run the simulator
-> HAC.simrep()
+> HAC.simrep(...)
 
 **NOTE**: Users must have a system compiler (e.g. Xcode Command Line Tools on MacOS) installed in order to run the algorithm successfully.  
 
