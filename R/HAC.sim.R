@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: January 17, 2019
+# Last modified: January 23, 2019
 
 ##########
 
@@ -153,7 +153,6 @@ HAC.sim <- function(N,
 	  sd <- apply(HAC.mat, MARGIN = 2, sd)
 	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025)) 
 	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975)) 
-
 	  
 	## Make data accessible to user ##
 	 
@@ -178,8 +177,8 @@ HAC.sim <- function(N,
 	   X <- ((N * length(subset.haps)) / P) - N
 	 }
 	  
-	  lo <- ceiling((N * Hstar) / tail(upper, n = 1))
-	  hi <- ceiling((N * Hstar) / tail(lower, n = 1))
+	  low <- ceiling((N * Hstar) / tail(upper, n = 1))
+	  high <- ceiling((N * Hstar) / tail(lower, n = 1))
 	  
   ## Output results to R console and CSV file ##
 	   
@@ -188,10 +187,10 @@ HAC.sim <- function(N,
 	       "\n Mean number of haplotypes not sampled: " , Q, 
 	       "\n Proportion of haplotypes sampled: " , R, 
 	       "\n Proportion of haplotypes not sampled: " , S,
-	       "\n \n Mean value of N*: ", Nstar, "( 95% CI:", paste(lo, hi, sep = "-"), ")",
+	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X)
 
-    df[nrow(df) + 1, ] <- c(P, tail(lower, n = 1), tail(upper, n = 1), Q, R, S, Nstar, lo, hi, X)
+    df[nrow(df) + 1, ] <- c(P, tail(lower, n = 1), tail(upper, n = 1), Q, R, S, Nstar, X)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       
