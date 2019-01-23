@@ -18,7 +18,7 @@ HAC.simrep <- function(HACSObject) {
   ptm <<- proc.time()
   assign("iters", 1, .GlobalEnv)
   
-  df <- data.frame(matrix(ncol = 8, nrow = 0))
+  df <- data.frame(matrix(ncol = 10, nrow = 0))
   x <- c("Mean number of haplotypes sampled",
          "Lower 95% confidence limit for number of haplotypes recovered",
          "Upper 95% confidence limit for number of haplotypes recovered",
@@ -26,6 +26,8 @@ HAC.simrep <- function(HACSObject) {
          "Proportion of haplotypes (specimens) sampled", 
          "Proportion of haplotypes (specimens) not sampled",
          "Mean value of N*",
+         "Lower 95% confidence limit for mean value of N*",
+         "Upper 95% confidence limit for mean value of N*",
          "Mean number of specimens not sampled")
   colnames(df) <- x
   
