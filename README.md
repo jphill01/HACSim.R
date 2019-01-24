@@ -70,12 +70,12 @@ To run the algorithm, do the following in a fresh R script:
 1. Set up all desired algorithm input parameters using standard R variable assignment. 
 
 2. Run either of the following lines of code for simulation of either hypothetical or real species:
-> HACHypothetical(...) 
+* HACHypothetical(...) 
 
-> HACReal(...)
+* HACReal(...)
 
 3. Run the simulator
-> HAC.simrep(...)
+* HAC.simrep(...)
 
 **NOTE**: Users must have a system compiler (e.g. Xcode Command Line Tools on MacOS) installed in order to run the algorithm successfully.  
 
@@ -99,7 +99,7 @@ In order to sucessfully run the simulation algorithm, the following conditions m
 
 * **probs** = rep(1/Hstar, Hstar)
 
-To run: HACHypothetical(N, Hstar, probs, ...)
+* HACHypothetical(N, Hstar, probs, ...)
 
 2. #### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) ####
 
@@ -109,7 +109,7 @@ To run: HACHypothetical(N, Hstar, probs, ...)
  
 * **probs** = c(215/**N**, rep(3/**N**, 2), rep(2/**N**, 2), rep(1/**N**, 10)) (or see **Custom User Data** below)
 
-To run: HACReal()
+* HACReal()
 
 ### Custom User Data ###
 
