@@ -99,7 +99,7 @@ In order to sucessfully run the simulation algorithm, the following conditions m
 
 * **probs** = rep(1/Hstar, Hstar)
 
-* HACHypothetical(N, Hstar, probs, ...)
+> HACHypothetical(N, Hstar, probs, ...)
 
 2. #### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) ####
 
@@ -109,7 +109,7 @@ In order to sucessfully run the simulation algorithm, the following conditions m
  
 * **probs** = c(215/**N**, rep(3/**N**, 2), rep(2/**N**, 2), rep(1/**N**, 10)) (or see **Custom User Data** below)
 
-* HACReal()
+> HACReal()
 
 ### Custom User Data ###
 
