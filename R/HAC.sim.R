@@ -69,7 +69,7 @@ HAC.sim <- function(N,
 	    at the ends of sequences, further alignment trimming is an option.")
 		}
 		
-		ptm <<- proc.time()
+		assign("ptm", proc.time(), envir = .GlobalEnv)
 		  
 	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
 	                             # can be used to simulate migration/gene flow
@@ -177,8 +177,8 @@ HAC.sim <- function(N,
 	   X <- ((N * length(subset.haps)) / P) - N
 	 }
 	  
-	  low <- ceiling(N - (qnorm(0.975) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N)))
-	  high <- ceiling(N + (qnorm(0.975) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N)))
+	  assign("low", signif(N - (qnorm(0.975) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
+	  assign("high", signif(N + (qnorm(0.975) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
 	  
   ## Output results to R console and CSV file ##
 	   
@@ -187,7 +187,7 @@ HAC.sim <- function(N,
 	       "\n Mean number of haplotypes not sampled: " , Q, 
 	       "\n Proportion of haplotypes sampled: " , R, 
 	       "\n Proportion of haplotypes not sampled: " , S,
-	       "\n \n Mean value of N*: ", Nstar , "( 95% CI:", paste(low, high, sep = "-"), ")",
+	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X)
 
     df[nrow(df) + 1, ] <- c(P, tail(lower, n = 1), tail(upper, n = 1), Q, R, S, Nstar, X)

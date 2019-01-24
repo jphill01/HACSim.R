@@ -3,9 +3,9 @@
 ## Runs HACSim until convergence (saturation in haplotype accumulation curves) is reached ##
 
 HAC.simrep <- function(HACSObject) {
-    N <<- HACSObject$N
-    Hstar <<- HACSObject$Hstar
-    probs <<- HACSObject$probs
+    assign("N", HACSObject$N, envir = .GlobalEnv)
+    assign("Hstar", HACSObject$Hstar, envir = .GlobalEnv)
+    assign("probs", HACSObject$probs, envir = .GlobalEnv)
     perms <- HACSObject$perms
     p <- HACSObject$p
     subset.haps <- HACSObject$subset.haps
@@ -15,10 +15,10 @@ HAC.simrep <- function(HACSObject) {
     input.seqs <- HACSObject$input.seqs
     filename <- HACSObject$filename
   
-  ptm <<- proc.time()
-  assign("iters", 1, .GlobalEnv)
+  assign("ptm", proc.time(), envir = .GlobalEnv)
+  assign("iters", 1, envir = .GlobalEnv)
   
-  df <- data.frame(matrix(ncol = 10, nrow = 0))
+  df <- data.frame(matrix(ncol = 8, nrow = 0))
   x <- c("Mean number of haplotypes sampled",
          "Lower 95% confidence limit for number of haplotypes recovered",
          "Upper 95% confidence limit for number of haplotypes recovered",
@@ -26,8 +26,6 @@ HAC.simrep <- function(HACSObject) {
          "Proportion of haplotypes (specimens) sampled", 
          "Proportion of haplotypes (specimens) not sampled",
          "Mean value of N*",
-         "Lower 95% confidence limit for mean value of N*",
-         "Upper 95% confidence limit for mean value of N*",
          "Mean number of specimens not sampled")
   colnames(df) <- x
   
@@ -56,8 +54,8 @@ HAC.simrep <- function(HACSObject) {
     cat("\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
         \n The initial guess for sampling sufficiency was N = ", paste0(N),
         "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s", 
-        "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals",
-        "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(d$specs) - N, "individuals")
+        "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals ( 95% CI:", paste(low, high, sep = "-"), ")",
+        "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(d$specs) - N, "individuals ( 95% CI:", paste(low - N, high - N, sep = "-"), ")")
   }
   
   while (R < p) {
@@ -83,8 +81,8 @@ HAC.simrep <- function(HACSObject) {
       cat("\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
           \n The initial guess for sampling sufficiency was N = ", paste0(N),
           "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s", 
-          "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals",
-          "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ", max(d$specs) - N, "individuals")
+          "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals ( 95% CI:", paste(low, high, sep = "-"), ")",
+          "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ", max(d$specs) - N, "individuals ( 95% CI:", paste(low - N, high - N, sep = "-"), ")")
     }
     
   }
