@@ -1,9 +1,9 @@
-### HACSim: Haplotype Accumulation Curve Simulator ###
+### Haplotype Accumulation Curve Simulation ###
 
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: January 23, 2019
+# Last modified: January 25, 2019
 
 ##########
 
@@ -25,6 +25,10 @@
 # p = Proportion of unique haplotypes to recover
 # perms = Number of permutations (replications)
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
+# sim.seqs = Simulate DNA sequences (TRUE / FALSE)?
+# subst.model = Nucleotide substition model (JC69 / K80 / F81 / HKY85, ...)
+# Q = rate matrix of nucleotide changes
+# rate 
 # subset.seqs = Subset of DNA sequences to sample
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
@@ -41,6 +45,10 @@ HAC.sim <- function(N,
                     subset.haps = NULL,
                     prop.haps = NULL,
                     input.seqs = FALSE,
+                    sim.seqs = FALSE,
+                    subst.model = NULL,
+                    Q = NULL,
+                    rate = NULL,
                     subset.seqs = FALSE,
                     prop.seqs = NULL,
                     df = NULL, # dataframe
@@ -56,8 +64,8 @@ HAC.sim <- function(N,
 
 	## Load DNA sequence data and set N, Hstar and probs ##
 	  
-    if (input.seqs == TRUE) {
-      seqs <- read.dna(file = file.choose(), format = "fasta")
+    if ((input.seqs == TRUE) || (sim.seqs == TRUE)) {
+		  seqs <- read.dna(file = file.choose(), format = "fasta")
 		  
 		  bf <- base.freq(seqs, all = TRUE)[5:17]
 	  
@@ -69,7 +77,7 @@ HAC.sim <- function(N,
 	    at the ends of sequences, further alignment trimming is an option.")
 		}
 		
-		assign("ptm", proc.time(), envir = .GlobalEnv)
+		ptm <<- proc.time()
 		  
 	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
 	                             # can be used to simulate migration/gene flow
@@ -84,6 +92,29 @@ HAC.sim <- function(N,
 		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
 
 	  }
+
+  ## Simulate DNA sequences ##
+  
+    if (sim.seqs == TRUE) {
+      
+      dis <- dist.dna(seqs, model = subst.model) # genetic distances
+      
+      tr <- nj(dis) # unrooted neighbour-joining tree
+      
+      bf <- base.freq(seqs)
+      
+      res <- as.DNAbin(simSeq(tr, l = ncol(seqs), Q = Q, rate = rate, bf = bf)) # convert to DNAbin format
+    
+      write.dna(res, file = "res.fas", format = "fasta") # output sequences to file
+    
+      assign("N", dim(res)[[1]], envir = .GlobalEnv)
+      h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
+      rownames(h) <- 1:nrow(h)
+      assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
+      assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
+    
+    }
+  
   
   ## Error messages ##
     
@@ -91,12 +122,8 @@ HAC.sim <- function(N,
       stop("N must be greater than or equal to Hstar")
     }
   
-    if ((N == 1) || (Hstar == 1))  {
-      stop("Both N and Hstar must be greater than 1")
-    }
-  
-    if (length(probs) != Hstar) {
-      stop("probs must have a length equal to Hstar")
+    if (N == 1) {
+      stop("N must be greater than 1")
     }
   
     if (sum(probs) != 1) {
@@ -139,21 +166,21 @@ HAC.sim <- function(N,
 	  
 	## Perform haplotype accumulation ##
     
-	  HAC.mat <- accumulate(pop, specs, perms, K) # one row selected at random 
+	  HAC.mat <- accumulate(pop, specs, perms, K) 
 
   ## Update progress bar ##
-	  
+    
 	  if (progress == TRUE) {
-	    utils::setTxtProgressBar(pb, i)
-	  }
-	  
+      utils::setTxtProgressBar(pb, i)
+    }
+	
 	## Calculate the mean and CI for number of haplotypes recovered over all permutations
 	  
 	  means <- apply(HAC.mat, MARGIN = 2, mean)
 	  sd <- apply(HAC.mat, MARGIN = 2, sd)
 	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025)) 
 	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975)) 
-	  
+	
 	## Make data accessible to user ##
 	 
 	  assign("d", data.frame(specs, means, sd, lower, upper), envir = .GlobalEnv)
@@ -179,18 +206,18 @@ HAC.sim <- function(N,
 	  
 	  assign("low", signif(N - (qnorm(0.975) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
 	  assign("high", signif(N + (qnorm(0.975) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
-	  
+	
   ## Output results to R console and CSV file ##
 	   
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
-	       "Mean number of haplotypes sampled: " , P, "( 95% CI:", paste(tail(lower, n = 1), tail(upper, n = 1), sep = "-"), ")",
+	       "Mean number of haplotypes sampled: " , P, "( 95% CI:", paste(ceiling(max(lower)), ceiling(max(upper)), sep = "-"), ")",
 	       "\n Mean number of haplotypes not sampled: " , Q, 
 	       "\n Proportion of haplotypes sampled: " , R, 
 	       "\n Proportion of haplotypes not sampled: " , S,
 	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X)
 
-    df[nrow(df) + 1, ] <- c(P, tail(lower, n = 1), tail(upper, n = 1), Q, R, S, Nstar, X)
+    df[nrow(df) + 1, ] <- c(P, ceiling(max(lower)), ceiling(max(upper)), Q, R, S, Nstar, X)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       
