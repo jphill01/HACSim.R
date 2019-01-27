@@ -8,9 +8,10 @@ Maintainer: Jarrett Phillips <jphill01@uoguelph.ca>
 Description: Iterative extrapolation of species haplotype accumulation curves for assessment of sampling completeness
 License: GPL (>= 3)
 NeedsCompilation: Yes
-Imports: ape (>= 5.0), 
-         pegas (>= 0.10),
-         Rcpp (>= 0.12.16)
+Imports: ape (>= 5.2), 
+         pegas (>= 0.11),
+         Rcpp (>= 1.0.0), 
+         RcppArmadillo (>= 0.9.200.7.0)
 LinkingTo: Rcpp, 
            RcppArmadillo
 RoxygenNote: 6.0.1
