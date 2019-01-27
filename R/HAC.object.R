@@ -1,13 +1,5 @@
 ## Master class, both functions return an object of this type
 HACClass <- function(input.seqs = NULL,
-                     sim.seqs = NULL,
-                     num.seqs = NULL,
-                     length.seqs = NULL,
-                     nucl.freq = NULL,
-                     subst.model = NULL,
-                     mu.rate = NULL,
-                     transi.rate = NULL,
-                     transv.rate = NULL,
                      subset.seqs = NULL,
                      prop.seqs = NULL,
                      prop.haps = NULL,
@@ -20,14 +12,6 @@ HACClass <- function(input.seqs = NULL,
                      conf.level = NA,
                      filename = NULL) {
     HACObject <- list(input.seqs = input.seqs,
-                      sim.seqs = sim.seqs,
-                      num.seqs = num.seqs,
-                      length.seqs = length.seqs,
-                      nucl.freq = nucl.freq,
-                      subst.model = subst.model,
-                      mu.rate = mu.rate,
-                      transi.rate = transi.rate,
-                      transv.rate = transv.rate,
                       subset.seqs = subset.seqs,
                       prop.seqs = prop.seqs,
                       prop.haps = prop.haps,
@@ -46,42 +30,14 @@ HACClass <- function(input.seqs = NULL,
     return(HACObject)
 }
 
-## This creates an evolution scenario or uses raw data from a file
-HAC <- function(type,
-                perms = 10000,
+## This uses DNA sequences from a FASTA file
+HACReal <- function(perms = 10000,
                 p = 0.95,
                 conf.level = 0.95,
                 subsample = FALSE,
                 prop = 0.1,
                 filename = NULL) {
-    ## Type has to be set
-    if (type == "evolution") {
-        # input.seqs <- FALSE # analyze DNA sequence file? 
-        # subset.haps <- NULL # subset haplotypes? 
-        # prop.haps <- NULL # proportion of haplotypes to subsample 
-        # subset.seqs <- FALSE # subset DNA sequences? 
-        # prop.seqs <- NULL # proportion of DNA sequences to subsample 
-        # sim.seqs <- TRUE # simulate DNA sequences? 
-        # subst.model <- "JC69" # nucleotide substitution model
-        # prop.seqs <- prop # proportion of DNA sequences to subsample
-
-        objectHAC <- HACClass(input.seqs = FALSE, 
-                              subset.seqs = FALSE, 
-                              sim.seqs = TRUE,
-                              num.seqs = num.seqs,
-                              length.seqs = length.seqs,
-                              nucl.freq = NULL,
-                              subst.model = "JC69",
-                              mu.rate = mu.rate,
-                              transi.rate = transi.rate,
-                              transv.rate = transv.rate,
-                              perms = perms, 
-                              p = p,
-                              conf.level = conf.level,
-                              filename = filename)
-    } else if (type == "real") {
         # input.seqs <- TRUE # analyze DNA sequence file? 
-        # sim.seqs <- FALSE # simulate DNA sequences? 
         # subset.haps <- NULL # subset haplotypes?  
         # prop.haps <- NULL # proportion of haplotypes to subsample 
         # subset.seqs <- TRUE # subset DNA sequences? 
@@ -96,13 +52,11 @@ HAC <- function(type,
         
         objectHAC <- HACClass(input.seqs = TRUE,
                               subset.seqs = subset.seqs,
-                              sim.seqs = FALSE,
                               prop.seqs = prop.seqs,
                               perms = perms,
                               p = p,
                               conf.level = conf.level,
                               filename = filename)
-    }
     
     return(objectHAC)
 }
@@ -130,7 +84,6 @@ HACHypothetical <- function(N,
     # Representation of what the parameters will be
   
     # input.seqs <- FALSE # subset DNA sequences? 
-    # sim.seqs <- FALSE # simulate DNA sequences? 
     # subset.seqs <- FALSE # subset DNA sequences? 
     # prop.seqs <- NULL # proportion of DNA sequences to subsample 
     # subset.haps <- NULL # subset haplotypes? 
@@ -147,7 +100,6 @@ HACHypothetical <- function(N,
                         probs = probs,
                         input.seqs = FALSE,
                         subset.seqs = FALSE,
-                        sim.seqs = FALSE,
                         prop.haps = prop.haps,
                         subset.haps = subset.haps,
                         perms = perms,

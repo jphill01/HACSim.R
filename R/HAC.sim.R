@@ -25,8 +25,6 @@
 # p = Proportion of unique haplotypes to recover
 # perms = Number of permutations (replications)
 # input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
-# sim.seqs = Simulate DNA sequences (TRUE / FALSE)?
-# subst.model = Nucleotide substition model (JC69 / K80 / F81 / HKY85, ...)
 # subset.seqs = Subset of DNA sequences to sample
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
@@ -44,14 +42,6 @@ HAC.sim <- function(N,
                     subset.haps = NULL,
                     prop.haps = NULL,
                     input.seqs = FALSE,
-                    sim.seqs = FALSE,
-                    num.seqs = NULL,
-                    length.seqs = NULL,
-                    nucl.freq = NULL,
-                    subst.model = NULL,
-                    mu.rate = NULL,
-                    transi.rate = NULL,
-                    transv.rate = NULL,
                     subset.seqs = FALSE,
                     prop.seqs = NULL,
                     conf.level = 0.95,
@@ -68,7 +58,7 @@ HAC.sim <- function(N,
 
 	## Load DNA sequence data and set N, Hstar and probs ##
 	  
-    if ((input.seqs == TRUE) || (sim.seqs == TRUE)) {
+    if (input.seqs == TRUE) {
 		  seqs <- read.dna(file = file.choose(), format = "fasta")
 		  
 		  bf <- base.freq(seqs, all = TRUE)[5:17]
@@ -96,103 +86,6 @@ HAC.sim <- function(N,
 		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
 
 	  }
-
-  ## Simulate DNA sequences ##
-  
-    if (sim.seqs == TRUE) {
-      
-      if (sim.seqs == TRUE) {
-        
-        nucl <- as.DNAbin(c('a','c','g','t'))
-        
-        if ((subst.model == "JC69") || (subst.model == "K80")) {
-          res <- sample(nucl, size = length.seqs, replace = TRUE)
-        }
-        
-        if ((subst.model == "F81") || (subst.model == "HKY85")) {
-          res <- sample(nucl, size = length.seqs, replace = TRUE, prob = nucl.freq)
-        }
-        
-        if ((subst.model == "JC69") || (subst.model == "F81")) {
-          
-          mu.set <- list('a' = as.DNAbin('c'),
-                         'a' = as.DNAbin('g'),
-                         'a' = as.DNAbin('t'),
-                         'c' = as.DNAbin('a'),
-                         'c' = as.DNAbin('g'),
-                         'c' = as.DNAbin('t'),
-                         'g' = as.DNAbin('a'),
-                         'g' = as.DNAbin('c'),
-                         'g' = as.DNAbin('t'),
-                         't' = as.DNAbin('a'),
-                         't' = as.DNAbin('c'),
-                         't' = as.DNAbin('g'))
-          
-          muts <- function(res) {
-            unlist(mu.set[as.character(res)])
-          }
-          
-          duplicate.seq <- function(res) {
-            num.muts <- rbinom(n = 1, size = length.seqs, prob = mu.rate) # total number of substitutions
-            if (num.muts > 0) {
-              idx <- sample(length.seqs, size = num.muts, replace = FALSE)
-              res[idx] <- muts(res[idx])
-            }
-            res
-          }
-          
-        }
-        
-        if ((subst.model == "K80") || (subst.model == "HKY85")) {
-          
-          transi.set <- list('a' = as.DNAbin('g'), 
-                             'c' = as.DNAbin('t'),
-                             'g' = as.DNAbin('a'), 
-                             't' = as.DNAbin('c'))
-          transv.set <- list('a' = as.DNAbin(c('c', 't')),
-                             'c' = as.DNAbin(c('a', 'g')),
-                             'g' = as.DNAbin(c('c', 't')), 
-                             't' = as.DNAbin(c('a', 'g')))
-          
-          transi <- function(res) {
-            unlist(transi.set[as.character(res)])
-          }
-          
-          transv <- function(res) {
-            sapply(transv.set[as.character(res)], sample, 1)
-          }
-          
-          duplicate.seq <- function(res) {
-            num.transi <- rbinom(n = 1, size = length.seqs, prob = transi.rate) # total number of transitions
-            if (num.transi > 0) {
-              idx <- sample(length.seqs, size = num.transi, replace = FALSE)
-              res[idx] <- transi(res[idx])
-            }
-            
-            num.transv <- rbinom(n = 1, size = length.seqs, prob = transv.rate) # total number of transversions
-            if (num.transv > 0) {
-              idx <- sample(length.seqs, size = num.transv, replace = FALSE)
-              res[idx] <- transv(res[idx])
-            }
-            res
-          }
-        }
-        
-        res <- matrix(replicate(num.seqs, duplicate.seq(res)), byrow = TRUE, nrow = num.seqs)
-        
-        class(res) <- "DNAbin"
-        
-        write.dna(res, file = "seqs.fas", format = "fasta")
-        
-        assign("N", dim(res)[[1]], envir = .GlobalEnv)
-        h <- sort(haplotype(res), decreasing = TRUE, what = "frequencies")
-        rownames(h) <- 1:nrow(h)
-        assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
-        assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
-        
-      }
-    }
-  
   
   ## Error messages ##
     

@@ -14,14 +14,6 @@ HAC.simrep <- function(HACSObject) {
     subset.seqs <- HACSObject$subset.seqs
     prop.seqs <- HACSObject$prop.seqs
     input.seqs <- HACSObject$input.seqs
-    sim.seqs <- HACSObject$sim.seqs
-    num.seqs <- HACSObject$num.seqs
-    length.seqs <- HACSObject$length.seqs
-    nucl.freq <- HACSObject$nucl.freq
-    subst.model <- HACSObject$subst.model
-    mu.rate <- HACSObject$mu.rate
-    transi.rate <- HACSObject$transi.rate
-    transv.rate <- HACSObject$transv.rate
     filename <- HACSObject$filename
   
   assign("ptm", proc.time(), envir = .GlobalEnv)
@@ -29,8 +21,8 @@ HAC.simrep <- function(HACSObject) {
   
   df <- data.frame(matrix(ncol = 8, nrow = 0))
   x <- c("Mean number of haplotypes sampled",
-         "Lower 95% confidence limit for number of haplotypes recovered",
-         "Upper 95% confidence limit for number of haplotypes recovered",
+         "Lower confidence limit for number of haplotypes recovered",
+         "Upper confidence limit for number of haplotypes recovered",
          "Mean number of haplotypes not sampled", 
          "Proportion of haplotypes (specimens) sampled", 
          "Proportion of haplotypes (specimens) not sampled",
@@ -50,14 +42,6 @@ HAC.simrep <- function(HACSObject) {
                subset.seqs = subset.seqs,
                prop.seqs = prop.seqs,
                input.seqs = input.seqs,
-               sim.seqs = sim.seqs,
-               num.seqs = num.seqs,
-               length.seqs = length.seqs,
-               nucl.freq = nucl.freq,
-               subst.model = subst.model,
-               mu.rate = mu.rate,
-               transi.rate = transi.rate,
-               transv.rate = transv.rate,
                conf.level = conf.level,
                df = df
   )
