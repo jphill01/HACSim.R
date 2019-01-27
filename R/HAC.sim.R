@@ -31,6 +31,7 @@
 # prop.seqs = Proportion of DNA sequences to sample 
 # prop.haps = Proportion of haplotypes to sample 
 # subset.haps = Subset of haplotypes to sample
+# conf.level = confides level for accumulation curve and confidence intervals
 
 #####
 
@@ -53,6 +54,7 @@ HAC.sim <- function(N,
                     transv.rate = NULL,
                     subset.seqs = FALSE,
                     prop.seqs = NULL,
+                    conf.level = 0.95,
                     df = NULL, # dataframe
                     progress = TRUE) {
   
@@ -254,8 +256,8 @@ HAC.sim <- function(N,
 	  
 	  means <- apply(HAC.mat, MARGIN = 2, mean)
 	  sd <- apply(HAC.mat, MARGIN = 2, sd)
-	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.025)) 
-	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, 0.975)) 
+	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 - conf.level) / 2)) 
+	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 + conf.level) / 2)) 
 	
 	## Make data accessible to user ##
 	 
@@ -280,13 +282,13 @@ HAC.sim <- function(N,
 	   X <- ((N * length(subset.haps)) / P) - N
 	 }
 	  
-	  assign("low", signif(N - (qnorm(0.975) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
-	  assign("high", signif(N + (qnorm(0.975) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
+	  assign("low", signif(N - (qnorm((1 + conf.level) / 2) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
+	  assign("high", signif(N + (qnorm((1 + conf.level) / 2) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
 	
   ## Output results to R console and CSV file ##
 	   
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
-	       "Mean number of haplotypes sampled: " , P, "( 95% CI:", paste(ceiling(max(lower)), ceiling(max(upper)), sep = "-"), ")",
+	       "Mean number of haplotypes sampled: " , P, "(", paste0(conf.level * 100, "%"), "CI:", paste(ceiling(max(lower)), ceiling(max(upper)), sep = "-"), ")",
 	       "\n Mean number of haplotypes not sampled: " , Q, 
 	       "\n Proportion of haplotypes sampled: " , R, 
 	       "\n Proportion of haplotypes not sampled: " , S,

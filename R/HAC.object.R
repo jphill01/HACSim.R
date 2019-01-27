@@ -4,7 +4,7 @@ HACClass <- function(input.seqs = NULL,
                      num.seqs = NULL,
                      length.seqs = NULL,
                      nucl.freq = NULL,
-                     subst.model = "JC69",
+                     subst.model = NULL,
                      mu.rate = NULL,
                      transi.rate = NULL,
                      transv.rate = NULL,
@@ -17,6 +17,7 @@ HACClass <- function(input.seqs = NULL,
                      probs = NA,
                      p = NA,
                      perms = NA,
+                     conf.level = NA,
                      filename = NULL) {
     HACObject <- list(input.seqs = input.seqs,
                       sim.seqs = sim.seqs,
@@ -36,6 +37,7 @@ HACClass <- function(input.seqs = NULL,
                       probs = probs,
                       p = p,
                       perms = perms,
+                      conf.level = conf.level,
                       filename = filename
     )
     
@@ -48,6 +50,7 @@ HACClass <- function(input.seqs = NULL,
 HAC <- function(type,
                 perms = 10000,
                 p = 0.95,
+                conf.level = 0.95,
                 subsample = FALSE,
                 prop = 0.1,
                 filename = NULL) {
@@ -74,6 +77,7 @@ HAC <- function(type,
                               transv.rate = transv.rate,
                               perms = perms, 
                               p = p,
+                              conf.level = conf.level,
                               filename = filename)
     } else if (type == "real") {
         # input.seqs <- TRUE # analyze DNA sequence file? 
@@ -96,6 +100,7 @@ HAC <- function(type,
                               prop.seqs = prop.seqs,
                               perms = perms,
                               p = p,
+                              conf.level = conf.level,
                               filename = filename)
     }
     
@@ -108,6 +113,7 @@ HACHypothetical <- function(N,
                             probs,
                             perms = 10000,
                             p = 0.95,
+                            conf.level = 0.95,
                             subsample = FALSE,
                             prop = 0.1,
                             filename = NULL) {
@@ -146,6 +152,7 @@ HACHypothetical <- function(N,
                         subset.haps = subset.haps,
                         perms = perms,
                         p = p,
+                        conf.level = conf.level,
                         filename = filename)
     return(objectHAC)
 }
