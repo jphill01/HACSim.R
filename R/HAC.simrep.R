@@ -14,9 +14,13 @@ HAC.simrep <- function(HACSObject) {
     prop.seqs <- HACSObject$prop.seqs
     input.seqs <- HACSObject$input.seqs
     sim.seqs <- HACSObject$sim.seqs
+    num.seqs <- HACSObject$num.seqs
+    length.seqs <- HACSObject$length.seqs
+    nucl.freq <- HACSObject$nucl.freq
     subst.model <- HACSObject$subst.model
-    Q <- HACSObject$Q
-    rate <- HACSObject$rate
+    mu.rate <- HACSObject$mu.rate
+    transi.rate <- HACSObject$transi.rate
+    transv.rate <- HACSObject$transv.rate
     filename <- HACSObject$filename
   
   assign("ptm", proc.time(), envir = .GlobalEnv)
@@ -46,9 +50,13 @@ HAC.simrep <- function(HACSObject) {
                prop.seqs = prop.seqs,
                input.seqs = input.seqs,
                sim.seqs = sim.seqs,
+               num.seqs = num.seqs,
+               length.seqs = length.seqs,
+               nucl.freq = nucl.freq,
                subst.model = subst.model,
-               Q = Q,
-               rate = rate,
+               mu.rate = mu.rate,
+               transi.rate = transi.rate,
+               transv.rate = transv.rate,
                df = df
   )
   

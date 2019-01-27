@@ -1,9 +1,13 @@
 ## Master class, both functions return an object of this type
 HACClass <- function(input.seqs = NULL,
                      sim.seqs = NULL,
-                     subst.model = NULL,
-                     Q = NULL,
-                     rate = 1,
+                     num.seqs = NULL,
+                     length.seqs = NULL,
+                     nucl.freq = NULL,
+                     subst.model = "JC69",
+                     mu.rate = NULL,
+                     transi.rate = NULL,
+                     transv.rate = NULL,
                      subset.seqs = NULL,
                      prop.seqs = NULL,
                      prop.haps = NULL,
@@ -16,9 +20,13 @@ HACClass <- function(input.seqs = NULL,
                      filename = NULL) {
     HACObject <- list(input.seqs = input.seqs,
                       sim.seqs = sim.seqs,
+                      num.seqs = num.seqs,
+                      length.seqs = length.seqs,
+                      nucl.freq = nucl.freq,
                       subst.model = subst.model,
-                      Q = NULL,
-                      rate = 1,
+                      mu.rate = mu.rate,
+                      transi.rate = transi.rate,
+                      transv.rate = transv.rate,
                       subset.seqs = subset.seqs,
                       prop.seqs = prop.seqs,
                       prop.haps = prop.haps,
@@ -37,14 +45,11 @@ HACClass <- function(input.seqs = NULL,
 }
 
 ## This creates an evolution scenario or uses raw data from a file
-HACReal <- function(type,
+HAC <- function(type,
                 perms = 10000,
                 p = 0.95,
                 subsample = FALSE,
                 prop = 0.1,
-                subst.model = "JC69",
-                Q = NULL,
-                rate = 1,
                 filename = NULL) {
     ## Type has to be set
     if (type == "evolution") {
@@ -55,22 +60,24 @@ HACReal <- function(type,
         # prop.seqs <- NULL # proportion of DNA sequences to subsample 
         # sim.seqs <- TRUE # simulate DNA sequences? 
         # subst.model <- "JC69" # nucleotide substitution model
-        # rate matrix <- NULL # rate matrix of nucleotide change
-        # rate <- 1
         # prop.seqs <- prop # proportion of DNA sequences to subsample
 
         objectHAC <- HACClass(input.seqs = FALSE, 
                               subset.seqs = FALSE, 
-                              sim.seqs = TRUE, 
-                              subst.model = subst.model,
-                              Q = Q,
-                              rate = rate,
+                              sim.seqs = TRUE,
+                              num.seqs = num.seqs,
+                              length.seqs = length.seqs,
+                              nucl.freq = NULL,
+                              subst.model = "JC69",
+                              mu.rate = mu.rate,
+                              transi.rate = transi.rate,
+                              transv.rate = transv.rate,
                               perms = perms, 
                               p = p,
                               filename = filename)
     } else if (type == "real") {
         # input.seqs <- TRUE # analyze DNA sequence file? 
-        # sim.seqs <- FALSE # simulate DNA sequrnces? 
+        # sim.seqs <- FALSE # simulate DNA sequences? 
         # subset.haps <- NULL # subset haplotypes?  
         # prop.haps <- NULL # proportion of haplotypes to subsample 
         # subset.seqs <- TRUE # subset DNA sequences? 
