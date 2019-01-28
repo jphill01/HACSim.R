@@ -1,18 +1,14 @@
 \name{HACSim-package}
 \alias{HACSim-package}
-\alias{HAC.simaic}
-\alias{HAC.simboot}
-\alias{HAC.simest}
-\alias{HAC.simfit}
-\alias{HAC.simmodels}
-\alias{HAC.simplot}
+\alias{HACReal}
+\alias{HACHypothetical}
 \alias{HAC.simrep}
 \docType{package}
 \title{
 \packageTitle{HACSim}
 }
 \description{
-HACSim employs a novel method of iteratively generating species haplotype accumulation curves through extrapolation in order to assess sampling completeness based on the approach of Phillips et al. (2015). Inverse estimation methods for univariate semiparametric fitting of haplotype accumulation curves via Gaussian Generalized Additive Models (GAMs), Gaussian Shape-Constrained Additve Models (SCAMs) and Gaussian Process (kriging) models for the calculation of specimen sample sizes are available. Methods to compute both large-sample (asymptotically Normal) and bootstrap confidence intervals are also available. 
+HACSim employs a novel method of iteratively generating species haplotype accumulation curves through extrapolation in order to assess sampling completeness based on the approach of Phillips et al. (2015).
 }
 \details{
 
@@ -37,5 +33,9 @@ Phillips, J.D., Gwiazdowski, R.A., Ashlock, D. and Hanner, R. (2015). An explora
 ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
-~~ simple examples of the most important functions ~~
+## Simulate hypothetical species ##
+HACSObj <- HACHypothetical(N, Hstar, probs, filename = "output")
+
+## Simulate real species ##
+HACSObj <- HACReal(filename = "output")
 }
