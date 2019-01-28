@@ -39,7 +39,7 @@ Function arguments to HAC.sim() are as follows:
 
 * **prop.seqs** = Proportion of DNA sequences to subsample (**prop.seqs** = NULL by default)
 
-* **conf.level** = Desired confidence level for estimation and graphical display (**conf.level = 0.95**) by default
+* **conf.level** = Desired confidence level for estimation and graphical display (**conf.level** = 0.95) by default
 
 **perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
