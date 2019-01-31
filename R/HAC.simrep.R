@@ -9,6 +9,7 @@ HAC.simrep <- function(HACSObject) {
     perms <- HACSObject$perms
     p <- HACSObject$p
     conf.level <- HACSObject$conf.level
+    conf.type <-HACSObject$conf.type
     subset.haps <- HACSObject$subset.haps
     prop.haps <- HACSObject$prop.haps
     subset.seqs <- HACSObject$subset.seqs
@@ -43,6 +44,7 @@ HAC.simrep <- function(HACSObject) {
                prop.seqs = prop.seqs,
                input.seqs = input.seqs,
                conf.level = conf.level,
+               conf.type = conf.type,
                df = df
   )
   
@@ -71,6 +73,7 @@ HAC.simrep <- function(HACSObject) {
                   subset.seqs = subset.seqs,
                   prop.seqs = prop.seqs,
                   conf.level = conf.level,
+                  conf.type = conf.type,
                   df = df)
     
     assign("iters", iters + 1, .GlobalEnv)
