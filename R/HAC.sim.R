@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: January 30, 2019
+# Last modified: February 1, 2019
 
 ##########
 
@@ -155,7 +155,7 @@ HAC.sim <- function(N,
 	 
 	## Make data accessible to user ##
 	 
-	  assign("d", data.frame(specs, means, sd, lower, upper), envir = .GlobalEnv)
+	  assign("d", data.frame(specs, means, sd), envir = .GlobalEnv)
 
 	## Compute simple summary statistics and display output ##
 	## tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()
@@ -182,14 +182,14 @@ HAC.sim <- function(N,
   ## Output results to R console and CSV file ##
 	   
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
-	       "Mean number of haplotypes sampled: " , P, "(", paste0(conf.level * 100, "%"), "CI:", paste(tail(lower, n = 1), tail(upper, n = 1), sep = "-"), ")",
+	       "Mean number of haplotypes sampled: " , P,
 	       "\n Mean number of haplotypes not sampled: " , Q, 
 	       "\n Proportion of haplotypes sampled: " , R, 
 	       "\n Proportion of haplotypes not sampled: " , S,
 	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X)
 
-    df[nrow(df) + 1, ] <- c(P, tail(lower, n = 1), tail(upper, n = 1), Q, R, S, Nstar, X)
+    df[nrow(df) + 1, ] <- c(P, Q, R, S, Nstar, X)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       
