@@ -36,30 +36,30 @@ library(HACSim)
 
 ## Set parameters for hypothetical species ##
 
-N <- 50 # total number of sampled individuals
-Hstar <- 20 # total number of haplotypes
-probs <- c(rep(0.30, 3), rep(0.10/17, 17)) # must sum to 1
+N <- 100 # total number of sampled individuals
+Hstar <- 10 # total number of haplotypes
+probs <- c(rep(0.30, 3), rep(0.10/7, 7)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
 
 ### Run HAC Simulations ###
 
 ## Simulate hypothetical species ##
 ## If not set, prop defaults to 0.10
-HACSObj <- HACHypothetical(N, Hstar, probs, conf.level = 0.99, conf.type = "asymptotic", filename = "output")
+HACSObj <- HACHypothetical(N, Hstar, probs, perms = 10, conf.level = 0.99, filename = "output")
 
 ## Simulate hypothetical species - subsampling ##
-HACSObj <- HACHypothetical(N, Hstar, probs, conf.level = 0.99,  conf.type = "quantile", subsample = TRUE, prop = 0.25, filename = "output")
+HACSObj <- HACHypothetical(N, Hstar, probs, conf.level = 0.99, subsample = TRUE, prop = 0.25, filename = "output")
 
 ## Simulate hypothetical species and all paramaters changed - subsampling ##
-HACSObj <- HACHypothetical(N, Hstar, probs, perms = 10000, conf.level = 0.99, conf.type = "quantile", p = 0.90, subsample = TRUE, prop = 0.15, filename = "output")
+HACSObj <- HACHypothetical(N, Hstar, probs, perms = 10000, conf.level = 0.99, p = 0.90, subsample = TRUE, prop = 0.15, filename = "output")
 
 ## Simulate real species ##
-HACSObj <- HACReal(p = 0.95, perms = 10000, conf.level = 0.99, conf.type = "quantile", filename = "output")
+HACSObj <- HACReal(p = 1, perms = 10000, conf.level = 0.95, filename = "output")
 
 ## Simulate real species - subsampling ##
-HACSObj <- HACReal(subsample = TRUE, prop = 0.15, onf.level = 0.99, conf.type = "quantile", filename = "output")
+HACSObj <- HACReal(subsample = TRUE, prop = 0.15, onf.level = 0.99, filename = "output")
 
 ## Simulate real species and all parameters changed - subsampling ##
-HACSObj <- HACReal(perms = 10000, p = 0.90, subsample = TRUE, prop = 0.15, onf.level = 0.99, conf.type = "quantile", filename = "output")
+HACSObj <- HACReal(perms = 10000, p = 0.90, subsample = TRUE, prop = 0.15, conf.level = 0.99, filename = "output")
 
 HAC.simrep(HACSObj)
