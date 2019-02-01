@@ -10,7 +10,6 @@ HACClass <- function(input.seqs = NULL,
                      p = NA,
                      perms = NA,
                      conf.level = NA,
-                     conf.type = NA,
                      filename = NULL) {
     HACObject <- list(input.seqs = input.seqs,
                       subset.seqs = subset.seqs,
@@ -23,7 +22,6 @@ HACClass <- function(input.seqs = NULL,
                       p = p,
                       perms = perms,
                       conf.level = conf.level,
-                      conf.type = conf.type,
                       filename = filename
     )
     
@@ -36,7 +34,6 @@ HACClass <- function(input.seqs = NULL,
 HACReal <- function(perms = 10000,
                 p = 0.95,
                 conf.level = 0.95,
-                conf.type = "quantile",
                 subsample = FALSE,
                 prop = 0.1,
                 filename = NULL) {
@@ -59,7 +56,6 @@ HACReal <- function(perms = 10000,
                               perms = perms,
                               p = p,
                               conf.level = conf.level,
-                              conf.type = conf.type,
                               filename = filename)
     
     return(objectHAC)
@@ -72,7 +68,6 @@ HACHypothetical <- function(N,
                             perms = 10000,
                             p = 0.95,
                             conf.level = 0.95,
-                            conf.type = "quantile",
                             subsample = FALSE,
                             prop = 0.1,
                             filename = NULL) {
@@ -110,7 +105,6 @@ HACHypothetical <- function(N,
                         perms = perms,
                         p = p,
                         conf.level = conf.level,
-                        conf.type = conf.type,
                         filename = filename)
     return(objectHAC)
 }

@@ -30,7 +30,6 @@
 # prop.haps = Proportion of haplotypes to sample 
 # subset.haps = Subset of haplotypes to sample
 # conf.level = confides level for accumulation curve and confidence intervals
-# conf.type = type of confidence level to calculate (quantile or asymptotic)
 
 #####
 
@@ -46,7 +45,6 @@ HAC.sim <- function(N,
                     subset.seqs = FALSE,
                     prop.seqs = NULL,
                     conf.level = 0.95,
-                    conf.type = "quantile",
                     df = NULL, # dataframe
                     progress = TRUE) {
   
@@ -177,28 +175,21 @@ HAC.sim <- function(N,
 	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
 	   X <- ((N * length(subset.haps)) / P) - N
 	 }
-	  
-	  if (conf.type == "asymptotic") {
-	    assign("low", signif(N - (qnorm((1 + conf.level) / 2) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
-	    assign("high", signif(N + (qnorm((1 + conf.level) / 2) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
-	  }
-	  
-	  if (conf.type == "quantile") {
-	    assign("low", ceiling((N * Hstar) / tail(upper, n = 1)), envir = .GlobalEnv)
-	    assign("high", ceiling((N * Hstar) / tail(lower, n = 1)), envir = .GlobalEnv)
-	  }
+	 
+	  assign("low", signif(N - (qnorm((1 + conf.level) / 2) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
+	  assign("high", signif(N + (qnorm((1 + conf.level) / 2) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
 	
   ## Output results to R console and CSV file ##
 	   
 	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
-	       "Mean number of haplotypes sampled: " , P, "(", paste0(conf.level * 100, "%"), "CI:", paste(ceiling(tail(lower, n = 1)), ceiling(tail(upper, n = 1)), sep = "-"), ")",
+	       "Mean number of haplotypes sampled: " , P, "(", paste0(conf.level * 100, "%"), "CI:", paste(tail(lower, n = 1), tail(upper, n = 1), sep = "-"), ")",
 	       "\n Mean number of haplotypes not sampled: " , Q, 
 	       "\n Proportion of haplotypes sampled: " , R, 
 	       "\n Proportion of haplotypes not sampled: " , S,
 	       "\n \n Mean value of N*: ", Nstar,
 	       "\n Mean number of specimens not sampled: ", X)
 
-    df[nrow(df) + 1, ] <- c(P, ceiling(tail(lower, n = 1)), ceiling(tail(upper, n = 1)), Q, R, S, Nstar, X)
+    df[nrow(df) + 1, ] <- c(P, tail(lower, n = 1), tail(upper, n = 1), Q, R, S, Nstar, X)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       
