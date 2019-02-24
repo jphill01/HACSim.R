@@ -1,4 +1,4 @@
-### Haplotype Accumulation Curve Simulation ###
+### HACSim: Haplotype Accumulation Curve Simulator ###
 
 ##########
 
@@ -101,6 +101,10 @@ HAC.sim <- function(N,
       stop("probs must sum to 1")
     }
   
+    if (perms == 1) {
+      stop("perms must be greater than 1")
+    }
+  
   ## Set up container to hold the identity of each individual from each permutation ##
     
     num.specs <- N
@@ -180,21 +184,20 @@ HAC.sim <- function(N,
 	  assign("high", signif(N + (qnorm((1 + conf.level) / 2) * (tail(d$sd, n = 1) / tail(d$means, n = 1)) * sqrt(N))), envir = .GlobalEnv)
 	
   ## Output results to R console and CSV file ##
+	  
+	  cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
+	        "Mean number of haplotypes sampled: " , P,
+	        "\n Mean number of haplotypes not sampled: " , Q, 
+	        "\n Proportion of haplotypes sampled: " , R, 
+	        "\n Proportion of haplotypes not sampled: " , S,
+	        "\n \n Mean value of N*: ", Nstar,
+	        "\n Mean number of specimens not sampled: ", X)
 	   
-	   cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
-	       "Mean number of haplotypes sampled: " , P,
-	       "\n Mean number of haplotypes not sampled: " , Q, 
-	       "\n Proportion of haplotypes sampled: " , R, 
-	       "\n Proportion of haplotypes not sampled: " , S,
-	       "\n \n Mean value of N*: ", Nstar,
-	       "\n Mean number of specimens not sampled: ", X)
-
     df[nrow(df) + 1, ] <- c(P, Q, R, S, Nstar, X)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
+      par(mfrow = c(1, 2))
       
-    par(mfrow = c(1, 2))
-    
       if (is.null(subset.haps)) {
         plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes",  ylim = c(1, Hstar), main = "Haplotype accumulation curve")
       } else {
@@ -213,6 +216,6 @@ HAC.sim <- function(N,
         abline(h = p * length(subset.haps), lty = 3) # dotted line
         HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
       }
-      
+
 	  df
 } # end HAC.sim
