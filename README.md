@@ -125,7 +125,7 @@ Aligned and trimmed 652 bp 5'-COI barcode sequences for Lake whitefish (*Coregon
 
 ### Citing This Work ###
 
-In utilizing HACSim, please cite the following publications:
+In utilizing HACSim, the following publications may be of interest and worth citing:
 
 **Phillips, J.D.**, Gwiazdowski, R.A., Ashlock, D. and Hanner, R. (2015). An exploration of sufficient sampling effort to describe intraspecific DNA barcode haplotype diversity: examples from the ray-finned fishes (Chordata: Actinopterygii). *DNA Barcodes*, **3**: 66-73.
 
