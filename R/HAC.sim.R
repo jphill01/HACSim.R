@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: February 23, 2019
+# Last modified: March 3, 2019
 
 ##########
 
@@ -95,6 +95,10 @@ HAC.sim <- function(N,
   
     if (N == 1) {
       stop("N must be greater than 1")
+    }
+  
+    if (Hstar == 1) {
+      stop("H* must be greater than 1")
     }
   
     if (sum(probs) != 1) {
