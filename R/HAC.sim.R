@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 3, 2019
+# Last modified: March 11, 2019
 
 ##########
 
@@ -173,15 +173,15 @@ HAC.sim <- function(N,
 	 if (is.null(subset.haps)) {
 	   Q <- Hstar - P
 	   assign("R", P / Hstar, envir = .GlobalEnv)
-	   S <- {Hstar - P} / Hstar
-	   assign("Nstar", {N * Hstar} / P, envir = .GlobalEnv)
-	   X <- {{N * Hstar} / P} - N
+	   S <- (Hstar - P) / Hstar
+	   assign("Nstar", (N * Hstar) / P, envir = .GlobalEnv)
+	   X <- ((N * Hstar) / P) - N
 	 } else {
 	   Q <- length(subset.haps) - P
 	   assign("R", P / length(subset.haps), envir = .GlobalEnv)
-	   S <- {length(subset.haps) - P} / length(subset.haps)
-	   assign("Nstar", {N * length(subset.haps)} / P, envir = .GlobalEnv)
-	   X <- {{N * length(subset.haps)} / P} - N
+	   S <- (length(subset.haps) - P) / length(subset.haps)
+	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
+	   X <- ((N * length(subset.haps)) / P) - N
 	 }
 	 
 	  assign("low", signif(N - {qnorm({1 + conf.level} / 2) * {tail(d$sd, n = 1) / tail(d$means, n = 1)} * sqrt(N)}), envir = .GlobalEnv)
