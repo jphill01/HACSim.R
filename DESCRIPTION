@@ -1,10 +1,10 @@
 Package: HACSim
 Type: Package
 Title: Iterative extrapolation of species haplotype accumulation curves
-Version: 1.0
+Version: 1.0.0
 Date: 2018-04-06
 Author: Jarrett Phillips
-Maintainer: Jarrett Phillips <jphill01@uoguelph.ca>
+Maintainer: Jarrett Phillips <phillipsjarrett1@gmail.com>
 Description: Iterative extrapolation of species haplotype accumulation curves for assessment of sampling completeness
 License: GPL (>= 3)
 NeedsCompilation: Yes
