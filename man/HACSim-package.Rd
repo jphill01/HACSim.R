@@ -34,8 +34,17 @@ Phillips, J.D., Gwiazdowski, R.A., Ashlock, D. and Hanner, R. (2015). An explora
 }
 \examples{
 ## Simulate hypothetical species ##
-HACSObj <- HACHypothetical(N, Hstar, probs, filename = "output")
+
+N <- 100 # total number of sampled individuals
+Hstar <- 10 # total number of haplotypes
+probs <- rep(1/Hstar, Hstar) # equal haplotype frequency distribution
+
+HACSObj <- HACHypothetical(N, Hstar, probs, filename = "output") # outputs a CSV file called "output.csv"
+HAC.simrep(HACSObj) # runs a simulation
+
 
 ## Simulate real species ##
-HACSObj <- HACReal(filename = "output")
+
+\dontrun{HACSObj <- HACReal(filename = "output") # outputs file called "output.csv"
+HAC.simrep(HACSObj) # user prompted to select appropriate FASTA file of aligned/trimmed DNA sequences prior to running a simulation}
 }
