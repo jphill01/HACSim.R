@@ -6,8 +6,8 @@ HAC.simrep <- function(HACSObject) {
     assign("N", HACSObject$N, envir = .GlobalEnv)
     assign("Hstar", HACSObject$Hstar, envir = .GlobalEnv)
     assign("probs", HACSObject$probs, envir = .GlobalEnv)
-    perms <- HACSObject$perms
-    p <- HACSObject$p
+    assign("perms", HACSObject$perms, envir = .GlobalEnv)
+    assign("p", HACSObject$p, envir = .GlobalEnv)
     conf.level <- HACSObject$conf.level
     subset.haps <- HACSObject$subset.haps
     prop.haps <- HACSObject$prop.haps
@@ -83,7 +83,7 @@ HAC.simrep <- function(HACSObject) {
           \n The initial guess for sampling sufficiency was N = ", paste0(N), "individuals",
           "\n \n The algorithm converged after", iters, "iterations and took", amt[3], "s", 
           "\n \n The estimate of sampling sufficiency for p =", paste0(p * 100, "%"), "haplotype recovery is N* = ", max(d$specs), "individuals (",  paste0(conf.level * 100, "%"), "CI:", paste(low, high, sep = "-"), ")",
-          "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(d$specs) - N, "individuals")
+          "\n \n The number of additional specimens required to be sampled for p =", paste0(p * 100, "%"), "haplotype recovery is \n N* - N = ", max(d$specs) - N, "individuals")
     }
     
   } 
