@@ -3,7 +3,14 @@
 
 \title{Run a simulation}
 
+\description{Runs the HACSim algorithm to iteratively extrapolate species' haplotype 
+accumulation curves 
+}
+
 \usage{HAC.simrep(filename)}
+
+\arguments{\item{filename}{Name of file where simulation results are saved}
+}
 
 \examples{
   ## Simulate hypothetical species ##
