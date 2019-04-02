@@ -5,15 +5,16 @@
 \packageTitle{HACSim}
 }
 \description{
-HACSim employs a novel method of iteratively generating species haplotype accumulation curves through extrapolation in order to assess sampling completeness based on the approach of Phillips et al. (2015).
+HACSim employs a novel method of iteratively generating species haplotype accumulation curves through extrapolation to assess sampling completeness based on the approach of Phillips et al. (2015). The package outputs a number of useful summary statistics of sampling coverage ("Measures of Sampling Closeness"), including an estimate of the likely required sample size (along with desired level confidence intervals) necessary to recovery a given number/proportion of unique species' haplotypes. 
 }
 \details{
 
 The DESCRIPTION file:
 \packageDESCRIPTION{HACSim}
+
 \packageIndices{HACSim}
-~~ An overview of how to use the package, including the most important functions ~~
 }
+
 \author{
 \packageAuthor{HACSim}
 
@@ -27,10 +28,7 @@ Phillips, J.D., Gillis, D.J and Hanner, R.H. (2019). Incomplete estimates of gen
 ~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R ~~
 ~~ documentation directory ~~
 \keyword{ package }
-\seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
+
 \examples{
 ## Simulate hypothetical species ##
 

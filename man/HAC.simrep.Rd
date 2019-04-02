@@ -1,16 +1,18 @@
 \name{HAC.simrep}
 \alias{HAC.simrep}
 
-\title{Run a simulation}
+\title{Run a simulation of haplotype accumulation curves}
 
-\description{Runs the HACSim algorithm to iteratively extrapolate species' haplotype 
-accumulation curves 
+\description{Runs the HACSim algorithm to iteratively extrapolate haplotype 
+accumulation curves for hypothetical or real species
 }
 
 \usage{HAC.simrep(filename)}
 
-\arguments{\item{filename}{Name of file where simulation results are saved}
+\arguments{\item{filename}{Name of file where simulation results are to be saved}
 }
+
+\note{When simulating real species via HACReal(...), a pop-up window will appear prompting the user to select an intraspecific FASTA file of aligned/trimmed DNA sequences. The alignment must not contain missing or ambiguous nucleotides; i.e., it should only contain A, C, G or T.}
 
 \examples{
   ## Simulate hypothetical species ##

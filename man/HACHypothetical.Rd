@@ -1,7 +1,7 @@
 \name{HACHypothetical}
 \alias{HACHypothetical}
 
-\title{Sets up an object to simulate haplotype accumulation for a hypothetical species}
+\title{Set up an object to simulate haplotype accumulation for a hypothetical species}
 
 \description{Helper function which creates an object containing necessary information to run a simulation of haplotype accumulation for a hypothetical species of interest}
 
