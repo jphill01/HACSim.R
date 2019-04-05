@@ -1,4 +1,6 @@
 language: r
-os: osx
+os: 
+  - osx
+  - linux
 
 warnings_are_errors: false
