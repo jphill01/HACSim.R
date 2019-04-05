@@ -5,7 +5,7 @@
 
 \description{Helper function which creates an object containing necessary information to run a simulation of haplotype accumulation for a hypothetical species of interest}
 
-\usage{HACHypothetical(N, Hstar, probs, ...)}
+\usage{HACHypothetical(N, Hstar, probs, p = 0.95, perms = 10000, subsample = FALSE, conf.level = 0.95, filename = NULL)}
 
 \arguments{\item{N}{Number of individuals}
 \item{Hstar}{Number of unique species' haplotypes}
@@ -19,7 +19,6 @@
 }
 
 \note{N must be greater than 1 and greater than or equal to Hstar. Hstar must be greater than 1. probs must have a length equal to Hstar and its elements must sum to 1.}
-}
 
 \examples{
   ## Simulate hypothetical species ##
@@ -28,7 +27,7 @@
   Hstar <- 10 # total number of haplotypes
   probs <- rep(1/Hstar, Hstar) # equal haplotype frequency distribution
   
-  HACSObj <- HACHypothetical(N, Hstar, probs, filename = "output") # outputs a CSV file called "output.csv"
+  HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, filename = "output") # outputs a CSV file called "output.csv"
   
   ## Simulate hypothetical species - subsampling ##
   HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 1000, p = 0.95, subsample = TRUE, prop = 0.25, conf.level = 0.95, filename = "output")

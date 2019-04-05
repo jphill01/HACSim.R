@@ -5,7 +5,7 @@
 
 \description{Helper function which creates an object containing necessary information to run a simulation of haplotype accumulation for a real species of interest}
 
-\usage{HACReal(...)}
+\usage{HACReal(p = 0.95, perms = 10000, subsample = FALSE, conf.level = 0.95, filename = NULL)}
 
 \arguments{\item{p}{Proportion of haplotypes to recover}
 \item{perms}{Number of permutations (replications)}
@@ -16,7 +16,6 @@
 }
 
 \examples{
-  \dontrun{
     ## Simulate real species ##
     HACSObj <- HACReal(filename = "output") # outputs file called "output.csv"
     

@@ -5,7 +5,7 @@
 \packageTitle{HACSim}
 }
 \description{
-HACSim employs a novel method of iteratively generating species haplotype accumulation curves through extrapolation to assess sampling completeness based on the approach of Phillips et al. (2015). The package outputs a number of useful summary statistics of sampling coverage ("Measures of Sampling Closeness"), including an estimate of the likely required sample size (along with desired level confidence intervals) necessary to recovery a given number/proportion of unique species' haplotypes. 
+HACSim employs a novel method of iteratively generating species haplotype accumulation curves through extrapolation to assess sampling completeness based on the approach of Phillips et al. (2015). The package outputs a number of useful summary statistics of sampling coverage ("Measures of Sampling Closeness"), including an estimate of the likely required sample size (along with desired level confidence intervals) necessary to recover a given number/proportion of observed unique species' haplotypes. 
 }
 \details{
 
@@ -36,7 +36,7 @@ N <- 100 # total number of sampled individuals
 Hstar <- 10 # total number of haplotypes
 probs <- rep(1/Hstar, Hstar) # equal haplotype frequency distribution
 
-HACSObj <- HACHypothetical(N, Hstar, probs, filename = "output") # outputs a CSV file called "output.csv"
+HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, filename = "output") # outputs a CSV file called "output.csv"
 
 ## Simulate hypothetical species - subsampling ##
 HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 1000, p = 0.95, subsample = TRUE, prop = 0.25, conf.level = 0.95, filename = "output")
