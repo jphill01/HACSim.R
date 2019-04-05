@@ -8,11 +8,13 @@ Within the simulation algorithm, species haplotypes are treated as distinct char
 
 Molecular loci besides DNA barcode genes (5'-COI, rbcL/matK, ITS regions) can be used with HACSim (*e.g.*, cyt*b*). As well, sequence databases other than BOLD can be targeted. 
 
-HACSim comprises three main functions:
+HACSim comprises four main functions:
 
 > HACHypothetical()
 
 > HACReal()
+
+> HAC.sim()
 
 > HAC.simrep().
 
