@@ -1,10 +1,10 @@
 \name{HAC.simrep}
 \alias{HAC.simrep}
 
-\title{Run a simulation of haplotype accumulation curves}
+\title{Run a simulation of haplotype accumulation curves for hypothetical or real species}
 
 \description{Runs the HACSim algorithm to iteratively extrapolate haplotype 
-accumulation curves for hypothetical or real species
+accumulation curves to determine likely specimen sample sizes for hypothetical or real species
 }
 
 \usage{HAC.simrep(HACSObj)}
@@ -12,10 +12,11 @@ accumulation curves for hypothetical or real species
 \arguments{\item{HACSObj}{Name of variable where simulation results are stored}
 }
 
+\value{Iteration results are outputted to the console and graphs displayed in plot window. Additionally, iteration results are optionally saved to a CSV file. Subsampled DNA sequences are saved to a FASTA file.}
+
 \note{When simulating real species via HACReal(...), a pop-up window will appear prompting the user to select an intraspecific FASTA file of aligned/trimmed DNA sequences. The alignment must not contain missing or ambiguous nucleotides; i.e., it should only contain A, C, G or T.
 
 HACSObj can be altered to any name desired by the user.
-
 }
 
 \examples{

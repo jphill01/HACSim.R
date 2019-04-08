@@ -5,7 +5,7 @@
 \packageTitle{HACSim}
 }
 \description{
-HACSim employs a novel method of iteratively generating species haplotype accumulation curves through extrapolation to assess sampling completeness based on the approach of Phillips et al. (2015). The package outputs a number of useful summary statistics of sampling coverage ("Measures of Sampling Closeness"), including an estimate of the likely required sample size (along with desired level confidence intervals) necessary to recover a given number/proportion of observed unique species' haplotypes. 
+HACSim employs a novel method of iteratively generating species' haplotype accumulation curves through extrapolation to assess sampling completeness based on the approach outlined in Phillips et al. (2015) and Phillips et al. (2019). The package outputs a number of useful summary statistics of sampling coverage ("Measures of Sampling Closeness"), including an estimate of the likely required sample size (along with desired level confidence intervals) necessary to recover a given number/proportion of observed unique species' haplotypes. 
 }
 \details{
 
@@ -18,7 +18,7 @@ The DESCRIPTION file:
 \author{
 \packageAuthor{HACSim}
 
-with contributions from Steven French
+with contributions from Steven H. French
 
 Maintainer: \packageMaintainer{HACSim}
 }

@@ -1,7 +1,7 @@
 \name{HACHypothetical}
 \alias{HACHypothetical}
 
-\title{Set up an object to simulate haplotype accumulation for a hypothetical species}
+\title{Set up an object to simulate haplotype accumulation curves for a hypothetical species}
 
 \description{Helper function which creates an object containing necessary information to run a simulation of haplotype accumulation for a hypothetical species of interest}
 
@@ -18,6 +18,9 @@
 \item{filename}{Name of file where simulation results are to be saved}
 }
 
+\value{An object with 12 elements that can be passed to HAC.simrep()
+}
+
 \note{N must be greater than 1 and greater than or equal to Hstar. Hstar must be greater than 1. probs must have a length equal to Hstar and its elements must sum to 1.}
 
 \examples{
@@ -30,7 +33,7 @@
   HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, filename = "output") # outputs a CSV file called "output.csv"
   
   ## Simulate hypothetical species - subsampling ##
-  HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 1000, p = 0.95, subsample = TRUE, prop = 0.25, conf.level = 0.95, filename = "output")
+  HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 1000, p = 0.95, subsample = TRUE, prop = 0.25, conf.level = 0.95, filename = "output") # subsamples 25\% of haplotype labels
   
   ## Simulate hypothetical species and all paramaters changed - subsampling ##
   HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 10000, p = 0.90, subsample = TRUE, prop = 0.15, conf.level = 0.95, filename = "output")

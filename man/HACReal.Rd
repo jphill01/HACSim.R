@@ -1,7 +1,7 @@
 \name{HACReal}
 \alias{HACReal}
 
-\title{Set up an object to simulate haplotype accumulation for a real species}
+\title{Set up an object to simulate haplotype accumulation curves for a real species}
 
 \description{Helper function which creates an object containing necessary information to run a simulation of haplotype accumulation for a real species of interest}
 
@@ -15,12 +15,15 @@
 \item{filename}{Name of file where simulation results are to be saved}
 }
 
+\value{An object with 12 elements that can be passed to HAC.simrep()
+}
+
 \examples{
     ## Simulate real species ##
     HACSObj <- HACReal(filename = "output") # outputs file called "output.csv"
     
     ## Simulate real species - subsampling ##
-    HACSObj <- HACReal(subsample = TRUE, prop = 0.15, conf.level = 0.95, filename = "output")
+    HACSObj <- HACReal(subsample = TRUE, prop = 0.25, conf.level = 0.95, filename = "output") # subsamples 25\% of DNA sequences
     
     ## Simulate real species and all parameters changed - subsampling ##
     HACSObj <- HACReal(perms = 10000, p = 0.90, subsample = TRUE, prop = 0.15, conf.level = 0.99, filename = "output")
