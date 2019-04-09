@@ -48,6 +48,7 @@ accumulation curves to determine likely specimen sample sizes for hypothetical o
     ## Simulate real species and all parameters changed - subsampling ##
     HACSObj <- HACReal(perms = 10000, p = 0.90, subsample = TRUE, prop = 0.15, conf.level = 0.99, filename = "output")
     
-    HAC.simrep(HACSObj) # user prompted to select appropriate FASTA file of aligned/trimmed DNA sequences prior to running a simulation
+    # user prompted to select appropriate FASTA file of aligned/trimmed DNA sequences prior to running a simulation
+    HAC.simrep(HACSObj) 
     }
 }

@@ -5,7 +5,7 @@
 \packageTitle{HACSim}
 }
 \description{
-HACSim employs a novel method of iteratively generating species' haplotype accumulation curves through extrapolation to assess sampling completeness based on the approach outlined in Phillips et al. (2015) and Phillips et al. (2019). The package outputs a number of useful summary statistics of sampling coverage ("Measures of Sampling Closeness"), including an estimate of the likely required sample size (along with desired level confidence intervals) necessary to recover a given number/proportion of observed unique species' haplotypes. 
+HACSim (\strong{H}aplotype \strong{A}ccumulation \strong{C}urve \strong{Sim}ulator) employs a novel nonparametric stochastic (Monte Carlo) method of iteratively generating species' haplotype accumulation curves through extrapolation to assess sampling completeness based on the approach outlined in Phillips et al. (2015) and Phillips et al. (2019). The package outputs a number of useful summary statistics of sampling coverage ("Measures of Sampling Closeness"), including an estimate of the likely required sample size (along with desired level confidence intervals) necessary to recover a given number/proportion of observed unique species' haplotypes. 
 }
 \details{
 
@@ -62,5 +62,6 @@ HACSObj <- HACReal(subsample = TRUE, prop = 0.15, conf.level = 0.95, filename = 
 ## Simulate real species and all parameters changed - subsampling ##
 HACSObj <- HACReal(perms = 10000, p = 0.90, subsample = TRUE, prop = 0.15, conf.level = 0.99, filename = "output")
 
-HAC.simrep(HACSObj) # user prompted to select appropriate FASTA file of aligned/trimmed DNA sequences prior to running a simulation}
+# user prompted to select appropriate FASTA file of aligned/trimmed DNA sequences prior to running a simulation
+HAC.simrep(HACSObj) }
 }
