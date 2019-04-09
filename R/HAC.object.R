@@ -35,7 +35,7 @@ HACReal <- function(perms = 10000,
                 p = 0.95,
                 conf.level = 0.95,
                 subsample = FALSE,
-                prop = 0.1,
+                prop = NULL,
                 filename = NULL) {
         # input.seqs <- TRUE # analyze DNA sequence file? 
         # subset.haps <- NULL # subset haplotypes?  
@@ -69,7 +69,7 @@ HACHypothetical <- function(N,
                             p = 0.95,
                             conf.level = 0.95,
                             subsample = FALSE,
-                            prop = 0.1,
+                            prop = NULL,
                             filename = NULL) {
     if (missing(N)) {
       stop("Please provide a value for N")
