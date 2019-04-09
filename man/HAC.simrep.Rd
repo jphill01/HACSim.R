@@ -7,16 +7,14 @@
 accumulation curves to determine likely specimen sample sizes for hypothetical or real species
 }
 
-\usage{HAC.simrep(HACSObj)}
+\usage{HAC.simrep(HACSObject)}
 
-\arguments{\item{HACSObj}{Name of variable where simulation results are stored}
+\arguments{\item{HACSObject}{object containing desired simulation parameters}
 }
 
 \value{Iteration results are outputted to the console and graphs displayed in plot window. Additionally, iteration results are optionally saved to a CSV file. Subsampled DNA sequences are saved to a FASTA file.}
 
 \note{When simulating real species via HACReal(...), a pop-up window will appear prompting the user to select an intraspecific FASTA file of aligned/trimmed DNA sequences. The alignment must not contain missing or ambiguous nucleotides; i.e., it should only contain A, C, G or T.
-
-HACSObj can be altered to any name desired by the user.
 }
 
 \examples{
@@ -41,7 +39,8 @@ HACSObj can be altered to any name desired by the user.
   
   \dontrun{
     ## Simulate real species ##
-    HACSObj <- HACReal(filename = "output") # outputs file called "output.csv"
+    # outputs file called "output.csv"
+    HACSObj <- HACReal(filename = "output") 
     
     ## Simulate real species - subsampling ##
     HACSObj <- HACReal(subsample = TRUE, prop = 0.15, conf.level = 0.95, filename = "output")

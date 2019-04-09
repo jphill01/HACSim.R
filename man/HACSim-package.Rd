@@ -28,8 +28,7 @@ Phillips, J.D., Gwiazdowski, R.A., Ashlock, D. and Hanner, R. (2015). An explora
 
 Phillips, J.D., Gillis, D.J and Hanner, R.H. (2019). Incomplete estimates of genetic diversity within species: Implications for DNA barcoding. Ecology and Evolution, 9(5): 2996-3010.
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R ~~
-~~ documentation directory ~~
+
 \keyword{ package }
 
 \examples{
@@ -54,7 +53,8 @@ HAC.simrep(HACSObj) # runs a simulation
 
 \dontrun{
 ## Simulate real species ##
-HACSObj <- HACReal(filename = "output") # outputs file called "output.csv"
+# outputs file called "output.csv"
+HACSObj <- HACReal(filename = "output") 
 
 ## Simulate real species - subsampling ##
 HACSObj <- HACReal(subsample = TRUE, prop = 0.15, conf.level = 0.95, filename = "output")
