@@ -1,17 +1,19 @@
 Package: HACSim
 Type: Package
-Title: Iterative extrapolation of species' haplotype accumulation curves
+Title: Iterative Extrapolation of Species' Haplotype Accumulation Curves
 Version: 1.0.0
 Date: 2018-04-06
 Author: Jarrett D. Phillips
 Maintainer: Jarrett D. Phillips <phillipsjarrett1@gmail.com>
-Description: Iterative extrapolation of species' haplotype accumulation curves for assessment of sampling completeness
-License: GPL (>= 3)
+Description: Performs iterative extrapolation of species' haplotype accumulation curves for assessment of specimen sampling completeness.
+License: GPL-3 + file LICENSE
 NeedsCompilation: Yes
-Imports: ape (>= 5.2), 
+Imports: ape (>= 5.2),
+         graphics (>= 3.5.1),
          pegas (>= 0.11),
-         Rcpp (>= 1.0.0), 
-         RcppArmadillo (>= 0.9.200.7.0)
+         Rcpp (>= 1.0.0),
+         stats (>= 3.5.1),
+         utils (>= 3.5.1)
 LinkingTo: Rcpp, 
            RcppArmadillo
 RoxygenNote: 6.1.1
