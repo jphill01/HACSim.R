@@ -79,11 +79,11 @@ HAC.sim <- function(N,
 		  write.dna(seqs, file = "seqs.fas", format = "fasta")
 	  }
 		 
-		assign("N", dim(seqs)[[1]], envir = .GlobalEnv)
+		assign("N", dim(seqs)[[1]], envir = envr)
 		h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
 		rownames(h) <- 1:nrow(h)
-		assign("Hstar", dim(h)[[1]], envir = .GlobalEnv)
-		assign("probs", lengths(attr(h, "index")) / N, envir = .GlobalEnv)
+		assign("Hstar", dim(h)[[1]], envir = envr)
+		assign("probs", lengths(attr(h, "index")) / envr$N, envir = envr)
 
 	  }
   
@@ -172,32 +172,32 @@ HAC.sim <- function(N,
 	
 	 if (is.null(subset.haps)) {
 	   Q <- Hstar - P
-	   assign("R", P / Hstar, envir = .GlobalEnv)
+	   assign("R", P / Hstar, envir = envr)
 	   S <- (Hstar - P) / Hstar
-	   assign("Nstar", (N * Hstar) / P, envir = .GlobalEnv)
+	   assign("Nstar", (N * Hstar) / P, envir = envr)
 	   X <- ((N * Hstar) / P) - N
 	 } else {
 	   Q <- length(subset.haps) - P
-	   assign("R", P / length(subset.haps), envir = .GlobalEnv)
+	   assign("R", P / length(subset.haps), envir = envr)
 	   S <- (length(subset.haps) - P) / length(subset.haps)
-	   assign("Nstar", (N * length(subset.haps)) / P, envir = .GlobalEnv)
+	   assign("Nstar", (N * length(subset.haps)) / P, envir = envr)
 	   X <- ((N * length(subset.haps)) / P) - N
 	 }
 	 
-	  assign("low", signif(N - {qnorm({1 + conf.level} / 2) * {tail(d$sd, n = 1) / tail(d$means, n = 1)} * sqrt(N)}), envir = .GlobalEnv)
-	  assign("high", signif(N + {qnorm({1 + conf.level} / 2) * {tail(d$sd, n = 1) / tail(d$means, n = 1)} * sqrt(N)}), envir = .GlobalEnv)
+	  assign("low", signif(N - {qnorm({1 + conf.level} / 2) * {tail(d$sd, n = 1) / tail(d$means, n = 1)} * sqrt(N)}), envir = envr)
+	  assign("high", signif(N + {qnorm({1 + conf.level} / 2) * {tail(d$sd, n = 1) / tail(d$means, n = 1)} * sqrt(N)}), envir = envr)
 	
   ## Output results to R console and CSV file ##
 	  
 	  cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
 	        "Mean number of haplotypes sampled: " , P,
 	        "\n Mean number of haplotypes not sampled: " , Q, 
-	        "\n Proportion of haplotypes sampled: " , R, 
+	        "\n Proportion of haplotypes sampled: " , envr$R, 
 	        "\n Proportion of haplotypes not sampled: " , S,
-	        "\n \n Mean value of N*: ", Nstar,
+	        "\n \n Mean value of N*: ", envr$Nstar,
 	        "\n Mean number of specimens not sampled: ", X)
 	   
-    df[nrow(df) + 1, ] <- c(P, Q, R, S, Nstar, X)
+    df[nrow(df) + 1, ] <- c(P, Q, envr$R, S, envr$Nstar, X)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       par(mfrow = c(1, 2))
@@ -212,13 +212,13 @@ HAC.sim <- function(N,
       lines(specs, means, lwd = 2)
       
       if (is.null(subset.haps)) {
-        abline(h = R * Hstar, v = N, lty = 2) # dashed line
-        abline(h = p * Hstar, lty = 3) # dotted line
-        HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps, main = "Haplotype frequency distribution")
+        abline(h = envr$R * envr$Hstar, v = N, lty = 2) # dashed line
+        abline(h = envr$p * envr$Hstar, lty = 3) # dotted line
+        HAC.bar <- barplot(num.specs * envr$probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps, main = "Haplotype frequency distribution")
       } else {
-        abline(h = R * length(subset.haps), v = N, lty = 2) # dashed line
-        abline(h = p * length(subset.haps), lty = 3) # dotted line
-        HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
+        abline(h = envr$R * length(subset.haps), v = envr$N, lty = 2) # dashed line
+        abline(h = envr$p * length(subset.haps), lty = 3) # dotted line
+        HAC.bar <- barplot(num.specs * (envr$probs[subset.haps] / sum(envr$probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
       }
 
 	  df
