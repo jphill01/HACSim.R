@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 11, 2019
+# Last modified: April 11, 2019
 
 ##########
 
@@ -163,7 +163,7 @@ HAC.sim <- function(N,
 	 
 	## Make data accessible to user ##
 	 
-	  assign("d", data.frame(specs, means, sd), envir = .GlobalEnv)
+	  assign("d", data.frame(specs, means, sd), envir = envr)
 
 	## Compute simple summary statistics and display output ##
 	## tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()
@@ -184,8 +184,8 @@ HAC.sim <- function(N,
 	   X <- ((N * length(subset.haps)) / P) - N
 	 }
 	 
-	  assign("low", signif(N - {qnorm({1 + conf.level} / 2) * {tail(d$sd, n = 1) / tail(d$means, n = 1)} * sqrt(N)}), envir = envr)
-	  assign("high", signif(N + {qnorm({1 + conf.level} / 2) * {tail(d$sd, n = 1) / tail(d$means, n = 1)} * sqrt(N)}), envir = envr)
+	  assign("low", signif(N - {qnorm({1 + conf.level} / 2) * {tail(envr$d$sd, n = 1) / tail(envr$d$means, n = 1)} * sqrt(N)}), envir = envr)
+	  assign("high", signif(N + {qnorm({1 + conf.level} / 2) * {tail(envr$d$sd, n = 1) / tail(envr$d$means, n = 1)} * sqrt(N)}), envir = envr)
 	
   ## Output results to R console and CSV file ##
 	  
