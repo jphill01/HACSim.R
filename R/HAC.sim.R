@@ -71,7 +71,7 @@ HAC.sim <- function(N,
 	    at the ends of sequences, further alignment trimming is an option.")
 		}
 		
-		ptm <<- proc.time()
+		assign("ptm", proc.time(), envir = envr)
 		  
 	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
 	                             # can be used to simulate migration/gene flow

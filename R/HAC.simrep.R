@@ -16,7 +16,7 @@ HAC.simrep <- function(HACSObject) {
     assign("input.seqs", HACSObject$input.seqs, envir = envr)
     assign("filename", HACSObject$filename, envir = envr)
   
-  assign("ptm", proc.time(), envir = .GlobalEnv)
+  assign("ptm", proc.time(), envir = envr)
   assign("iters", 1, envr)
   
   df <- data.frame(matrix(ncol = 6, nrow = 0))
@@ -44,7 +44,7 @@ HAC.simrep <- function(HACSObject) {
                df = df
   )
   
-  amt <- proc.time() - ptm
+  amt <- proc.time() - envr$ptm
   
   ## Check whether desired level of haplotype recovery has been reached ##
   
@@ -54,7 +54,7 @@ HAC.simrep <- function(HACSObject) {
     cat("\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
         \n The initial guess for sampling sufficiency was N = ", paste0(envr$N), "individuals",
         "\n \n The algorithm converged after", envr$iters, "iterations and took", amt[3], "s", 
-        "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", max(envr$d[1]), "individuals (", paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low, envr$high, sep = "-"), ")",
+        "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", max(envr$d[1]), "individuals \n (", paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low, envr$high, sep = "-"), ")",
         "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(envr$d[1]) - envr$N, "individuals")
   }
   
@@ -72,7 +72,7 @@ HAC.simrep <- function(HACSObject) {
                   df = df)
     
     assign("iters", envr$iters + 1, envr)
-    amt <- proc.time() - ptm
+    amt <- proc.time() - envr$ptm
     
     ## Check whether desired level of haplotype recovery has been reached ##
     
@@ -82,7 +82,7 @@ HAC.simrep <- function(HACSObject) {
       cat("\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
           \n The initial guess for sampling sufficiency was N = ", paste0(envr$N), "individuals",
           "\n \n The algorithm converged after", envr$iters, "iterations and took", amt[3], "s", 
-          "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", max(envr$d[1]), "individuals (",  paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low, envr$high, sep = "-"), ")",
+          "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", max(envr$d[1]), "individuals \n (",  paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low, envr$high, sep = "-"), ")",
           "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ", max(envr$d[1]) - envr$N, "individuals")
     }
     
