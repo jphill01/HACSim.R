@@ -5,7 +5,9 @@
 
 \description{Helper function which creates an object containing necessary information to run a simulation of haplotype accumulation for a hypothetical species of interest}
 
-\usage{HACHypothetical(N, Hstar, probs, perms = 10000, p = 0.95, conf.level = 0.95, subsample = FALSE, prop = NULL, filename = NULL)}
+\usage{HACHypothetical(N, Hstar, probs, perms = 10000, p = 0.95, 
+conf.level = 0.95, subsample = FALSE, prop = NULL, 
+filename = NULL)}
 
 \arguments{\item{N}{Number of individuals}
 \item{Hstar}{Number of unique species' haplotypes}
@@ -21,7 +23,11 @@
 \value{An object with 12 elements that can be passed to HAC.simrep()
 }
 
-\note{N must be greater than 1 and greater than or equal to Hstar. Hstar must be greater than 1. probs must have a length equal to Hstar and its elements must sum to 1.}
+\note{\code{N} must be greater than 1 and greater than or equal to \code{Hstar}.
+
+\code{Hstar} must be greater than 1. 
+
+\code{probs} must have a length equal to \code{Hstar} and its elements must sum to 1.}
 
 \examples{
   ## Simulate hypothetical species ##
@@ -35,9 +41,13 @@
   
   ## Simulate hypothetical species - subsampling ##
   # subsamples 25\% of haplotype labels
-  HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 1000, p = 0.95, subsample = TRUE, prop = 0.25, conf.level = 0.95, filename = "output") 
+  HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, 
+  perms = 1000, p = 0.95, subsample = TRUE, prop = 0.25, 
+  conf.level = 0.95, filename = "output") 
   
   ## Simulate hypothetical species and all paramaters changed - subsampling ##
-  HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 10000, p = 0.90, subsample = TRUE, prop = 0.15, conf.level = 0.95, filename = "output")
+  HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, 
+  perms = 10000, p = 0.90, subsample = TRUE, prop = 0.15, conf.level = 0.95, 
+  filename = "output")
   }
   
