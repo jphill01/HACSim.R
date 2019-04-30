@@ -212,11 +212,11 @@ HAC.sim <- function(N,
       lines(specs, means, lwd = 2)
       
       if (is.null(subset.haps)) {
-        abline(h = envr$R * envr$Hstar, v = N, lty = 2) # dashed line
+        abline(h = envr$R * envr$Hstar, v = max(envr$d$specs), lty = 2) # dashed line
         abline(h = envr$p * envr$Hstar, lty = 3) # dotted line
         HAC.bar <- barplot(num.specs * envr$probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps, main = "Haplotype frequency distribution")
       } else {
-        abline(h = envr$R * length(subset.haps), v = envr$N, lty = 2) # dashed line
+        abline(h = envr$R * length(subset.haps), v = max(envr$d$specs), lty = 2) # dashed line
         abline(h = envr$p * length(subset.haps), lty = 3) # dotted line
         HAC.bar <- barplot(num.specs * (envr$probs[subset.haps] / sum(envr$probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
       }
