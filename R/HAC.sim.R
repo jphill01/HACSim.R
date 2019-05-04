@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: April 11, 2019
+# Last modified: May 4, 2019
 
 ##########
 
@@ -76,7 +76,8 @@ HAC.sim <- function(N,
 	  if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
 	                             # can be used to simulate migration/gene flow
 		  seqs <- seqs[sample(nrow(seqs), size = ceiling(prop.seqs * nrow(seqs)), replace = FALSE), ]
-		  write.dna(seqs, file = "seqs.fas", format = "fasta")
+		  seqsfile <- tempfile(fileext = ".fas")
+		  write.dna(seqs, file = seqsfile)
 	  }
 		 
 		assign("N", dim(seqs)[[1]], envir = envr)
