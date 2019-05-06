@@ -87,6 +87,6 @@ HAC.simrep <- function(HACSObject) {
     
   } 
   if (!is.null(envr$filename)) {
-    write.csv(df, file = paste(envr$filename, ".csv", sep = ""))
+    write.csv(df, file = paste0(tempdir(), "/", get("filename", envir = envr), ".csv"))
   }
 } # end HAC.simrep

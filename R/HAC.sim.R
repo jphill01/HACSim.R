@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: May 4, 2019
+# Last modified: May 5, 2019
 
 ##########
 
@@ -189,7 +189,6 @@ HAC.sim <- function(N,
 	  assign("high", signif(N + {qnorm({1 + conf.level} / 2) * {tail(envr$d$sd, n = 1) / tail(envr$d$means, n = 1)} * sqrt(N)}), envir = envr)
 	
   ## Output results to R console and CSV file ##
-	  
 	  cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
 	        "Mean number of haplotypes sampled: " , P,
 	        "\n Mean number of haplotypes not sampled: " , Q, 
