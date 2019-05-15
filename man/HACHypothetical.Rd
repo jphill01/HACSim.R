@@ -6,21 +6,22 @@
 \description{Helper function which creates an object containing necessary information to run a simulation of haplotype accumulation for a hypothetical species of interest}
 
 \usage{HACHypothetical(N, Hstar, probs, perms = 10000, p = 0.95, 
-conf.level = 0.95, subsample = FALSE, prop = NULL, 
-filename = NULL)}
+conf.level = 0.95, subsample = FALSE, prop = NULL,
+progress = TRUE, filename = NULL)}
 
 \arguments{\item{N}{Number of individuals}
 \item{Hstar}{Number of unique species' haplotypes}
 \item{probs}{Haplotype frequency distribution vector}
 \item{perms}{Number of permutations (replications)}
 \item{p}{Proportion of haplotypes to recover}
-\item{conf.level}{Desired confidence level for gaphical output and interval estimation}
-\item{subsample}{Is a subsample of haplotype labels desired (TRUE/FALSE)?}
+\item{conf.level}{Desired confidence level for graphical output and interval estimation}
+\item{subsample}{Is a subsample of haplotype labels desired?}
 \item{prop}{If subsample = TRUE, the proportion of haplotype labels to subsample}
+\item{progress}{Should iteration output be printed to the R console?}
 \item{filename}{Name of file where simulation results are to be saved}
 }
 
-\value{An object with 12 elements that can be passed to HAC.simrep()
+\value{An object with 13 elements that can be passed to \code{HAC.simrep}
 }
 
 \note{\code{N} must be greater than 1 and greater than or equal to \code{Hstar}.

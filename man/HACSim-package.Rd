@@ -5,7 +5,7 @@
 \packageTitle{HACSim}
 }
 \description{
-HACSim (\strong{H}aplotype \strong{A}ccumulation \strong{C}urve \strong{Sim}ulator) employs a novel nonparametric stochastic (Monte Carlo) method of iteratively generating species' haplotype accumulation curves through extrapolation to assess sampling completeness based on the approach outlined in Phillips et al. (2015) <doi:10.1515/dna-2015-0008> and Phillips et al. (2019) <doi:10.1002/ece3.4757>. The package outputs a number of useful summary statistics of sampling coverage ("Measures of Sampling Closeness"), including an estimate of the likely required sample size (along with desired level confidence intervals) necessary to recover a given number/proportion of observed unique species' haplotypes. 
+HACSim (\strong{H}aplotype \strong{A}ccumulation \strong{C}urve \strong{Sim}ulator) employs a novel nonparametric stochastic (Monte Carlo) optimization method of iteratively generating species' haplotype accumulation curves through extrapolation to assess sampling completeness based on the approach outlined in Phillips et al. (2015) <doi:10.1515/dna-2015-0008> and Phillips et al. (2019) <doi:10.1002/ece3.4757>. The package outputs a number of useful summary statistics of sampling coverage ("Measures of Sampling Closeness"), including an estimate of the likely required sample size (along with desired level confidence intervals) necessary to recover a given number/proportion of observed unique species' haplotypes. 
 }
 \details{
 
@@ -17,8 +17,6 @@ The DESCRIPTION file:
 
 \author{
 \packageAuthor{HACSim}
-
-with contributions from Steven H. French
 
 Maintainer: \packageMaintainer{HACSim}
 }
@@ -32,6 +30,7 @@ Phillips, J.D., Gillis, D.J and Hanner, R.H. (2019). Incomplete estimates of gen
 \keyword{ package }
 
 \examples{
+
 ## Simulate hypothetical species ##
 
 N <- 100 # total number of sampled individuals
@@ -71,8 +70,7 @@ conf.level = 0.95, filename = "output")
 HACSObj <- HACReal(perms = 10000, p = 0.90, subsample = TRUE, 
 prop = 0.15, conf.level = 0.99, filename = "output")
 
-# user prompted to select appropriate FASTA file of 
-# aligned/trimmed DNA sequences prior to running a 
-simulation
+# user prompted to select appropriate FASTA file
 HAC.simrep(HACSObj) }
+
 }
