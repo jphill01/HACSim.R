@@ -52,7 +52,7 @@ HAC.sim <- function(N,
 
   ## Display progress bar ##
     
-    if (progress == TRUE) {
+    if (envr$progress == TRUE) {
       pb <- utils::txtProgressBar(min = 0, max = 1, style = 3)
     }
 
@@ -102,7 +102,7 @@ HAC.sim <- function(N,
       stop("H* must be greater than 1")
     }
   
-    if (sum(probs) != 1) {
+    if (!isTRUE(all.equal(1, sum(probs), tolerance = .Machine$double.eps^0.25))) {
       stop("probs must sum to 1")
     }
   
@@ -150,7 +150,7 @@ HAC.sim <- function(N,
 
   ## Update progress bar ##
     
-	  if (progress == TRUE) {
+	  if (envr$progress == TRUE) {
       utils::setTxtProgressBar(pb, i)
     }
 	
@@ -189,15 +189,14 @@ HAC.sim <- function(N,
 	  assign("high", signif(N + {qnorm({1 + conf.level} / 2) * {tail(envr$d$sd, n = 1) / tail(envr$d$means, n = 1)} * sqrt(N)}), envir = envr)
 	
   ## Output results to R console and CSV file ##
-	  cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
+	  if (envr$progress == TRUE) {
+	    cat("\n \n --- Measures of Sampling Closeness --- \n \n", 
 	        "Mean number of haplotypes sampled: " , P,
 	        "\n Mean number of haplotypes not sampled: " , Q, 
 	        "\n Proportion of haplotypes sampled: " , envr$R, 
 	        "\n Proportion of haplotypes not sampled: " , S,
 	        "\n \n Mean value of N*: ", envr$Nstar,
 	        "\n Mean number of specimens not sampled: ", X)
-	   
-    df[nrow(df) + 1, ] <- c(P, Q, envr$R, S, envr$Nstar, X)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       par(mfrow = c(1, 2))
@@ -220,6 +219,9 @@ HAC.sim <- function(N,
         abline(h = envr$p * length(subset.haps), lty = 3) # dotted line
         HAC.bar <- barplot(num.specs * (envr$probs[subset.haps] / sum(envr$probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
       }
+	  }
+	  
+	  df[nrow(df) + 1, ] <- c(P, Q, envr$R, S, envr$Nstar, X)
 
 	  df
 } # end HAC.sim

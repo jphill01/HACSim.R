@@ -14,6 +14,7 @@ HAC.simrep <- function(HACSObject) {
     assign("subset.seqs", HACSObject$subset.seqs, envir = envr)
     assign("prop.seqs", HACSObject$prop.seqs, envir = envr)
     assign("input.seqs", HACSObject$input.seqs, envir = envr)
+    assign("progress", HACSObject$progress, envir = envr)
     assign("filename", HACSObject$filename, envir = envr)
   
   assign("ptm", proc.time(), envir = envr)
@@ -41,13 +42,16 @@ HAC.simrep <- function(HACSObject) {
                prop.seqs = envr$prop.seqs,
                input.seqs = envr$input.seqs,
                conf.level = envr$conf.level,
+               progress = envr$progress,
                df = df
   )
   
   amt <- proc.time() - envr$ptm
   
   ## Check whether desired level of haplotype recovery has been reached ##
-  if (envr$R < envr$p) {
+  
+  if (envr$progress == TRUE) {
+    if (envr$R < envr$p) {
       cat("\n \n \n Desired level of haplotype recovery has not yet been reached \n")
       } else {
           cat("\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
@@ -55,6 +59,7 @@ HAC.simrep <- function(HACSObject) {
         "\n \n The algorithm converged after", envr$iters, "iterations and took", amt[3], "s", 
         "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", max(envr$d[1]), "individuals \n (", paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low, envr$high, sep = "-"), ")",
         "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ",  max(envr$d[1]) - envr$N, "individuals")
+      }
   }
   
   while (envr$R < envr$p) {
@@ -68,6 +73,7 @@ HAC.simrep <- function(HACSObject) {
                   subset.seqs = envr$subset.seqs,
                   prop.seqs = envr$prop.seqs,
                   conf.level = envr$conf.level,
+                  progress = envr$progress,
                   df = df)
     
     assign("iters", envr$iters + 1, envr)
@@ -75,8 +81,9 @@ HAC.simrep <- function(HACSObject) {
     
     ## Check whether desired level of haplotype recovery has been reached ##
     
-    if (envr$R < envr$p) {
-      cat("\n \n \n Desired level of haplotype recovery has not yet been reached \n")
+    if (envr$progress == TRUE) {
+      if (envr$R < envr$p) {
+        cat("\n \n \n Desired level of haplotype recovery has not yet been reached \n")
         } else {
             cat("\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
           \n The initial guess for sampling sufficiency was N = ", paste0(envr$N), "individuals",
@@ -84,6 +91,7 @@ HAC.simrep <- function(HACSObject) {
           "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", max(envr$d[1]), "individuals \n (",  paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low, envr$high, sep = "-"), ")",
           "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ", max(envr$d[1]) - envr$N, "individuals")
         }
+      }
     
   } 
   if (!is.null(envr$filename)) {
