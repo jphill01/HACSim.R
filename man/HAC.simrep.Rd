@@ -5,9 +5,16 @@
 
 \description{Runs the \code{HACSim} algorithm by successively calling \code{HAC.sim} to iteratively extrapolate haplotype accumulation curves to determine likely specimen sample sizes for hypothetical or real species
 
-The algorithm employs the following iterative method when calculating the "Measures of Sampling Closeness":
+The algorithm employs the following iterative methods when calculating the "Measures of Sampling Closeness":
 
-\deqn{N^*_{i+1} = \frac{N_iH^*}{H_i},}
+\itemize{
+\item Mean number of haplotype sampled: \eqn{H_i}
+\item Mean number of haplotypes not sampled \eqn{H^* - H_i}
+\item Proportion of haplotypes sampled: \eqn{\frac{H_i}{H^*}}
+\item Proportion of haplotypes not sampled: \eqn{1 - \frac{H_i}{H^*}}
+\item Mean value of \eqn{N*}: \eqn{\frac{N_iH^*}{H_i}}
+\item Mean number of specimens not sampled: \eqn{\frac{N_iH^*}{H_i} - N_i}
+}
 
 where \eqn{H_i} is stochastically-determined through sampling from \code{probs}, the observed species' haplotype frequency distribution vector. 
 
