@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: May 5, 2019
+# Last modified: June 3, 2019
 
 ##########
 
@@ -37,7 +37,7 @@ HAC.sim <- function(N,
                     Hstar, 
                     probs,
                     perms = 10000,
-                    K = 1, # DO NOT CHANGE,
+                    K = 1, # DO NOT CHANGE
                     p = 0.95,
                     subset.haps = NULL,
                     prop.haps = NULL,
@@ -108,6 +108,10 @@ HAC.sim <- function(N,
   
     if (perms == 1) {
       stop("perms must be greater than 1")
+    }
+  
+    if (p == 0) {
+      stop("p must be greater than 0")
     }
   
   ## Set up container to hold the identity of each individual from each permutation ##
@@ -184,6 +188,10 @@ HAC.sim <- function(N,
 	   assign("Nstar", (N * length(subset.haps)) / P, envir = envr)
 	   X <- ((N * length(subset.haps)) / P) - N
 	 }
+	  
+	  if (X < 0) {
+	    X <- 0
+	  }
 	 
 	  assign("low", signif(N - {qnorm({1 + conf.level} / 2) * {tail(envr$d$sd, n = 1) / tail(envr$d$means, n = 1)} * sqrt(N)}), envir = envr)
 	  assign("high", signif(N + {qnorm({1 + conf.level} / 2) * {tail(envr$d$sd, n = 1) / tail(envr$d$means, n = 1)} * sqrt(N)}), envir = envr)
