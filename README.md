@@ -118,9 +118,19 @@ Users can implement their own custom species barcode datasets mined from BOLD (n
 
 **NOTE**: Inputted sequence alignment files should be free of missing/ambiguous nucleotide data (Ns, gaps (--) and IUPAC ambiguity codes) in order to avoid overestimation of intraspecific haplotype diversity. 
 
-Users can also subsample a random subset of DNA sequences or haplotypes with the arguments (**subset.seqs**, **prop.seqs** **subset.haps**, and **prop.haps**). This can be employed to simulate migration/gene flow of individuals/haplotypes, or to reduce computation overhead. 
+Users can also subsample a random subset of DNA sequences or haplotypes with the arguments **subsample** and **prop**. This can be employed to simulate migration/gene flow of individuals/haplotypes, or to reduce computation overhead. 
 
 Aligned and trimmed 652 bp 5'-COI barcode sequences for Lake whitefish (*Coregonus clupeaformis*) (**Example 2** above) are included for download from this repository.
+
+### Algorithm Availability ###
+
+HACSim is available for download as a package from the Comprehensive R Archive Network (CRAN).
+
+> install.packages(HACSim)
+> library(HACSim).
+
+The reference manual for HACSim, which includes built-in functions with explanations for their proper use, can be accessed by typing
+> ?HACSim.
 
 ### Citing This Work ###
 
