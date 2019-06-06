@@ -31,13 +31,13 @@ Function arguments to HAC.sim() are passed from either HACHypothetical() or HACR
 * **p** = Proportion of species haplotypes to recover (**p** = 0.95 by default)
 
 * **conf.level** = Desired confidence leval for graphical output and confidence interval calculation  
-  (**conf.level** = 0.95 by default)
+ (**conf.level** = 0.95 by default)
 
 * **subsample** = Should a subsample of haplotype labels or DNA sequences be taken
-  (**subsample** = FALSE by default)
+ (**subsample** = FALSE by default)
 
 * **prop** = Proportion of haplotypw labels or DNA sequences to sample when **subsample** = TRUE  
-  (**prop** = NULL by default)
+ (**prop** = NULL by default)
 
 * **progress** = Should iteration output be printed to the R console? (**progress** = TRUE by default)
 
