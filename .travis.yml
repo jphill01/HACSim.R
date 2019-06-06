@@ -5,6 +5,10 @@ os:
 
 r_packages:
   - covr
+  
+notifications:
+  email:
+  never
 
 after_success:
   - Rscript -e 'library(covr); codecov()'
