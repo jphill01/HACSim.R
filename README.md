@@ -34,7 +34,7 @@ Function arguments to HAC.sim() are passed from either HACHypothetical() or HACR
  (**conf.level** = 0.95 by default)
 
 * **subsample** = Should a subsample of haplotype labels or DNA sequences be taken
- (**subsample** = FALSE by default)
+  (**subsample** = FALSE by default)
 
 * **prop** = Proportion of haplotypw labels or DNA sequences to sample when **subsample** = TRUE  
  (**prop** = NULL by default)
