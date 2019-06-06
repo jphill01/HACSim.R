@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/jphill01/HACSim.R.svg?token=R26mQLGR48w1Rk2BsVzG&branch=master)](https://travis-ci.com/jphill01/HACSim.R)
 
-http://www.r-pkg.org/badges/version/{HACSim}
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 HACSim (**H**aplotype **A**ccumulation **Sim**ulator) is a novel algorithm written in R for the simulation of haplotype accumulation curves. It can be employed to determine required sample sizes for DNA barcoding, specifically pertaining to recovery of total haplotype variation that may exist for a given species. 
 
