@@ -10,17 +10,15 @@ Within the simulation algorithm, species haplotypes are treated as distinct char
 
 Molecular loci besides DNA barcode genes (5'-COI, rbcL/matK, ITS regions) can be used with HACSim (*e.g.*, cyt*b*). As well, sequence databases other than BOLD can be targeted. 
 
-HACSim comprises four main functions:
+HACSim comprises three main functions:
 
 > HACHypothetical()
 
 > HACReal()
 
-> HAC.sim()
-
 > HAC.simrep().
 
-Function arguments to HAC.sim() are as follows:
+Function arguments to HAC.sim() are passed from either HACHypothetical() or HACReal() as follows:
 
 * **N** = Number of observed individuals (DNA sequences) of a given species 
 
@@ -32,22 +30,19 @@ Function arguments to HAC.sim() are as follows:
 
 * **p** = Proportion of species haplotypes to recover (**p** = 0.95 by default)
 
-* **subset.haps** = Subsample DNA sequences? (**subset.haps** =  NULL by default)
+* **conf.level** = Desired confidence leval for graphical output and confidence interval calculation (**conf.level** = 0.95 by default)
 
-* **prop.haps** = Proportion of haplotypes to subsample (**prop.haps** = NULL by default)
+* **subsample** = Should a subsample of haplotype labels or DNA sequences be taken (**subsample** = FALSE by default)
 
-* **input.seqs** = Analyze a user-specified DNA sequence FASTA file?
-(**input.seqs** = FALSE by default)
+* **prop** = Proportion of haplotypw labels or DNA sequences to sample when **subsample** = TRUE
 
-* **subset.seqs** = Subsample DNA sequences? (**subset.seqs** = FALSE by default)
+* **progress** = Should iteration output be printed to the R console? (**progress** = TRUE by default)
 
-* **prop.seqs** = Proportion of DNA sequences to subsample (**prop.seqs** = NULL by default)
-
-* **conf.level** = Desired confidence level for estimation and graphical display (**conf.level** = 0.95) by default
+* **filename** = Name of file where simulation results are to be saved (**filename** = NULL by default)
 
 **perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
-HAC.sim() performs a single iteration of haplotype accumulation for a given species. Resulting output reflects current levels of sampling effort found within BOLD for a given species. If the desired level of haplotype recovery is not reached, then HAC.simrep() is called in order to perform successive iterations until the desired fraction of haplotypes captured is at least **p**.
+Resulting output for the first iteration of HAC.simrep() reflects current levels of sampling effort found within BOLD for a given species. If the desired level of haplotype recovery is not reached, then perform successive iterations are performed until the desired fraction of haplotypes captured is at least **p**.
 
 Setting **p** = 0.95 corresponds to uncovering 95% of all haplotypes that may exist for a given species. At this level, the generated haplotype accumulation curve reaches a slope close to zero and further sampling effort is unlikely to uncover any new haplotypes. 
 
