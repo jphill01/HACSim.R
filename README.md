@@ -140,7 +140,7 @@ The reference manual for HACSim, which includes built-in functions with explanat
 
 In utilizing HACSim, the following publications may be of interest and worth citing:
 
-**Phillips, J.D.**, Gwiazdowski, R.A., Ashlock, D. and Hanner, R. (2015). An exploration of sufficient sampling effort to describe intraspecific DNA barcode haplotype diversity: examples from the ray-finned fishes (Chordata: Actinopterygii). *DNA Barcodes*, **3**: 66-73.
+**Phillips, J.D.**, Gwiazdowski, R.A., Ashlock, D. and Hanner, R. (2015). An exploration of sufficient sampling effort to describe intraspecific DNA barcode haplotype diversity: examples from the ray-finned fishes (Chordata: Actinopterygii). *DNA Barcodes*, **3**: 66-73. DOI: 10.1515/dna-2015-0008 
 
-**Phillips, J.D.**, Gillis, D.J. and Hanner, R.H. (2019). Incomplete estimates of genetic diversity within species: Implications for DNA barcoding. *Ecology and Evolution*, , 9(5): 2996-3010.
+**Phillips, J.D.**, Gillis, D.J. and Hanner, R.H. (2019). Incomplete estimates of genetic diversity within species: Implications for DNA barcoding. *Ecology and Evolution*, , 9(5): 2996-3010. DOI: 10.1002/ece3.4757
 
