@@ -129,7 +129,7 @@ Aligned and trimmed 652 bp 5'-COI barcode sequences for Lake whitefish (*Coregon
 
 HACSim is available for download as a package from the Comprehensive R Archive Network (CRAN).
 
-> install.packages(HACSim)
+> install.packages("HACSim")
 
 > library(HACSim).
 
