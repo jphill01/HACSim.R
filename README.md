@@ -1,7 +1,6 @@
 # HACSim #
 
-[![Build Status](https://travis-ci.com/jphill01/HACSim.R.svg?token=R26mQLGR48w1Rk2BsVzG&branch=master)](https://travis-ci.com/jphill01/HACSim.R) [![Licence](https://img.shields.io/cran/l/HACSim.svg) [![](https://img.shields.io/cran/v/HACSim.svg) 
-[![](https://cranlogs.r-pkg.org/badges/HACSim)](https://cran.r-project.org/package=HACSim)
+[![Build Status](https://travis-ci.com/jphill01/HACSim.R.svg?token=R26mQLGR48w1Rk2BsVzG&branch=master)](https://travis-ci.com/jphill01/HACSim.R)[![Licence](https://img.shields.io/cran/l/HACSim.svg)[![](https://img.shields.io/cran/v/HACSim.svg)[![](https://cranlogs.r-pkg.org/badges/HACSim)](https://cran.r-project.org/package=HACSim)
 
 HACSim (**H**aplotype **A**ccumulation **Sim**ulator) is a novel nonparametric stochastic (Monte Carlo) algorithm written in R for the simulation of haplotype accumulation curves. It can be employed to determine required sample sizes for DNA barcoding, specifically pertaining to recovery of total haplotype variation that may exist for a given species. 
 
