@@ -77,7 +77,7 @@ HAC.sim <- function(N,
 	                             # can be used to simulate migration/gene flow
 		  seqs <- seqs[sample(nrow(seqs), size = ceiling(prop.seqs * nrow(seqs)), replace = FALSE), ]
 		  seqsfile <- tempfile(fileext = ".fas")
-		  write.dna(seqs, file = seqsfile)
+		  write.dna(seqs, file = seqsfile, format = "fasta")
 	  }
 		 
 		assign("N", dim(seqs)[[1]], envir = envr)
