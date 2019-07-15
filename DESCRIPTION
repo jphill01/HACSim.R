@@ -8,8 +8,7 @@ Maintainer: Jarrett D. Phillips <phillipsjarrett1@gmail.com>
 Description: Performs iterative extrapolation of species' haplotype accumulation curves using a nonparametric stochastic (Monte Carlo) optimization method for assessment of specimen sampling completeness based on the approach of Phillips et al. (2015) <doi:10.1515/dna-2015-0008> and Phillips et al. (2019) <doi:10.1002/ece3.4757>. Any genomic marker can be targeted to assess likely required specimen sample sizes. The method is well-suited to assess sampling sufficiency for DNA barcoding initiatives.
 License: GPL-3
 NeedsCompilation: Yes
-Imports: abind (>= 1.4-5),
-         ape (>= 5.2),
+Imports: ape (>= 5.2),
          graphics (>= 3.5.1),
          matrixStats (>= 0.54.0),
          pegas (>= 0.11),
