@@ -1,5 +1,4 @@
 useDynLib(HACSim, .registration=TRUE)
-importFrom(abind, adrop)
 importFrom(ape, base.freq)
 importFrom(ape, read.dna)
 importFrom(ape, write.dna)
