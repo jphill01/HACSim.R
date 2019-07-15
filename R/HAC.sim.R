@@ -151,7 +151,6 @@ HAC.sim <- function(N,
 	## Perform haplotype accumulation ##
     
 	  HAC.mat <- accumulate(pop, specs, perms, K)
-	  HAC.mat <- adrop(HAC.mat, 3) # convert to matrix by dropping 3rd dimension
 
 	  ## Update progress bar ##
     
@@ -161,15 +160,11 @@ HAC.sim <- function(N,
 	
 	## Calculate the mean and CI for number of haplotypes recovered over all permutations
 	  
-	  #means <- apply(HAC.mat, MARGIN = 2, mean)
-	  means <- colMeans2(HAC.mat)
-	  #sds <- apply(HAC.mat, MARGIN = 2, sd)
-	  sds <- colSds(HAC.mat)
+	  means <- apply(HAC.mat, MARGIN = 2, mean)
+	  sds <- apply(HAC.mat, MARGIN = 2, sd)
 	  
-	  #lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 - conf.level) / 2))
-	  lower <- colQuantiles(HAC.mat, probs = (1 - conf.level) / 2)
-	  #upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 + conf.level) / 2))
-	  upper <- colQuantiles(HAC.mat, probs = (1 + conf.level) / 2)
+	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 - conf.level) / 2))
+	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 + conf.level) / 2))
 	  
 	## Make data accessible to user ##
 	 
