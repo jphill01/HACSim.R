@@ -20,28 +20,28 @@ HACSim comprises three main functions:
 
 Function arguments to HAC.sim() are passed from either HACHypothetical() or HACReal() as follows:
 
-    * **N** = Number of observed individuals (DNA sequences) of a given species 
+  * **N** = Number of observed individuals (DNA sequences) of a given species 
 
-    * **Hstar** = Number of observed haplotypes (unique DNA sequences) for a given species
+  * **Hstar** = Number of observed haplotypes (unique DNA sequences) for a given species
 
-    * **probs** = Haplotype frequency distribution vector for a given species (must have a length of **Hstar** and sum to 1)
+  * **probs** = Haplotype frequency distribution vector for a given species (must have a length of **Hstar** and sum to 1)
 
-    * **perms** = Number of permutations to generate species haplotype accumulation curve (**perms** = 10000 by default)
+  * **perms** = Number of permutations to generate species haplotype accumulation curve (**perms** = 10000 by default)
 
-    * **p** = Proportion of species haplotypes to recover (**p** = 0.95 by default)
+  * **p** = Proportion of species haplotypes to recover (**p** = 0.95 by default)
 
-    * **conf.level** = Desired confidence leval for graphical output and confidence interval calculation  
-    (**conf.level** = 0.95 by default)
+  * **conf.level** = Desired confidence leval for graphical output and confidence interval calculation  
+  (**conf.level** = 0.95 by default)
 
-    * **subsample** = Should a subsample of haplotype labels or DNA sequences be taken
-    (**subsample** = FALSE by default)
+  * **subsample** = Should a subsample of haplotype labels or DNA sequences be taken
+  (**subsample** = FALSE by default)
 
-    * **prop** = Proportion of haplotypw labels or DNA sequences to sample when **subsample** = TRUE  
-    (**prop** = NULL by default)
+  * **prop** = Proportion of haplotypw labels or DNA sequences to sample when **subsample** = TRUE  
+  (**prop** = NULL by default)
 
-    * **progress** = Should iteration output be printed to the R console? (**progress** = TRUE by default)
+  * **progress** = Should iteration output be printed to the R console? (**progress** = TRUE by default)
 
-    * **filename** = Name of file where simulation results are to be saved (**filename** = NULL by default)
+  * **filename** = Name of file where simulation results are to be saved (**filename** = NULL by default)
 
 **perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
 
