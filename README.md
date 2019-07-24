@@ -136,11 +136,13 @@ A stable version of HACSim is available for download as a package from the Compr
     > library(HACSim).
 
 The reference manual for HACSim, which includes built-in functions with explanations for their proper use, can be accessed by typing
-> ?HACSim.
+
+    > ?HACSim.
 
 Alternatively, the development version of HACSim can be downloaded from GitHub directly in R via 
 
     > library(devtools)
+    
     > devtools::install_github("jphill01/HACSim.R")
 
 
