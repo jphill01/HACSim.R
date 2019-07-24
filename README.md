@@ -74,7 +74,8 @@ To run the algorithm, do the following in a fresh R script:
 1. Set up all desired algorithm input parameters using standard R variable assignment. 
 
 2. Run either of the following lines of code for simulation of either hypothetical or real species:
-> HACHypothetical(...) 
+
+        > HACHypothetical(...) 
 
         > HACReal(...)
 
