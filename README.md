@@ -115,7 +115,7 @@ To sucessfully run the simulation algorithm, the following conditions must hold:
  
 * **probs** = c(215/**N**, rep(3/**N**, 2), rep(2/**N**, 2), rep(1/**N**, 10)) (or see **Custom User Data** below)
 
-      > HACReal() # no arguments required to be inputted, but users can auter defaults
+      > HACReal() # no arguments required to be inputted, but users can alter defaults
 
 ### Custom User Data ###
 
