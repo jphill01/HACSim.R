@@ -32,7 +32,7 @@ arma::Cube<int> accumulate(const arma::Cube<int>& pop,
                          int K) {
     
     int num_specs = specs.size();
-    arma::Cube<int> res(perms, num_specs, K);
+    arma::Cube<int> res(perms, num_specs);
     
     IntegerVector specs_C = specs - 1;
     const int * pop_ptr;
