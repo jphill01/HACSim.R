@@ -12,11 +12,11 @@ Molecular loci besides DNA barcode genes (5'-COI, rbcL/matK, ITS regions) can be
 
 HACSim comprises three main functions:
 
-> HACHypothetical()
+    > HACHypothetical()
 
-> HACReal()
+    > HACReal()
 
-> HAC.simrep().
+    > HAC.simrep().
 
 Function arguments to HAC.sim() are passed from either HACHypothetical() or HACReal() as follows:
 
@@ -76,10 +76,11 @@ To run the algorithm, do the following in a fresh R script:
 2. Run either of the following lines of code for simulation of either hypothetical or real species:
 > HACHypothetical(...) 
 
-> HACReal(...)
+    > HACReal(...)
 
 3. Run the simulator
-> HAC.simrep(...)
+    
+       > HAC.simrep(...)
 
 **NOTE**: Users must have a system compiler (e.g. Xcode Command Line Tools on macOS) installed in order to run the algorithm successfully.  
 
@@ -113,7 +114,7 @@ To sucessfully run the simulation algorithm, the following conditions must hold:
  
 * **probs** = c(215/**N**, rep(3/**N**, 2), rep(2/**N**, 2), rep(1/**N**, 10)) (or see **Custom User Data** below)
 
-> HACReal()
+      > HACReal()
 
 ### Custom User Data ###
 
@@ -127,14 +128,20 @@ Aligned and trimmed 652 bp 5'-COI barcode sequences for Lake whitefish (*Coregon
 
 ### Algorithm Availability ###
 
-HACSim is available for download as a package from the Comprehensive R Archive Network (CRAN).
+A stable version of HACSim is available for download as a package from the Comprehensive R Archive Network (CRAN).
 
-> install.packages("HACSim")
+    > install.packages("HACSim")
 
-> library(HACSim).
+    > library(HACSim).
 
 The reference manual for HACSim, which includes built-in functions with explanations for their proper use, can be accessed by typing
 > ?HACSim.
+
+Alternatively, the development version of HACSim can be downloaded from GitHub directly in R via 
+
+    > library(devtools)
+    > devtools::install_github("jphill01/HACSim.R")
+
 
 ### Citing This Work ###
 
