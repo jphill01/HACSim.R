@@ -53,17 +53,17 @@ HAC.simrep() outputs simple "Measures of Sampling Closeness" for overall haploty
 
 Measures of Sampling Closeness for overall haplotype/specimen sampling completeness are given by the following fomulae (Phillips *et al.*, 2015):
 
-* Mean number of haplotypes sampled: H 
+* Mean number of haplotypes sampled: H\_i 
 
-* Number of haplotypes not sampled: H* - H
+* Number of haplotypes not sampled: H* - H\_i
 
-* Proportion of haplotypes (specimens) sampled: H / H*
+* Proportion of haplotypes (specimens) sampled: H\_i / H*
 
-* Proportion of haplotypes (specimens) not sampled: (H* - H) / H* 
+* Proportion of haplotypes (specimens) not sampled: (H* - H\_i) / H* 
 
-* Mean value of N*: NH* / H
+* Mean value of N*: N\_iH* / H\_i
 
-* Mean number of specimens not sampled: N* - N
+* Mean number of specimens not sampled: N* - N\_i
 
 In addition to users specifying unique values for **N**, **Hstar** and **probs**, default parameters can also be altered in order to produce more interesting output (e.g., subsampling of haplotype labels or DNA sequences). It may be necessary to increase **perms** in order to smooth out the curves, but this will increase algorithm runtime substantially. 
 
