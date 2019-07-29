@@ -81,7 +81,7 @@ To run the algorithm, do the following in a fresh R script:
 
 3. Run the simulator
     
-       > HAC.simrep(...)
+       > HAC.simrep(...) # users must pass the output from either HACHypothetical() or HACReal()
 
 **NOTE**: Users must have a system compiler (e.g. Xcode Command Line Tools on macOS) installed in order to run the algorithm successfully.  
 
