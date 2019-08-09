@@ -16,7 +16,7 @@ HACSim comprises three main functions:
 
     > HACReal()
 
-    > HAC.simrep().
+    > HAC.simrep()
 
 Function arguments to HAC.sim() are passed from either HACHypothetical() or HACReal() as follows:
 
