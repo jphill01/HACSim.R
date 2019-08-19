@@ -64,7 +64,7 @@ HAC.sim <- function(N,
 		  bf <- base.freq(seqs, all = TRUE)[5:17]
 	  
 		if (any(bf > 0)) {
-      warning("Inputted DNA sequences contain missing and/or ambiguous 
+      stop("Inputted DNA sequences contain missing and/or ambiguous 
 	    nucleotides, which may lead to overestimation of the number of 
 	    observed unique haplotypes. Consider excluding sequences or alignment 
 	    sites containing these data. If missing and/or ambiguous bases occur 
@@ -110,8 +110,8 @@ HAC.sim <- function(N,
       stop("perms must be greater than 1")
     }
   
-    if (p == 0) {
-      stop("p must be greater than 0")
+    if ((p <= 0) || (p > 1)) {
+      stop("p must be greater than 0 and less than or equal to 1")
     }
   
   ## Set up container to hold the identity of each individual from each permutation ##
@@ -148,9 +148,12 @@ HAC.sim <- function(N,
 	    pop[,, i] <- replicate(perms, gen.perms())
 	  }
 	  
+	  pop <<- pop
+	  
 	## Perform haplotype accumulation ##
     
 	  HAC.mat <- accumulate(pop, specs, perms, K)
+	  #HAC.mat <- drop(HAC.mat)
 
 	  ## Update progress bar ##
     
@@ -161,10 +164,18 @@ HAC.sim <- function(N,
 	## Calculate the mean and CI for number of haplotypes recovered over all permutations
 	  
 	  means <- apply(HAC.mat, MARGIN = 2, mean)
+	  #means <- colMeans2(HAC.mat)
+	  #means <- colmeans(HAC.mat)
 	  sds <- apply(HAC.mat, MARGIN = 2, sd)
+	  #sds <- colSds(HAC.mat)
+	  #sds <- colVars(HAC.mat, std = TRUE)
 	  
 	  lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 - conf.level) / 2))
+	  #lower <- colQuantiles(HAC.mat, probs = (1 - conf.level) / 2)
+	  #lower <- colQuantile(HAC.mat, probs = (1 - conf.level) / 2)
 	  upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 + conf.level) / 2))
+	  #upper <- colQuantiles(HAC.mat, probs = (1 + conf.level) / 2)
+	  #upper <- colQuantile(HAC.mat, probs = (1 + conf.level) / 2)
 	  
 	## Make data accessible to user ##
 	 
@@ -195,7 +206,7 @@ HAC.sim <- function(N,
 	    X <- 0 # to ensure non-negative result
 	  }
 	  
-	  moe <- {qnorm({1 + conf.level} / 2) * {tail(envr$d$sds, n = 1) / tail(envr$d$means, n = 1)} * sqrt(N)}
+	  moe <- (qnorm((1 + conf.level) / 2) * (tail(envr$d$sds, n = 1) / tail(envr$d$means, n = 1)) * sqrt(N))
 	 
 	  assign("low", signif(N - moe), envir = envr)
 	  assign("high", signif(N + moe), envir = envr)
