@@ -18,7 +18,7 @@ HACSim comprises three main functions:
 
     > HAC.simrep()
 
-Function arguments to HAC.sim() are passed from either HACHypothetical() or HACReal() as follows:
+Function arguments to HAC.simrep() are passed from either HACHypothetical() or HACReal() as follows:
 
   * **N** = Number of observed individuals (DNA sequences) of a given species 
 
