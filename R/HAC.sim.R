@@ -148,8 +148,6 @@ HAC.sim <- function(N,
 	    pop[,, i] <- replicate(perms, gen.perms())
 	  }
 	  
-	  pop <<- pop
-	  
 	## Perform haplotype accumulation ##
     
 	  HAC.mat <- accumulate(pop, specs, perms, K)
@@ -193,17 +191,17 @@ HAC.sim <- function(N,
 	   assign("R", P / Hstar, envir = envr)
 	   S <- Q / Hstar
 	   assign("Nstar", num / P, envir = envr)
-	   X <- (num / P) - N
+	   assign("X", (num / P) - N, envir = envr)
 	 } else {
 	   Q <- num.haps - P
 	   assign("R", P / num.haps, envir = envr)
 	   S <- (num.haps - P) / num.haps
 	   assign("Nstar", (N * num.haps) / P, envir = envr)
-	   X <- ((N * num.haps) / P) - N
+	   assign("X", ((N * num.haps) / P) - N, envir = envr)
 	 }
 	  
-	  if (X < 0) {
-	    X <- 0 # to ensure non-negative result
+	  if (envr$X < 0) {
+	    envr$X <- 0 # to ensure non-negative result
 	  }
 	  
 	  moe <- (qnorm((1 + conf.level) / 2) * (tail(envr$d$sds, n = 1) / tail(envr$d$means, n = 1)) * sqrt(N))
@@ -219,7 +217,7 @@ HAC.sim <- function(N,
 	        "\n Proportion of haplotypes sampled: " , envr$R, 
 	        "\n Proportion of haplotypes not sampled: " , S,
 	        "\n \n Mean value of N*: ", envr$Nstar,
-	        "\n Mean number of specimens not sampled: ", X)
+	        "\n Mean number of specimens not sampled: ", envr$X)
     
   ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       par(mfrow = c(1, 2))
@@ -244,6 +242,6 @@ HAC.sim <- function(N,
       }
 	  }
 	  
-	  df[nrow(df) + 1, ] <- c(P, Q, envr$R, S, envr$Nstar, X)
+	  df[nrow(df) + 1, ] <- c(P, Q, envr$R, S, envr$Nstar, envr$X)
 	  df
 } # end HAC.sim
