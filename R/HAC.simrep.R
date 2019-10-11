@@ -63,7 +63,7 @@ HAC.simrep <- function(HACSObject) {
   }
   
   while (envr$R < envr$p) {
-    df <- HAC.sim(N = envr$Nstar, 
+    df <- HAC.sim(N = ceiling(envr$Nstar), # round sample size up
                   Hstar = envr$Hstar, 
                   probs = envr$probs,
                   perms = envr$perms,
