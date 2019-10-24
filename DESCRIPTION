@@ -1,8 +1,8 @@
 Package: HACSim
 Type: Package
 Title: Iterative Extrapolation of Species' Haplotype Accumulation Curves
-Version: 1.0.3
-Date: 2019-07-13
+Version: 1.0.5
+Date: 2019-10-24
 Author: Jarrett D. Phillips [aut, cre], Steven H. French [ctb]
 Maintainer: Jarrett D. Phillips <phillipsjarrett1@gmail.com>
 Description: Performs iterative extrapolation of species' haplotype accumulation curves using a nonparametric stochastic (Monte Carlo) optimization method for assessment of specimen sampling completeness based on the approach of Phillips et al. (2015) <doi:10.1515/dna-2015-0008> and Phillips et al. (2019) <doi:10.1002/ece3.4757>. Any genomic marker can be targeted to assess likely required specimen sample sizes. The method is well-suited to assess sampling sufficiency for DNA barcoding initiatives.
