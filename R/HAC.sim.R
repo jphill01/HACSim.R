@@ -64,7 +64,7 @@ HAC.sim <- function(N,
 		  bf <- base.freq(seqs, all = TRUE)[5:17]
 	  
 		if (any(bf > 0)) {
-      stop("Inputted DNA sequences contain missing and/or ambiguous 
+      warning("Inputted DNA sequences contain missing and/or ambiguous 
 	    nucleotides, which may lead to overestimation of the number of 
 	    observed unique haplotypes. Consider excluding sequences or alignment 
 	    sites containing these data. If missing and/or ambiguous bases occur 

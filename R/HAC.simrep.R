@@ -58,7 +58,7 @@ HAC.simrep <- function(HACSObject) {
         \n The initial guess for sampling sufficiency was N = ", paste0(envr$N), "individuals",
         "\n \n The algorithm converged after", envr$iters, "iterations and took", amt[3], "s", 
         "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", envr$Nstar - envr$X, "individuals \n (", paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low, envr$high, sep = "-"), ")",
-        "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ",  envr$Nstar - envr$X - envr$N, "individuals")
+        "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ",  envr$Nstar - envr$X - envr$N, "individuals \n \n -------------------------------")
       }
   }
   
@@ -89,11 +89,14 @@ HAC.simrep <- function(HACSObject) {
           \n The initial guess for sampling sufficiency was N = ", paste0(envr$N), "individuals",
           "\n \n The algorithm converged after", envr$iters, "iterations and took", amt[3], "s", 
           "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", envr$Nstar - envr$X, "individuals \n (",  paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low, envr$high, sep = "-"), ")",
-          "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ", envr$Nstar - envr$X - envr$N, "individuals")
+          "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ", envr$Nstar - envr$X - envr$N, "individuals \n \n -------------------------------")
         }
       }
     
-  } 
+  }
+  
+  message("Type envr$ to extract simulation parameters of interest (see documentation for details)")
+  
   if (!is.null(envr$filename)) {
     write.csv(df, file = paste0(tempdir(), "/", get("filename", envir = envr), ".csv"))
   }
