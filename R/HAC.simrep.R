@@ -95,7 +95,7 @@ HAC.simrep <- function(HACSObject) {
     
   }
   
-  message("Type envr$ to extract simulation parameters of interest (see documentation for details)")
+  message("\n \n Type envr$ to extract simulation parameters of interest (see documentation for details)")
   
   if (!is.null(envr$filename)) {
     write.csv(df, file = paste0(tempdir(), "/", get("filename", envir = envr), ".csv"))
