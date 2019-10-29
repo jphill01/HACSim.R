@@ -10,6 +10,7 @@ HACClass <- function(input.seqs = NULL,
                      p = NA,
                      perms = NA,
                      conf.level = NA,
+                     num.iters = NA,
                      progress = NA,
                      filename = NULL) {
     HACObject <- list(input.seqs = input.seqs,
@@ -23,6 +24,7 @@ HACClass <- function(input.seqs = NULL,
                       p = p,
                       perms = perms,
                       conf.level = conf.level,
+                      num.iters = num.iters,
                       progress = progress,
                       filename = filename
     )
@@ -39,6 +41,7 @@ HACReal <- function(perms = 10000,
                 subsample = FALSE,
                 prop = NULL,
                 progress = TRUE,
+                num.iters = NULL,
                 filename = NULL) {
         # input.seqs <- TRUE # analyze DNA sequence file? 
         # subset.haps <- NULL # subset haplotypes?  
@@ -59,6 +62,7 @@ HACReal <- function(perms = 10000,
                               perms = perms,
                               p = p,
                               conf.level = conf.level,
+                              num.iters = num.iters,
                               progress = progress,
                               filename = filename)
     
@@ -75,6 +79,7 @@ HACHypothetical <- function(N,
                             subsample = FALSE,
                             prop = NULL,
                             progress = TRUE,
+                            num.iters = NULL,
                             filename = NULL) {
     if (missing(N)) {
       stop("Please provide a value for N")
@@ -110,6 +115,7 @@ HACHypothetical <- function(N,
                         perms = perms,
                         p = p,
                         conf.level = conf.level,
+                        num.iters = num.iters,
                         progress = progress,
                         filename = filename)
     return(objectHAC)

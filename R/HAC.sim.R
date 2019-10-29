@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: July 14, 2019
+# Last modified: October 28, 2019
 
 ##########
 
@@ -46,6 +46,7 @@ HAC.sim <- function(N,
                     prop.seqs = NULL,
                     conf.level = 0.95,
                     df = NULL, # dataframe
+                    num.iters = NULL,
                     progress = TRUE) {
   
     cat("\n \n")
