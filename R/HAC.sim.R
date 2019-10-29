@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: October 28, 2019
+# Last modified: October 29, 2019
 
 ##########
 
@@ -48,6 +48,8 @@ HAC.sim <- function(N,
                     df = NULL, # dataframe
                     num.iters = NULL,
                     progress = TRUE) {
+  
+  if ((is.null(num.iters)) || (num.iters == 1)) {
   
     cat("\n \n")
 
@@ -245,4 +247,5 @@ HAC.sim <- function(N,
 	  
 	  df[nrow(df) + 1, ] <- c(P, Q, envr$R, S, envr$Nstar, envr$X)
 	  df
+  }
 } # end HAC.sim
