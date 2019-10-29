@@ -49,7 +49,7 @@ HAC.sim <- function(N,
                     num.iters = NULL,
                     progress = TRUE) {
   
-  if ((is.null(num.iters)) || (num.iters == 1)) {
+  if ((is.null(envr$num.iters)) || (envr$num.iters == 1)) {
   
     cat("\n \n")
 
