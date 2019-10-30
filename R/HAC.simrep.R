@@ -63,7 +63,7 @@ HAC.simrep <- function(HACSObject) {
         "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ",  envr$Nstar - envr$X - envr$N, "individuals \n \n -------------------------------")
       }
   }
-  if (is.null(num.iters)) {
+  if (is.null(envr$num.iters)) {
     while (envr$R < envr$p) {
       df <- HAC.sim(N = ceiling(envr$Nstar), # round sample size up
                   Hstar = envr$Hstar, 
