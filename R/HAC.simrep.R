@@ -44,7 +44,7 @@ HAC.simrep <- function(HACSObject) {
                input.seqs = envr$input.seqs,
                conf.level = envr$conf.level,
                progress = envr$progress,
-               mum.iters = num.iters,
+               mum.iters = envr$num.iters,
                df = df
   )
   
