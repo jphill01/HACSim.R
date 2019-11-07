@@ -29,7 +29,9 @@
 # prop.seqs = Proportion of DNA sequences to sample
 # prop.haps = Proportion of haplotypes to sample
 # subset.haps = Subset of haplotypes to sample
-# conf.level = confides level for accumulation curve and confidence intervals
+# conf.level = Confidence level for accumulation curve and confidence intervals
+# num.iters = Number of iterations to perform (1 or NULL (i.e., all))
+# progress = Print results to console (TRUE / FALSE)
 
 #####
 
