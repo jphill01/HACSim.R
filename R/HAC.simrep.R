@@ -56,7 +56,7 @@ HAC.simrep <- function(HACSObject) {
   ## Check whether desired level of haplotype recovery has been reached ##
 
   if (envr$progress == TRUE) {
-    if ((envr$R < envr$p) && (envr$num.iters == 1)) {
+    if ((envr$R < envr$p)) {
       cat("\n \n \n Desired level of haplotype recovery has not yet been reached \n")
     } else {
       cat(
