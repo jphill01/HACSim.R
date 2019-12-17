@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: October 29, 2019
+# Last modified: December 16, 2019
 
 ##########
 
@@ -114,6 +114,10 @@ HAC.sim <- function(N,
 
     if ((p <= 0) || (p > 1)) {
       stop("p must be greater than 0 and less than or equal to 1")
+    }
+    
+    if ((num.iters > 1) && (!is.null(num.iters))) {
+      stop("num.iters must be either 1 or NULL. NULL computes all necessary iterations to reach convergence")
     }
 
     ## Set up container to hold the identity of each individual from each permutation ##
