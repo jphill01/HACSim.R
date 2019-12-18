@@ -50,12 +50,12 @@ HAC.sim <- function(N,
                     df = NULL, # dataframe
                     num.iters = NULL,
                     progress = TRUE) {
-  if ((is.null(envr$num.iters)) || (envr$num.iters == 1)) {
+  if ((is.null(num.iters)) || (num.iters == 1)) {
     cat("\n \n")
 
     ## Display progress bar ##
 
-    if (envr$progress == TRUE) {
+    if (progress == TRUE) {
       pb <- utils::txtProgressBar(min = 0, max = 1, style = 3)
     }
 
@@ -87,7 +87,7 @@ HAC.sim <- function(N,
       h <- sort(haplotype(seqs), decreasing = TRUE, what = "frequencies")
       rownames(h) <- 1:nrow(h)
       assign("Hstar", dim(h)[[1]], envir = envr)
-      assign("probs", lengths(attr(h, "index")) / envr$N, envir = envr)
+      assign("probs", lengths(attr(h, "index")) / N, envir = envr)
     }
 
     ## Error messages ##
@@ -114,10 +114,6 @@ HAC.sim <- function(N,
 
     if ((p <= 0) || (p > 1)) {
       stop("p must be greater than 0 and less than or equal to 1")
-    }
-    
-    if ((num.iters > 1) && (!is.null(num.iters))) {
-      stop("num.iters must be either 1 or NULL. NULL computes all necessary iterations to reach convergence")
     }
 
     ## Set up container to hold the identity of each individual from each permutation ##
@@ -161,7 +157,7 @@ HAC.sim <- function(N,
 
     ## Update progress bar ##
 
-    if (envr$progress == TRUE) {
+    if (progress == TRUE) {
       utils::setTxtProgressBar(pb, i)
     }
 
@@ -216,7 +212,7 @@ HAC.sim <- function(N,
     assign("high", signif(N + moe), envir = envr)
 
     ## Output results to R console and CSV file ##
-    if (envr$progress == TRUE) {
+    if (progress == TRUE) {
       cat(
         "\n \n --- Measures of Sampling Closeness --- \n \n",
         "Mean number of haplotypes sampled: ", P,
@@ -240,13 +236,13 @@ HAC.sim <- function(N,
       lines(specs, means, lwd = 2)
 
       if (is.null(subset.haps)) {
-        abline(h = envr$R * envr$Hstar, v = max(envr$d$specs), lty = 2) # dashed line
-        abline(h = envr$p * envr$Hstar, lty = 3) # dotted line
-        HAC.bar <- barplot(num.specs * envr$probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps, main = "Haplotype frequency distribution")
+        abline(h = envr$R * Hstar, v = max(envr$d$specs), lty = 2) # dashed line
+        abline(h = p * Hstar, lty = 3) # dotted line
+        HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps, main = "Haplotype frequency distribution")
       } else {
         abline(h = envr$R * length(subset.haps), v = max(envr$d$specs), lty = 2) # dashed line
-        abline(h = envr$p * length(subset.haps), lty = 3) # dotted line
-        HAC.bar <- barplot(num.specs * (envr$probs[subset.haps] / sum(envr$probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
+        abline(h = p * length(subset.haps), lty = 3) # dotted line
+        HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
       }
     }
 
