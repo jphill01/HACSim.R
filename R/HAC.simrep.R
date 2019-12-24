@@ -19,7 +19,7 @@ HAC.simrep <- function(HACSObject) {
   assign("filename", HACSObject$filename, envir = envr)
 
   assign("ptm", proc.time(), envir = envr)
-  assign("iters", 1, envr)
+  assign("iters", 1, envir = envr)
 
   df <- data.frame(matrix(ncol = 6, nrow = 0))
   x <- c(
