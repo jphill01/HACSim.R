@@ -77,7 +77,6 @@ HAC.sim <- function(N,
       assign("ptm", proc.time(), envir = envr)
 
       if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
-        # can be used to simulate migration/gene flow
         seqs <- seqs[sample(nrow(seqs), size = ceiling(prop.seqs * nrow(seqs)), replace = FALSE), ]
         seqsfile <- tempfile(fileext = ".fas")
         write.dna(seqs, file = seqsfile, format = "fasta")
@@ -197,7 +196,7 @@ HAC.sim <- function(N,
     } else {
       Q <- num.haps - P
       assign("R", P / num.haps, envir = envr)
-      S <- (num.haps - P) / num.haps
+      S <- Q / num.haps
       assign("Nstar", (N * num.haps) / P, envir = envr)
       assign("X", ((N * num.haps) / P) - N, envir = envr)
     }
@@ -238,11 +237,11 @@ HAC.sim <- function(N,
       if (is.null(subset.haps)) {
         abline(h = envr$R * Hstar, v = max(envr$d$specs), lty = 2) # dashed line
         abline(h = p * Hstar, lty = 3) # dotted line
-        HAC.bar <- barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps, main = "Haplotype frequency distribution")
+        barplot(num.specs * probs, xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = haps, main = "Haplotype frequency distribution")
       } else {
         abline(h = envr$R * length(subset.haps), v = max(envr$d$specs), lty = 2) # dashed line
         abline(h = p * length(subset.haps), lty = 3) # dotted line
-        HAC.bar <- barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
+        barplot(num.specs * (probs[subset.haps] / sum(probs[subset.haps])), xlab = "Unique haplotypes", ylab = "Specimens sampled", names.arg = subset.haps, main = "Haplotype frequency distribution")
       }
     }
 
