@@ -7,7 +7,7 @@
 
 \usage{HACHypothetical(N, Hstar, probs, perms = 10000, p = 0.95, 
 conf.level = 0.95, subsample = FALSE, prop = NULL,
-progress = TRUE, filename = NULL)}
+progress = TRUE, num.iters = NULL, filename = NULL)}
 
 \arguments{\item{N}{Number of individuals}
 \item{Hstar}{Number of unique species' haplotypes}
@@ -65,6 +65,6 @@ progress = TRUE, filename = NULL)}
   ## Simulate hypothetical species and all paramaters changed - subsampling ##
   HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, 
   perms = 10000, p = 0.90, subsample = TRUE, prop = 0.15, conf.level = 0.95, 
-  filename = "output")
+  num.iters = 1, filename = "output")
   }
   

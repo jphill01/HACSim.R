@@ -6,7 +6,7 @@
 \description{Helper function which creates an object containing necessary information to run a simulation of haplotype accumulation for a real species of interest}
 
 \usage{HACReal(perms = 10000, p = 0.95, conf.level = 0.95, 
-subsample = FALSE, prop = NULL, progress = TRUE, filename = NULL)}
+subsample = FALSE, prop = NULL, progress = TRUE, num.iters = NULL, filename = NULL)}
 
 \arguments{\item{perms}{Number of permutations (replications)}
 \item{p}{Proportion of haplotypes to recover}
@@ -49,5 +49,5 @@ subsample = FALSE, prop = NULL, progress = TRUE, filename = NULL)}
     
     ## Simulate real species and all parameters changed - subsampling ##
     HACSObj <- HACReal(perms = 10000, p = 0.90, subsample = TRUE, 
-    prop = 0.15, conf.level = 0.99, filename = "output")
+    prop = 0.15, conf.level = 0.99, num.iters = 1, filename = "output")
 }
