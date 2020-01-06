@@ -153,4 +153,4 @@ In utilizing HACSim, the following publications may be of interest and worth cit
 **Phillips, J.D.**, Gillis, D.J. and Hanner, R.H. (2019). Incomplete estimates of genetic diversity within species: Implications for DNA barcoding. *Ecology and Evolution*, **9**(5): 2996-3010. DOI: 10.1002/ece3.4757
 
 **Phillips, J.D.**, D. J. Gillis, and R. H. Hanner. HACSim: An R package to estimate intraspecific sample sizes for genetic diversity
-assessment using haplotype accumulation curves. PeerJ Computer Science. To appear.
+assessment using haplotype accumulation curves. PeerJ Computer Science. DOI: 10.7717/peerj-cs.243.
