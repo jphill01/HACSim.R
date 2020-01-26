@@ -36,8 +36,10 @@ Function arguments to HAC.simrep() are passed from either HACHypothetical() or H
   * **subsample** = Should a subsample of haplotype labels or DNA sequences be taken
   (**subsample** = FALSE by default)
 
-  * **prop** = Proportion of haplotypw labels or DNA sequences to sample when **subsample** = TRUE  
+  * **prop** = Proportion of haplotype labels or DNA sequences to sample when **subsample** = TRUE  
   (**prop** = NULL by default)
+  
+  * **num.iters** = Number of iterations to compute (**num.iters** = NULL (*i.e.*, all) by default)
 
   * **progress** = Should iteration output be printed to the R console? (**progress** = TRUE by default)
 
