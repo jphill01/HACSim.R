@@ -10,8 +10,5 @@ before install:
 notifications:
   email:
   never
-
-after_success:
-  - Rscript -e 'library(covr); codecov()'
-
+  
 warnings_are_errors: false
