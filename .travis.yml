@@ -11,4 +11,5 @@ notifications:
   email:
    - never
   
-warnings_are_errors: false
+warnings_are_errors: 
+  - false
