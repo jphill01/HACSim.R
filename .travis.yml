@@ -3,7 +3,7 @@ os:
   - osx
   - linux
   
-before install: 
+before_install: 
   - brew install llvm libomp
   - export CPP=/usr/local/opt/llvm/bin/clang
   
