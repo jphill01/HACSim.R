@@ -4,8 +4,8 @@ os:
   - linux
   
 before install: 
- - brew install llvm libomp
- - export CPP=/usr/local/opt/llvm/bin/clang
+  - brew install llvm libomp
+  - export CPP=/usr/local/opt/llvm/bin/clang
   
 notifications:
   email:
