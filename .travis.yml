@@ -9,6 +9,6 @@ before install:
   
 notifications:
   email:
-  never
+   - never
   
 warnings_are_errors: false
