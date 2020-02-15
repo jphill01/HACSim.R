@@ -2,9 +2,10 @@ language: r
 os: 
   - osx
   - linux
-
-r_packages:
-  - covr
+  
+before install: 
+ - brew install llvm libomp
+ - export CPP=/usr/local/opt/llvm/bin/clang
   
 notifications:
   email:
