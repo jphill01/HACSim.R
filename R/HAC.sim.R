@@ -143,15 +143,17 @@ HAC.sim <- function(N,
       }
     }
 
-    pop <- array(dim = c(perms, num.specs, K))
-
+    pop <- array(dim = c(perms, num.specs, K)) # preallocate array
+    
     for (i in 1:K) {
-      pop[, , i] <- replicate(perms, gen.perms())
+      pop[, , i] <- replicate(perms, gen.perms()) # fill array
     }
 
     ## Perform haplotype accumulation ##
+    
+    # Custom C++ function selects one permutation (row), then samples haplotypes for that permutation in a random order
 
-    HAC.mat <- accumulate(pop, specs, perms, K)
+    HAC.mat <- accumulate(pop, specs, perms, K) 
     # HAC.mat <- drop(HAC.mat)
 
     ## Update progress bar ##
@@ -224,16 +226,16 @@ HAC.sim <- function(N,
 
       ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       par(mfrow = c(1, 2))
-
+      
       if (is.null(subset.haps)) {
         plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes", ylim = c(1, Hstar), main = "Haplotype accumulation curve")
       } else {
         plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes", ylim = c(1, length(subset.haps)), main = "Haplotype accumulation curve")
       }
-
+      
       polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
       lines(specs, means, lwd = 2)
-
+      
       if (is.null(subset.haps)) {
         abline(h = envr$R * Hstar, v = max(envr$d$specs), lty = 2) # dashed line
         abline(h = p * Hstar, lty = 3) # dotted line
