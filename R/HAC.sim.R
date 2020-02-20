@@ -151,7 +151,8 @@ HAC.sim <- function(N,
 
     ## Perform haplotype accumulation ##
     
-    # Custom C++ function selects one permutation (row), then samples haplotypes for that permutation in a random order
+    # Custom C++ function selects one permutation (row) in pop array, 
+    # then selects individuals in a random order and samples haplotypes for that permutation 
 
     HAC.mat <- accumulate(pop, specs, perms, K) 
     # HAC.mat <- drop(HAC.mat)
