@@ -48,6 +48,8 @@ HAC.sim <- function(N,
                     prop.seqs = NULL,
                     conf.level = 0.95,
                     df = NULL, # dataframe
+                    multiple.species = FALSE,
+                    species.fasta.file = NULL,
                     num.iters = NULL,
                     progress = TRUE) {
   if ((is.null(num.iters)) || (num.iters == 1)) {
@@ -62,9 +64,11 @@ HAC.sim <- function(N,
     ## Load DNA sequence data and set N, Hstar and probs ##
 
     if (input.seqs == TRUE) {
-      seqs <- read.dna(file = file.choose(), format = "fasta")
-
-      bf <- base.freq(seqs, all = TRUE)[5:17]
+      if (multiple.species == TRUE) {
+        seqs <- read.dna(file = species.fasta.file, format = "fasta")
+      }
+        seqs <- read.dna(file = file.choose(), format = "fasta")
+        bf <- base.freq(seqs, all = TRUE)[5:17]
 
       if (any(bf > 0)) {
         warning("Inputted DNA sequences contain missing and/or ambiguous 
@@ -234,7 +238,11 @@ HAC.sim <- function(N,
         plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes", ylim = c(1, length(subset.haps)), main = "Haplotype accumulation curve")
       }
       
+      low <- envr$d$means - qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
+      up <- envr$d$means + qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
+      
       polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
+      polygon(x = c(specs, rev(specs)), y = c(low, rev(up)), col = "gray")
       lines(specs, means, lwd = 2)
       
       if (is.null(subset.haps)) {

@@ -16,6 +16,8 @@ HAC.simrep <- function(HACSObject) {
   assign("input.seqs", HACSObject$input.seqs, envir = envr)
   assign("progress", HACSObject$progress, envir = envr)
   assign("num.iters", HACSObject$num.iters, envir = envr)
+  assign("multiple.species", HACSObject$multiple.species, envir = envr)
+  assign("species.fasta.file", HACSObject$species.fasta.file, envir = envr)
   assign("filename", HACSObject$filename, envir = envr)
 
   assign("ptm", proc.time(), envir = envr)
@@ -109,7 +111,7 @@ HAC.simrep <- function(HACSObject) {
 
   message("\n \n Type envr$ to extract simulation parameters of interest (see documentation for details)")
 
-  if (!is.null(envr$filename)) {
-    write.csv(df, file = paste0(tempdir(), "/", get("filename", envir = envr), ".csv"))
-  }
+    if (!is.null(envr$filename)) {
+        write.csv(df, file = paste0(tempdir(), "/", get("filename", envir = envr), ".csv"))
+    }
 } # end HAC.simrep

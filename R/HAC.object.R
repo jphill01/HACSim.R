@@ -12,6 +12,8 @@ HACClass <- function(input.seqs = NULL,
                      conf.level = NA,
                      num.iters = NA,
                      progress = NA,
+                     multiple.species = NA,
+                     species.fasta.file = NULL,
                      filename = NULL) {
   HACObject <- list(
     input.seqs = input.seqs,
@@ -25,6 +27,8 @@ HACClass <- function(input.seqs = NULL,
     p = p,
     perms = perms,
     conf.level = conf.level,
+    multiple.species = multiple.species,
+    species.fasta.file = species.fasta.file,
     num.iters = num.iters,
     progress = progress,
     filename = filename
@@ -42,6 +46,8 @@ HACReal <- function(perms = 10000,
                     subsample = FALSE,
                     prop = NULL,
                     progress = TRUE,
+                    multiple.species = FALSE,
+                    species.fasta.file = NULL,
                     num.iters = NULL,
                     filename = NULL) {
   # input.seqs <- TRUE # analyze DNA sequence file?
@@ -65,6 +71,8 @@ HACReal <- function(perms = 10000,
     p = p,
     conf.level = conf.level,
     num.iters = num.iters,
+    multiple.species = multiple.species,
+    species.fasta.file = species.fasta.file,
     progress = progress,
     filename = filename
   )
