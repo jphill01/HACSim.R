@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: December 21, 2019
+# Last modified: March 5, 2020
 
 ##########
 
@@ -48,8 +48,7 @@ HAC.sim <- function(N,
                     prop.seqs = NULL,
                     conf.level = 0.95,
                     df = NULL, # dataframe
-                    multiple.species = FALSE,
-                    species.fasta.file = NULL,
+                    filepath = NULL,
                     num.iters = NULL,
                     progress = TRUE) {
   if ((is.null(num.iters)) || (num.iters == 1)) {
@@ -62,13 +61,23 @@ HAC.sim <- function(N,
     }
 
     ## Load DNA sequence data and set N, Hstar and probs ##
-
+    
     if (input.seqs == TRUE) {
-      if (multiple.species == TRUE) {
-        seqs <- read.dna(file = species.fasta.file, format = "fasta")
+      
+      if (file.exists(filepath) == TRUE) {
+        setwd(filepath)
       }
+    
+      if (!is.null(filepath)) {
+        file.names <- list.files(path = filepath, pattern = ".fas")
+        for (i in 1:length(file.names)) {
+          seqs <- read.dna(file = file.names[i], format = "fasta")
+        }
+      } else {
         seqs <- read.dna(file = file.choose(), format = "fasta")
-        bf <- base.freq(seqs, all = TRUE)[5:17]
+      }
+      
+      bf <- base.freq(seqs, all = TRUE)[5:17]
 
       if (any(bf > 0)) {
         warning("Inputted DNA sequences contain missing and/or ambiguous 
@@ -83,7 +92,7 @@ HAC.sim <- function(N,
       if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
         seqs <- seqs[sample(nrow(seqs), size = ceiling(prop.seqs * nrow(seqs)), replace = FALSE), ]
         seqsfile <- tempfile(fileext = ".fas")
-        write.dna(seqs, file = seqsfile, format = "fasta")
+        write.dna(seqs, file = seqsfile)
       }
 
       assign("N", dim(seqs)[[1]], envir = envr)
@@ -160,9 +169,7 @@ HAC.sim <- function(N,
 
     HAC.mat <- accumulate(pop, specs, perms, K) 
     # HAC.mat <- drop(HAC.mat)
-
-    ## Update progress bar ##
-
+    
     if (progress == TRUE) {
       utils::setTxtProgressBar(pb, i)
     }
