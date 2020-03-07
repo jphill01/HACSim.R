@@ -66,7 +66,7 @@ HAC.sim <- function(N,
       
       if (file.exists(filepath) == TRUE) {
         setwd(filepath)
-      }
+      } 
     
       if (!is.null(filepath)) {
         file.names <- list.files(path = filepath, pattern = ".fas")
