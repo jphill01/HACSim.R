@@ -109,6 +109,10 @@ HAC.simrep <- function(HACSObject) {
       }
     }
   }
+  
+  cat("\n \n")
+  
+  assign("df_out", df, envir = envr)
 
   message("\n \n Type envr$ to extract simulation parameters of interest (see documentation for details)")
 
