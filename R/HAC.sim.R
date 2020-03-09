@@ -62,21 +62,20 @@ HAC.sim <- function(N,
 
     ## Load DNA sequence data and set N, Hstar and probs ##
     
-    if (input.seqs == TRUE) {
-      
-      if (file.exists(filepath) == TRUE) {
-        setwd(filepath)
-      } 
-    
-      if (!is.null(filepath)) {
-        file.names <- list.files(path = filepath, pattern = ".fas")
-        for (i in 1:length(file.names)) {
-          seqs <- read.dna(file = file.names[i], format = "fasta")
-        }
-      } else {
-        seqs <- read.dna(file = file.choose(), format = "fasta")
-      }
-      
+      if (input.seqs == TRUE) {
+        
+        if ((!is.null(filepath)) && (file.exists(filepath) == TRUE)) {
+          old.wd <- getwd()
+          setwd(filepath)
+          on.exit(setwd(old.wd))
+          file.names <- list.files(path = filepath, pattern = ".fas")
+          for (i in 1:length(file.names)) {
+            seqs <- read.dna(file = file.names[i], format = "fasta")
+          }
+        } else {
+          seqs <- read.dna(file = file.choose(), format = "fasta")
+          }
+          
       bf <- base.freq(seqs, all = TRUE)[5:17]
 
       if (any(bf > 0)) {
