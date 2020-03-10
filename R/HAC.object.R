@@ -13,7 +13,8 @@ HACClass <- function(input.seqs = NULL,
                      filepath = NULL,
                      num.iters = NA,
                      progress = NA,
-                     filename = NULL) {
+                     filename = NULL,
+                     filenames = NULL) {
   HACObject <- list(
     input.seqs = input.seqs,
     subset.seqs = subset.seqs,
@@ -29,7 +30,8 @@ HACClass <- function(input.seqs = NULL,
     filepath = filepath,
     num.iters = num.iters,
     progress = progress,
-    filename = filename
+    filename = filename,
+    filenames = filenames
   )
 
   ## Set the name for the class
@@ -46,7 +48,8 @@ HACReal <- function(perms = 10000,
                     filepath = NULL,
                     progress = TRUE,
                     num.iters = NULL,
-                    filename = NULL) {
+                    filename = NULL,
+                    filenames = NULL) {
   # input.seqs <- TRUE # analyze DNA sequence file?
   # subset.haps <- NULL # subset haplotypes?
   # prop.haps <- NULL # proportion of haplotypes to subsample
@@ -70,7 +73,8 @@ HACReal <- function(perms = 10000,
     num.iters = num.iters,
     filepath = filepath,
     progress = progress,
-    filename = filename
+    filename = filename,
+    filenames = filenames
   )
 
   return(objectHAC)

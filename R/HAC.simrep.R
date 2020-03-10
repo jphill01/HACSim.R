@@ -18,6 +18,7 @@ HAC.simrep <- function(HACSObject) {
   assign("num.iters", HACSObject$num.iters, envir = envr)
   assign("filepath", HACSObject$filepath, envir = envr)
   assign("filename", HACSObject$filename, envir = envr)
+  assign("filenames", HACSObject$file.names, envir = envr)
 
   assign("ptm", proc.time(), envir = envr)
   assign("iters", 1, envir = envr)
@@ -63,7 +64,7 @@ HAC.simrep <- function(HACSObject) {
     } else {
       cat(
         "\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
-        \n The initial guess for sampling sufficiency was N = ", paste0(envr$N), "individuals",
+        \n The initial guess for sampling sufficiency was N = ", paste0(envr$N), "individuals represented by H* = ", paste0(envr$Hstar), "haplotypes",
         "\n \n The algorithm converged after", envr$iters, "iterations and took", amt[3], "s",
         "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", envr$Nstar - envr$X, "individuals \n (", paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low, envr$high, sep = "-"), ")",
         "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ", envr$Nstar - envr$X - envr$N, "individuals \n \n -------------------------------"
@@ -100,7 +101,7 @@ HAC.simrep <- function(HACSObject) {
         } else {
           cat(
             "\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
-          \n The initial guess for sampling sufficiency was N = ", paste0(envr$N), "individuals",
+          \n The initial guess for sampling sufficiency was N = ", paste0(envr$N), "individuals represented by H* = ", paste0(envr$Hstar), "haplotypes",
             "\n \n The algorithm converged after", envr$iters, "iterations and took", amt[3], "s",
             "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", envr$Nstar - envr$X, "individuals \n (", paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low, envr$high, sep = "-"), ")",
             "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ", envr$Nstar - envr$X - envr$N, "individuals \n \n -------------------------------"
@@ -118,6 +119,10 @@ HAC.simrep <- function(HACSObject) {
 
     if (!is.null(envr$filename)) {
         fwrite(df, file = paste0(tempdir(), "/", get("filename", envir = envr), ".csv"))
+    }
+  
+    if (!is.null(envr$filenames)) {
+        fwrite(df, file = paste0(tempdir(), "/", get("filenames", envir = envr),  ".csv"))
     }
   
 } # end HAC.simrep

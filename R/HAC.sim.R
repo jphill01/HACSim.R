@@ -49,6 +49,7 @@ HAC.sim <- function(N,
                     conf.level = 0.95,
                     df = NULL, # dataframe
                     filepath = NULL,
+                    filenames = NULL,
                     num.iters = NULL,
                     progress = TRUE) {
   if ((is.null(num.iters)) || (num.iters == 1)) {
@@ -68,8 +69,9 @@ HAC.sim <- function(N,
           old.wd <- getwd()
           setwd(filepath)
           on.exit(setwd(old.wd))
-          file.names <- list.files(path = filepath, pattern = ".fas")
+          file.names <- list.files(path = envr$filepath, pattern = ".fas")
           for (i in 1:length(file.names)) {
+            assign("filenames", file.names[i], envir = envr)
             seqs <- read.dna(file = file.names[i], format = "fasta")
           }
         } else {
