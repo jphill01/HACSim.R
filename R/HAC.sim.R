@@ -48,8 +48,6 @@ HAC.sim <- function(N,
                     prop.seqs = NULL,
                     conf.level = 0.95,
                     df = NULL, # dataframe
-                    filepath = NULL,
-                    filenames = NULL,
                     num.iters = NULL,
                     progress = TRUE) {
   if ((is.null(num.iters)) || (num.iters == 1)) {
@@ -65,19 +63,8 @@ HAC.sim <- function(N,
     
       if (input.seqs == TRUE) {
         
-        if ((!is.null(filepath)) && (file.exists(filepath) == TRUE)) {
-          old.wd <- getwd()
-          setwd(filepath)
-          on.exit(setwd(old.wd))
-          file.names <- list.files(path = envr$filepath, pattern = ".fas")
-          for (i in 1:length(file.names)) {
-            assign("filenames", file.names[i], envir = envr)
-            seqs <- read.dna(file = file.names[i], format = "fasta")
-          }
-        } else {
-          seqs <- read.dna(file = file.choose(), format = "fasta")
-          }
-          
+      seqs <- read.dna(file = file.choose(), format = "fasta")
+         
       bf <- base.freq(seqs, all = TRUE)[5:17]
 
       if (any(bf > 0)) {
@@ -119,6 +106,10 @@ HAC.sim <- function(N,
 
     if (!isTRUE(all.equal(1, sum(probs), tolerance = .Machine$double.eps^0.25))) {
       stop("probs must sum to 1")
+    }
+    
+    if (length(probs) != Hstar) {
+      stop("probs must have Hstar elements")
     }
 
     if (perms == 1) {
@@ -193,7 +184,7 @@ HAC.sim <- function(N,
 
     ## Make data accessible to user ##
 
-    assign("d", data.frame(specs, means, sds), envir = envr)
+    assign("d", data.frame(specs, means, sds, lower, upper), envir = envr)
 
     ## Compute simple summary statistics and display output ##
     ## tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()
@@ -220,11 +211,6 @@ HAC.sim <- function(N,
       envr$X <- 0 # to ensure non-negative result
     }
 
-    moe <- (qnorm((1 + conf.level) / 2) * (tail(envr$d$sds, n = 1) / tail(envr$d$means, n = 1)) * sqrt(N))
-
-    assign("low", signif(N - moe), envir = envr)
-    assign("high", signif(N + moe), envir = envr)
-
     ## Output results to R console and CSV file ##
     if (progress == TRUE) {
       cat(
@@ -236,6 +222,14 @@ HAC.sim <- function(N,
         "\n \n Mean value of N*: ", envr$Nstar,
         "\n Mean number of specimens not sampled: ", envr$X
       )
+      
+      low <- envr$d$means - qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
+      up <- envr$d$means + qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
+      
+      moe <- (qnorm((1 + conf.level) / 2) * (tail(envr$d$sds, n = 1) / tail(envr$d$means, n = 1)) * sqrt(N))
+      
+      assign("low", signif(N - moe), envir = envr)
+      assign("high", signif(N + moe), envir = envr)
 
       ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       par(mfrow = c(1, 2))
@@ -245,9 +239,6 @@ HAC.sim <- function(N,
       } else {
         plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes", ylim = c(1, length(subset.haps)), main = "Haplotype accumulation curve")
       }
-      
-      low <- envr$d$means - qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
-      up <- envr$d$means + qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
       
       polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
       polygon(x = c(specs, rev(specs)), y = c(low, rev(up)), col = "gray")
