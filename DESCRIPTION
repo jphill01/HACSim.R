@@ -9,8 +9,8 @@ Maintainer: Jarrett D. Phillips <phillipsjarrett1@gmail.com>
 Description: Performs iterative extrapolation of species' haplotype accumulation curves using a nonparametric stochastic (Monte Carlo) optimization method for assessment of specimen sampling completeness based on the approach of Phillips et al. (2015) <doi:10.1515/dna-2015-0008>, Phillips et al. (2019) <doi:10.1002/ece3.4757> and Phillips et al. (2020) <doi: 10.7717/peerj-cs.243>. HACSim outputs a number of useful summary statistics of sampling coverage ("Measures of Sampling Closeness"), including an estimate of the likely required sample size (along with desired level confidence intervals) necessary to recover a given number/proportion of observed unique species' haplotypes. Any genomic marker can be targeted to assess likely required specimen sample sizes for genetic diversity assessment. The method is particularly well-suited to assess sampling sufficiency for DNA barcoding initiatives.
 License: GPL-3
 NeedsCompilation: yes
-Imports: ape (>= 5.2), graphics (>= 3.5.1), pegas (>= 0.11), Rcpp (>=
-        1.0.0), stats (>= 3.5.1), utils (>= 3.5.1)
+Imports: ape (>= 5.3), data.table (>= 1.12.8), graphics (>= 3.6.1), matrixStats (>= 0.56.0), pegas (>= 0.13), Rcpp (>=
+        1.0.3), stats (>= 3.6.1), utils (>= 3.6.1)
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 6.1.1
 Packaged: 2019-10-23 16:00:58 UTC; jarrettphillips
