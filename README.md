@@ -150,7 +150,7 @@ Alternatively, the development version of HACSim can be downloaded from GitHub d
 
 Capability to simulate DNA sequences within HACSim is under development via the function 
 
-    > sim.seqs(). 
+    > sim.seqs()
 
 Users will be able to specify the following parameters:
 
