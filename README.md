@@ -154,23 +154,23 @@ Capability to simulate DNA sequences within HACSim is under development via the 
 
 Users will be able to specify the following parameters:
 
-**num.seqs** = Number of DNA sequences
+* **num.seqs** = Number of DNA sequences
 
-**num.haps** = Number of haplotypes
+* **num.haps** = Number of haplotypes
 
-**length.seqs** = Length of DNA sequences
+* **length.seqs** = Length of DNA sequences
 
-**nucl.freqs** = Nucleotide frequency distribution vector for a given simulated species (must have a length of four and sum to 1)
+* **nucl.freqs** = Nucleotide frequency distribution vector for a given simulated species (must have a length of four and sum to 1)
 
-**count.haps** = Haplotype frequency distribution vector for a given simulated species (must have a length of **num.haps** and sum to 1)
+* **count.haps** = Haplotype frequency distribution vector for a given simulated species (must have a length of **num.haps** and sum to 1)
 
-**subst.model** = model of DNA substitution (one of **"JC69"**, **"K80"**, **"F81"** or **"HKY85"**)
+* **subst.model** = model of DNA substitution (one of **"JC69"**, **"K80"**, **"F81"** or **"HKY85"**)
 
-**mu.rate** = overall nucleotide mutation rate (for **"JC69"** and **"F81"** models only)
+* **mu.rate** = overall nucleotide mutation rate (for **"JC69"** and **"F81"** models only)
 
-**transi.rate** = nucleotide transition rate (for **"K80"** and **"HKY85"** models only)
+* **transi.rate** = nucleotide transition rate (for **"K80"** and **"HKY85"** models only)
 
-**transv.rate** = nucleotide transversion rate (for **"K80"** and **"HKY85"** models only)
+* **transv.rate** = nucleotide transversion rate (for **"K80"** and **"HKY85"** models only)
 
 
 ### Citing This Work ###
