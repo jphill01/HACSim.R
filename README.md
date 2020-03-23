@@ -164,13 +164,13 @@ Users will be able to specify the following parameters:
 
 * **count.haps** = Haplotype frequency distribution vector for a given simulated species (must have a length of **num.haps** and sum to 1)
 
-* **subst.model** = model of DNA substitution (one of **"JC69"**, **"K80"**, **"F81"** or **"HKY85"**)
+* **subst.model** = Model of DNA substitution (one of **"JC69"**, **"K80"**, **"F81"** or **"HKY85"**)
 
-* **mu.rate** = overall nucleotide mutation rate (for **"JC69"** and **"F81"** models only)
+* **mu.rate** = Overall nucleotide mutation rate (for **"JC69"** and **"F81"** models only)
 
-* **transi.rate** = nucleotide transition rate (for **"K80"** and **"HKY85"** models only)
+* **transi.rate** = Nucleotide transition rate (for **"K80"** and **"HKY85"** models only)
 
-* **transv.rate** = nucleotide transversion rate (for **"K80"** and **"HKY85"** models only)
+* **transv.rate** = Nucleotide transversion rate (for **"K80"** and **"HKY85"** models only)
 
 For now, DNA alignments are saved to the user's working directory. Simulations of haplotype accumulation curves can then be run via HACReal() followed by HAC.simrep(). 
 
