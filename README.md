@@ -172,6 +172,8 @@ Users will be able to specify the following parameters:
 
 * **transv.rate** = nucleotide transversion rate (for **"K80"** and **"HKY85"** models only)
 
+For now, DNA alignments are saved to the user's working directory. Simulations of haplotype accumulation curves can then be run via HACReal() followed by HAC.simrep(). 
+
 
 ### Citing This Work ###
 
