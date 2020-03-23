@@ -154,11 +154,11 @@ Capability to simulate DNA sequences within HACSim is under development via the 
 
 Users will be able to specify the following parameters:
 
-* **num.seqs** = Number of DNA sequences
+* **num.seqs** = Number of DNA sequences for a given simulated species 
 
-* **num.haps** = Number of haplotypes
+* **num.haps** = Number of unique haplotypes for a given simulated species 
 
-* **length.seqs** = Length of DNA sequences
+* **length.seqs** = Length of DNA sequences for a given simulated species 
 
 * **nucl.freqs** = Nucleotide frequency distribution vector for a given simulated species (must have a length of four and sum to 1)
 
