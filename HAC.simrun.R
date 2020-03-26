@@ -1,6 +1,6 @@
 ##### Set working directory #####
 
-setwd("/Users/jarrettphillips/Desktop")
+setwd("/Users/jarrettphillips/Desktop/HAC simulation")
 
 ##### Clear memory #####
 
@@ -63,9 +63,21 @@ HACSObj <- HACReal(p = 0.95, subsample = TRUE, prop = 0.25, conf.level = 0.95, n
 ## Simulate real species and all parameters changed - subsampling ##
 HACSObj <- HACReal(perms = 10000, p = 0.90, subsample = TRUE, prop = 0.15, conf.level = 0.99, filename = "output")
 
-## Simulate DNA sequences
+## Set parameters to simulate DNA sequences ##
 
-sim.seqs(num.seqs = 100, num.haps = 8, length.seqs = 658, nucl.freqs = rep(0.25, 4), count.haps = c(50, 20, rep(5, 6)), subst.model = "JC69", mu.rate = 1e-4)
+num.seqs <- 32 # number of DNA sequences
+num.haps <- 32 # number of haplotypes
+length.seqs <- 658 # length of DNA sequences
+count.haps <- rep(1, num.haps) # haplotype frequency distribution
+nucl.freqs <- c(0.3, 0.1, 0.4, 0.2) # nucleotide frequency distribution
+subst.model <- "HKY85" # desired nucleotide substitution model
+mu.rate <- NULL # mutation rate
+transi.rate <- 1.4e-4 # transition rate
+transv.rate <- transi.rate / 2 # transversion rate
+
+### Run HAC simulations ###
+
+sim.seqs(num.seqs = num.seqs, num.haps = num.haps, length.seqs = length.seqs, nucl.freqs = nucl.freqs, count.haps = count.haps, subst.model = subst.model, transi.rate = transi.rate, transv.rate = transv.rate)
 
 HACSObj <- HACReal(p = 0.95, perms = 10000, conf.level = 0.95, num.iters = NULL, filename = "output")
 
