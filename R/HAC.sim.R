@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 5, 2020
+# Last modified: March 24, 2020
 
 ##########
 
@@ -160,7 +160,7 @@ HAC.sim <- function(N,
     # then selects individuals in a random order and samples haplotypes for that permutation 
 
     HAC.mat <- accumulate(pop, specs, perms, K) 
-    # HAC.mat <- drop(HAC.mat)
+    HAC.mat <- drop(HAC.mat)
     
     if (progress == TRUE) {
       utils::setTxtProgressBar(pb, i)
@@ -168,18 +168,18 @@ HAC.sim <- function(N,
 
     ## Calculate the mean and CI for number of haplotypes recovered over all permutations
 
-    means <- apply(HAC.mat, MARGIN = 2, mean)
-    # means <- colMeans2(HAC.mat)
+    # means <- apply(HAC.mat, MARGIN = 2, mean)
+    means <- colMeans2(HAC.mat)
     # means <- colmeans(HAC.mat)
-    sds <- apply(HAC.mat, MARGIN = 2, sd)
-    # sds <- colSds(HAC.mat)
+    # sds <- apply(HAC.mat, MARGIN = 2, sd)
+    sds <- colSds(HAC.mat)
     # sds <- colVars(HAC.mat, std = TRUE)
 
-    lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 - conf.level) / 2))
-    # lower <- colQuantiles(HAC.mat, probs = (1 - conf.level) / 2)
+    # lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 - conf.level) / 2))
+    lower <- colQuantiles(HAC.mat, probs = (1 - conf.level) / 2)
     # lower <- colQuantile(HAC.mat, probs = (1 - conf.level) / 2)
-    upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 + conf.level) / 2))
-    # upper <- colQuantiles(HAC.mat, probs = (1 + conf.level) / 2)
+    # upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 + conf.level) / 2))
+    upper <- colQuantiles(HAC.mat, probs = (1 + conf.level) / 2)
     # upper <- colQuantile(HAC.mat, probs = (1 + conf.level) / 2)
 
     ## Make data accessible to user ##
@@ -190,21 +190,22 @@ HAC.sim <- function(N,
     ## tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()
 
     P <- tail(means, n = 1)
-    num <- N * Hstar
+    num1 <- N * Hstar
     num.haps <- length(subset.haps)
+    num2 <- N * num.haps
 
     if (is.null(subset.haps)) {
       Q <- Hstar - P
       assign("R", P / Hstar, envir = envr)
       S <- Q / Hstar
-      assign("Nstar", num / P, envir = envr)
-      assign("X", (num / P) - N, envir = envr)
+      assign("Nstar", num1 / P, envir = envr)
+      assign("X", (num1 / P) - N, envir = envr)
     } else {
       Q <- num.haps - P
       assign("R", P / num.haps, envir = envr)
       S <- Q / num.haps
-      assign("Nstar", (N * num.haps) / P, envir = envr)
-      assign("X", ((N * num.haps) / P) - N, envir = envr)
+      assign("Nstar", num2 / P, envir = envr)
+      assign("X", (num2 / P) - N, envir = envr)
     }
 
     if (envr$X < 0) {
