@@ -46,7 +46,7 @@ probs <- c(53, 13, 9, 1) / N
 
 ## Simulate hypothetical species ##
 ## If not set, prop defaults to 0.10
-HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 1000, p = 0.95, conf.level = 0.95, num.iters = NULL, filename = "output")
+HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 10000, p = 0.95, conf.level = 0.95, num.iters = NULL, filename = "output")
 
 ## Simulate hypothetical species - subsampling ##
 HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 1000, p = 0.95, subsample = TRUE, prop = 0.75, conf.level = 0.95, num.iters = NULL, filename = "output")
@@ -65,21 +65,22 @@ HACSObj <- HACReal(perms = 10000, p = 0.90, subsample = TRUE, prop = 0.15, conf.
 
 ## Set parameters to simulate DNA sequences ##
 
-num.seqs <- 32 # number of DNA sequences
-num.haps <- 32 # number of haplotypes
+num.seqs <- 100 # number of DNA sequences
+num.haps <- 15 # number of haplotypes
 length.seqs <- 658 # length of DNA sequences
-count.haps <- rep(1, num.haps) # haplotype frequency distribution
-nucl.freqs <- c(0.3, 0.1, 0.4, 0.2) # nucleotide frequency distribution
-subst.model <- "HKY85" # desired nucleotide substitution model
-mu.rate <- NULL # mutation rate
-transi.rate <- 1.4e-4 # transition rate
-transv.rate <- transi.rate / 2 # transversion rate
+count.haps <- c(60, rep(10, 2), rep(5, 2), rep(1, 10)) # haplotype frequency distribution
+nucl.freqs <- c(0.4, 0.3, 0.2, 0.1) # nucleotide frequency distribution
+subst.model <- "F81" # desired nucleotide substitution model
+mu.rate <- 1e-3 # mutation rate
+transi.rate <- NULL # transition rate
+transv.rate <- NULL # transversion rate
 
-### Run HAC simulations ###
-
-sim.seqs(num.seqs = num.seqs, num.haps = num.haps, length.seqs = length.seqs, nucl.freqs = nucl.freqs, count.haps = count.haps, subst.model = subst.model, transi.rate = transi.rate, transv.rate = transv.rate)
+sim.seqs(num.seqs = num.seqs, num.haps = num.haps, length.seqs = length.seqs, nucl.freqs = nucl.freqs, count.haps = count.haps, subst.model = subst.model, mu.rate = mu.rate, transi.rate = transi.rate, transv.rate = transv.rate)
 
 HACSObj <- HACReal(p = 0.95, perms = 10000, conf.level = 0.95, num.iters = NULL, filename = "output")
+s
+
+### Run HAC simulations ###
 
 set.seed(0673227) # set random seed for reproducibility, if desired
 HAC.simrep(HACSObj) # simulate
