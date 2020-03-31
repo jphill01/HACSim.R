@@ -8,7 +8,7 @@ envr <- NULL
   packageStartupMessage("This is HACSim 1.0.6 \n
 Type ?HACHypothetical to see how to set up objects to run \n simulations of haplotype accumulation for hypothetical species \n 
 Type ?HACReal to see how to set up objects to run \n simulations of haplotype accumulation for real species \n 
-Type ?HAC.simrep to see how to run simulations of haplotype \n accumulation curves
-Type ?sim.seqs to see how to simulate DNA sequences according to various models of nucleotide substitution")
+Type ?HAC.simrep to see how to run simulations of haplotype \n accumulation curves \n
+Type ?sim.seqs to see how to simulate DNA sequences according to \n various models of nucleotide substitution")
 
 }

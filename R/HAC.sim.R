@@ -50,6 +50,8 @@ HAC.sim <- function(N,
                     df = NULL, # dataframe
                     num.iters = NULL,
                     progress = TRUE) {
+  ## Number of iterations to run ##
+  
   if ((is.null(num.iters)) || (num.iters == 1)) {
     cat("\n \n")
 
@@ -61,7 +63,7 @@ HAC.sim <- function(N,
 
     ## Load DNA sequence data and set N, Hstar and probs ##
     
-      if (input.seqs == TRUE) {
+    if (input.seqs == TRUE) {
         
       seqs <- read.dna(file = file.choose(), format = "fasta")
          
@@ -160,7 +162,7 @@ HAC.sim <- function(N,
     # then selects individuals in a random order and samples haplotypes for that permutation 
 
     HAC.mat <- accumulate(pop, specs, perms, K) 
-    HAC.mat <- drop(HAC.mat)
+    HAC.mat <- drop(HAC.mat) # drop array dimension 
     
     if (progress == TRUE) {
       utils::setTxtProgressBar(pb, i)
@@ -224,13 +226,15 @@ HAC.sim <- function(N,
         "\n Mean number of specimens not sampled: ", envr$X
       )
       
+      ## Compute confidence interval endpoints and margin of error (MOE)
+      
       low <- envr$d$means - qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
       up <- envr$d$means + qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
       
-      moe <- (qnorm((1 + conf.level) / 2) * (tail(envr$d$sds, n = 1) / tail(envr$d$means, n = 1)) * sqrt(N))
+      MOE <- (qnorm((1 + conf.level) / 2) * (tail(envr$d$sds, n = 1) / tail(envr$d$means, n = 1)) * sqrt(N))
       
-      assign("low", signif(N - moe), envir = envr)
-      assign("high", signif(N + moe), envir = envr)
+      assign("low", signif(N - MOE), envir = envr)
+      assign("high", signif(N + MOE), envir = envr)
 
       ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       par(mfrow = c(1, 2))
@@ -256,6 +260,7 @@ HAC.sim <- function(N,
       }
     }
 
+    # Output summary statistics to dataframe (df)
     df[nrow(df) + 1, ] <- c(P, Q, envr$R, S, envr$Nstar, envr$X)
     df
   }
