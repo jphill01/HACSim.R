@@ -5,7 +5,7 @@
 \packageTitle{HACSim}
 }
 \description{
-HACSim (\strong{H}aplotype \strong{A}ccumulation \strong{C}urve \strong{Sim}ulator) employs a novel nonparametric stochastic (Monte Carlo) optimization method of iteratively generating species' haplotype accumulation curves through extrapolation to assess sampling completeness based on the approach outlined in Phillips et al. (2015) <doi:10.1515/dna-2015-0008>, Phillips et al. (2019) <doi:10.1002/ece3.4757> and Phillips et al. (2020) <doi: 10.7717/peerj-cs.243>. HACSim outputs a number of useful summary statistics of sampling coverage ("Measures of Sampling Closeness"), including an estimate of the likely required sample size (along with desired level confidence intervals) necessary to recover a given number/proportion of observed unique species' haplotypes. Any genomic marker can be targeted to assess likely required specimen sample sizes for genetic diversity assessment. The method is particularly well-suited to assess sampling sufficiency for DNA barcoding initiatives. 
+HACSim (\strong{H}aplotype \strong{A}ccumulation \strong{C}urve \strong{Sim}ulator) employs a novel nonparametric stochastic (Monte Carlo) optimization method of iteratively generating species' haplotype accumulation curves through extrapolation to assess sampling completeness based on the approach outlined in Phillips et al. (2015) <doi:10.1515/dna-2015-0008>, Phillips et al. (2019) <doi:10.1002/ece3.4757> and Phillips et al. (2020) <doi: 10.7717/peerj-cs.243>. HACSim outputs a number of useful summary statistics of sampling coverage ("Measures of Sampling Closeness"), including an estimate of the likely required sample size (along with desired level confidence intervals) necessary to recover a given number/proportion of observed unique species' haplotypes. Any genomic marker can be targeted to assess likely required specimen sample sizes for genetic diversity assessment. The method is particularly well-suited to assess sampling sufficiency for DNA barcoding initiatives. Users can also simulate their own DNA sequences according to various models of nucleotide substitution.
 }
 \details{
 
@@ -69,6 +69,35 @@ HACSObj <- HACReal(subsample = TRUE, prop = 0.15,
 conf.level = 0.95, filename = "output")
 
 ## Simulate real species and all parameters changed - subsampling ##
+HACSObj <- HACReal(perms = 10000, p = 0.90, subsample = TRUE, 
+prop = 0.15, conf.level = 0.99, filename = "output")
+
+# user prompted to select appropriate FASTA file
+HAC.simrep(HACSObj) }
+
+\donttest{
+## Simulate DNA sequences ##
+
+num.seqs <- 100 # number of DNA sequences
+num.haps <- 15 # number of haplotypes
+length.seqs <- 658 # length of DNA sequences
+count.haps <- c(60, rep(10, 2), rep(5, 2), rep(1, 5)) # haplotype frequency distribution
+nucl.freqs <- rep(0.25, 4) # nucleotide frequency distribution
+subst.model <- "JC69" # desired nucleotide substitution model
+mu.rate <- 1e-3 # mutation rate
+transi.rate <- NULL # transition rate
+transv.rate <- NULL # transversion rate
+
+sim.seqs(num.seqs = num.seqs, num.haps = num.haps, length.seqs = length.seqs, nucl.freqs = nucl.freqs, count.haps = count.haps, subst.model = subst.model, transi.rate = transi.rate, transv.rate = transv.rate)
+
+# outputs file called "output.csv"
+HACSObj <- HACReal(filename = "output") 
+
+## Simulate hypothetical species - subsampling ##
+HACSObj <- HACReal(subsample = TRUE, prop = 0.15, 
+conf.level = 0.95, filename = "output")
+
+## Simulate hypothetical species and all parameters changed - subsampling ##
 HACSObj <- HACReal(perms = 10000, p = 0.90, subsample = TRUE, 
 prop = 0.15, conf.level = 0.99, filename = "output")
 

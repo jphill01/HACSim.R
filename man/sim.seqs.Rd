@@ -9,13 +9,13 @@
 
 \arguments{\item{num.seqs}{Number of simulated DNA sequences}
   \item{num.haps}{Number of simulated unique species' haplotypes}
-    \item{length.seqs}{Length of DNA sequences}
+    \item{length.seqs}{Basepair length of DNA sequences}
     \item{nucl.freqs}{Nucleotide frequency distribution vector of A, C, G, and T respectively}
     \item{count.haps}{Haplotype frequency distribution vector}
     \item{subst.model}{Model of DNA substitution}
-    \item{mu.rate}{Overall nucleotide mutation rate}
-    \item{transi.rate}{Nucleotide transition rate}
-    \item{transv.rate}{Nucleotide transversion rate}
+    \item{mu.rate}{Overall nucleotide mutation rate/site/generation}
+    \item{transi.rate}{Nucleotide transition rate/site/generation}
+    \item{transv.rate}{Nucleotide transversion rate/site/generation}
   }
     
     \value{A FASTA file of DNA sequences}
@@ -41,5 +41,19 @@
   }
 
 \examples{
+
+# Simulate DNA sequences from the 5'-COI DNA barcode region under a Jukes Cantor nucleotide substitution model
+
+num.seqs <- 100 # number of DNA sequences
+num.haps <- 15 # number of haplotypes
+length.seqs <- 658 # length of DNA sequences
+count.haps <- c(60, rep(10, 2), rep(5, 2), rep(1, 5)) # haplotype frequency distribution
+nucl.freqs <- rep(0.25, 4) # nucleotide frequency distribution
+subst.model <- "JC69" # desired nucleotide substitution model
+mu.rate <- 1e-3 # mutation rate
+transi.rate <- NULL # transition rate
+transv.rate <- NULL # transversion rate
+
+sim.seqs(num.seqs = num.seqs, num.haps = num.haps, length.seqs = length.seqs, nucl.freqs = nucl.freqs, count.haps = count.haps, subst.model = subst.model, transi.rate = transi.rate, transv.rate = transv.rate)
 
 }
