@@ -158,7 +158,7 @@ Users will be able to specify the following parameters:
 
 * **num.haps** = Number of unique haplotypes for a given simulated species 
 
-* **length.seqs** = Length of DNA sequences for a given simulated species 
+* **length.seqs** = Basepair length of DNA sequences for a given simulated species 
 
 * **nucl.freqs** = Nucleotide frequency distribution vector for a given simulated species (must have a length of four and sum to 1)
 
@@ -166,9 +166,9 @@ Users will be able to specify the following parameters:
 
 * **subst.model** = Model of DNA substitution (one of **"JC69"**, **"K80"**, **"F81"** or **"HKY85"**)
 
-* **mu.rate** = Overall nucleotide mutation rate (for **"JC69"** and **"F81"** models only)
+* **mu.rate** = Overall nucleotide mutation rate/site/generation (for **"JC69"** and **"F81"** models only)
 
-* **transi.rate** = Nucleotide transition rate (for **"K80"** and **"HKY85"** models only)
+* **transi.rate** = Nucleotide transition rate/site/generation (for **"K80"** and **"HKY85"** models only)
 
 * **transv.rate** = Nucleotide transversion rate (for **"K80"** and **"HKY85"** models only)
 
