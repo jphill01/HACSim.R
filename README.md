@@ -33,7 +33,7 @@ Function arguments to HAC.simrep() are passed from either HACHypothetical() or H
   * **conf.level** = Desired confidence leval for graphical output and confidence interval calculation  
   (**conf.level** = 0.95 by default)
 
-  * **subsample** = Should a subsample of haplotype labels or DNA sequences be taken
+  * **subsample** = Should a random subsample of haplotype labels or DNA sequences be taken
   (**subsample** = FALSE by default)
 
   * **prop** = Proportion of haplotype labels or DNA sequences to sample when **subsample** = TRUE  
