@@ -5,6 +5,7 @@ sim.seqs <- function(num.seqs,
                      length.seqs,
                      count.haps,
                      nucl.freqs,
+                     codon.tbl,
                      subst.model,
                      mu.rate,
                      transi.rate,
@@ -53,11 +54,48 @@ sim.seqs <- function(num.seqs,
   }
   
   # DNA alphabet
-  nucl <- as.DNAbin(c('a', 'c', 'g', 't')) # A, C, G, T
+  
+  nucl <- as.DNAbin(c("a", "c", "g", "t")) # A, C, G, T
   
   # Generate a single random DNA sequence of given length according to nucleotide frequency distribution
-  seqs <- sample(nucl, size = length.seqs, replace = TRUE, prob = nucl.freqs)  
+  # This is the "seed" sequence from which all other sequences are generated
+  seqs <- sample(nucl, size = length.seqs, replace = TRUE, prob = nucl.freqs)
   
+  # DNA codons
+  
+  pos1 <- c("a", "c", "g", "t")
+  pos2 <- c("a", "c", "g", "t")
+  pos3 <- c("a", "c", "g", "t")
+  
+  codons <- expand.grid(pos1, pos2, pos3)
+  codons <- paste0(codons$Var1, codons$Var2, codons$Var3)
+  
+  # Exclude stop codons according to desired genetic code
+  
+  if (codon.tbl == "standard") {
+    stop.codons <- c("taa", "tag", "tga")
+  } else if (codon.tbl == "vertebrate mitochondrial") {
+    stop.codons <- c("aga", "agg", "taa", "tag")
+  } else {
+    # invertebrate mitochondrial
+    stop.codons <- c("taa", "tag")
+  }
+  
+  # Allowable codons
+  codons <- codons[!codons %in% stop.codons]
+  
+  regx <- paste0("(", paste(stop.codons, collapse = ")|("), ")")
+  
+  s <- paste(seqs, collapse = "")
+
+  seqs <- gsub(regx, paste(sample(nucl, size = 3, replace = TRUE, prob = nucl.freqs), collapse = ""), s)
+  
+  seqs <- strsplit(seqs, "")
+  
+  seqs <- as.matrix(as.DNAbin(seqs))
+  
+  # DNA substitution models
+
   if ((subst.model == "JC69") || (subst.model == "F81")) {
     
     # Define mutations - all mutations are equally likely 
@@ -80,7 +118,7 @@ sim.seqs <- function(num.seqs,
     }
     
   } else {
-    # Def}ine transitions and transversion mutations
+    # Define transitions and transversion mutations
     
     transi.set <- list('a' = as.DNAbin('g'), 
                        'c' = as.DNAbin('t'),
@@ -130,12 +168,12 @@ sim.seqs <- function(num.seqs,
     seqs
   }
   
-  # Generate num.seqs random DNA sequences based on desired nucleotide substitution model
+  # Generate num.seqs random DNA sequences from "seed"sequence based on desired nucleotide substitution model
   seqs <- matrix(replicate(num.seqs, duplicate.seq(seqs)), byrow = TRUE, nrow = num.seqs)
   
   # Randomly sample generated DNA sequences based on haplotype frequency distribution
   seqs <- seqs[sample(num.haps, size = num.seqs, replace = TRUE, prob = count.haps), ]
-  
+
   # convert to DNAbin object
   class(seqs) <- "DNAbin" 
   
