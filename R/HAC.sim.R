@@ -47,6 +47,7 @@ HAC.sim <- function(N,
                     subset.seqs = FALSE,
                     prop.seqs = NULL,
                     conf.level = 0.95,
+                    ci.type = "quantile",
                     df = NULL, # dataframe
                     num.iters = NULL,
                     progress = TRUE) {
@@ -168,7 +169,7 @@ HAC.sim <- function(N,
       utils::setTxtProgressBar(pb, i)
     }
 
-    ## Calculate the mean and CI for number of haplotypes recovered over all permutations
+    ## Calculate the mean, sd and CI for number of haplotypes recovered over all permutations
 
     # means <- apply(HAC.mat, MARGIN = 2, mean)
     means <- colMeans2(HAC.mat)
@@ -176,20 +177,26 @@ HAC.sim <- function(N,
     # sds <- apply(HAC.mat, MARGIN = 2, sd)
     sds <- colSds(HAC.mat)
     # sds <- colVars(HAC.mat, std = TRUE)
-
+    
     # lower <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 - conf.level) / 2))
     lower <- colQuantiles(HAC.mat, probs = (1 - conf.level) / 2)
     # lower <- colQuantile(HAC.mat, probs = (1 - conf.level) / 2)
     # upper <- apply(HAC.mat, MARGIN = 2, function(x) quantile(x, (1 + conf.level) / 2))
     upper <- colQuantiles(HAC.mat, probs = (1 + conf.level) / 2)
     # upper <- colQuantile(HAC.mat, probs = (1 + conf.level) / 2)
-
+    
     ## Make data accessible to user ##
-
-    assign("d", data.frame(specs, means, sds, lower, upper), envir = envr)
+    
+    assign("d", data.frame(specs, means, sds), envir = envr)
+    
+    # Compute asympototic CI
+    
+    low <- envr$d$means - qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
+    up <- envr$d$means + qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
 
     ## Compute simple summary statistics and display output ##
-    ## tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. When perms is large (say 10000), tail() is sufficiently close to max()
+    ## tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. 
+    # When perms is large (say 10000), tail() is sufficiently close to max()
 
     P <- tail(means, n = 1)
     num1 <- N * Hstar
@@ -215,6 +222,7 @@ HAC.sim <- function(N,
     }
 
     ## Output results to R console and CSV file ##
+    
     if (progress == TRUE) {
       cat(
         "\n \n --- Measures of Sampling Closeness --- \n \n",
@@ -226,10 +234,7 @@ HAC.sim <- function(N,
         "\n Mean number of specimens not sampled: ", envr$X
       )
       
-      ## Compute confidence interval endpoints and margin of error (MOE)
-      
-      low <- envr$d$means - qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
-      up <- envr$d$means + qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
+      ## Compute confidence interval endpoints and margin of error (MOE) for N*
       
       MOE <- (qnorm((1 + conf.level) / 2) * (tail(envr$d$sds, n = 1) / tail(envr$d$means, n = 1)) * sqrt(N))
       
@@ -237,6 +242,7 @@ HAC.sim <- function(N,
       assign("high", signif(N + MOE), envir = envr)
 
       ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
+      
       par(mfrow = c(1, 2))
       
       if (is.null(subset.haps)) {
@@ -245,8 +251,14 @@ HAC.sim <- function(N,
         plot(specs, means, type = "n", xlab = "Specimens sampled", ylab = "Unique haplotypes", ylim = c(1, length(subset.haps)), main = "Haplotype accumulation curve")
       }
       
-      polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
-      polygon(x = c(specs, rev(specs)), y = c(low, rev(up)), col = "gray")
+      if (ci.type == "quantile") {
+        polygon(x = c(specs, rev(specs)), y = c(lower, rev(upper)), col = "gray")
+      } 
+      
+      if (ci.type == "asymptotic") {
+        polygon(x = c(specs, rev(specs)), y = c(low, rev(up)), col = "gray")
+      }
+      
       lines(specs, means, lwd = 2)
       
       if (is.null(subset.haps)) {
@@ -261,7 +273,9 @@ HAC.sim <- function(N,
     }
 
     # Output summary statistics to dataframe (df)
+    
     df[nrow(df) + 1, ] <- c(P, Q, envr$R, S, envr$Nstar, envr$X)
     df
   }
+
 } # end HAC.sim
