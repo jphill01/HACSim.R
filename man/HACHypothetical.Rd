@@ -6,7 +6,7 @@
 \description{Helper function which creates an object containing necessary information to run a simulation of haplotype accumulation for a hypothetical species of interest}
 
 \usage{HACHypothetical(N, Hstar, probs, perms = 10000, p = 0.95, 
-conf.level = 0.95, subsample = FALSE, prop = NULL,
+conf.level = 0.95, ci.type = "quantile", subsample = FALSE, prop = NULL,
 progress = TRUE, num.iters = NULL, filename = NULL)}
 
 \arguments{\item{N}{Number of individuals}
@@ -15,6 +15,7 @@ progress = TRUE, num.iters = NULL, filename = NULL)}
 \item{perms}{Number of permutations (replications)}
 \item{p}{Proportion of haplotypes to recover}
 \item{conf.level}{Desired confidence level for graphical output and interval estimation}
+\item{ci.type}{Type of confidence interval for graphical output. Choose from "quantile" or "asymptotic"}
 \item{subsample}{Is a subsample of haplotype labels desired?}
 \item{prop}{If subsample = TRUE, the proportion of haplotype labels to subsample}
 \item{num.iters}{Number of iterations to compute}
@@ -35,6 +36,7 @@ progress = TRUE, num.iters = NULL, filename = NULL)}
   \item{p}{Proportion of haplotypes to recover. \code{p} = 0.95 by default.}
   \item{perms}{Number of permutations (replications). \code{perms} = 10000 by default.}
   \item{conf.level}{Desired confidence level for graphical output and interval estimation. \code{conf.level} = 0.95 by default.}
+  \item{ci.type}{Type of confidence interval for graphical output. \code{ci.type = "quantile"} by default}
   \item{num.iters}{Number of iterations to compute. \code{num.iters = NULL} by default (i.e., all iterations are computed; users can specify \code{num.iters} = 1 for the first iteration.)}
   \item{progress}{Should iteration output be printed to the R console? Default is TRUE}
   \item{filename}{Name of file where simulation results are to be saved.}
