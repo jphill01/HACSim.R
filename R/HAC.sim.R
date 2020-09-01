@@ -115,7 +115,7 @@ HAC.sim <- function(N,
       stop("probs must have Hstar elements")
     }
 
-    if (perms == 1) {
+    if ((perms == 0) || (perms == 1)) {
       stop("perms must be greater than 1")
     }
 
@@ -156,14 +156,14 @@ HAC.sim <- function(N,
     for (i in 1:K) {
       pop[, , i] <- replicate(perms, gen.perms()) # fill array
     }
-
+    
     ## Perform haplotype accumulation ##
     
     # Custom C++ function selects one permutation (row) in pop array, 
     # then selects individuals in a random order and samples haplotypes for that permutation 
 
     HAC.mat <- accumulate(pop, specs, perms, K) 
-    HAC.mat <- drop(HAC.mat) # drop array dimension 
+    HAC.mat <- drop(HAC.mat) # drop array dimension
     
     if (progress == TRUE) {
       utils::setTxtProgressBar(pb, i)
