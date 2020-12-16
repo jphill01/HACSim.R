@@ -11,14 +11,14 @@
 \item{conf.level}{The desired confidence level. Default is \code{conf.level = 0.95}.}
 \item{d}{A dataframe with three columns: specimens (specs), accumulated haplotypes (means), and standard deviation (sd)}
 \item{filename}{The name of the file where results are to be saved. Default is NULL.}
-\item{high}{The upper endpoint of the desired level confidence interval for the 'true' required sample size}
 \item{Hstar}{Number of unique species' haplotypes}
 \item{input.seqs}{Should DNA sequences be inputted? Default is FALSE.}
 \item{iters}{The number of iterations required to reach convergence}
-\item{low}{The upper endpoint of the desired level confidence interval for the 'true' required sample size}
 \item{N}{The starting sample size used to initialize the algorithm}
 \item{Nstar}{The final (extrapolated) sample size}
-  \item{num.iters}{Number of iterations to compute. \code{num.iters = NULL} by default (i.e., all iterations are computed; users can specify \code{num.iters} = 1 for the first iteration.)}
+\item{Nstar.high}{The upper endpoint of the desired level confidence interval for the 'true' required sample size}
+\item{Nstar.low}{The lower endpoint of the desired level confidence interval for the 'true' required sample size}
+\item{num.iters}{Number of iterations to compute. \code{num.iters = NULL} by default (i.e., all iterations are computed; users can specify \code{num.iters} = 1 for the first iteration.)}
 \item{p}{The user-specified level of haplotype recovery. Default is \code{p} = 0.95.}
 \item{perms}{The user-specified number of permutations (replications). Default is \code{perms} = 10000.}
 \item{probs}{Haplotype frequency distribution vector}
