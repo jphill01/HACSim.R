@@ -169,7 +169,7 @@ HAC.sim <- function(N,
       utils::setTxtProgressBar(pb, i)
     }
 
-    ## Calculate the mean, sd and CI for number of haplotypes recovered over all permutations
+    ## Calculate the mean, sd and CI (based on sample quantiles) for number of haplotypes recovered over all permutations
 
     # means <- apply(HAC.mat, MARGIN = 2, mean)
     means <- colMeans2(HAC.mat)
@@ -189,10 +189,10 @@ HAC.sim <- function(N,
     
     assign("d", data.frame(specs, means, sds), envir = envr)
     
-    # Compute asympototic CI
+    # Compute asymptotic CI for mean number of haplotypes sampled (based on delta method)
     
-    low <- envr$d$means - qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
-    up <- envr$d$means + qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
+    lo <- envr$d$means - qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
+    hi <- envr$d$means + qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
 
     ## Compute simple summary statistics and display output ##
     ## tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. 
@@ -234,12 +234,17 @@ HAC.sim <- function(N,
         "\n Mean number of specimens not sampled: ", envr$X
       )
       
-      ## Compute confidence interval endpoints and margin of error (MOE) for N*
+      ## Compute asymptotic confidence interval endpoints and margin of error (MOE) for N* (based on delta method)
       
       MOE <- (qnorm((1 + conf.level) / 2) * (tail(envr$d$sds, n = 1) / tail(envr$d$means, n = 1)) * sqrt(N))
       
-      assign("low", signif(N - MOE), envir = envr)
-      assign("high", signif(N + MOE), envir = envr)
+      if (envr$iters == 1) {
+        assign("low.Nstar", N, envir = envr)
+        assign("high.Nstar", N, envir = envr)
+      } else {
+        assign("low.Nstar", signif(N - MOE), envir = envr)
+        assign("high.Nstar", signif(N + MOE), envir = envr)
+      }
 
       ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
       
@@ -256,7 +261,7 @@ HAC.sim <- function(N,
       } 
       
       if (ci.type == "asymptotic") {
-        polygon(x = c(specs, rev(specs)), y = c(low, rev(up)), col = "gray")
+        polygon(x = c(specs, rev(specs)), y = c(lo, rev(hi)), col = "gray")
       }
       
       lines(specs, means, lwd = 2)

@@ -65,8 +65,8 @@ HAC.simrep <- function(HACSObject) {
         "\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
         \n The initial guess for sampling sufficiency was N = ", paste0(envr$N), "individuals represented by \n H* = ", paste0(envr$Hstar), "haplotypes",
         "\n \n The algorithm converged after", envr$iters, "iterations with", envr$perms, "permutations and took", amt[3], "s",
-        "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", envr$Nstar - envr$X, "individuals \n (", paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low, envr$high, sep = "-"), ")",
-        "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ", envr$Nstar - envr$X - envr$N, "individuals \n \n -------------------------------"
+        "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", envr$Nstar - envr$X, "individuals \n (", paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low.Nstar, envr$high.Nstar, sep = "-"), ")",
+        "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ", envr$Nstar - envr$X - envr$N, "individuals (", paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low.Nstar - envr$N, envr$high.Nstar - envr$N, sep = "-"), ") \n \n -------------------------------"
       )
     }
   }
@@ -103,8 +103,8 @@ HAC.simrep <- function(HACSObject) {
             "\n \n \n Desired level of haplotype recovery has been reached \n \n \n ---------- Finished. ----------
           \n The initial guess for sampling sufficiency was N = ", paste0(envr$N), "individuals represented by \n H* = ", paste0(envr$Hstar), "haplotypes",
             "\n \n The algorithm converged after", envr$iters, "iterations with", envr$perms, "permutations and took", amt[3], "s",
-            "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", envr$Nstar - envr$X, "individuals \n (", paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low, envr$high, sep = "-"), ")",
-            "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ", envr$Nstar - envr$X - envr$N, "individuals \n \n -------------------------------"
+            "\n \n The estimate of sampling sufficiency for p =", paste0(envr$p * 100, "%"), "haplotype recovery is N* = ", envr$Nstar - envr$X, "individuals \n (", paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low.Nstar, envr$high.Nstar, sep = "-"), ")",
+            "\n \n The number of additional specimens required to be sampled for p =", paste0(envr$p * 100, "%"), "haplotype recovery is \n N* - N = ", envr$Nstar - envr$X - envr$N, "individuals (", paste0(envr$conf.level * 100, "%"), "CI:", paste(envr$low.Nstar - envr$N, envr$high.Nstar - envr$N, sep = "-"), ") \n \n -------------------------------"
           )
         }
       }

@@ -68,7 +68,7 @@ sim.seqs <- function(num.seqs,
   pos3 <- c("a", "c", "g", "t")
   
   codons <- expand.grid(pos1, pos2, pos3)
-  codons <- paste0(codons$Var1, codons$Var2, codons$Var3)
+  codons <- paste0(codons$Var1, codons$Var2, codons$Var3) # 64 possible codons
   
   # Exclude stop codons according to desired genetic code
   
@@ -85,11 +85,8 @@ sim.seqs <- function(num.seqs,
   codons <- codons[!codons %in% stop.codons]
   
   regx <- paste0("(", paste(stop.codons, collapse = ")|("), ")")
-  
   s <- paste(seqs, collapse = "")
-
   seqs <- gsub(regx, paste(sample(nucl, size = 3, replace = TRUE, prob = nucl.freqs), collapse = ""), s)
-  
   seqs <- strsplit(seqs, "")
   
   seqs <- as.matrix(as.DNAbin(seqs))
