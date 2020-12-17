@@ -187,16 +187,23 @@ HAC.sim <- function(N,
     
     ## Make data accessible to user ##
     
-    assign("d", data.frame(specs, means, sds), envir = envr)
+    assign("d", data.frame(specs, means, sds, lower, upper), envir = envr)
     
-    # Compute asymptotic CI for mean number of haplotypes sampled (based on delta method)
+    # Compute CIs for fraction of haplotypes sampled
     
-    lo <- envr$d$means - qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
-    hi <- envr$d$means + qnorm((1 + conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))
-
+    if (ci.type == "asymptotic") {
+      assign("R.low", (envr$d$means - qnorm((1 + envr$conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))) / envr$Hstar, envir = envr)
+      assign("R.high", (envr$d$means + qnorm((1 + envr$conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))) / envr$Hstar, envir = envr)
+    } else {
+      # quantile
+      assign("R.low", envr$d$lower / envr$Hstar, envir = envr)
+      assign("R.high", envr$d$upper / envr$Hstar, envir = envr)
+    }
+    
     ## Compute simple summary statistics and display output ##
-    ## tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. 
-    # When perms is large (say 10000), tail() is sufficiently close to max()
+    
+    # tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. 
+    # When perms is large (say 10000), tail() is sufficiently close to max().
 
     P <- tail(means, n = 1)
     num1 <- N * Hstar
@@ -239,11 +246,11 @@ HAC.sim <- function(N,
       MOE <- (qnorm((1 + conf.level) / 2) * (tail(envr$d$sds, n = 1) / tail(envr$d$means, n = 1)) * sqrt(N))
       
       if (envr$iters == 1) {
-        assign("low.Nstar", N, envir = envr)
-        assign("high.Nstar", N, envir = envr)
+        assign("Nstar.low", N, envir = envr)
+        assign("Nstar.high", N, envir = envr)
       } else {
-        assign("low.Nstar", signif(N - MOE), envir = envr)
-        assign("high.Nstar", signif(N + MOE), envir = envr)
+        assign("Nstar.low", signif(N - MOE), envir = envr)
+        assign("Nstar.high", signif(N + MOE), envir = envr)
       }
 
       ## Plot the mean haplotype accumulation curve (averaged over perms number of curves) and haplotype frequency barplot ##
@@ -261,7 +268,7 @@ HAC.sim <- function(N,
       } 
       
       if (ci.type == "asymptotic") {
-        polygon(x = c(specs, rev(specs)), y = c(lo, rev(hi)), col = "gray")
+        polygon(x = c(specs, rev(specs)), y = c(envr$R.low * envr$Hstar, rev(envr$R.high * envr$Hstar)), col = "gray")
       }
       
       lines(specs, means, lwd = 2)
