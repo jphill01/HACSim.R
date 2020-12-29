@@ -3,7 +3,7 @@
 ##########
 
 # Author: Jarrett D. Phillips
-# Last modified: March 24, 2020
+# Last modified: December 22, 2020
 
 ##########
 
@@ -187,18 +187,12 @@ HAC.sim <- function(N,
     
     ## Make data accessible to user ##
     
-    assign("d", data.frame(specs, means, sds, lower, upper), envir = envr)
+    assign("d", data.frame(specs, means, sds), envir = envr)
     
     # Compute CIs for fraction of haplotypes sampled
     
-    if (ci.type == "asymptotic") {
-      assign("R.low", (envr$d$means - qnorm((1 + envr$conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))) / envr$Hstar, envir = envr)
-      assign("R.high", (envr$d$means + qnorm((1 + envr$conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))) / envr$Hstar, envir = envr)
-    } else {
-      # quantile
-      assign("R.low", envr$d$lower / envr$Hstar, envir = envr)
-      assign("R.high", envr$d$upper / envr$Hstar, envir = envr)
-    }
+    assign("R.low", (envr$d$means - qnorm((1 + envr$conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))) / envr$Hstar, envir = envr)
+    assign("R.high", (envr$d$means + qnorm((1 + envr$conf.level) / 2) * (envr$d$sds / sqrt(length(envr$d$specs)))) / envr$Hstar, envir = envr)
     
     ## Compute simple summary statistics and display output ##
     
@@ -243,7 +237,7 @@ HAC.sim <- function(N,
       
       ## Compute asymptotic confidence interval endpoints and margin of error (MOE) for N* (based on delta method)
       
-      MOE <- (qnorm((1 + conf.level) / 2) * (tail(envr$d$sds, n = 1) / tail(envr$d$means, n = 1)) * sqrt(N))
+      MOE <- (qnorm((1 + envr$conf.level) / 2) * (tail(envr$d$sds, n = 1) / tail(envr$d$means, n = 1)) * sqrt(N))
       
       if (envr$iters == 1) {
         assign("Nstar.low", N, envir = envr)
