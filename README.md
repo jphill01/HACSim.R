@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/jphill01/HACSim.R.svg?token=R26mQLGR48w1Rk2BsVzG&branch=master)](https://travis-ci.com/jphill01/HACSim.R) ![Licence](https://img.shields.io/cran/l/HACSim.svg) [![](https://img.shields.io/cran/v/HACSim.svg) ![](http://cranlogs.r-pkg.org/badges/grand-total/HACSim) ![](https://cranlogs.r-pkg.org/badges/HACSim)](https://cran.r-project.org/package=HACSim)
 
-HACSim (**H**aplotype **A**ccumulation **C**urve **Sim**ulator) is a novel nonparametric stochastic (Monte Carlo) algorithm written in R for the simulation of haplotype accumulation curves. It can be employed to determine likely required sample sizes for DNA barcoding, specifically pertaining to recovery of total haplotype variation that may exist for a given species. 
+HACSim (**H**aplotype **A**ccumulation **C**urve **Sim**ulator) is a novel nonparametric stochastic (Monte Carlo) local search optimization algorithm written in R for the simulation of haplotype accumulation curves. It can be employed to determine likely required sample sizes for DNA barcoding, specifically pertaining to recovery of total haplotype variation that may exist for a given species. 
 
 Most DNA barcoding studies conducted to date suggest sampling between 5-10 individuals per species due to reseach costs. However, it has been shown that low sample sizes can greatly underestimate haplotype diversity for geograpically-widespread taxa. The present algorithm is in place to more accurately determine sample sizes that are needed to uncover all putative haplotypes that may exist for a given species. Implications of such an approach include accelerating the construction and growth of DNA barcode reference libraries for species of interest within the Barcode of Life Data Systems (BOLD; http://v4.boldsystems.org/) or similar database such as GenBank (https://www.ncbi.nlm.nih.gov/genbank/).
 
@@ -145,6 +145,12 @@ Alternatively, the development version of HACSim can be downloaded from GitHub d
     
     > devtools::install_github("jphill01/HACSim.R")
     
+    
+### Important Note ###
+
+Because HACSim employs random sampling, outpuuted estimates of sampling sufficiency (**Nstar**), along with other closeness measures, will vary between independent runs of HACHypothetical() and HACReal(). 
+
+An extensive simulation study (to be published soon) has shown that HACSim readily recovers desired levels of observed haplotype diversity (**p**) based on both hypothetical and real species scenarios. However, the end user will have to carefully balance suggested sample size estimates with other factors such as research budget and time necessary for adequate specimen collection.    
     
 ### Experimental Features ###
 
