@@ -7,6 +7,8 @@
 #include <set>
 using namespace Rcpp;
 
+// Code used to cumulatively accumulate species' haplotypes
+
 int sample_one(int n) {
   return n * unif_rand();
 } 
@@ -32,7 +34,7 @@ arma::Cube<int> accumulate(const arma::Cube<int>& pop,
                          int K) {
     
     int num_specs = specs.size();
-    arma::Cube<int> res(perms, num_specs);
+    arma::Cube<int> res(perms, num_specs, K);
     
     IntegerVector specs_C = specs - 1;
     const int * pop_ptr;
