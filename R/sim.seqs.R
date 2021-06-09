@@ -1,3 +1,6 @@
+### Simulate DNA sequences according to various models of nucleotide evolution ###
+# Experimental functionality at this point 
+
 #####
 
 sim.seqs <- function(num.seqs,

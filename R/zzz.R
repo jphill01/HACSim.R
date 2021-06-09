@@ -1,3 +1,5 @@
+### Functions needed when loding HACSim ###
+
 envr <- NULL
 
 .onLoad <- function(...) {

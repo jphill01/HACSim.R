@@ -12,6 +12,14 @@
 
 #####
 
+##### 
+
+# HACSim is a nonparametric stochastic iterative local search optimization algorithm #
+# for the extrapolation of species' haplotype accumulation curves to assess likely   #
+# required specimen sample sizes for genetic diversity assessment                    #
+
+####
+
 ## Input parameters ###
 
 # Required #
@@ -51,6 +59,7 @@ HAC.sim <- function(N,
                     df = NULL, # dataframe
                     num.iters = NULL,
                     progress = TRUE) {
+  
   ## Number of iterations to run ##
   
   if ((is.null(num.iters)) || (num.iters == 1)) {
@@ -68,7 +77,7 @@ HAC.sim <- function(N,
         
       seqs <- read.dna(file = file.choose(), format = "fasta")
          
-      bf <- base.freq(seqs, all = TRUE)[5:17]
+      bf <- base.freq(seqs, all = TRUE)[5:17] # frequencies of IUPAC codes, Ns, gaps and missing bases
 
       if (any(bf > 0)) {
         warning("Inputted DNA sequences contain missing and/or ambiguous 
@@ -78,9 +87,11 @@ HAC.sim <- function(N,
 	    at the ends of sequences, further alignment trimming is an option.")
       }
 
-      assign("ptm", proc.time(), envir = envr)
+      assign("ptm", proc.time(), envir = envr) # set timer
+      
+      # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
 
-      if (subset.seqs == TRUE) { # take random subset of sequences (e.g., prop.seqs = 0.10 (10%))
+      if (subset.seqs == TRUE) { 
         seqs <- seqs[sample(nrow(seqs), size = ceiling(prop.seqs * nrow(seqs)), replace = FALSE), ]
         seqsfile <- tempfile(fileext = ".fas")
         write.dna(seqs, file = seqsfile)
@@ -198,11 +209,15 @@ HAC.sim <- function(N,
     
     # tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. 
     # When perms is large (say 10000), tail() is sufficiently close to max().
-
+    
+    # Cache valuea for easy referencing 
+    
     P <- tail(means, n = 1)
     num1 <- N * Hstar
     num.haps <- length(subset.haps)
     num2 <- N * num.haps
+    
+    # Measures of Sampling Closeness #
 
     if (is.null(subset.haps)) {
       Q <- Hstar - P

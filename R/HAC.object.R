@@ -1,3 +1,5 @@
+# OOP framework for HACSim
+
 ## Master class, both functions return an object of this type
 HACClass <- function(input.seqs = NULL,
                      subset.seqs = NULL,
