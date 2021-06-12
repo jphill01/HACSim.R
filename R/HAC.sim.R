@@ -1,45 +1,44 @@
-### HACSim: Haplotype Accumulation Curve Simulator ###
+##########################################################
+##### HACSim: Haplotype Accumulation Curve Simulator #####
+##########################################################
+
+##### 
+
+# HACSim is a nonparametric stochastic iterative local search optimization algorithm
+# for the extrapolation of species' haplotype accumulation curves to assess likely 
+# required specimen sample sizes for genetic diversity assessment                    
+
+#####
 
 ##########
 
 # Author: Jarrett D. Phillips
 # Last modified: December 22, 2020
 
-##########
-
 ## Best run in RStudio ##
 ## DO NOT change order of code (can throw errors)! ##
 
-#####
+##########
 
-##### 
+### Input parameters ###
 
-# HACSim is a nonparametric stochastic iterative local search optimization algorithm #
-# for the extrapolation of species' haplotype accumulation curves to assess likely   #
-# required specimen sample sizes for genetic diversity assessment                    #
-
-####
-
-## Input parameters ###
-
-# Required #
+## Required ##
 
 # N = Number of specimens (DNA sequences)
 # Hstar = Number of observed unique haplotypes
 # probs = Probability frequency distribution of haplotypes
 
-# Optional #
+## Optional ##
 
-# p = Proportion of unique haplotypes to recover
-# perms = Number of permutations (replications)
-# input.seqs = Analyze inputted aligned/trimmed FASTA DNA sequence file (TRUE / FALSE)?
-# subset.seqs = Subset of DNA sequences to sample
-# prop.seqs = Proportion of DNA sequences to sample
-# prop.haps = Proportion of haplotypes to sample
-# subset.haps = Subset of haplotypes to sample
+# p = Proportion (in (0, 1]) of unique haplotypes to recover - 0.95 (95%) by default
+# perms = Number of permutations (replications) (in (1, inf)) - 10000 by default
+# subsample = Should a subsample of DNA sequences or haplotype be taken? (TRUE or FALSE)
+# prop = Proportion (in (0, 1]) of DNA sequences or haplotypes to sample (not used if subsample = FALSE)
 # conf.level = Confidence level for accumulation curve and confidence intervals
+# conf.type = Typpe of CI to compute and plot ("quantile" or "asymptotic")
 # num.iters = Number of iterations to perform (1 or NULL (i.e., all))
-# progress = Print results to console (TRUE / FALSE)
+# progress = Print results to console (TRUE or FALSE)
+# filename = Name of temporary file in which to save results (NULL by default)
 
 #####
 
