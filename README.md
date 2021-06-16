@@ -152,7 +152,7 @@ Because HACSim employs random sampling, outpuuted estimates of sampling sufficie
 
 An extensive simulation study (to be published soon) has shown that HACSim readily recovers desired levels of observed haplotype diversity (**p**) based on both hypothetical and real species scenarios. However, the end user will have to carefully balance suggested sample size estimates with other factors such as research budget and time necessary for adequate specimen collection.    
     
-### Experimental Features ###
+### Experimental Features (Not Yet on CRAN) ###
 
 Capability to simulate DNA sequences within HACSim is under development via the function 
 
