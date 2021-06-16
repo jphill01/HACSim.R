@@ -59,7 +59,7 @@ Measures of Sampling Closeness for overall haplotype/specimen sampling completen
 
 * Number of haplotypes not sampled: <img src="https://render.githubusercontent.com/render/math?math=H^* - H">
 
-* Proportion of haplotypes (specimens) sampled: <img src="https://render.githubusercontent.com/render/math?math=H/H*">
+* Proportion of haplotypes (specimens) sampled: <img src="https://render.githubusercontent.com/render/math?math=\frac{H}{H*}*">
 
 * Proportion of haplotypes (specimens) not sampled: (H* - H) / H* 
 
