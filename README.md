@@ -59,13 +59,13 @@ Measures of Sampling Closeness for overall haplotype/specimen sampling completen
 
 * Number of haplotypes not sampled: <img src="https://render.githubusercontent.com/render/math?math=H^* - H">
 
-* Proportion of haplotypes (specimens) sampled: <img src="https://render.githubusercontent.com/render/math?math=\frac{H}{H*}*">
+* Proportion of haplotypes (specimens) sampled: <img src="https://render.githubusercontent.com/render/math?math=\frac{H}{H*}">
 
-* Proportion of haplotypes (specimens) not sampled: (H* - H) / H* 
+* Proportion of haplotypes (specimens) not sampled: <img src="https://render.githubusercontent.com/render/math?math=\frac{H* - H}{H*}">
 
-* Mean value of N*: NH* / H
+* Mean value of N*: <img src="https://render.githubusercontent.com/render/math?math=\frac{NH*}{H}">
 
-* Mean number of specimens not sampled: N* - N
+* Mean number of specimens not sampled: <img src="https://render.githubusercontent.com/render/math?math=N* - N">
 
 In addition to users specifying unique values for **N**, **Hstar** and **probs**, default parameters can also be altered in order to produce more interesting output (e.g., subsampling of haplotype labels or DNA sequences). It may be necessary to increase **perms** in order to smooth out the curves, but this will increase algorithm runtime substantially. 
 
