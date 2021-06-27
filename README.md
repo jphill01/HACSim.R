@@ -63,7 +63,7 @@ Measures of Sampling Closeness for overall haplotype/specimen sampling completen
 
 * Proportion of haplotypes (specimens) not sampled: <img src="https://render.githubusercontent.com/render/math?math=\frac{H* - H}{H^*}">
 
-* Mean value of N*: <img src="https://render.githubusercontent.com/render/math?math=\frac{NH^*}{H}">
+* Mean value of <img src="https://render.githubusercontent.com/render/math?math=N^*">: <img src="https://render.githubusercontent.com/render/math?math=\frac{NH^*}{H}">
 
 * Mean number of specimens not sampled: <img src="https://render.githubusercontent.com/render/math?math=N^* - N">
 
