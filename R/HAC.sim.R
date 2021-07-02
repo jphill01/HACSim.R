@@ -209,7 +209,7 @@ HAC.sim <- function(N,
     # tail() is used here instead of max() because curves will not be monotonic if perms is not set high enough. 
     # When perms is large (say 10000), tail() is sufficiently close to max().
     
-    # Cache valuea for easy referencing 
+    # Cache values for easy referencing 
     
     P <- tail(means, n = 1)
     num1 <- N * Hstar
