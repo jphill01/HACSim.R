@@ -193,3 +193,7 @@ In utilizing HACSim, the following publications may be of interest and worth cit
 
 **Phillips, J.D.**, S.H. French, D. J. Gillis, and R. H. Hanner (2020). HACSim: An R package to estimate intraspecific sample sizes for genetic diversity
 assessment using haplotype accumulation curves. PeerJ Computer Science. **6**(192): 1-37. DOI: 10.7717/peerj-cs.243.
+
+### More Information ###
+
+Check out the HACSim R Shiny web app! Visit https://github.com/jphill01/HACSim-RShiny-App.
