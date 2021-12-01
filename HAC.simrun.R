@@ -78,7 +78,6 @@ transv.rate <- NULL # transversion rate
 sim.seqs(num.seqs = num.seqs, num.haps = num.haps, length.seqs = length.seqs, nucl.freqs = nucl.freqs, count.haps = count.haps, subst.model = subst.model, mu.rate = mu.rate, transi.rate = transi.rate, transv.rate = transv.rate)
 
 HACSObj <- HACReal(p = 0.95, perms = 10000, conf.level = 0.95, num.iters = NULL, filename = "output")
-s
 
 ### Run HAC simulations ###
 
