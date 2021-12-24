@@ -16,7 +16,8 @@ Imports: ape (>= 5.3),
          graphics (>= 3.6.1), 
          matrixStats (>= 0.56.0), 
          pegas (>= 0.13), 
-         Rcpp (>= 1.0.3), 
+         Rcpp (>= 1.0.3),
+         shiny (>= 1.6.0),
          stats (>= 3.6.1), 
          utils (>= 3.6.1)
 LinkingTo: Rcpp, RcppArmadillo
