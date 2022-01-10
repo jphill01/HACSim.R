@@ -178,7 +178,7 @@ Users will be able to specify the following parameters:
 
 * **transi.rate** = Nucleotide transition rate/site/generation (for **"K80"** and **"HKY85"** models only)
 
-* **transv.rate** = Nucleotide transversion rate (for **"K80"** and **"HKY85"** models only)
+* **transv.rate** = Nucleotide transversion rate/site/generation (for **"K80"** and **"HKY85"** models only)
 
 Mutations, transitions and transversions are generated according to a binomial distribution with probability equal to the rate of nucleotide substitutions (**mu. rate**, **transi.rate** and **transv.rate**).  
 
