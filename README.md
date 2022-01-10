@@ -180,7 +180,7 @@ Users will be able to specify the following parameters:
 
 * **transv.rate** = Nucleotide transversion rate/site/generation (for **"K80"** and **"HKY85"** models only)
 
-Mutations, transitions and transversions are generated according to a binomial distribution with probability equal to the rate of nucleotide substitutions (**mu. rate**, **transi.rate** and **transv.rate**).  
+Mutations, transitions and transversions are generated according to a binomial distribution with probability equal to the rate of nucleotide substitutions (**mu.rate**, **transi.rate** and **transv.rate**).  
 
 For now, DNA alignments are saved to the user's working directory. Simulations of haplotype accumulation curves can then be run via HACReal() followed by HAC.simrep(). 
 
