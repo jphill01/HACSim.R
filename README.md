@@ -170,6 +170,8 @@ Users will be able to specify the following parameters:
 
 * **count.haps** = Haplotype frequency distribution vector for a given simulated species (must have a length of **num.haps** and sum to 1)
 
+* **codon.tbl** = Codon table (one of **"Standard"**, **"Vertebrate Mitochondrial"** or **"Invertebrate Mitochondrial"**)
+
 * **subst.model** = Model of DNA substitution (one of **"JC69"**, **"K80"**, **"F81"** or **"HKY85"**)
 
 * **mu.rate** = Overall nucleotide mutation rate/site/generation (for **"JC69"** and **"F81"** models only)
