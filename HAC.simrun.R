@@ -48,9 +48,9 @@ probs <- c(7, 5, 4, rep(2, 3), rep(1, 5)) / N
 # probs <- c(0.3, 0.3, 0.3, rep(0.10/5, 5))
 # probs <- c(0.45, 0.45, rep(0.10/8, 8))
 # probs <- c(0.9, 0.025, 0.025, 0.025, 0.025)
-N <- envr$N
-Hstar <- envr$Hstar
-probs <- envr$probs
+# N <- envr$N
+# Hstar <- envr$Hstar
+# probs <- envr$probs
 
 
 ### Run HAC Simulations ###
