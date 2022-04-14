@@ -74,11 +74,7 @@ HAC.sim <- function(N,
     
     if (input.seqs == TRUE) {
       
-      if (interactive()){
-        seqs <- read.dna(file = file.choose(), format = "fasta")
-      } else {
-        seqs <- read.dna(file = filepath, format = "fasta")
-      }
+      seqs <- read.dna(file = file.choose(), format = "fasta")
         
       bf <- base.freq(seqs, all = TRUE)[5:17] # frequencies of IUPAC codes, Ns, gaps and missing bases
 
