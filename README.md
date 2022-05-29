@@ -47,7 +47,7 @@ Function arguments to HAC.simrep() are passed from either HACHypothetical() or H
 
   * **filename** = Name of file where simulation results are to be saved (**filename** = NULL by default)
 
-**perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach H* asymptotically.
+**perms** controls the smoothness of generated haplotype accumulation curves. As **perms** &rarr; &infin;, haplotype accumulation curves "smooth out" and approach **Hstar** asymptotically.
 
 Resulting output for the first iteration of HAC.simrep() reflects current levels of sampling effort found within BOLD for a given species. If the desired level of haplotype recovery is not reached, then perform successive iterations are performed until the desired fraction of haplotypes captured is at least **p**.
 
