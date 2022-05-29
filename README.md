@@ -158,7 +158,7 @@ An extensive simulation study (to be published soon) has shown that HACSim readi
     
 ### Additional Features ###
 
-Capability to simulate DNA sequences within HACSim is under development via the function 
+Capability to simulate DNA sequences within HACSim is available via the function 
 
     > sim.seqs()
 
