@@ -150,6 +150,8 @@ Alternatively, the development version of HACSim can be downloaded from GitHub d
     
 ### Important Note ###
 
+HACSim is a nonparametric approach -- it assumes haplotype sampling is representative of true genetic variation. Thereform, it works best for already well-sampled taxa.
+
 Because HACSim employs random sampling, outpuuted estimates of sampling sufficiency (**Nstar**), along with other closeness measures, will vary between independent runs of HACHypothetical() and HACReal(). 
 
 An extensive simulation study (to be published soon) has shown that HACSim readily recovers desired levels of observed haplotype diversity (**p**) based on both hypothetical and real species scenarios. However, the end user will have to carefully balance suggested sample size estimates with other factors such as research budget and time necessary for adequate specimen collection.    
