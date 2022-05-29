@@ -30,7 +30,7 @@ Function arguments to HAC.simrep() are passed from either HACHypothetical() or H
 
   * **p** = Proportion of species haplotypes to recover (**p** = 0.95 by default)
 
-  * **conf.type** = Type of confidence interval for plotting and calculations (**conf.type** = ``quantile" by default)
+  * **conf.type** = Type of confidence interval for plotting and calculations (one of "quantile" or "asymptotic". **conf.type** = "quantile" by default)
 
   * **conf.level** = Desired confidence leval for graphical output and confidence interval calculation  
   (**conf.level** = 0.95 by default)
