@@ -1,4 +1,4 @@
-### Functions needed when loding HACSim ###
+### Functions needed when loading HACSim ###
 
 envr <- NULL
 
