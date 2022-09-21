@@ -200,6 +200,8 @@ In utilizing HACSim, the following publications may be of interest and worth cit
 **Phillips, J.D.**, S.H. French, D. J. Gillis, and R. H. Hanner (2020). HACSim: An R package to estimate intraspecific sample sizes for genetic diversity
 assessment using haplotype accumulation curves. PeerJ Computer Science. **6**(192): 1-37. DOI: 10.7717/peerj-cs.243.
 
+**Phillips, J.D.**, Gillis, D.J. and Hanner, R.H. (2022). Lack of statistical rigor in DNA barcoding likely invalidates the presence of a true species’ barcode gap. Frontiers in Ecology and Evolution, 10: 859099. DOI: 10.3389/fevo.2022.859099.
+
 ### More Information ###
 
 Check out the HACSim R Shiny web app! Visit https://jphill01.shinyapps.io/HACSim for the stable web tool or https://github.com/jphill01/HACSim-RShiny-App for the R development version. Alternatively, the app is available through the HACSim R package via the `launchApp()` function.
