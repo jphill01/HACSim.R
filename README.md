@@ -198,9 +198,9 @@ In utilizing HACSim, the following publications may be of interest and worth cit
 **Phillips, J.D.**, Gillis, D.J. and Hanner, R.H. (2019). Incomplete estimates of genetic diversity within species: Implications for DNA barcoding. *Ecology and Evolution*, **9**(5): 2996-3010. DOI: 10.1002/ece3.4757.
 
 **Phillips, J.D.**, S.H. French, D. J. Gillis, and R. H. Hanner (2020). HACSim: An R package to estimate intraspecific sample sizes for genetic diversity
-assessment using haplotype accumulation curves. PeerJ Computer Science. **6**(192): 1-37. DOI: 10.7717/peerj-cs.243.
+assessment using haplotype accumulation curves. *PeerJ Computer Science*. **6**(192): 1-37. DOI: 10.7717/peerj-cs.243.
 
-**Phillips, J.D.**, Gillis, D.J. and Hanner, R.H. (2022). Lack of statistical rigor in DNA barcoding likely invalidates the presence of a true species’ barcode gap. Frontiers in Ecology and Evolution, 10: 859099. DOI: 10.3389/fevo.2022.859099.
+**Phillips, J.D.**, Gillis, D.J. and Hanner, R.H. (2022). Lack of statistical rigor in DNA barcoding likely invalidates the presence of a true species’ barcode gap. *Frontiers in Ecology and Evolution*, **10**: 859099. DOI: 10.3389/fevo.2022.859099.
 
 ### More Information ###
 
