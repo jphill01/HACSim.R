@@ -115,7 +115,9 @@ To sucessfully run the simulation algorithm, the following conditions must hold:
 
 * **probs** = rep(1/Hstar, Hstar)
 
-      > HACHypothetical(N, Hstar, probs, ...) # additional parameters can be specified if desired
+      > HACSObj <- HACHypothetical(N, Hstar, probs, ...) # additional parameters can be specified if desired
+
+     > HAC.simrep(HACSObj)
 
 2. #### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) ####
 
@@ -125,7 +127,9 @@ To sucessfully run the simulation algorithm, the following conditions must hold:
  
 * **probs** = c(215/**N**, rep(3/**N**, 2), rep(2/**N**, 2), rep(1/**N**, 10)) (or see **Custom User Data** below)
 
-      > HACReal() # no arguments are required to be inputted; however, users can provide altered defaults
+      > HACSObj <- HACReal() # no arguments are required to be inputted; however, users can provide altered defaults
+  
+      > HAC.simrep(HACSObj)
 
 ### Custom User Data ###
 
