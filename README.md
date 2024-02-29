@@ -8,6 +8,8 @@ Most DNA barcoding studies conducted to date suggest sampling between 5-10 indiv
 
 Within the simulation algorithm, species haplotypes are treated as distinct character labels (1, 2, ...), where 1 denotes the most frequent haplotype, 2 denotes the second-most frequent haplotype, and so forth. The algorithm then randomly samples species haplotype labels in an iterative fashion, until all unique haplotypes have been observed. The idea is that levels of species haplotypic variation that are currently catalogued in BOLD can serve as proxies for total haplotype diversity that may exist for a given species.
 
+![alt text](https://github.com/jphill01/HACSim.R/blob/master/img/network.jpeg)
+
 Molecular loci besides DNA barcode genes (5'-COI, rbcL/matK, ITS regions) can be used with HACSim (*e.g.*, cyt*b*).
 
 HACSim comprises three main functions:
