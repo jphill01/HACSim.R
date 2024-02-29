@@ -117,7 +117,7 @@ To sucessfully run the simulation algorithm, the following conditions must hold:
 
       > HACSObj <- HACHypothetical(N, Hstar, probs, ...) # additional parameters can be specified if desired
 
-     > HAC.simrep(HACSObj)
+      > HAC.simrep(HACSObj)
 
 2. #### Unequal haplotype frequency - Lake whitefish (*Coregonus clupeaformis*) ####
 
