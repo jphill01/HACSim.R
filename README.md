@@ -18,6 +18,8 @@ The algorithm then randomly samples species haplotype labels in an iterative fas
 
 Molecular loci besides DNA barcode genes (5'-COI, rbcL/matK, ITS regions) can be used with HACSim (*e.g.*, cyt*b*).
 
+### Usage ###
+
 HACSim comprises three main functions:
 
     > HACHypothetical()
