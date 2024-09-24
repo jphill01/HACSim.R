@@ -9,9 +9,11 @@ remove(list = ls())
 
 ##### Load packages #####
 
-library(HACSim)
+library(HACSim) 
 ?HACSim
 
+library(foreach)
+library(doParallel)
 
 ##### SCENARIOS #####
 
@@ -37,17 +39,17 @@ library(HACSim)
 
 ## Set parameters for hypothetical species ##
 
-N <- 27 # total number of sampled individuals
-Hstar <- 11 # total number of haplotypes
-# probs <- c(rep(0.3, 3), rep(0.1/42, 42)) # must sum to 1
+N <- 76 # total number of sampled individuals
+Hstar <- 4 # total number of haplotypes
+# probs <- c(rep(0.3, 3), rep(0.1/2, 2)) # must sum to 1
 # probs <- rep(1/Hstar, Hstar) # equal haplotype frequency
-probs <- c(7, 5, 4, rep(2, 3), rep(1, 5)) / N
-# probs <- c(53, 13, 9, 1) / N
+# probs <- c(7, 5, 4, rep(2, 3), rep(1, 5)) / 27
+probs <- c(53, 13, 9, 1) / N
 # probs <- c(96, 2) / N
 # probs <- c(215, rep(3, 2), rep(2, 2), rep(1, 10)) / N
-# probs <- c(0.3, 0.3, 0.3, rep(0.10/5, 5))
+# probs <- c(0.3, 0.3, 0.3, rep(0.10/2, 2))
 # probs <- c(0.45, 0.45, rep(0.10/8, 8))
-# probs <- c(0.9, 0.025, 0.025, 0.025, 0.025)
+# probs <- c(0.9, rep(0.1/9, 9))
 # N <- envr$N
 # Hstar <- envr$Hstar
 # probs <- envr$probs
@@ -57,16 +59,16 @@ probs <- c(7, 5, 4, rep(2, 3), rep(1, 5)) / N
 
 ## Simulate hypothetical species ##
 ## If not set, prop defaults to 0.10
-HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 100, p = 0.95, conf.level = 0.95, num.iters = NULL, filename = NULL)
+HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 1000, p = 0.95, ci.type = "asymptotic", conf.level = 0.95, num.iters = NULL, filename = NULL)
 
-## Simulate hypothetical species - subsampling ##
+ ## Simulate hypothetical species - subsampling ##
 HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 10000, p = 0.95, subsample = TRUE, prop = 0.25, ci.type = "asymptotic", conf.level = 0.95, num.iters = NULL, filename = "output")
 
 ## Simulate hypothetical species and all parameters changed - subsampling ##
 HACSObj <- HACHypothetical(N = N, Hstar = Hstar, probs = probs, perms = 10000, p = 0.90, subsample = TRUE, prop = 0.15, ci.type = "asymptotic", conf.level = 0.95, filename = "output")
 
 ## Simulate real species ##
-HACSObj <- HACReal(p = 0.95, perms = 50, ci.type = "asymptotic", conf.level = 0.95, num.iters = 1, filename = "output")
+HACSObj <- HACReal(p = 0.95, perms = 5, ci.type = "asymptotic", conf.level = 0.95, num.iters = NULL, filename = "output")
 
 ## Simulate real species - subsampling ##
 HACSObj <- HACReal(p = 0.95, subsample = TRUE, prop = 0.25, ci.type = "asymptotic", conf.level = 0.95, num.iters = NULL, filename = "output")
@@ -82,7 +84,7 @@ length.seqs <- 658 # length of DNA sequences
 count.haps <- c(7, 5, 4, rep(2, 3), rep(1, 5)) # haplotype frequency distribution
 nucl.freqs <- c(0.3335588, 0.1191161, 0.1052483, 0.4420768 ) # nucleotide frequency distribution
 subst.model <- "HKY85" # desired nucleotide substitution model
-codon.tbl <- "vertebrate mitochondrial"
+codon.tbl <- "invertebrate mitochondrial"
 mu.rate <- NULL # mutation rate
 transi.rate <- 1e-2 # transition rate
 transv.rate <- transi.rate / 2 # transversion rate
@@ -97,20 +99,47 @@ HACSObj <- HACReal(p = 0.95, perms = 10000, ci.type = "asymptotic", conf.level =
 
 # The below loop works correctly
 
+cl <- makeCluster(detectCores() - 1)
+registerDoParallel(cl)
+
 reps <- 100
 res1 <- vector(reps, mode = "numeric") # preallocate vector
 # res2 <- vector(reps, mode = "numeric") # preallocate vector
 ptm <- proc.time()
-for (i in 1:reps) {
+# for (i in 1:reps) {
+#   HAC.simrep(HACSObj) # simulate
+#   res1[i] <- envr$Nstar - envr$X # store values of N*
+#   res2[i] <- envr$R # store values of haplotype recovery
+# }
+
+res1 <- foreach (i = 1:reps, .packages = 'HACSim', .combine = c) %dopar% {
   HAC.simrep(HACSObj) # simulate
-  res1[i] <- envr$Nstar - envr$X # store values of N*
-  # res2[i] <- envr$R # store values of haplotype recovery 
-  }
+  envr$Nstar - envr$X # store values of N*
+  # res2[i] <- envr$R # store values of haplotype recovery
+}
+
 proc.time() - ptm
 
+stopCluster(cl)
 
-plot(sort(table(res1)), xlab = "N*", ylab = "Frequency")
-mean(res1) 
+plot(sort(table(res1)), xlab = "N*", ylab = "Frequency", main = paste0(HACSObj$perms, " permutations and ", reps, " replications"))
+
+length(unique(res1)) # number of optima
+
+# Convergence plot 
+
+plot(1:reps, cumsum(res1) / seq_along(res1), type = "l", xlab = "Number of replications", ylab = "Cumulative mean of N*")
+abline(h = mean(res1), col = "red")
+
+plot(1:reps, cumsum(res2) / seq_along(res2), type = "l", xlab = "Number of replications", ylab = "Cumulative mean of N*")
+abline(h = mean(res2), col = "red")
+
+
+summary(res1)
+summary(res2)
+
+sd(res1)
+sd(res2)
 
 par(mfrow = c(2, 2))
 
@@ -119,31 +148,29 @@ abline(v = mean(res1), lwd = 2, col = "red")
 plot(res1, type = "l")
 abline(h = mean(res1), lwd = 2, col = "red")
 
-summary(res1)
-quantile(res1, c(0.025, 0.975))
-tail(sort(table(res1)), n = 1) # most frequent N* value
+hist(res2)
+abline(v = mean(res2), lwd = 2, col = "red")
 
-summary(res2)
+quantile(res1, c(0.025, 0.975))
 quantile(res2, c(0.025, 0.975))
-tail(sort(table(signif(res2, digits = 2))), n = 1) # most frequent R value
 
 
 # Iteration plots - can only be plotted for a single run
 
-df_out <- as.matrix(envr$df_out)
-df_out <- matrix(df_out, ncol = ncol(df_out), dimnames = NULL)
+df.out <- as.matrix(envr$df.out)
+df.out <- matrix(df.out, ncol = ncol(df.out), dimnames = NULL)
 
-plot(1:envr$iters, df_out[, 5] / df_out[,1], type = "l", xlab = "Number of iterations", ylab = "Step size")
-plot(1:envr$iters, (envr$Nstar - df_out[,5]) / (envr$Hstar - df_out[,1] + 1e6), type = "l", xlab = "Number of iterations", ylab = "Step size")
+plot(1:envr$iters, df.out[, 5] / df.out[,1], type = "l", xlab = "Number of iterations", ylab = "Step size")
+plot(1:envr$iters, (envr$Nstar - df.out[,5]) / (envr$Hstar - df.out[,1]), type = "l", xlab = "Number of iterations", ylab = "Step size")
 
 
 par(mfrow = c(2, 3))
 
-plot(1:envr$iters, df_out[, 1], type = "l", xlab = "Number of iterations", ylab = "Mean number of haplotypes sampled") # number of iterations vs. mean number of haplotypes sampled
-plot(1:envr$iters, df_out[, 2], type = "l", xlab = "Number of iterations", ylab = "Mean number of haplotypes not sampled") # number of iterations vs. mean number of haplotypes not sampled
-plot(1:envr$iters, df_out[, 3], type = "l", xlab = "Number of iterations", ylab = "Proportion of haplotypes sampled") # number of iterations vs. proportion of haplotypes sampled
-plot(1:envr$iters, df_out[, 4], type = "l", xlab = "Number of iterations", ylab = "Proportion of haplotypes not sampled") # number of iterations vs. proportion of haplotypes not sampled
-plot(1:envr$iters, df_out[, 5], type = "l",  xlab = "Number of iterations", ylab = "Mean value of N*") # number of iterations vs. mean value of N*
-plot(1:envr$iters, df_out[, 6], type = "l", xlab = "Number of iterations", ylab = "Number of additional specimens required to be sampled") # number of iterations vs. number of additional specimens required to be sampled
+plot(1:envr$iters, df.out[, 1], type = "l", xlab = "Number of iterations", ylab = "Mean number of haplotypes sampled") # number of iterations vs. mean number of haplotypes sampled
+plot(1:envr$iters, df.out[, 2], type = "l", xlab = "Number of iterations", ylab = "Mean number of haplotypes not sampled") # number of iterations vs. mean number of haplotypes not sampled
+plot(1:envr$iters, df.out[, 3], type = "l", xlab = "Number of iterations", ylab = "Proportion of haplotypes sampled") # number of iterations vs. proportion of haplotypes sampled
+plot(1:envr$iters, df.out[, 4], type = "l", xlab = "Number of iterations", ylab = "Proportion of haplotypes not sampled") # number of iterations vs. proportion of haplotypes not sampled
+plot(1:envr$iters, df.out[, 5], type = "l",  xlab = "Number of iterations", ylab = "Mean value of N*") # number of iterations vs. mean value of N*
+plot(1:envr$iters, df.out[, 6], type = "l", xlab = "Number of iterations", ylab = "Number of additional specimens required to be sampled") # number of iterations vs. number of additional specimens required to be sampled
 
 
