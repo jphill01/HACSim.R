@@ -218,6 +218,6 @@ assessment using haplotype accumulation curves. *PeerJ Computer Science*. **6**(
 
 ### More Information ###
 
-Check out the HACSim R Shiny web app! Visit https://jphill01.shinyapps.io/HACSim for the stable web tool or https://github.com/jphill01/HACSim-RShiny-App for the R development version. Alternatively, the app is available through the HACSim R package via the `launchApp()` function.
+Check out the HACSim R Shiny web app! Visit https://jphill01.shinyapps.io/HACSim-RShiny-App/ for the stable web tool or https://github.com/jphill01/HACSim-RShiny-App for the R development version. Alternatively, the app is available through the HACSim R package via the `launchApp()` function.
 
 Please email me if you have questions!
