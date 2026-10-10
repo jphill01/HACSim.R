@@ -19,7 +19,7 @@ Description: Performs iterative extrapolation of species' haplotype accumulation
 License: GPL-3
 URL:<https://github.com/jphill01/HACSim.R>
     <https://github.com/jphill01/HACSim-RShiny-App>
-    <https://jphill01.shinyapps.io/HACSim>
+    <https://jphill01.shinyapps.io/HACSim-RShiny-App/>
 NeedsCompilation: yes
 Imports: ape (>= 5.3), 
          data.table (>= 1.12.8), 
@@ -27,13 +27,6 @@ Imports: ape (>= 5.3),
          matrixStats (>= 0.56.0), 
          pegas (>= 0.13), 
          Rcpp (>= 1.0.3),
-         shiny (>= 1.7.0),
-         shinydashboard (>= 0.7.2),
-         shinydashboardPlus (>= 2.0.3),
-         shinyjs (>= 2.1.0),
-         shinyWidgets (>= 0.7.6),
-         shinycssloaders (>= 1.0.0),
-         shinymeta (>= 0.2.0.3), 
          stats (>= 3.6.1),
          stringr (>= 1.5.0),
          utils (>= 3.6.1)
